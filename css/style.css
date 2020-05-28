@@ -200,39 +200,6 @@
     display: block;
   }
   
-  .student-projects {
-    column-count: 2;
-    column-fill: balance-all;
-    column-gap: 10px;
-  }
-  
-  .student-projects img {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .student-project {
-    border: 1px solid #999;
-    padding: 5px;
-    text-align: center;
-    -webkit-column-break-inside: avoid;
-    page-break-inside: avoid;
-    break-inside: avoid;
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-  
-  .student-projects .student-project:first-child {
-    margin-top: 0px;
-  }
-  
-  .student-project p {
-    margin: 0;
-    padding: 0;
-    margin-bottom: 5px;
-    font-size: 0.9em;
-  }
-  
   .grid2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
