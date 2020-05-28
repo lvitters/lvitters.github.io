@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta name="generator" content="Hugo 0.69.2" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Lucca Vitters</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="/index.xml" rel="alternate" type="application/rss+xml">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <a id="logo" href="../index.html">Lucca Vitters</a>
+            <nav>
+                <a href="../index.html">Work</a> /
+                <a href="../about.html">About</a>
+            </nav>
+
+        </header>
+
+
+
+        <main>
+            <article>
+                <div class="article-head">
+
+                    <div class="next-prev">
+
+                        <span>&nbsp;</span>
+
+                    </div>
+
+                    <div class="article-head-main">
+
+                        <h1 class="page-title">breakThePattern</h1>
+
+
+
+                        <div class="meta">
+                            <time>2019</time>
+
+                            &middot;
+                            <span class="media">processing, installation art</span>
+
+                        </div>
+
+
+
+                        <div class="meta project-link">
+                            <a target="_blank"
+                                href="https://markenfilm-space.de/portfolio/break-the-pattern/">https://markenfilm-space.de/portfolio/break-the-pattern/</a>
+                        </div>
+
+                    </div>
+
+                    <div class="next-prev">
+
+                        <a href="selectedPhotoWork.html">❭</a>
+
+                    </div>
+                </div>
+
+                <div class="main-content">
+                    <p>As a project for a three month internship, breakThePattern was created for <a
+                            href="https://www.mobiliar.ch/">die Mobiliar</a> in Switzerland.
+                        On several <a
+                            href="https://baernerbaer.ch/people/meine-tochter-ist-mit-mehlwurmbrei-aufgewachsen/">die
+                            Mobiliar events</a> across the country, breakThePattern enabled visitors to experience the
+                        events motto "08:15 – Zeit für Musterbrecher" as a realtime digital installation.
+                        On a 5x2m LED wall, a processing application created a dynamic image through randomness and
+                        noise picking up on the events' visual theme.
+                        In a narrow corridor on front of the installation, visitors could recognize their abstract
+                        silhouettes and interact with the patterns displayed.
+                    </p>
+                    <p>This work was made for and in collaboration with <a
+                            href="https://markenfilm-space.de/">Markenfilm SPACE</a>.</p>
+
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+
+                        <iframe src="https://markenfilm-space.de/wp-content/uploads/2019/08/190409_0850_Edit_2.mp4?_=1"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;"
+                            title="video" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                    <br>
+
+                    <!-- Slideshow container -->
+                    <div class="slideshow-container">
+
+                        <!-- Full-width images with number and caption text -->
+                        <div class="mySlides fade">
+                            <div class="numbertext">1 / 4</div>
+                            <img src="../media/breakThePattern/DSC07008.jpg" style="width:100%">
+                        </div>
+
+                        <div class="mySlides fade">
+                            <div class="numbertext">2 / 4</div>
+                            <img src="../media/breakThePattern/DSC07027.jpg" style="width:100%">
+                        </div>
+
+                        <div class="mySlides fade">
+                            <div class="numbertext">3 / 4</div>
+                            <img src="../media/breakThePattern/DSC07061.jpg" style="width:100%">
+                        </div>
+
+                        <div class="mySlides fade">
+                            <div class="numbertext">4 / 4</div>
+                            <img src="../media/breakThePattern/DSC07079.jpg" style="width:100%">
+                        </div>
+
+                        <!-- Next and previous buttons -->
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    </div>
+                    <br>
+
+                    <!-- The dots/circles 
+                    <div style="text-align:center">
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                        <span class="dot" onclick="currentSlide(4)"></span>
+                    </div>
+                    -->
+
+                </div>
+
+
+
+    </div>
+
+    </article>
+    </main>
+
+
+
+    </div>
+
+    <!---------------SLIDER--------------->
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+        
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+        
+        function showSlides(n) {
+          var i;
+          var slides = document.getElementsByClassName("mySlides");
+          var dots = document.getElementsByClassName("dot");
+          if (n > slides.length) {slideIndex = 1}    
+          if (n < 1) {slideIndex = slides.length}
+          for (i = 0; i < slides.length; i++) {
+              slides[i].style.display = "none";  
+          }
+          for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" active", "");
+          }
+          slides[slideIndex-1].style.display = "block";  
+          dots[slideIndex-1].className += " active";
+        }
+        </script>
+
+</body>
+
+</html>
