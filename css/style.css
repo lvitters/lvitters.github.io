@@ -18,7 +18,7 @@
   }
   
   a:hover {
-    color: red;
+    color: blue;
   }
   
   h1,
@@ -55,7 +55,7 @@
   }
   
   #logo {
-    color: red;
+    color: blue;
     padding: 5px;
   }
   
