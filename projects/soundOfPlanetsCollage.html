@@ -2,6 +2,7 @@
 <html lang="en-us">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,18 +20,24 @@
     <div class="container">
 
         <header>
+
             <a id="logo" href="../index.html">Lucca Vitters</a>
+
             <nav>
+
                 <a href="../work.html">Work</a> |
                 <a href="../about.html">About</a>
             </nav>
+            
 
         </header>
 
 
 
         <main>
+
             <article>
+
                 <div class="article-head">
 
                     <div class="next-prev">
@@ -46,9 +53,11 @@
 
 
                         <div class="meta">
+
                             <time>2017</time>
 
                             &middot;
+
                             <span class="media">reaper, audio collage</span>
 
                         </div>
@@ -60,63 +69,30 @@
                         <a href="selectedPhotoWork.html">}</a>
 
                     </div>
+
                 </div>
 
                 <div class="main-content">
-                    <p>This audio collage was made using data from our solar system's planets. The NASA recorded data radiating from Saturn or Jupiter
-                        has been turned into sounds audible by humans.
+
+                    <p>
+                        Made using data from our solar system's planets. The NASA recorded data radiating from celestial
+                        bodies has been turned into sounds audible by humans and arranged as an audio collage.
                     </p>
 
                     <audio controls>
+
                         <source src="../media/sound_of_planets_collage.mp3" type="audio/mp3">
                         Your browser does not support the audio element.
+                    
                     </audio>
+
                 </div>
 
+            </article>
 
-
-    </div>
-
-    </article>
-    </main>
-
-
+        </main>
 
     </div>
-
-    <!---------------SLIDER--------------->
-    <script>
-        var slideIndex = 1;
-        showSlides(slideIndex);
-
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-            if (n > slides.length) {
-                slideIndex = 1
-            }
-            if (n < 1) {
-                slideIndex = slides.length
-            }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-        }
-    </script>
 
 </body>
 
