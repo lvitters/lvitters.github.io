@@ -28,7 +28,7 @@
                 <a href="../work.html">Work</a> |
                 <a href="../about.html">About</a>
             </nav>
-            
+
 
         </header>
 
@@ -75,16 +75,23 @@
                 <div class="main-content">
 
                     <p>
-                        Made using data from our solar system's planets. The NASA recorded data radiating from celestial
-                        bodies has been turned into sounds audible by humans and arranged as an audio collage.
+                       NASA recordings of data radiating from celestial bodies turned into sounds audible by humans and arranged as an audio collage.
                     </p>
 
-                    <audio controls>
+                    <div id="audio-container" style="position: relative; text-align: center;">
 
-                        <source src="../media/sound_of_planets_collage.mp3" type="audio/mp3">
-                        Your browser does not support the audio element.
-                    
-                    </audio>
+                        <figure>
+                            <img src="../media/deepField.jpg" style="position: absolute;" onClick="document.getElementById('audio_play').play(); return false;" />
+                        </figure>
+
+                        <audio controls id="audio_play" style="display: inline-block; margin-top: 40px">
+
+                            <source src="../media/sound_of_planets_collage.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        
+                        </audio>
+
+                    </div>
 
                 </div>
 
