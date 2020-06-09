@@ -2,6 +2,8 @@ let xT = 0.0;
 let blobs = [];
 let blobsLength = 20;
 
+//test//
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     colorMode(RGB, 360, 360, 360, 360);
