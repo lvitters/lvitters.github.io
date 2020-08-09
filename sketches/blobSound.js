@@ -2,7 +2,7 @@
 var blobs = [];
 
 //frequencies (human voice has a range from roughly 80Hz to 16KHz, the range here is limited for better usability)
-var lowestFreq = 500;
+var lowestFreq = 800;
 var highestFreq = 5000;
 var bands = 32;
 var bandSize = (highestFreq - lowestFreq) / bands;
