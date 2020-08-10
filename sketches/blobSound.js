@@ -92,6 +92,7 @@ function Blob(index) {
         //get energy (loudness) for frequency band
         var energy = fft.getEnergy(loFreq, hiFreq);
 
+        //activate interaction if peek is detected
         if (peakDetect.isDetected) {
 
             //console.log(index + " " + loFreq);
@@ -102,7 +103,8 @@ function Blob(index) {
             //calc increment for noiseMax and apply
             noiseMaxInc = map(energy, 0, 255, 0, .75);
             noiseMax += noiseMaxInc;
-
+        
+        //advance noise values
         } else {
             //increment t not according to amplitude
             zT += .001;
@@ -143,4 +145,5 @@ function analyzeSpectrum() {
         spectrum = fft.analyze();
 }
 
+//ask for mic permission
 function touchStarted() { getAudioContext().resume(); } 
