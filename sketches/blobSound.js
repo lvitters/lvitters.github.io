@@ -1,8 +1,8 @@
 //blobs
 var blobs = [];
 
-//frequencies (human voice has a range from roughly 80Hz to 16KHz, the range here is limited for better usability)
-var lowestFreq = 800;
+//frequencies (human voice has a range from roughly 80Hz to 16KHz, the range here ('lowestFreq' to 'highestFreq') has been determined according to just one particular microphone)
+var lowestFreq = 1000;
 var highestFreq = 5000;
 var bands = 32;
 var bandSize = (highestFreq - lowestFreq) / bands;
@@ -57,6 +57,11 @@ function Blob(index) {
     var noiseMax = 0;
     var zT = 0;
 
+    //init color values
+    var r = 0;
+    var g = 0;
+    var b = 0;
+
     //init noise values for colors
     var rT = random(360);
     var gT = random(360);
@@ -72,10 +77,10 @@ function Blob(index) {
     
     this.draw = function() {
 
-        //map color noise values to RGB(A)
-        var r = map(noise(rT), 0, 1, -30, 390);
-        var g = map(noise(gT), 0, 1, -30, 390);
-        var b = map(noise(bT), 0, 1, -30, 390);
+        //map color noise values to RGB(A), color circle range slightly increased to avoid lowest and highest values never being reached)
+        r = map(noise(rT), 0, 1, -30, 390);
+        g = map(noise(gT), 0, 1, -30, 390);
+        b = map(noise(bT), 0, 1, -30, 390);
 
         //apply colors
         noStroke(0);
@@ -92,7 +97,6 @@ function Blob(index) {
         //get energy (loudness) for frequency band
         var energy = fft.getEnergy(loFreq, hiFreq);
 
-        //activate interaction if peek is detected
         if (peakDetect.isDetected) {
 
             //console.log(index + " " + loFreq);
@@ -103,8 +107,7 @@ function Blob(index) {
             //calc increment for noiseMax and apply
             noiseMaxInc = map(energy, 0, 255, 0, .75);
             noiseMax += noiseMaxInc;
-        
-        //advance noise values
+
         } else {
             //increment t not according to amplitude
             zT += .001;
@@ -145,5 +148,4 @@ function analyzeSpectrum() {
         spectrum = fft.analyze();
 }
 
-//ask for mic permission
 function touchStarted() { getAudioContext().resume(); } 
