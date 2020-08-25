@@ -1,11 +1,11 @@
 //blobs
-var blobs = [];
+const blobs = [];
 
 //frequencies (human voice has a range from roughly 80Hz to 16KHz, the range here ('lowestFreq' to 'highestFreq') has been determined according to just one particular microphone)
-var lowestFreq = 1000;
-var highestFreq = 5000;
-var bands = 32;
-var bandSize = (highestFreq - lowestFreq) / bands;
+const lowestFreq = 1000;
+const highestFreq = 5000;
+const bands = 32; //2^4
+const bandSize = (highestFreq - lowestFreq) / bands;
 
 //sound
 var mic;
@@ -37,13 +37,13 @@ function draw() {
 }
 
 function pushBlobs() {
-    for (var i = 0; i < bands; i++) {
+    for (let i = 0; i < bands; i++) {
         blobs.push(new Blob(i));
     }
 }
 
 function drawBlobs() {
-    for (var i = blobs.length-1; i >= 0; i--) {
+    for (let i = blobs.length-1; i >= 0; i--) {
         let b = blobs[i];
         b.draw();
     }
@@ -70,6 +70,7 @@ function Blob(index) {
     //lowest and highest frequency for each band
     var loFreq = lowestFreq + (bandSize * index);
     var hiFreq = lowestFreq + (bandSize * index) + bandSize;
+
     //console.log(loFreq + " " + hiFreq);
 
     //init peakDetect
@@ -119,11 +120,11 @@ function Blob(index) {
         //draw blob
         beginShape();
             for (var a = 0; a < TWO_PI; a += 0.08) {
-                //go through 2D noise field in a circle
+                //go through noise field in a circle
                 let xT = map(cos(a), -1, 1, 0, noiseMax);
                 let yT = map(sin(a), -1, 1, 0, noiseMax);
 
-                //apply to each vertex and move circle in z direction
+                //apply to each vertex
                 let r = map(noise(xT, yT, zT), 0, 1, 0, ra);
                 let x = r * cos(a);
                 let y = r * sin(a); 
