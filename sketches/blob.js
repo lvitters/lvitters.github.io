@@ -3,7 +3,8 @@ let blobs = [];
 let blobsLength = 20;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    var canvas = createCanvas(windowWidth, windowHeight);
+    canvas.id("canvas");
     colorMode(RGB, 360, 360, 360, 360);
 
     pushBlobs();

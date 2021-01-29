@@ -15,7 +15,8 @@ var spectrum;
 var bgColor;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    var canvas = createCanvas(windowWidth, windowHeight);
+    canvas.id("canvas");
     colorMode(RGB, 360, 360, 360, 360);
     bgColor = 360;
 
