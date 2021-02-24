@@ -26,6 +26,8 @@ function setup() {
     imageWidth = img.width * 2;
     imageHeight = img.height * 2;
 
+    getAudioContext().suspend();
+
     tts = new p5.Speech('Google US English');
     tts.setRate(.9);
     tts.setPitch(.95);
@@ -38,7 +40,7 @@ function draw() {
 
     image(img, windowWidth - imageWidth, windowHeight - imageHeight, imageWidth, imageHeight);
 
-    if (frameCount % interval == 0) tts.speak(random(phrases));
+    if (frameCount % interval == 0 && music.isPlaying()) tts.speak(random(phrases));
 }
 
 function playMusic() {
@@ -57,4 +59,8 @@ function keyPressed() {
     if (keyCode === 71) {
         tts.speak(random(phrases));
     }
+}
+
+function mousePressed() {
+    userStartAudio();
 }
