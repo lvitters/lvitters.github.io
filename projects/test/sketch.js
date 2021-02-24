@@ -1,6 +1,8 @@
 let img;
 let imageWidth, imageHeight;
 
+let cursor;
+
 let music;
 let timeStamp;
 
@@ -8,10 +10,11 @@ let interval = 5;
 
 let tts;
 
-let phrases = ['You can do this', 'You are the champ', 'Everything will be ok', 'It will all be over soon', 'For building a better tomorrow', 'You are amazing', 'Everybody wants to be like you', 'Your parents must be proud of you', 'This is no problem for you', 'It is all going to be worth it', 'Nothing really matters', 'The universe will end someday'];
+let phrases = ['You can do this', 'You are the champ', 'Everything will be ok', 'It will all be over soon', 'For building a better tomorrow', 'You are amazing', 'Everybody wants to be like you', 'Your parents must be proud of you', 'This is no problem for you', 'It is all going to be worth it', 'Nothing really matters', "The universe is going to end some day anyways", "Reality is an illusion"];
 
 function preload() {
     img = loadImage('media/speaker.png');
+    cursor = loadImage('media/cursor.jpg');
 
     soundFormats('mp3');
     music = loadSound('media/meditation_music.mp3', playMusic);
@@ -22,8 +25,6 @@ function setup() {
     pixelDensity(1.0);
     setAttributes('antialias', true);
     frameRate(60);
-
-    cursor(HAND);
 
     imageWidth = img.width * 2;
     imageHeight = img.height * 2;
@@ -65,5 +66,4 @@ function keyPressed() {
 
 function mousePressed() {
     userStartAudio();
-    cursor(CROSS);
 }
