@@ -19,9 +19,9 @@ let fuckedUpPhrases = ['Your only chance to evacuate is to leave with us', 'You 
 let nextPhrase, lastPhrase;
 
 //thresholds in seconds
-let thresh1 = 30;
-let thresh2 = 60;
-let thresh3 = 90;
+let thresh1 = 60;
+let thresh2 = 120;
+let thresh3 = 180;
 
 //start onClick
 let isStarted = false;
