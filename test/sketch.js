@@ -27,9 +27,14 @@ let thresh3 = 180;
 let isStarted = false;
 let startTime;
 
+//font
+let font;
+
 function preload() {
+    font = loadFont('assets/times.ttf');
+
     soundFormats('mp3');
-    music = loadSound('media/meditation_music.mp3', playMusic);
+    music = loadSound('assets/meditation_music.mp3');
 }
 
 function setup() {
@@ -37,7 +42,13 @@ function setup() {
     setAttributes('antialias', true);
     frameRate(60);
 
-    cursor(HAND); //initial cursor to get users to click
+    //initial hand cursor to get users to click
+    cursor(HAND);
+    
+    //init text
+    textFont(font);
+    textSize(width/18);
+    textAlign(CENTER, CENTER);
 
     initTTS();
 
@@ -47,31 +58,27 @@ function setup() {
 function draw() {
     background(0, 0, 0, 0);
 
-    playPhrases();
+    if (focused) playPhrases();
 
     calcPentachoron();
-
+    
+    if (!isStarted) drawClickMessage();
+    
     if (isStarted) drawLines();
+
+    if(!focused) music.pause();
+    if(focused && !music.isPlaying()) music.loop();
 }
 
-//needed for AudioContext
-function playMusic() {
-    music.play();
-}
+//draw message for users to click (to start AudioContext)
+function drawClickMessage() {
+    //rotate canvas back to origin (opposite from what happens in calcPentachoron())
+    rotateX(PI / 2);   
 
-//debug keys
-function keyPressed() {
-    if (keyCode === 32) {
-        if (music.isPlaying()) {
-            music.pause();
-        } else {
-            music.play();
-        }
-    }
-
-    if (keyCode === 71) {
-        tts.speak(random(phrases));
-    }
+    let message = 'CLICK';
+    stroke(0);
+    fill(255)
+    text(message, 0, 0);
 }
 
 //initialize text-to-speech object
@@ -116,13 +123,35 @@ function playPhrases() {
     }
 }
 
-//start AudioContext on mouse press and set cursor to cross
+//start AudioContext and music on mouse press and set cursor to cross
 function mousePressed() {
     userStartAudio();
-    cursor(CROSS);
+    if (!music.isPlaying()) music.loop();
 
-    isStarted = true; //boolean for checking if lines should be drawn
-    startTime = millis()/1000;  //time since start when audioContext is created
+    //reset cursor
+    cursor(ARROW);
+
+    //time since start at the moment AudioContext is created
+    if (!isStarted) startTime = millis()/1000;
+
+    //boolean for checking if lines should be drawn
+    isStarted = true; 
+    
+}
+
+//debug keys
+function keyPressed() {
+    if (keyCode === 32) {
+        if (music.isPlaying()) {
+            music.pause();
+        } else {
+            music.play();
+        }
+    }
+
+    if (keyCode === 71) {
+        tts.speak(random(phrases));
+    }
 }
 
 //connect two vertices and draw line in between
