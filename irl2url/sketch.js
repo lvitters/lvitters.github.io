@@ -53,11 +53,6 @@ function setup() {
 
     buttons();
 
-    //3D text setup
-    textFont(font);
-    textSize(sideLength);
-    textAlign(LEFT, BOTTOM);
-
     initEasyCam();
 }
 
@@ -110,8 +105,11 @@ function drawShapes() {
 
 //draw cityName on top of grid
 function drawName() {
+    textFont(font);
+    textSize(sideLength);
+    textAlign(LEFT, BOTTOM);
     fill(0);
-    text(cityName, 0, 0);
+    text(cityName, 0, -50);
 }
 
 //for every object in rooms add a Shape to shapes according to grid
