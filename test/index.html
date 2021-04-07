@@ -1,43 +1,60 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="lib/p5_1.2.0/p5.min.js"></script>
-    <script src="lib/p5.sound.min.js"></script>
-    <script src="lib/p5.speech.js"></script>
+    <script src="lib/p5_1.2.0/p5.easycam.min.js"></script>    
+
     <script src="sketch.js"></script>
-    <script src="P4Vector.js"></script>
-    <script src="matrix.js"></script>
+    <script src="shape.js"></script>
 </head>
 
-<body background="assets/tile.jpg">
-
-    <div id="p5_loading" class="loadingclass">LOADING</div>
-
+<body>
 </body>
 
+<style>
+    html, body {
+      height: 100%;
+    }
+  
+    body {
+      margin: 0;
+      display: flex;
+
+      /* gets rid of scrollbars (hopefully) */
+      overflow: hidden;   
+  
+      /* This centers our sketch horizontally. */
+      justify-content: center;
+  
+      /* This centers our sketch vertically. */
+      align-items: center;
+    }
+
+    .button {
+        display:inline-block;
+        padding:0.35em 1.2em;
+        margin:0 0.3em 0.3em 0;
+        border:0em solid #000000;
+        border-radius:0.1em;
+        box-sizing: border-box;
+        text-decoration:none;
+        font-family:'Inconsolata',sans-serif;
+        font-weight:300;
+        color:#000000;
+        text-align:center;
+        transition: all 0.2s;
+        background-color: #FFFFFF;
+    }
+
+    .button:hover {
+        color:#000000;
+        border:0.1em solid #000000;
+    }
+
+  </style>
 
 </html>
-
-<style>
-  html, body {
-    height: 100%;
-  }
-
-  body {
-    margin: 0;
-    display: flex;
-    overflow: hidden;
-
-    /* This centers our sketch horizontally. */
-    justify-content: center;
-
-    /* This centers our sketch vertically. */
-    align-items: center;
-  }
-
-  .loadingclass {
-    color:white;
-  }
-
-</style>
