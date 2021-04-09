@@ -3,7 +3,7 @@ p5.disableFriendlyErrors = true; //<- turn of error checking for perfomance (doe
 //easyCam
 let easy;
 let initialState;
-let currentState;
+let lastState;
 
 //buttons
 let left;
@@ -92,6 +92,38 @@ function pushShapes() {
     }
 }
 
+//set up buttons for switching cities
+function setButtons() {
+
+    //left button
+    if (left == null) {
+        left = createButton('<');
+        left.class('button');
+        left.position((windowWidth/8) - (left.size().width), windowHeight/2);
+        left.mousePressed(goLeft);
+    }
+    //remove if min number reached
+    if (cityIndex <= 0) {
+        left.hide();
+    } else {
+        left.show();
+    }
+
+    //right button
+    if (right == null) {
+        right = createButton('>');
+        right.class('button');
+        right.position((windowWidth/8) * 7 - (right.size().width * 2), windowHeight/2);     //why is *2 correct here??
+        right.mousePressed(goRight);
+    }
+    //remove if max number reached
+    if(cityIndex >= cities.length-1) {
+        right.hide();
+    } else {
+        right.show();
+    }
+}
+
 //set current city name and rooms array
 function setCity(i) {
     //set cityIndex
@@ -116,6 +148,7 @@ function setCity(i) {
 
     calcGrid();
     pushShapes();
+    setButtons();
 }
 
 //display all shapes in shapes[]
@@ -152,41 +185,10 @@ function drawName() {
 
 //initialize EasyCam object
 function initEasyCam() {
-    easy = createEasyCam(this._renderer, {distance:2000, center:[0,0,0], rotation:[1,0,0,0]});
+    easy = createEasyCam(this._renderer, {distance:2500, center:[0,0,0], rotation:[1,0,0,0]});
     initialState = easy.getState();
+    lastState = initialState;
     print(initialState);
-}
-
-//set up buttons for switching cities
-function setButtons() {
-
-    //left button
-    if (left == null) {
-        left = createButton('<');
-        left.class('button');
-        left.position((windowWidth/8) - (left.size().width), windowHeight/2);
-        left.mousePressed(goLeft);
-    }
-    //remove if min number reached
-    if (cityIndex <= 0) {
-        left.hide();
-    } else {
-        left.show();
-    }
-
-    //right button
-    if (right == null) {
-        right = createButton('>');
-        right.class('button');
-        right.position((windowWidth/8) * 7 - (right.size().width * 2), windowHeight/2);     //why is *2 correct here??
-        right.mousePressed(goRight);
-    }
-    //remove if max number reached
-    if(cityIndex >= cities.length-1) {
-        right.hide();
-    } else {
-        right.show();
-    }
 }
 
 //called when window is resized -> reset buttons
@@ -197,11 +199,9 @@ function windowResized() {
 //helper functions because button callback's can't have parameters
 function goLeft() {
     setCity(-1);
-    setButtons();
 }
 function goRight() {
     setCity(1);
-    setButtons();
 }
 
 //switch cities with arrow keys
@@ -216,15 +216,21 @@ function keyPressed() {
 
 //doesn't really work, state object doesn't get saved properly??
 function keyReleased() {
-    //get camera state
-    if (keyCode == 48) {
-        currentState = easy.getState();
-        print(currentState);
+    //reset camera to original state
+    if (keyCode == 49) {
+        easy.setState(initialState);
+        print(initialState);
+    }
+    
+    //reset to last camera state    
+    if (keyCode == 50) {
+        easy.setState(lastState);
+        print(lastState);
     }
 
-    //set camera state
-    if (keyCode == 49) {
-        print(initialState);
-        easy.setState(initialState);
+    //get camera state
+    if (keyCode == 51) {
+        lastState = easy.getState();
+        print(lastState);
     }
 }
