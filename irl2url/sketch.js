@@ -53,7 +53,7 @@ function setup() {
 
     setCity(0);
 
-    buttons();
+    setButtons();
 
     initEasyCam();
 }
@@ -121,7 +121,7 @@ function drawName() {
     textSize(sideLength);
     textAlign(LEFT, BOTTOM);
     fill(0);
-    text(cityName, 0, - sideLength * .25);
+    text(cityName + ".rooms", 0, - sideLength * .25);
     
     //last modified
     rotateZ(3/2 * PI);
@@ -157,31 +157,48 @@ function initEasyCam() {
 }
 
 //set up buttons for switching cities
-function buttons() {
-    if (left != null) left.remove();
-    left = createButton('<');
-    left.class('button');
-    left.position((windowWidth/8) - (left.size().width), windowHeight/2);
-    left.mousePressed(goLeft);
+function setButtons() {
 
-    if (right != null)right.remove();
-    right = createButton('>');
-    right.class('button');
-    right.position((windowWidth/8) * 7 - (right.size().width * 2), windowHeight/2);     //why is *2 correct here??
-    right.mousePressed(goRight);
+    //left button
+    if (left == null) {
+        left = createButton('<');
+        left.class('button');
+        left.position((windowWidth/8) - (left.size().width), windowHeight/2);
+        left.mousePressed(goLeft);
+    }
+    //remove if min number reached
+    if (cityIndex == 0) {
+        left.remove();
+        left = null;
+    }
+
+    //right button
+    if (right == null) {
+        right = createButton('>');
+        right.class('button');
+        right.position((windowWidth/8) * 7 - (right.size().width * 2), windowHeight/2);     //why is *2 correct here??
+        right.mousePressed(goRight);
+    }
+    //remove if max number reached
+    if(cityIndex == cities.length-1) {
+        right.remove();
+        right = null;
+    }
 }
 
 //called when window is resized -> reset buttons
 function windowResized() {
-    buttons();
+    setButtons();
 }
 
 //helper functions because button callback's can't have parameters
 function goLeft() {
     setCity(-1);
+    setButtons();
 }
 function goRight() {
     setCity(1);
+    setButtons();
 }
 
 //switch cities with arrow keys
