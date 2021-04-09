@@ -152,7 +152,7 @@ function drawName() {
 
 //initialize EasyCam object
 function initEasyCam() {
-    easy = createEasyCam({distance: 800, rotation: [1.5, 0, 0, 0]});
+    easy = createEasyCam(this._renderer, {distance:2000, center:[0,0,0], rotation:[1,0,0,0]});
     initialState = easy.getState();
     print(initialState);
 }
