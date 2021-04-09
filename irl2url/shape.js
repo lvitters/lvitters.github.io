@@ -17,13 +17,13 @@ class Shape {
         this.zPos = this.height/2; 
     }
 
+    //display a box for this room
     display() {
         strokeWeight(0);
         fill(this.color);
         push();
         translate(this.xPos, this.yPos, this.zPos);
         box(this.side, this.side, this.height);
-        //box(this.side * scale, this.side * scale, 2.5 * scale);
         pop();
     }
 }

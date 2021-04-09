@@ -17,8 +17,11 @@ let cities = ["Berlin", "Hamburg", "Munchen", "Koln", "Frankfurt-am-Main", "Stut
 let cityJSONs = [];
 let cityIndex = 0;
 
-//text
+//displayed info
 let cityName;
+let lastModified = "07.04.21"; 
+
+//text
 let font;
 
 //json data
@@ -32,7 +35,6 @@ let sideLength;
 let scale = 10;
 
 function preload() {
-    
     //load JSONs
     for (let i = 0; i < 11; i++) {
         cityJSONs[i] = loadJSON('crawler/data/' + cities[i] + '.json');
@@ -67,6 +69,7 @@ function draw() {
     drawName();
 }
 
+//calculate grid according to number of rooms in JSON
 function calcGrid() {
     //get number of rooms from number of json objects in file
     numberOfRooms = Object.keys(rooms).length;
@@ -76,6 +79,7 @@ function calcGrid() {
     sideLength = rows * cellSize;
 }
 
+//set current city name and rooms array
 function setCity(i) {
     //set cityIndex
     if (cityIndex >= 0 && cities.length-1 >= cityIndex) {
@@ -92,10 +96,16 @@ function setCity(i) {
     cityName = cities[cityIndex];
     rooms = cityJSONs[cityIndex];
 
+    //TODO: figure out how to lastModified from JSON <- not that important since the JSONS 
+    //have to be updated manually with the crawler anyways
+    // let currentFile = loadJSON('crawler/data/' + cityName + '.json');
+    // lastModified = new Date(currentFile.lastModified);
+
     calcGrid();
     pushShapes();
 }
 
+//display all shapes in shapes[]
 function drawShapes() {
     for (var i = 0; i < shapes.length; i++) {
         var shape = shapes[i];
@@ -103,13 +113,27 @@ function drawShapes() {
     }
 }
 
-//draw cityName on top of grid
+//draw infos next to grid
 function drawName() {
     textFont(font);
+    
+    //city name
     textSize(sideLength);
     textAlign(LEFT, BOTTOM);
     fill(0);
-    text(cityName, 0, -50);
+    text(cityName, 0, - sideLength * .25);
+    
+    //last modified
+    rotateZ(3/2 * PI);
+    textAlign(RIGHT);
+    textSize(sideLength * .6);
+    text(lastModified, 0, -sideLength * .25);
+    
+    //number of rooms
+    rotateZ(1/2 * PI);
+    textAlign(RIGHT);
+    textSize(sideLength);
+    text(rows * rows, sideLength * scale, sideLength * scale + sideLength);
 }
 
 //for every object in rooms add a Shape to shapes according to grid
@@ -125,22 +149,31 @@ function pushShapes() {
     }
 }
 
+//initialize EasyCam object
 function initEasyCam() {
     easy = createEasyCam({distance: 800, rotation: [1.5, 0, 0, 0]});
     initialState = easy.getState();
     print(initialState);
 }
 
+//set up buttons for switching cities
 function buttons() {
+    if (left != null) left.remove();
     left = createButton('<');
-    left.position(width/8, height/2);
     left.class('button');
+    left.position((windowWidth/8) - (left.size().width), windowHeight/2);
     left.mousePressed(goLeft);
 
+    if (right != null)right.remove();
     right = createButton('>');
-    right.position(width/8 * 7, height/2);
     right.class('button');
+    right.position((windowWidth/8) * 7 - (right.size().width * 2), windowHeight/2);     //why is *2 correct here??
     right.mousePressed(goRight);
+}
+
+//called when window is resized -> reset buttons
+function windowResized() {
+    buttons();
 }
 
 //helper functions because button callback's can't have parameters
@@ -151,6 +184,7 @@ function goRight() {
     setCity(1);
 }
 
+//switch cities with arrow keys
 function keyPressed() {
     if (keyCode == RIGHT_ARROW) {
         setCity(1); 
@@ -160,6 +194,7 @@ function keyPressed() {
     
 }
 
+//doesn't really work, state object doesn't get saved properly??
 function keyReleased() {
     //get camera state
     if (keyCode == 48) {
@@ -168,7 +203,7 @@ function keyReleased() {
     }
 
     //set camera state
-    if (keyCode == 57) {
+    if (keyCode == 49) {
         print(initialState);
         easy.setState(initialState);
     }
