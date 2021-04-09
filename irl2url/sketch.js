@@ -79,6 +79,19 @@ function calcGrid() {
     sideLength = rows * cellSize;
 }
 
+//for every object in rooms add a Shape to shapes according to grid
+function pushShapes() {
+    shapes = [];
+    for (let i = 0; i < rows; i++) {
+        for (var j = 0; j < rows; j++) {
+            let index = j * rows + i;
+            let roomSize = rooms[index].size;
+            let roomPrice = rooms[index].price;
+            shapes.push(new Shape(roomSize, roomPrice, i * cellSize,  j * cellSize));
+        }   
+    }
+}
+
 //set current city name and rooms array
 function setCity(i) {
     //set cityIndex
@@ -116,9 +129,10 @@ function drawShapes() {
 //draw infos next to grid
 function drawName() {
     textFont(font);
+    textStyle(BOLD);
     
     //city name
-    textSize(sideLength);
+    textSize(sideLength * .7);
     textAlign(LEFT, BOTTOM);
     fill(0);
     text(cityName + ".rooms", 0, - sideLength * .25);
@@ -126,7 +140,7 @@ function drawName() {
     //last modified
     rotateZ(3/2 * PI);
     textAlign(RIGHT);
-    textSize(sideLength * .6);
+    textSize(sideLength * .5);
     text(lastModified, 0, -sideLength * .25);
     
     //number of rooms
@@ -134,19 +148,6 @@ function drawName() {
     textAlign(RIGHT);
     textSize(sideLength);
     text(rows * rows, sideLength * scale, sideLength * scale + sideLength);
-}
-
-//for every object in rooms add a Shape to shapes according to grid
-function pushShapes() {
-    shapes = [];
-    for (let i = 0; i < rows; i++) {
-        for (var j = 0; j < rows; j++) {
-            let index = j * rows + i;
-            let roomSize = rooms[index].size;
-            let roomPrice = rooms[index].price;
-            shapes.push(new Shape(roomSize, roomPrice, i * cellSize,  j * cellSize));
-        }   
-    }
 }
 
 //initialize EasyCam object
@@ -167,9 +168,10 @@ function setButtons() {
         left.mousePressed(goLeft);
     }
     //remove if min number reached
-    if (cityIndex == 0) {
-        left.remove();
-        left = null;
+    if (cityIndex <= 0) {
+        left.hide();
+    } else {
+        left.show();
     }
 
     //right button
@@ -180,9 +182,10 @@ function setButtons() {
         right.mousePressed(goRight);
     }
     //remove if max number reached
-    if(cityIndex == cities.length-1) {
-        right.remove();
-        right = null;
+    if(cityIndex >= cities.length-1) {
+        right.hide();
+    } else {
+        right.show();
     }
 }
 
