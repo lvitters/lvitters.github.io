@@ -18,7 +18,7 @@ function setup() {
     var canvas = createCanvas(windowWidth, windowHeight);
     canvas.id("canvas");
     colorMode(RGB, 360, 360, 360, 360);
-    bgColor = 0;
+    bgColor = 360;
 
     initAudioIn();
 
