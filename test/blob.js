@@ -76,11 +76,11 @@ function Blob(index) {
         endShape(CLOSE);
         
         //increment noise values
-        zT += random(0.001, 0.005);
+        zT += random(0.002, 0.01);
 
-        rT += random(0.001, 0.005);
-        gT += random(0.001, 0.005);
-        bT += random(0.001, 0.005);
+        rT += random(0.002, 0.01);
+        gT += random(0.002, 0.01);
+        bT += random(0.002, 0.01);
         //alT += random(0.001, 0.005);
     }
 }
