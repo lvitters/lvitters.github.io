@@ -9,13 +9,16 @@ var shapeFreq = 800;
 var shapes = [];
 
 //easyCam
-var easycam;
+var easy;
 var forward = true;
 var maxCamDist = 800;
 var minCamDist = 1;
 
 function setup() {
-    initialize();
+    createCanvas(windowWidth, windowHeight, WEBGL);
+    pixelDensity(1.0);
+    setAttributes('antialias', true);
+    frameRate(60);
 
     initEasyCam();
 
@@ -25,17 +28,9 @@ function setup() {
 function draw() {
     background(255);
 
-    //drawGizmo();
-
     drawShapes();
-}
 
-function initialize() {
-    createCanvas(windowWidth, windowHeight - 4, WEBGL);
-    pixelDensity(1.0);
-    setAttributes('antialias', true);
-
-    frameRate(60);
+    moveCam();
 }
 
 function drawShapes() {
@@ -46,7 +41,7 @@ function drawShapes() {
         b.zPos += speed;
 
         //delete from array
-        shiftShape(b);
+        popShape(b);
 
         b.display();
     }
@@ -57,22 +52,38 @@ function cycleShapes() {
 }
 
 function pushShape() {
-    shapes.push(new Cube());
+    shapes.push(new Sphere());
 }
 
-function shiftShape(shape) {
+function popShape(shape) {
     var b = shape;
     if (b.zPos >= 500) {
         shapes.shift();
     }
 }
 
-function Cube(s) {
-    this.size = random(sizeMin, sizeMax);
-    //this.size = noise(200) * sizeMax;
-    //this.size = s;
+function moveCam() {
+    var camDist = easy.getDistance();
 
-    //this.index = i;
+    if (camDist > minCamDist && forward == true) {
+        easy.zoom(-.1);
+    }
+
+    if (camDist == minCamDist) {
+        forward = false;
+    }
+
+    if (camDist < maxCamDist && forward == false) {
+        easy.zoom(.1);
+    }
+
+    if (camDist >= maxCamDist) {
+        easy = true;
+    }
+}
+
+function Sphere(s) {
+    this.size = random(sizeMin, sizeMax);
 
     //position
     this.xPos = 0; //random(-100, 100); //noise(this.size)
@@ -93,72 +104,29 @@ function Cube(s) {
     this.w = 5;
 
     this.display = function () {
-
         noFill();
         strokeWeight(this.w);
         stroke(this.r, this.g, this.b);
-        //normalMaterial();
         push();
-        translate(this.xPos, this.yPos, this.zPos);
-        rotateZ(frameCount * this.rZ);
-        rotateX(frameCount * this.rX);
-        rotateY(frameCount * this.rY);
-        sphere(this.size);
+            translate(this.xPos, this.yPos, this.zPos);
+            rotateZ(frameCount * this.rZ);
+            rotateX(frameCount * this.rX);
+            rotateY(frameCount * this.rY);
+            sphere(this.size);
         pop();
     }
 }
 
-
-function drawGizmo() {
-    // gizmo
-    strokeWeight(1);
-    stroke(255, 32, 0);
-    line(0, 0, 0, 20, 0, 0);
-    stroke(32, 255, 32);
-    line(0, 0, 0, 0, 20, 0);
-    stroke(0, 32, 255);
-    line(0, 0, 0, 0, 0, 20);
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-    easycam.setViewport([0, 0, windowWidth, windowHeight]);
-}
-
 //initialize EasyCam object
 function initEasyCam() {
-    easy = createEasyCam(this._renderer, {distance:2500, center:[0,0,0], rotation:[1,0,0,0]});
-    initialState = easy.getState();
-    lastState = initialState;
-    print(initialState);
+    easy = createEasyCam(this._renderer, {distance: 410, center:[0,0,0], rotation:[1,0,0,0]});
+    print(easy.getState());
 }
 
-//switch cities with arrow keys
-function keyPressed() {
-    if (keyCode == RIGHT_ARROW) {
-        setCity(1); 
-    } else if (keyCode == LEFT_ARROW) {
-        setCity(-1);
-    }   
-}
 
-//doesn't really work, state object doesn't get saved properly??
 function keyReleased() {
-    //reset camera to original state
-    if (keyCode == 49) {
-        easy.setState(initialState);
-        print(initialState);
-    }
-    
-    //reset to last camera state    
-    if (keyCode == 50) {
-        easy.setState(lastState);
-        print(lastState);
-    }
-
     //get camera state
-    if (keyCode == 51) {
-        lastState = easy.getState();
-        print(lastState);
+    if (keyCode == 49) {
+        print(easy.getState());
     }
 }
