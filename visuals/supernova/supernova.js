@@ -1,12 +1,9 @@
-//shapes
+//spheres
+var spheres = [];
 var sizeMin = 5;
 var sizeMax = 300;
-var speed = .1;
-
-//frequency of new shape creation in milliseconds
-var shapeFreq = 800;
-
-var shapes = [];
+var freq = 800;     //frequency of new sphere creation in milliseconds
+var speed = .1;      //speed by which sphere moves
 
 //easyCam
 var easy;
@@ -22,43 +19,43 @@ function setup() {
 
     initEasyCam();
 
-    cycleShapes();
+    cycleSpheres();
 }
 
 function draw() {
     background(255);
 
-    drawShapes();
+    drawSpheres();
 
     moveCam();
 }
 
-function drawShapes() {
-    for (var i = 0; i < shapes.length; i++) {
-        var b = shapes[i];
+function drawSpheres() {
+    for (var i = 0; i < spheres.length; i++) {
+        var b = spheres[i];
 
-        //move shapes by speed
+        //move sphere by speed
         b.zPos += speed;
 
         //delete from array
-        popShape(b);
+        popSphere(b);
 
         b.display();
     }
 }
 
-function cycleShapes() {
-    var interval = window.setInterval(pushShape, shapeFreq);
+function cycleSpheres() {
+    var interval = window.setInterval(pushSphere, freq);
 }
 
-function pushShape() {
-    shapes.push(new Sphere());
+function pushSphere() {
+    spheres.push(new Sphere());
 }
 
-function popShape(shape) {
-    var b = shape;
+function popSphere(sphere) {
+    var b = sphere;
     if (b.zPos >= 500) {
-        shapes.shift();
+        spheres.shift();
     }
 }
 
@@ -68,27 +65,24 @@ function moveCam() {
     if (camDist > minCamDist && forward == true) {
         easy.zoom(-.1);
     }
-
     if (camDist == minCamDist) {
         forward = false;
     }
-
     if (camDist < maxCamDist && forward == false) {
         easy.zoom(.1);
     }
-
     if (camDist >= maxCamDist) {
         easy = true;
     }
 }
 
-function Sphere(s) {
+function Sphere() {
     this.size = random(sizeMin, sizeMax);
 
     //position
-    this.xPos = 0; //random(-100, 100); //noise(this.size)
-    this.yPos = 0; //random(-100, 100);
-    this.zPos = 0; //random(0, 2000);
+    this.xPos = 0;
+    this.yPos = 0;
+    this.zPos = 0; 
 
     //rotation
     this.rX = noise(this.size) / 400;
@@ -96,7 +90,7 @@ function Sphere(s) {
     this.rZ = noise(this.size) / 400;
 
     //color
-    this.r = random(255); //random(255); noise(this.size);
+    this.r = random(255);
     this.g = random(255);
     this.b = random(255);
 
@@ -120,7 +114,6 @@ function Sphere(s) {
 //initialize EasyCam object
 function initEasyCam() {
     easy = createEasyCam(this._renderer, {distance: 410, center:[0,0,0], rotation:[1,0,0,0]});
-    print(easy.getState());
 }
 
 
@@ -128,5 +121,6 @@ function keyReleased() {
     //get camera state
     if (keyCode == 49) {
         print(easy.getState());
+        print(spheres.length);
     }
 }
