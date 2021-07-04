@@ -72,7 +72,7 @@ function moveCam() {
         easy.zoom(.1);
     }
     if (camDist >= maxCamDist) {
-        easy = true;
+        forward = true;
     }
 }
 
@@ -82,7 +82,7 @@ function Sphere(zPos) {
     //position
     this.xPos = 0;
     this.yPos = 0;
-    this.zPos = zPos;
+    this.zPos = 0;
 
     //rotation
     this.rX = noise(this.size) / 400;
