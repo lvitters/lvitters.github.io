@@ -2,8 +2,8 @@
 var spheres = [];
 var sizeMin = 5;
 var sizeMax = 300;
-var freq = 800;     //frequency of new sphere creation in milliseconds
-var speed = .1;      //speed by which sphere moves
+var freq = 800;         //frequency of new sphere creation in milliseconds
+var speed = .1;         //speed by which sphere moves
 
 //easyCam
 var easy;
@@ -23,7 +23,7 @@ function setup() {
 }
 
 function draw() {
-    background(255);
+    background(0);
 
     drawSpheres();
 
@@ -54,7 +54,7 @@ function pushSphere() {
 
 function popSphere(sphere) {
     var b = sphere;
-    if (b.zPos >= 500) {
+    if (b.zPos >= maxCamDist) {
         spheres.shift();
     }
 }
@@ -76,13 +76,13 @@ function moveCam() {
     }
 }
 
-function Sphere() {
+function Sphere(zPos) {
     this.size = random(sizeMin, sizeMax);
 
     //position
     this.xPos = 0;
     this.yPos = 0;
-    this.zPos = 0; 
+    this.zPos = zPos;
 
     //rotation
     this.rX = noise(this.size) / 400;
@@ -113,7 +113,7 @@ function Sphere() {
 
 //initialize EasyCam object
 function initEasyCam() {
-    easy = createEasyCam(this._renderer, {distance: 410, center:[0,0,0], rotation:[1,0,0,0]});
+    easy = createEasyCam(this._renderer, {distance: 100, center:[0,0,0], rotation:[1,0,0,0]});
 }
 
 
