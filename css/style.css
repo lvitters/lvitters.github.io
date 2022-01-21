@@ -4,8 +4,8 @@
   
   body {
     font-size: 16px;
-    font-family: Georgia, serif;
-    font: 15px Inconsolata;
+    font-family: Consolas;
+    font: 15px Consolas;
     margin: 0px;
     padding-bottom: 20px;
     background-color: #fff;
@@ -236,6 +236,11 @@
       padding: 10px;
       margin: 0;
     }
+  }
+
+  @font-face {
+    font-family: Consolas;
+    src: url(Consolas.ttf);
   }
 
 /*-----------------------------------------SLIDER-----------------------------------------*/
