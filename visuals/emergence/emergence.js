@@ -85,7 +85,7 @@ function drawElements() {
 
     //change strokeWeight globally with noise
     strT += random(.0005, .005);
-    strokeW = map(noise(this.strT), 0, 1, -8, 30);
+    strokeW = map(noise(this.strT), 0, 1, -10, 25);
     if (strokeW <= 2) strokeW = 2;
 
     //display elements and check for scale
