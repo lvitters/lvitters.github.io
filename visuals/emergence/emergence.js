@@ -6,7 +6,7 @@ var areOverlapping = true;
 var areMorphing = false;
 var morphCounter = 0;
 var mode = 1;
-var lerpTime = 500;
+var lerpTime = 600;
 var strokeW;
 var strT;
 
@@ -48,7 +48,6 @@ function setup() {
 }
 
 function draw() {
-    lerpBackground();
     background(bgColor);
     
     frameRate(60);
@@ -58,7 +57,8 @@ function draw() {
     //translate elements to middle of their position in grid
     translate(elementSize/2, elementSize/2);
     
-    //lerp stuff
+    //lerp values
+    lerpBackground();
     lerpFillAlpha();
     lerpStrokeBrightness();
     lerpStrokeAlpha();
@@ -108,7 +108,6 @@ function drawElements() {
 //switch the shapes in time interval
 function switchShapes() {
     if (frameCount % 600 == 0) {
-        //set areMorphing to true
         areMorphing = true;
         for (let i = 0; i < elements.length; i++) {
             let b = elements[i];
@@ -124,11 +123,11 @@ function switchShapes() {
         morphCounter = 0;
         areMorphing = false;
     }
-    //console.log(areMorphing);
 }
 
 //change background color in small steps 
 function lerpBackground() {
+    //decide which modes have which target value
     if (mode <= 2) {
         bgColorTarget = 360;
     } else {
@@ -148,6 +147,7 @@ function lerpBackground() {
 
 //change alpha(transparency) of fill color in small steps
 function lerpFillAlpha() {
+    //decide which modes have which target value
     if (mode <= 2) {
         fillAlphaTarget = 0;
     } else {
@@ -167,6 +167,7 @@ function lerpFillAlpha() {
 
 //change brightness(how black or "colored-ness") of fill color in small steps
 function lerpStrokeBrightness() {
+    //decide which modes have which target value
     if (mode == 2) {
         strokeBrightnessTarget = 100;
     } else {
@@ -186,6 +187,7 @@ function lerpStrokeBrightness() {
 
 //change brightness(how black or "colored-ness") of fill color in small steps
 function lerpStrokeAlpha() {
+    //decide which modes have which target value
     if (mode == 4) {
         strokeAlphaTarget = 0;
     } else {
@@ -205,12 +207,14 @@ function lerpStrokeAlpha() {
 
 //check key presses
 function keyPressed() {
+    //circles
     if (key == "1") {
         for (let i = 0; i < elements.length; i++) {
             let b = elements[i];
             b.state = 0;
         }
-    }    
+    }
+    //squares    
     if (key == "2") {
         for (let i = 0; i < elements.length; i++) {
             let b = elements[i];

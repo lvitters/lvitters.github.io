@@ -1,4 +1,4 @@
-//single element
+//individual element
 class Element {
 
     constructor(size, xPos, yPos) {
@@ -39,12 +39,15 @@ class Element {
 
     //draw single element
     draw() {
+        //do calculations
         this.compute();
 
+        //set fill and stroke
         fill(this.fillCol);
         strokeWeight(strokeW);
         stroke(this.strokeCol);
 
+        //draw shape
         push();
             translate(this.pos.x, this.pos.y);
             scale(this.scale);
@@ -78,10 +81,11 @@ class Element {
         //(to hide the transition between rotation and no rotation)
         if (this.state == 0 && frameCount % 300 == 0 && areMorphing == false) {
             this.isRotating = !this.isRotating;
-            console.log("rotating: " + this.isRotating);
+            //console.log("rotating: " + this.isRotating);
         }
     }
 
+    //initialize the (two) possible shapes with vertices
     initShapes() {
         //create a circle using vectors pointing from center
         for (let angle = 0; angle < 360; angle += 9) {
