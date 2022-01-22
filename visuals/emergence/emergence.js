@@ -6,7 +6,9 @@ var areOverlapping = true;
 var areMorphing = false;
 var morphCounter = 0;
 var mode = 1;
-var lerpTime = 300;
+var lerpTime = 500;
+var strokeW;
+var strT;
 
 //background color lerping
 var bgColor = 360;
@@ -38,6 +40,9 @@ function setup() {
 
     //determine size of gap
     gap = - (elementSize / 5);
+
+    //init strokeWeight noise
+    strT = random(100);
 
     pushElements();
 }
@@ -77,6 +82,11 @@ function drawElements() {
     
     //reset bool
     areOverlapping = false;
+
+    //change strokeWeight globally with noise
+    strT += random(.0005, .005);
+    strokeW = map(noise(this.strT), 0, 1, -8, 30);
+    if (strokeW <= 2) strokeW = 2;
 
     //display elements and check for scale
     for (let i = 0; i < elements.length; i++) {

@@ -24,13 +24,9 @@ class Element {
         this.hue;
         this.sat;
         this.bri;
-        this.hT = random(100); //hue
-        this.sT = random(100); //saturation
-        this.bT = random(100); //brightness
-
-        //stroke
-        this.strokeW;
-        this.strT;
+        this.hT = random(100);
+        this.sT = random(100);
+        this.bT = random(100);
 
         //shape morphing
         this.circle = [];
@@ -46,7 +42,7 @@ class Element {
         this.compute();
 
         fill(this.fillCol);
-        strokeWeight(this.strokeW);
+        strokeWeight(strokeW);
         stroke(this.strokeCol);
 
         push();
@@ -70,9 +66,6 @@ class Element {
         this.fillCol = color(this.hue, this.sat, this.bri, fillAlpha);
         this.strokeCol = color(this.hue, this.sat, strokeBrightness, strokeAlpha);
 
-        //stroke
-        this.strT = .01;
-        this.strokeW = map(noise(this.strT), 0, 1, -10, 40);
 
         //scale
         this.scaleT += random(.01);
