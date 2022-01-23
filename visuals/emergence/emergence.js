@@ -6,7 +6,7 @@ var areOverlapping = true;
 var areMorphing = false;
 var morphCounter = 0;
 var mode = 1;
-var lerpTime = 600;
+var lerpTime = 300;
 var strokeW;
 var strT;
 
@@ -62,6 +62,7 @@ function draw() {
     lerpFillAlpha();
     lerpStrokeBrightness();
     lerpStrokeAlpha();
+    //console.log("1: " + bgColor + " 2: " + fillAlpha + " 3: " + strokeBrightness + " 4: " + strokeAlpha);
 
     drawElements();
 }
@@ -137,8 +138,12 @@ function lerpBackground() {
     if (bgColor != bgColorTarget && bgLerpCount < lerpTime) {
         bgLerpCount++;
         let amt = bgLerpCount/lerpTime;
-        var lerped = lerp(bgColor, bgColorTarget, amt);
-        bgColor = floor(lerped) + 1;
+        let lerped = lerp(bgColor, bgColorTarget, amt)
+        bgColor = round(lerped, 0);
+
+        //keep lerp from "hanging" at the last digits
+        if (bgColorTarget > bgColor) bgColor += 1;
+        else if (bgColorTarget < bgColor) bgColor -= 1;
     } else {
         bgLerpCount = 0;
         bgColor = bgColorTarget;
@@ -157,8 +162,12 @@ function lerpFillAlpha() {
     if (fillAlpha != fillAlphaTarget && fillAlphaLerpCount < lerpTime) {
         fillAlphaLerpCount++;
         let amt = fillAlphaLerpCount/lerpTime;
-        var lerped = lerp(fillAlpha, fillAlphaTarget, amt);
-        fillAlpha = floor(lerped);
+        let lerped = lerp(fillAlpha, fillAlphaTarget, amt);
+        fillAlpha = round(lerped, 0);
+
+        //keep lerp from "hanging" at the last digits
+        if (fillAlphaTarget > fillAlpha) fillAlpha += 1;
+        else if (fillAlphaTarget < fillAlpha) fillAlpha -= 1;
     } else {
         fillAlphaLerpCount = 0;
         fillAlpha = fillAlphaTarget;
@@ -177,8 +186,12 @@ function lerpStrokeBrightness() {
     if (strokeBrightness != strokeBrightnessTarget && strokeBrightnessLerpCount < lerpTime) {
         strokeBrightnessLerpCount++;
         let amt = strokeBrightnessLerpCount/lerpTime;
-        var lerped = lerp(strokeBrightness, strokeBrightnessTarget, amt);
-        strokeBrightness = floor(lerped);
+        let lerped = lerp(strokeBrightness, strokeBrightnessTarget, amt);
+        strokeBrightness = round(lerped, 0);
+
+        //keep lerp from "hanging" at the last digits
+        if (strokeBrightnessTarget > strokeBrightness) strokeBrightness += 1;
+        else if (strokeBrightnessTarget < strokeBrightness) strokeBrightness -= 1;
     } else {
         strokeBrightnessLerpCount = 0;
         strokeBrightness = strokeBrightnessTarget;
@@ -197,8 +210,12 @@ function lerpStrokeAlpha() {
     if (strokeAlpha != strokeAlphaTarget && strokeAlphaLerpCount < lerpTime) {
         strokeAlphaLerpCount++;
         let amt = strokeAlphaLerpCount/lerpTime;
-        var lerped = lerp(strokeAlpha, strokeAlphaTarget, amt);
-        strokeAlpha = floor(lerped);
+        let lerped = lerp(strokeAlpha, strokeAlphaTarget, amt);
+        strokeAlpha = round(lerped, 0);
+
+            //keep lerp from "hanging" at the last digits
+            if (strokeAlphaTarget > strokeAlpha) strokeAlpha += 1;
+            else if (strokeAlphaTarget < strokeAlpha) strokeAlpha -= 1;
     } else {
         strokeAlphaLerpCount = 0;
         strokeAlpha = strokeAlphaTarget;
