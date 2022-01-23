@@ -175,7 +175,7 @@ function lerpOverTime(value, target) {
 //change background color in small steps 
 function lerpBackground() {
     //decide which modes have which target value
-    if (mode <= 2) {
+    if (mode <= 1) {
         bgColorTarget = 360;
     } else {
         bgColorTarget = 0;

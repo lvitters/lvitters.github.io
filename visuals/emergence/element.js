@@ -62,8 +62,8 @@ class Element {
         this.sT += random(.001, .01);
         this.bT += random(.001, .01);
         this.hue = map(noise(this.hT), 0, 1, -60, 160);
-        this.sat = map(noise(this.sT), 0, 1, 50, 100);
-        this.bri = map(noise(this.bT), 0, 1, 50, 100);
+        this.sat = map(noise(this.sT), 0, 1, 20, 100);
+        this.bri = map(noise(this.bT), 0, 1, 20, 100);
 
         //apply
         this.fillCol = color(this.hue, this.sat, this.bri, fillAlpha);
