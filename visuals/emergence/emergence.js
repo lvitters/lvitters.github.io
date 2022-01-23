@@ -9,6 +9,7 @@ var mode = 1;
 var lerpTime = 300;
 var strokeW;
 var strT;
+var nextEvent = 10;
 
 var lerpCount;
 
@@ -55,6 +56,8 @@ function draw() {
     frameRate(60);
     
     switchShapes();
+
+    doEvent();
 
     //translate elements to middle of their position in grid
     translate(elementSize/2, elementSize/2);
@@ -126,6 +129,27 @@ function switchShapes() {
         morphCounter = 0;
         areMorphing = false;
     }
+}
+
+//do an event after random number of seconds
+function doEvent() {
+    if (frameCount % (nextEvent * 60) == 0) {
+        randomMode();
+        nextEvent = random(10, 60);
+    }
+}
+
+//go to next mode
+function nextMode() {
+    if (mode < 4) mode += 1;
+    else mode = 1;
+    console.log(mode);
+}
+
+//go to random mode
+function randomMode() {
+    mode = floor(random(1, 5));
+    console.log(mode);
 }
 
 //TODO make this function work for all values
@@ -267,12 +291,15 @@ function keyPressed() {
             b.state = 1;
         }
     }
-    //cycle through modes
-    if (keyCode == 32) {
-        if (mode < 4) mode += 1;
-        else mode = 1;
-        console.log(mode);
+    //cycle through modes (n key)
+    if (keyCode == 78) {
+        nextMode();
     }
+    //cycle through modes (m key)
+    if (keyCode == 77) {
+        randomMode();
+    }
+
 }
 
 //randomize array in-place using Durstenfeld shuffle algorithm
