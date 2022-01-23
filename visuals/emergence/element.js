@@ -81,7 +81,7 @@ class Element {
         //(to hide the transition between rotation and no rotation)
         if (this.state == 0 && frameCount % 300 == 0 && areMorphing == false) {
             this.isRotating = !this.isRotating;
-            //console.log("rotating: " + this.isRotating);
+            console.log("rotating: " + this.isRotating);
         }
     }
 
