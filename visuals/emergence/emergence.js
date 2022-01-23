@@ -150,7 +150,7 @@ function nextMode() {
 //go to random mode
 function randomMode() {
     mode = floor(random(1, 5));
-    console.log(mode);
+    console.log("mode: " + mode);
 }
 
 //TODO make this function work for all values
