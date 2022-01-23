@@ -32,7 +32,7 @@ class Element {
         this.circle = [];
         this.square = [];
         this.morph = [];
-        this.state = 0;
+        this.state = 1;
 
         this.initShapes();
     }
@@ -61,7 +61,7 @@ class Element {
         this.hT += random(.001, .01);
         this.sT += random(.001, .01);
         this.bT += random(.001, .01);
-        this.hue = map(noise(this.hT), 0, 1, -60, 420);
+        this.hue = map(noise(this.hT), 0, 1, -60, 160);
         this.sat = map(noise(this.sT), 0, 1, 50, 100);
         this.bri = map(noise(this.bT), 0, 1, 50, 100);
 

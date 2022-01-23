@@ -10,29 +10,31 @@ var lerpTime = 300;
 var strokeW;
 var strT;
 
+var lerpCount;
+
 //background color lerping
 var bgColor = 360;
 var bgColorTarget;
 var bgLerpCount = 0;
 
 //fill color alpha lerping
-var fillAlpha;
+var fillAlpha = 0;
 var fillAlphaTarget;
 var fillAlphaLerpCount;
 
 //stroke color brightness lerping
-var strokeBrightness;
+var strokeBrightness = 0;
 var strokeBrightnessTarget;
 var strokeBrightnessLerpCount;
 
 //stroke color alpha lerping
-var strokeAlpha;
+var strokeAlpha = 100;
 var strokeAlphaTarget;
 var strokeAlphaLerpCount;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    colorMode(HSB, 360, 100, 100, 100);
+    colorMode(HSB, 100, 100, 100, 100);
     rectMode(CENTER);
 
     //determine size of single element
@@ -126,6 +128,25 @@ function switchShapes() {
     }
 }
 
+//TODO make this function work for all values
+function lerpOverTime(value, target) {
+    console.log(lerpCount);
+    if (value != target && lerpCount < lerpTime) {
+        lerpCount++;
+        let amt = lerpCount/lerpTime;
+        let lerped = lerp(value, target, amt)
+        value = round(lerped, 0);
+
+        //keep lerp from "hanging" at the last digits
+        if (target > value) value += 1;
+        else if (target < value) value -= 1;
+    } else {
+        lerpCount = 0;
+        value = target;
+    }
+    return value;
+}
+
 //change background color in small steps 
 function lerpBackground() {
     //decide which modes have which target value
@@ -148,6 +169,8 @@ function lerpBackground() {
         bgLerpCount = 0;
         bgColor = bgColorTarget;
     }
+
+    //bgColor = lerpOverTime(bgColor, bgColorTarget);
 }
 
 //change alpha(transparency) of fill color in small steps
@@ -172,6 +195,8 @@ function lerpFillAlpha() {
         fillAlphaLerpCount = 0;
         fillAlpha = fillAlphaTarget;
     }
+
+    //fillAlpha = lerpOverTime(fillAlpha, fillAlphaTarget);
 }
 
 //change brightness(how black or "colored-ness") of fill color in small steps
@@ -196,6 +221,8 @@ function lerpStrokeBrightness() {
         strokeBrightnessLerpCount = 0;
         strokeBrightness = strokeBrightnessTarget;
     }
+
+    //strokeBrightness = lerpOverTime(strokeBrightness, strokeBrightnessTarget);
 }
 
 //change brightness(how black or "colored-ness") of fill color in small steps
@@ -220,6 +247,8 @@ function lerpStrokeAlpha() {
         strokeAlphaLerpCount = 0;
         strokeAlpha = strokeAlphaTarget;
     }
+
+    //strokeAlpha = lerpOverTime(strokeAlpha, strokeAlphaTarget);
 }
 
 //check key presses
