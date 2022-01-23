@@ -7,9 +7,10 @@ var areMorphing = false;
 var morphCounter = 0;
 var mode = 1;
 var lerpTime = 300;
-var strokeW;
-var strT;
-var nextEvent = 10;
+var strokeW; //strokeWeight
+var strT;   //strokeWeight noise value
+var nextEvent = 10; //init with 10 seconds
+var maxSwitchTime = 30; //in seconds
 
 var lerpCount;
 
@@ -135,7 +136,7 @@ function switchShapes() {
 function doEvent() {
     if (frameCount % (nextEvent * 60) == 0) {
         randomMode();
-        nextEvent = random(10, 60);
+        nextEvent = floor(random(10, maxSwitchTime));
     }
 }
 
@@ -143,7 +144,7 @@ function doEvent() {
 function nextMode() {
     if (mode < 4) mode += 1;
     else mode = 1;
-    console.log(mode);
+    console.log("mode: " + mode);
 }
 
 //go to random mode
