@@ -66,7 +66,7 @@ class Element {
         this.bri = map(noise(this.bT), 0, 1, 20, 100);
 
         //apply
-        this.fillCol = color(this.hue, this.sat, this.bri, fillAlpha);
+        this.fillCol = color(this.hue, this.sat, fillBrightness, fillAlpha);
         this.strokeCol = color(this.hue, this.sat, strokeBrightness, strokeAlpha);
 
 

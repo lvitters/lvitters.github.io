@@ -24,6 +24,11 @@ var fillAlpha = 0;
 var fillAlphaTarget;
 var fillAlphaLerpCount;
 
+//fill color brightness lerping
+var fillBrightness = 0;
+var fillBrightnessTarget;
+var fillBrightnessLerpCount;
+
 //stroke color brightness lerping
 var strokeBrightness = 0;
 var strokeBrightnessTarget;
@@ -58,7 +63,9 @@ function draw() {
     
     switchShapes();
 
-    doEvent();
+    //timedEvent();
+
+    applyModes();
 
     //translate elements to middle of their position in grid
     translate(elementSize/2, elementSize/2);
@@ -66,10 +73,10 @@ function draw() {
     //lerp values
     lerpBackground();
     lerpFillAlpha();
+    lerpFillBrightness();
     lerpStrokeBrightness();
     lerpStrokeAlpha();
-    //console.log("1: " + bgColor + " 2: " + fillAlpha + " 3: " + strokeBrightness + " 4: " + strokeAlpha);
-
+    
     drawElements();
 }
 
@@ -133,24 +140,96 @@ function switchShapes() {
 }
 
 //do an event after random number of seconds
-function doEvent() {
+function timedEvent() {
     if (frameCount % (nextEvent * 60) == 0) {
         randomMode();
         nextEvent = floor(random(10, maxSwitchTime));
     }
 }
 
+//assign values depending on mode
+function applyModes() {
+    switch (mode) {
+        case 1:
+            bgColorTarget = 360;
+            fillAlphaTarget = 0;
+            fillBrightnessTarget = 0;
+            strokeAlphaTarget = 100;
+            strokeBrightnessTarget = 0;
+        break;
+        case 2:
+            bgColorTarget = 0;
+            fillAlphaTarget = 0;
+            fillBrightnessTarget = 0;
+            strokeAlphaTarget = 100;
+            strokeBrightnessTarget = 100;
+        break;
+        case 3:
+            bgColorTarget = 0;
+            fillAlphaTarget = 100;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 100;
+            strokeBrightnessTarget = 0;
+        break;
+        case 4:
+            bgColorTarget = 0;
+            fillAlphaTarget = 100;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 0;
+            strokeBrightnessTarget = 100;
+        break;
+        case 5:
+            bgColorTarget = 0;
+            fillAlphaTarget = 50;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 0;
+            strokeBrightnessTarget = 100;
+        break;
+        case 6:
+            bgColorTarget = 0;
+            fillAlphaTarget = 0;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 50;
+            strokeBrightnessTarget = 100;
+        break;
+        case 7:
+            bgColorTarget = 360;
+            fillAlphaTarget = 0;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 50;
+            strokeBrightnessTarget = 0;
+        break;
+        case 8:
+            bgColorTarget = 360;
+            fillAlphaTarget = 50;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 0;
+            strokeBrightnessTarget = 0;
+        break;
+        case 9:
+            bgColorTarget = 360;
+            fillAlphaTarget = 50;
+            fillBrightnessTarget = 0;
+            strokeAlphaTarget = 0;
+            strokeBrightnessTarget = 0;
+        break;
+      }
+      
+}
+
 //go to next mode
 function nextMode() {
-    if (mode < 4) mode += 1;
+    if (mode < 9) mode += 1;
     else mode = 1;
     console.log("mode: " + mode);
+    console.log("bgColorTarget: " + bgColorTarget + "\n" + "fillAlphaTarget: " + fillAlphaTarget + "\n" +  "fillBrightnessTarget: " + fillBrightnessTarget + "\n" +  "strokeAlphaTarget: " + strokeAlphaTarget + "\n" +  "strokeBrightnessTarget: " + strokeBrightnessTarget);
 }
 
 //go to random mode
 function randomMode() {
-    mode = floor(random(1, 5));
+    mode = floor(random(1, 10));
     console.log("mode: " + mode);
+    console.log("bgColorTarget: " + bgColorTarget + "\n" + "fillAlphaTarget: " + fillAlphaTarget + "\n" +  "fillBrightnessTarget: " + fillBrightnessTarget + "\n" +  "strokeAlphaTarget: " + strokeAlphaTarget + "\n" +  "strokeBrightnessTarget: " + strokeBrightnessTarget);
 }
 
 //TODO make this function work for all values
@@ -174,13 +253,6 @@ function lerpOverTime(value, target) {
 
 //change background color in small steps 
 function lerpBackground() {
-    //decide which modes have which target value
-    if (mode <= 1) {
-        bgColorTarget = 360;
-    } else {
-        bgColorTarget = 0;
-    }
-
     if (bgColor != bgColorTarget && bgLerpCount < lerpTime) {
         bgLerpCount++;
         let amt = bgLerpCount/lerpTime;
@@ -200,13 +272,6 @@ function lerpBackground() {
 
 //change alpha(transparency) of fill color in small steps
 function lerpFillAlpha() {
-    //decide which modes have which target value
-    if (mode <= 2) {
-        fillAlphaTarget = 0;
-    } else {
-        fillAlphaTarget = 100;
-    }
-
     if (fillAlpha != fillAlphaTarget && fillAlphaLerpCount < lerpTime) {
         fillAlphaLerpCount++;
         let amt = fillAlphaLerpCount/lerpTime;
@@ -220,19 +285,27 @@ function lerpFillAlpha() {
         fillAlphaLerpCount = 0;
         fillAlpha = fillAlphaTarget;
     }
-
-    //fillAlpha = lerpOverTime(fillAlpha, fillAlphaTarget);
 }
 
-//change brightness(how black or "colored-ness") of fill color in small steps
-function lerpStrokeBrightness() {
-    //decide which modes have which target value
-    if (mode == 2) {
-        strokeBrightnessTarget = 100;
-    } else {
-        strokeBrightnessTarget = 0;
-    }
+//change brightness of fill color in small steps
+function lerpFillBrightness() {
+    if (fillBrightness != fillBrightnessTarget && fillBrightnessLerpCount < lerpTime) {
+        fillBrightnessLerpCount++;
+        let amt = fillBrightnessLerpCount/lerpTime;
+        let lerped = lerp(fillBrightness, fillBrightnessTarget, amt);
+        fillBrightness = round(lerped, 0);
 
+        //keep lerp from "hanging" at the last digits
+        if (fillBrightnessTarget > fillBrightness) fillBrightness += 1;
+        else if (fillBrightnessTarget < fillBrightness) fillBrightness -= 1;
+    } else {
+        fillBrightnessLerpCount = 0;
+        fillBrightness = fillBrightnessTarget;
+    }
+}
+
+//change brightness of stroke color in small steps
+function lerpStrokeBrightness() {
     if (strokeBrightness != strokeBrightnessTarget && strokeBrightnessLerpCount < lerpTime) {
         strokeBrightnessLerpCount++;
         let amt = strokeBrightnessLerpCount/lerpTime;
@@ -246,19 +319,10 @@ function lerpStrokeBrightness() {
         strokeBrightnessLerpCount = 0;
         strokeBrightness = strokeBrightnessTarget;
     }
-
-    //strokeBrightness = lerpOverTime(strokeBrightness, strokeBrightnessTarget);
 }
 
-//change brightness(how black or "colored-ness") of fill color in small steps
+//change alpha(transparency) of stroke color in small steps
 function lerpStrokeAlpha() {
-    //decide which modes have which target value
-    if (mode == 4) {
-        strokeAlphaTarget = 0;
-    } else {
-        strokeAlphaTarget = 100;
-    }
-
     if (strokeAlpha != strokeAlphaTarget && strokeAlphaLerpCount < lerpTime) {
         strokeAlphaLerpCount++;
         let amt = strokeAlphaLerpCount/lerpTime;
@@ -272,8 +336,6 @@ function lerpStrokeAlpha() {
         strokeAlphaLerpCount = 0;
         strokeAlpha = strokeAlphaTarget;
     }
-
-    //strokeAlpha = lerpOverTime(strokeAlpha, strokeAlphaTarget);
 }
 
 //check key presses
