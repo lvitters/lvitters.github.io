@@ -63,7 +63,7 @@ function draw() {
     
     switchShapes();
 
-    //timedEvent();
+    timedEvent();
 
     applyModes();
 
