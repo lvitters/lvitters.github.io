@@ -6,7 +6,7 @@ var areOverlapping = true;
 var areMorphing = false;
 var morphCounter = 0;
 var mode = 1;
-var lerpTime = 300;
+var lerpTime = 420;
 var strokeW; //strokeWeight
 var strT;   //strokeWeight noise value
 var nextEvent = 10; //init with 10 seconds
@@ -66,6 +66,8 @@ function draw() {
     timedEvent();
 
     applyModes();
+
+    //console.log("bgColorTarget: " + bgColorTarget + "\n" + "fillAlphaTarget: " + fillAlphaTarget + "\n" +  "fillBrightnessTarget: " + fillBrightnessTarget + "\n" +  "strokeAlphaTarget: " + strokeAlphaTarget + "\n" +  "strokeBrightnessTarget: " + strokeBrightnessTarget);
 
     //translate elements to middle of their position in grid
     translate(elementSize/2, elementSize/2);
@@ -158,78 +160,82 @@ function applyModes() {
             strokeBrightnessTarget = 0;
         break;
         case 2:
+            bgColorTarget = 360;
+            fillAlphaTarget = 0;
+            fillBrightnessTarget = 0;
+            strokeAlphaTarget = 50;
+            strokeBrightnessTarget = 0;
+        break;
+        case 3:
+            bgColorTarget = 360;
+            fillAlphaTarget = 50;
+            fillBrightnessTarget = 0;
+            strokeAlphaTarget = 0;
+            strokeBrightnessTarget = 0;
+        break;
+        case 4:
+            bgColorTarget = 360;
+            fillAlphaTarget = 50;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 0;
+            strokeBrightnessTarget = 0;
+        break;
+        case 5:
             bgColorTarget = 0;
             fillAlphaTarget = 0;
             fillBrightnessTarget = 0;
             strokeAlphaTarget = 100;
-            strokeBrightnessTarget = 100;
-        break;
-        case 3:
-            bgColorTarget = 0;
-            fillAlphaTarget = 100;
-            fillBrightnessTarget = 100;
-            strokeAlphaTarget = 100;
-            strokeBrightnessTarget = 0;
-        break;
-        case 4:
-            bgColorTarget = 0;
-            fillAlphaTarget = 100;
-            fillBrightnessTarget = 100;
-            strokeAlphaTarget = 0;
-            strokeBrightnessTarget = 100;
-        break;
-        case 5:
-            bgColorTarget = 0;
-            fillAlphaTarget = 50;
-            fillBrightnessTarget = 100;
-            strokeAlphaTarget = 0;
             strokeBrightnessTarget = 100;
         break;
         case 6:
             bgColorTarget = 0;
+            fillAlphaTarget = 100;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 100;
+            strokeBrightnessTarget = 0;
+        break;
+        case 7:
+            bgColorTarget = 0;
+            fillAlphaTarget = 100;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 0;
+            strokeBrightnessTarget = 100;
+        break;
+        case 8:
+            bgColorTarget = 0;
+            fillAlphaTarget = 50;
+            fillBrightnessTarget = 100;
+            strokeAlphaTarget = 0;
+            strokeBrightnessTarget = 100;
+        break;
+        case 9:
+            bgColorTarget = 0;
             fillAlphaTarget = 0;
             fillBrightnessTarget = 100;
             strokeAlphaTarget = 50;
             strokeBrightnessTarget = 100;
         break;
-        case 7:
-            bgColorTarget = 360;
-            fillAlphaTarget = 0;
-            fillBrightnessTarget = 100;
-            strokeAlphaTarget = 50;
-            strokeBrightnessTarget = 0;
-        break;
-        case 8:
-            bgColorTarget = 360;
+        case 10:
+            bgColorTarget = 0;
             fillAlphaTarget = 50;
             fillBrightnessTarget = 100;
-            strokeAlphaTarget = 0;
+            strokeAlphaTarget = 100;
             strokeBrightnessTarget = 0;
         break;
-        case 9:
-            bgColorTarget = 360;
-            fillAlphaTarget = 50;
-            fillBrightnessTarget = 0;
-            strokeAlphaTarget = 0;
-            strokeBrightnessTarget = 0;
-        break;
-      }
-      
+    }     
 }
 
 //go to next mode
 function nextMode() {
-    if (mode < 9) mode += 1;
+    if (mode < 10) mode += 1;
     else mode = 1;
     console.log("mode: " + mode);
-    console.log("bgColorTarget: " + bgColorTarget + "\n" + "fillAlphaTarget: " + fillAlphaTarget + "\n" +  "fillBrightnessTarget: " + fillBrightnessTarget + "\n" +  "strokeAlphaTarget: " + strokeAlphaTarget + "\n" +  "strokeBrightnessTarget: " + strokeBrightnessTarget);
 }
 
 //go to random mode
 function randomMode() {
-    mode = floor(random(1, 10));
+    mode = floor(random(1, 11));
     console.log("mode: " + mode);
-    console.log("bgColorTarget: " + bgColorTarget + "\n" + "fillAlphaTarget: " + fillAlphaTarget + "\n" +  "fillBrightnessTarget: " + fillBrightnessTarget + "\n" +  "strokeAlphaTarget: " + strokeAlphaTarget + "\n" +  "strokeBrightnessTarget: " + strokeBrightnessTarget);
 }
 
 //TODO make this function work for all values

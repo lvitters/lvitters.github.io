@@ -72,7 +72,7 @@ class Element {
 
         //scale
         this.scaleT += random(.01);
-        this.scale = map(noise(this.scaleT), 0, 1, 0.2, 2);
+        this.scale = map(noise(this.scaleT), 0, 1, 0.2, 2.5);
 
         //rotation
         this.roT += random(.01);
