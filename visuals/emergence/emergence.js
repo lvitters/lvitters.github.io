@@ -14,6 +14,11 @@ var maxSwitchTime = 30; //in seconds
 
 var lerpCount;
 
+//global rotation
+var globalRotation = 0;
+var rotationMode = 0;
+var areRotating = false;
+
 //background color lerping
 var bgColor = 360;
 var bgColorTarget;
@@ -63,9 +68,10 @@ function draw() {
     
     switchShapes();
 
-    timedEvent();
+    timedEvents();
 
     applyModes();
+    applyRotationModes();
 
     //console.log("bgColorTarget: " + bgColorTarget + "\n" + "fillAlphaTarget: " + fillAlphaTarget + "\n" +  "fillBrightnessTarget: " + fillBrightnessTarget + "\n" +  "strokeAlphaTarget: " + strokeAlphaTarget + "\n" +  "strokeBrightnessTarget: " + strokeBrightnessTarget);
 
@@ -104,6 +110,9 @@ function drawElements() {
     strokeW = map(noise(this.strT), 0, 1, -10, 25);
     if (strokeW <= 2) strokeW = 2;
 
+    //TODO: maybe make this rotation also vary with noise?
+    globalRotation += .02;
+
     //display elements and check for scale
     for (let i = 0; i < elements.length; i++) {
         let b = elements[i];
@@ -113,6 +122,7 @@ function drawElements() {
         if ((b.scale >= 1) || (b.state == 1)) areOverlapping = true;
     }
 
+    //roation
     //once every second, if no elements are overlapping, shuffle the elements so they will overlap differently 
     //(because they are drawn on top of each other in the order of the array index)
     if ((frameCount % 60 == 0) && (!areOverlapping)) {
@@ -141,11 +151,19 @@ function switchShapes() {
     }
 }
 
-//do an event after random number of seconds
-function timedEvent() {
+//change between modes and rotation modes after X seconds if some conditions are met
+function timedEvents() {
+    //modes
     if (frameCount % (nextEvent * 60) == 0) {
         randomMode();
         nextEvent = floor(random(10, maxSwitchTime));
+    }
+
+    //rotation modes
+    //if only circles are there, every x seconds, if the shapes aren't currently morphing, switch between rotation modes
+    //(to hide the transition between rotation and no rotation)
+    if (elements[0].state == 0 && frameCount % 300 == 0 && areMorphing == false) {
+        randomRotationMode();
     }
 }
 
@@ -238,6 +256,49 @@ function randomMode() {
     console.log("mode: " + mode);
 }
 
+//switch between no rotation, global rotation and individual rotation
+function applyRotationModes() {
+    switch (rotationMode) {
+        case 1:
+            areRotating = false;
+            for (let i = 0; i < elements.length; i++) {
+                let b = elements[i];
+                b.isRotating = false;
+            }
+            break;
+        break;
+        case 2:
+            areRotating = false;
+            for (let i = 0; i < elements.length; i++) {
+                let b = elements[i];
+                b.isRotating = true;
+            }
+            break;
+        break;
+        case 3:
+            areRotating = true;
+            for (let i = 0; i < elements.length; i++) {
+                let b = elements[i];
+                b.isRotating = false;
+            }
+            break;
+        break;
+    }
+}
+
+//go to next rotation mode
+function nextRotationMode() {
+    if (rotationMode < 3) rotationMode += 1;
+    else rotationMode = 1;
+    console.log("rotationMode: " + rotationMode);
+}
+
+//go to random rotation mode
+function randomRotationMode() {
+    rotationMode = floor(random(1, 4));
+    console.log("rotationMode: " + rotationMode);
+}
+
 //TODO make this function work for all values
 function lerpOverTime(value, target) {
     console.log(lerpCount);
@@ -272,8 +333,6 @@ function lerpBackground() {
         bgLerpCount = 0;
         bgColor = bgColorTarget;
     }
-
-    //bgColor = lerpOverTime(bgColor, bgColorTarget);
 }
 
 //change alpha(transparency) of fill color in small steps
@@ -364,11 +423,14 @@ function keyPressed() {
     if (keyCode == 78) {
         nextMode();
     }
-    //cycle through modes (m key)
+    //random modes (m key)
     if (keyCode == 77) {
         randomMode();
     }
-
+    //cycle through rotation modes (b key)
+    if (keyCode == 66) {
+        nextRotationMode();
+    }
 }
 
 //randomize array in-place using Durstenfeld shuffle algorithm

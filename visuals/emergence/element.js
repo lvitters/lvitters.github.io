@@ -51,7 +51,7 @@ class Element {
         push();
             translate(this.pos.x, this.pos.y);
             scale(this.scale);
-            if (this.isRotating) rotate(this.rotation);
+            rotate(this.rotation);
             this.drawShape();
         pop();
     }
@@ -69,20 +69,15 @@ class Element {
         this.fillCol = color(this.hue, this.sat, fillBrightness, fillAlpha);
         this.strokeCol = color(this.hue, this.sat, strokeBrightness, strokeAlpha);
 
-
         //scale
         this.scaleT += random(.01);
         this.scale = map(noise(this.scaleT), 0, 1, 0.2, 2.5);
 
         //rotation
         this.roT += random(.01);
-        this.rotation = map(noise(this.roT), 0, 1, 0, 10);
-        //if only circles are there, every x seconds, if the shapes aren't currently morphing, switch between rotating and not rotating
-        //(to hide the transition between rotation and no rotation)
-        if (this.state == 0 && frameCount % 300 == 0 && areMorphing == false) {
-            this.isRotating = !this.isRotating;
-            //console.log("rotating: " + this.isRotating);
-        }
+        if (this.isRotating) this.rotation = map(noise(this.roT), 0, 1, 0, 10);
+        else if (areRotating) this.rotation = globalRotation;
+        else this.rotation = 0;
     }
 
     //initialize the (two) possible shapes with vertices
