@@ -221,13 +221,11 @@ function keyReleased() {
         easy.setState(initialState);
         print(initialState);
     }
-    
     //reset to last camera state    
     if (keyCode == 50) {
         easy.setState(lastState);
         print(lastState);
     }
-
     //get camera state
     if (keyCode == 51) {
         lastState = easy.getState();
