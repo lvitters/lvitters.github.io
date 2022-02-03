@@ -60,6 +60,7 @@ function setup() {
 
 function draw() {
     background(255);
+    smooth(4);
 
     //recenter grid in canvas
     translate((-sideLength/2) * scale, (-sideLength/2) * scale);
@@ -141,8 +142,8 @@ function setCity(i) {
     cityName = cities[cityIndex];
     rooms = cityJSONs[cityIndex];
 
-    //TODO: figure out how to lastModified from JSON <- not that important since the JSONS 
-    //have to be updated manually with the crawler anyways
+    // TODO: figure out how to extract lastModified from JSON <- not that important since the JSONS 
+    // have to be updated manually with the crawler anyways
     // let currentFile = loadJSON('crawler/data/' + cityName + '.json');
     // lastModified = new Date(currentFile.lastModified);
 
@@ -221,11 +222,13 @@ function keyReleased() {
         easy.setState(initialState);
         print(initialState);
     }
+    
     //reset to last camera state    
     if (keyCode == 50) {
         easy.setState(lastState);
         print(lastState);
     }
+
     //get camera state
     if (keyCode == 51) {
         lastState = easy.getState();

@@ -14,8 +14,8 @@ function startTimer() {
 
 var images = [], x = -1;
 
-images[0] = "../projects/einHauchVonTüll/media/tull1_slim.jpg";
+images[0] = "../projects/einHauchVonTüll/media/tull7_slim.jpg";
 images[1] = "../projects/einHauchVonTüll/media/tull5_slim.jpg";
-images[2] = "../projects/einHauchVonTüll/media/tull7_slim.jpg";
+images[2] = "../projects/einHauchVonTüll/media/tull1_slim.jpg";
 
 startTimer();
