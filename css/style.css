@@ -35,17 +35,6 @@
     background-color: #fff;
   }
   
-  .press-header {
-    margin: 0;
-    padding: 0;
-    margin-top: 20px;
-  }
-  
-  .press-list {
-    font-size: 0.9em;
-    margin-bottom: 40px;
-  }
-  
   h1 {
     margin-bottom: 0;
     text-align: center;
@@ -57,10 +46,6 @@
   
   #logo {
     color: blue;
-    padding: 5px;
-  }
-  
-  .selected-work span {
     padding: 5px;
   }
   
@@ -93,21 +78,8 @@
     display: block;
   }
   
-  figcaption {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    color: #666;
-    font-size: 12px;
-  }
-  
-  figcaption p {
-    margin: 0;
-    padding: 5px 0px;
-  }
-  
   .container {
-    max-width: 900px;
+    max-width: 55%;
     margin: auto;
   }
   
@@ -120,34 +92,6 @@
     align-items: center;
   }
   
-  .article-head-main {
-    padding: 0px 20px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -ms-word-break: break-all;
-    word-break: break-word;
-  }
-  
-  .project-link {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -ms-word-break: break-all;
-    word-break: break-all;
-    word-break: break-word;
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphens: auto;
-  }
-  
-  .page-title {
-    text-align: center;
-  }
-  
-  .meta {
-    padding: 5px;
-  }
-  
   .next-prev a,
   .next-prev span {
     text-decoration: none;
@@ -155,56 +99,6 @@
     font-weight: bold;
     display: block;
     padding: 20px 0px;
-  }
-  
-  .next-prev span {
-    color: #ccc;
-  }
-  
-  .project-list {
-    text-align: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    text-align: left;
-    text-align: center;
-  }
-  
-  .project-list li {
-    list-style: none;
-    margin: 3px;
-    padding: 0;
-    width: 25%;
-    padding: 20px 20px 20px 20px;
-    margin: 0;
-  }
-  
-  .project-list a {
-    padding: 4px;
-    padding: 0;
-    display: block;
-    text-decoration: none;
-  }
-  
-  .project-list .title {
-    font-style: italic;
-  }
-  
-  .project-list .project-meta {
-    margin-top: 5px;
-  }
-  
-  .project-list img {
-    width: 100%;
-    display: block;
-  }
-  
-  .grid2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* grid-gap: 10px; */
   }
   
   video {
@@ -225,11 +119,8 @@
       padding: 20px;
       margin: 0;
     }
-    .student-projects {
-      column-count: 1;
-    }
   }
-  
+
   @media (max-width: 768px) {
     .project-list li {
       width: 100%;
