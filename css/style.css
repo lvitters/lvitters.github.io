@@ -9,6 +9,7 @@
     margin: 0px;
     padding-bottom: 20px;
     background-color: #fff;
+    /* background-image: linear-gradient(to right, black, white 10%, white 90%, black); */
     color: #000;
     line-height: 1.4;
   }
