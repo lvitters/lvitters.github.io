@@ -16,7 +16,7 @@
   
   a {
     color: #000;
-    background-color: #fff;
+    background-color: transparent;
   }
   
   a:hover {
@@ -33,7 +33,7 @@
   h1 span,
   h2 span,
   h3 span {
-    background-color: #fff;
+    background-color: transparent;
   }
   
   h1 {
