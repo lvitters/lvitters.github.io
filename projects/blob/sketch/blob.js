@@ -5,6 +5,8 @@ let blobsLength = 20;
 function setup() {
     var canvas = createCanvas(windowWidth, windowHeight);
     canvas.id("canvas");
+    canvas.position(0, 0);
+    canvas.style('z-index', '1');
     colorMode(RGB, 360, 360, 360, 360);
 
     pushBlobs();
@@ -12,7 +14,8 @@ function setup() {
 
 function draw() {
     //reset background each frame  
-    background(360);
+    clear();
+    background(360, 0);
 
     //move everything to center
     translate(width/2, height/2.5);
@@ -83,4 +86,8 @@ function Blob(index) {
         bT += random(0.001, 0.005);
         //alT += random(0.001, 0.005);
     }
+}
+
+function windowResized() {
+    setup();
 }
