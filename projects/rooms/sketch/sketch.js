@@ -1,4 +1,4 @@
-p5.disableFriendlyErrors = true; //<- turn of error checking for perfomance (does this help? I dunno)
+//p5.disableFriendlyErrors = true; //<- turn of error checking for perfomance (does this help? I dunno)
 
 //easyCam
 let easy;
@@ -37,17 +37,19 @@ let scale = 10;
 function preload() {
     //load JSONs
     for (let i = 0; i < 11; i++) {
-        cityJSONs[i] = loadJSON('crawler/data/' + cities[i] + '.json');
+        cityJSONs[i] = loadJSON('sketch/crawler/data/' + cities[i] + '.json');
     }
 
     //font
-    font = loadFont('assets/Inconsolata-Regular.ttf');
+    font = loadFont('sketch/assets/Inconsolata-Regular.ttf');
 }
 
 function setup() {
     //general settings
     let cnv = createCanvas(windowWidth, windowHeight - 4, WEBGL);
     cnv.id("canvas");
+    cnv.position(0, 0);
+    //cnv.style('z-index', '-1');
     frameRate(30);
     colorMode(HSB, 360, 0, 0);
 
@@ -59,11 +61,11 @@ function setup() {
 }
 
 function draw() {
-    background(255);
+    background(255, 0);
     smooth(4);
 
     //recenter grid in canvas
-    translate((-sideLength/2) * scale, (-sideLength/2) * scale);
+    translate((-sideLength/2) * scale, (-sideLength/2) * scale + windowHeight/3);
 
     drawShapes();
 
