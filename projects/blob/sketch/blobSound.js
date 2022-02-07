@@ -150,4 +150,8 @@ function analyzeSpectrum() {
         spectrum = fft.analyze();
 }
 
+function windowResized() {
+    setup();
+}
+
 function touchStarted() { getAudioContext().resume(); } 
