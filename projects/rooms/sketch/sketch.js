@@ -46,7 +46,7 @@ function preload() {
 
 function setup() {
     //general settings
-    let cnv = createCanvas(windowWidth, windowHeight - 4 - 230, WEBGL);
+    let cnv = createCanvas(windowWidth, windowHeight - 230, WEBGL);
     cnv.id("canvas");
     cnv.position(0, 230);
     //cnv.style('z-index', '-1');
@@ -188,7 +188,7 @@ function drawName() {
 
 //initialize EasyCam object
 function initEasyCam() {
-    easy = createEasyCam(this._renderer, {distance:2500, center:[0,0,0], rotation:[1,0,0,0]});
+    easy = createEasyCam(this._renderer, {distance:2000, center:[0,0,0], rotation:[1,0,0,0]});
     initialState = easy.getState();
     lastState = initialState;
     print(initialState);
@@ -196,7 +196,9 @@ function initEasyCam() {
 
 //called when window is resized -> reset buttons
 function windowResized() {
-    setButtons();
+    resizeCanvas(windowWidth, windowHeight - 230);
+    left.position((windowWidth/8) - (left.size().width), windowHeight/2);
+    right.position((windowWidth/8) * 7 - (right.size().width * 2), windowHeight/2); 
 }
 
 //helper functions because button callback's can't have parameters
