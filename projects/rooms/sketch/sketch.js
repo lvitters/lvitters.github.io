@@ -46,9 +46,9 @@ function preload() {
 
 function setup() {
     //general settings
-    let cnv = createCanvas(windowWidth, windowHeight - 4, WEBGL);
+    let cnv = createCanvas(windowWidth, windowHeight - 4 - 230, WEBGL);
     cnv.id("canvas");
-    cnv.position(0, 0);
+    cnv.position(0, 230);
     //cnv.style('z-index', '-1');
     frameRate(30);
     colorMode(HSB, 360, 0, 0);
@@ -61,11 +61,11 @@ function setup() {
 }
 
 function draw() {
-    background(255, 0);
+    background(255);
     smooth(4);
 
     //recenter grid in canvas
-    translate((-sideLength/2) * scale, (-sideLength/2) * scale + windowHeight/3);
+    translate((-sideLength/2) * scale, (-sideLength/2) * scale);    // + windowHeight/3
 
     drawShapes();
 

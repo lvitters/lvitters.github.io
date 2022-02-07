@@ -85,7 +85,7 @@
 
                     <p>
                         .rooms scrapes <a href="https://www.wg-gesucht.de/"> WG-Gesucht.de</a> for all available rooms in shared flats for the 11 most populous German cities.
-                        It displays them according to their relative size and price per m². Click picture to enter. Click and drag to move camera.
+                        It displays them according to their relative size and price per m². Click picture to enter. Left click and drag to rotate camera. Hold middle mouse button to drag camera. Scroll to zoom.
                     </p>
 
                     <br>
@@ -115,6 +115,7 @@
 
     body {
         overflow: hidden;
+        background-color: lightgrey;
     }
 
     /* Definitely not stolen from some random website */
@@ -139,6 +140,10 @@
     .button:hover {
         color:#000000;
         border:0.1em solid #000000;
+    }
+
+    canvas {
+        
     }
 
 </style>
