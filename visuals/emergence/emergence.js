@@ -79,6 +79,9 @@ function draw() {
     strokeAlpha = lerpOverTime(strokeAlpha, strokeAlphaTarget);
     strokeBrightness = lerpOverTime(strokeBrightness, strokeBrightnessTarget);
 
+    //reset noise values for all elements, only when there is no color to mask the change, try this every 30 seconds
+    if ((strokeBrightnessTarget == 0) && (fillBrightnessTarget == 0) && (frameCount % (60 * 30) == 0)) resetNoise();
+
     drawElements();
 }
 
@@ -357,6 +360,7 @@ function keyPressed() {
 
 //reset noise time value for all elements
 function resetNoise() {
+    console.log("noise reset");
     for(let i = 0; i < elements.length; i++) {
         let b = elements[i];
         b.hT = 0;

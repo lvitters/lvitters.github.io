@@ -57,8 +57,8 @@ class Element {
 
     compute() {
         //color
-        this.hT += random(.001, .008);
-        this.sT += random(.001, .008);
+        this.hT += random(.0005, .005);
+        this.sT += random(.0005, .005);
         this.hue = map(noise(this.hT), 0, 1, -60, 160);
         this.sat = map(noise(this.sT), 0, 1, 20, 100);
 
@@ -71,7 +71,7 @@ class Element {
         this.scale = map(noise(this.scaleT), 0, 1, 0.2, 2.5);
 
         //rotation
-        this.roT += random(.01);
+        this.roT += random(.008);
         if (this.isRotating) this.rotation = map(noise(this.roT), 0, 1, 0, 10);
         else if (areRotating) this.rotation = globalRotation;
         else this.rotation = 0;
