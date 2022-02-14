@@ -356,10 +356,6 @@ function keyPressed() {
     if (keyCode == 86) {
         resetNoise();
     }
-    //reset noise
-    if (keyCode == 67) {
-        shuffleArrayWithPattern(elements);
-    }
 }
 
 //reset noise time value for all elements
