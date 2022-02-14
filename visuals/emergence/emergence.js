@@ -381,18 +381,3 @@ function shuffleArray(array) {
         array[j] = temp;
     }
 }
-
-//TODO shuffle array with some pattern? 
-function shuffleArrayWithPattern(array) {
-    console.log("shuffled with pattern");
-    for (let i = -1; i < (windowWidth / elementSize) + 1; i++) {
-        for (let j = -1; j < (windowHeight / elementSize) + 1; j++) {
-            let index = (i + j * elementsPerRow) * 4; 
-            if (index >= 40 && index <= 80) {
-                let temp = array[index];
-                array[index] = array[j];
-                array[j] = temp;
-            }
-        }
-    }
-}
