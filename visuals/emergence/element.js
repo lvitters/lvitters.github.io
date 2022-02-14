@@ -24,9 +24,8 @@ class Element {
         this.hue;
         this.sat;
         this.bri;
-        this.hT = random(100);
-        this.sT = random(100);
-        this.bT = random(100);
+        this.hT = 0;
+        this.sT = 0;
 
         //shape morphing
         this.circle = [];
@@ -58,12 +57,10 @@ class Element {
 
     compute() {
         //color
-        this.hT += random(.001, .01);
-        this.sT += random(.001, .01);
-        this.bT += random(.001, .01);
+        this.hT += random(.001, .008);
+        this.sT += random(.001, .008);
         this.hue = map(noise(this.hT), 0, 1, -60, 160);
         this.sat = map(noise(this.sT), 0, 1, 20, 100);
-        this.bri = map(noise(this.bT), 0, 1, 20, 100);
 
         //apply
         this.fillCol = color(this.hue, this.sat, fillBrightness, fillAlpha);

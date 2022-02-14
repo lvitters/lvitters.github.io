@@ -1,62 +1,56 @@
+//grid
 var elements = [];
 var elementSize;
 var gap;
 var elementsPerRow = 40;
+
+//switch between modes / shapes
 var areOverlapping = true;
 var areMorphing = false;
 var morphCounter = 0;
 var mode = 1;
-var lerpTime = 420;
-var strokeW; //strokeWeight
-var strT;   //strokeWeight noise value
 var nextEvent = 10; //init with 10 seconds
 var maxSwitchTime = 30; //in seconds
 
-var lerpCount;
+//global stroke thickness
+var strokeW; //strokeWeight
+var strT = 0;   //strokeWeight noise value
 
 //global rotation
 var globalRotation = 0;
 var rotationMode = 0;
 var areRotating = false;
 
+//lerping
+var lerpCount;
+var lerpTime = 420;
+
 //background color lerping
 var bgColor = 360;
 var bgColorTarget;
-var bgLerpCount = 0;
 
 //fill color alpha lerping
 var fillAlpha = 0;
 var fillAlphaTarget;
-var fillAlphaLerpCount;
 
 //fill color brightness lerping
 var fillBrightness = 0;
 var fillBrightnessTarget;
-var fillBrightnessLerpCount;
 
 //stroke color brightness lerping
 var strokeBrightness = 0;
 var strokeBrightnessTarget;
-var strokeBrightnessLerpCount;
 
 //stroke color alpha lerping
 var strokeAlpha = 100;
 var strokeAlphaTarget;
-var strokeAlphaLerpCount;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
     colorMode(HSB, 100, 100, 100, 100);
     rectMode(CENTER);
 
-    //determine size of single element
-    elementSize = (windowWidth / elementsPerRow);
-
-    //determine size of gap
-    gap = - (elementSize / 5);
-
-    //init strokeWeight noise
-    strT = random(100);
+    buildGrid();
 
     pushElements();
 }
@@ -77,14 +71,14 @@ function draw() {
 
     //translate elements to middle of their position in grid
     translate(elementSize/2, elementSize/2);
-    
-    //lerp values
-    lerpBackground();
-    lerpFillAlpha();
-    lerpFillBrightness();
-    lerpStrokeBrightness();
-    lerpStrokeAlpha();
-    
+
+    //lerp color values to their targets
+    bgColor = lerpOverTime(bgColor, bgColorTarget);
+    fillAlpha = lerpOverTime(fillAlpha, fillAlphaTarget);
+    fillBrightness = lerpOverTime(fillBrightness, fillBrightnessTarget);
+    strokeAlpha = lerpOverTime(strokeAlpha, strokeAlphaTarget);
+    strokeBrightness = lerpOverTime(strokeBrightness, strokeBrightnessTarget);
+
     drawElements();
 }
 
@@ -129,6 +123,15 @@ function drawElements() {
         shuffleArray(elements);
         console.log("shuffled");
     }
+}
+
+//determine grid
+function buildGrid() {
+    //determine size of single element
+    elementSize = (windowWidth / elementsPerRow);
+
+    //determine size of gap
+    gap = - (elementSize / 5);
 }
 
 //switch the shapes in time interval
@@ -301,7 +304,7 @@ function randomRotationMode() {
 
 //TODO make this function work for all values
 function lerpOverTime(value, target) {
-    console.log(lerpCount);
+    //console.log(lerpCount);
     if (value != target && lerpCount < lerpTime) {
         lerpCount++;
         let amt = lerpCount/lerpTime;
@@ -316,91 +319,6 @@ function lerpOverTime(value, target) {
         value = target;
     }
     return value;
-}
-
-//change background color in small steps 
-function lerpBackground() {
-    if (bgColor != bgColorTarget && bgLerpCount < lerpTime) {
-        bgLerpCount++;
-        let amt = bgLerpCount/lerpTime;
-        let lerped = lerp(bgColor, bgColorTarget, amt)
-        bgColor = round(lerped, 0);
-
-        //keep lerp from "hanging" at the last digits
-        if (bgColorTarget > bgColor) bgColor += 1;
-        else if (bgColorTarget < bgColor) bgColor -= 1;
-    } else {
-        bgLerpCount = 0;
-        bgColor = bgColorTarget;
-    }
-}
-
-//change alpha(transparency) of fill color in small steps
-function lerpFillAlpha() {
-    if (fillAlpha != fillAlphaTarget && fillAlphaLerpCount < lerpTime) {
-        fillAlphaLerpCount++;
-        let amt = fillAlphaLerpCount/lerpTime;
-        let lerped = lerp(fillAlpha, fillAlphaTarget, amt);
-        fillAlpha = round(lerped, 0);
-
-        //keep lerp from "hanging" at the last digits
-        if (fillAlphaTarget > fillAlpha) fillAlpha += 1;
-        else if (fillAlphaTarget < fillAlpha) fillAlpha -= 1;
-    } else {
-        fillAlphaLerpCount = 0;
-        fillAlpha = fillAlphaTarget;
-    }
-}
-
-//change brightness of fill color in small steps
-function lerpFillBrightness() {
-    if (fillBrightness != fillBrightnessTarget && fillBrightnessLerpCount < lerpTime) {
-        fillBrightnessLerpCount++;
-        let amt = fillBrightnessLerpCount/lerpTime;
-        let lerped = lerp(fillBrightness, fillBrightnessTarget, amt);
-        fillBrightness = round(lerped, 0);
-
-        //keep lerp from "hanging" at the last digits
-        if (fillBrightnessTarget > fillBrightness) fillBrightness += 1;
-        else if (fillBrightnessTarget < fillBrightness) fillBrightness -= 1;
-    } else {
-        fillBrightnessLerpCount = 0;
-        fillBrightness = fillBrightnessTarget;
-    }
-}
-
-//change brightness of stroke color in small steps
-function lerpStrokeBrightness() {
-    if (strokeBrightness != strokeBrightnessTarget && strokeBrightnessLerpCount < lerpTime) {
-        strokeBrightnessLerpCount++;
-        let amt = strokeBrightnessLerpCount/lerpTime;
-        let lerped = lerp(strokeBrightness, strokeBrightnessTarget, amt);
-        strokeBrightness = round(lerped, 0);
-
-        //keep lerp from "hanging" at the last digits
-        if (strokeBrightnessTarget > strokeBrightness) strokeBrightness += 1;
-        else if (strokeBrightnessTarget < strokeBrightness) strokeBrightness -= 1;
-    } else {
-        strokeBrightnessLerpCount = 0;
-        strokeBrightness = strokeBrightnessTarget;
-    }
-}
-
-//change alpha(transparency) of stroke color in small steps
-function lerpStrokeAlpha() {
-    if (strokeAlpha != strokeAlphaTarget && strokeAlphaLerpCount < lerpTime) {
-        strokeAlphaLerpCount++;
-        let amt = strokeAlphaLerpCount/lerpTime;
-        let lerped = lerp(strokeAlpha, strokeAlphaTarget, amt);
-        strokeAlpha = round(lerped, 0);
-
-            //keep lerp from "hanging" at the last digits
-            if (strokeAlphaTarget > strokeAlpha) strokeAlpha += 1;
-            else if (strokeAlphaTarget < strokeAlpha) strokeAlpha -= 1;
-    } else {
-        strokeAlphaLerpCount = 0;
-        strokeAlpha = strokeAlphaTarget;
-    }
 }
 
 //check key presses
@@ -430,6 +348,19 @@ function keyPressed() {
     //cycle through rotation modes (b key)
     if (keyCode == 66) {
         nextRotationMode();
+    }
+    //reset noise
+    if (keyCode == 86) {
+        resetNoise();
+    }
+}
+
+//reset noise time value for all elements
+function resetNoise() {
+    for(let i = 0; i < elements.length; i++) {
+        let b = elements[i];
+        b.hT = 0;
+        b.sT = 0;
     }
 }
 
