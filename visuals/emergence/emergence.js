@@ -79,7 +79,7 @@ function draw() {
     strokeAlpha = lerpOverTime(strokeAlpha, strokeAlphaTarget);
     strokeBrightness = lerpOverTime(strokeBrightness, strokeBrightnessTarget);
 
-    //reset noise values for all elements, only when there is no color to mask the change, try this every 30 seconds
+    //reset noise values for all elements, only when there is no color (to mask the change), try this every 30 seconds
     if ((strokeBrightnessTarget == 0) && (fillBrightnessTarget == 0) && (frameCount % (60 * 30) == 0)) resetNoise();
 
     drawElements();
@@ -89,7 +89,7 @@ function draw() {
 function pushElements() {
     for (let i = -1; i < (windowWidth / elementSize) + 1; i++) {
         for (let j = -1; j < (windowHeight / elementSize) + 1; j++) {
-            elements.push(new Element(elementSize, i * elementSize, j * elementSize));
+            elements.push(new Element(elementSize, i * elementSize, j * elementSize, elements.length));
         }
     }
     //shuffle once at beginning in order to not get fish scale effect
@@ -356,6 +356,10 @@ function keyPressed() {
     if (keyCode == 86) {
         resetNoise();
     }
+    //reset noise
+    if (keyCode == 67) {
+        shuffleArrayWithPattern(elements);
+    }
 }
 
 //reset noise time value for all elements
@@ -370,10 +374,25 @@ function resetNoise() {
 
 //randomize array in-place using Durstenfeld shuffle algorithm
 function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+    }
+}
+
+//TODO shuffle array with some pattern? 
+function shuffleArrayWithPattern(array) {
+    console.log("shuffled with pattern");
+    for (let i = -1; i < (windowWidth / elementSize) + 1; i++) {
+        for (let j = -1; j < (windowHeight / elementSize) + 1; j++) {
+            let index = (i + j * elementsPerRow) * 4; 
+            if (index >= 40 && index <= 80) {
+                let temp = array[index];
+                array[index] = array[j];
+                array[j] = temp;
+            }
+        }
     }
 }

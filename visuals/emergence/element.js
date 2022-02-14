@@ -1,11 +1,12 @@
 //individual element
 class Element {
 
-    constructor(size, xPos, yPos) {
+    constructor(size, xPos, yPos, index) {
         
         //position
         this.xPos = xPos;
         this.yPos = yPos;
+        this.index = index;
         this.pos = createVector(this.xPos, this.yPos);
 
         //size & scale
