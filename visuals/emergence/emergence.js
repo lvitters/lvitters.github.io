@@ -5,6 +5,8 @@ var elements = [];
 var elementSize;
 var gap;
 var elementsPerRow = 22;
+var limitedWidth = 800;
+var limitedHeight = 800;
 
 //switch between modes / shapes
 var areOverlapping = true;
@@ -17,7 +19,6 @@ var modeSwitchCounter = 0;
 var nextShapeSwitch = 10; //init with 10 seconds
 var shapeSwitchCounter = 0;
 const maxSwitchTime = 30; //in seconds
-
 
 //global stroke thickness
 var strokeW; //strokeWeight
@@ -57,12 +58,13 @@ var strokeAlphaTarget;
 var debug = false;
 
 function setup() {
-    createCanvas(800, 800);       //limit for performance
+    createCanvas(limitedWidth, limitedHeight);       //limit for performance
     colorMode(HSB, 100, 100, 100, 100);
     rectMode(CENTER);
     frameRate(60);
-    buildGrid();
+    pixelDensity(1);    //limit for performance
 
+    buildGrid();
     pushElements();
     applyMode();
     applyRotationMode();
@@ -79,9 +81,6 @@ function draw() {
     translate(elementSize/2, elementSize/2);
 
     computeLerping();
-
-    //reset noise values for all elements, only when there is no color (to mask the change), try this every 30 seconds
-    if ((strokeBrightnessTarget == 0) && (fillBrightnessTarget == 0) && (frameCount % (60 * 30) == 0)) resetNoise();
 
     drawElements();
 
@@ -107,10 +106,10 @@ function drawElements() {
 
     //change strokeWeight globally with noise
     strT += Math.random() * (.005 - .0005) + .0005; //use JS native random function for performance
-    strokeW = map(noise(this.strT), 0, 1, -10, 25);
+    strokeW = map(noise(this.strT), 0, 1, -10, elementSize * (2/3)); //map from -10 so that it will "stick" to 1 sometimes
     if (strokeW <= 2) strokeW = 2;
 
-    //TODO: maybe make this rotation also vary with noise?
+    //increment globalRotation
     globalRotation += .02;
 
     //display elements and check for scale
@@ -192,6 +191,9 @@ function timedEvents() {
     if ((frameCount % 60 == 0) && (!areOverlapping)) {
         shuffleArrayRandomly(elements);
     }
+
+    //reset noise values for all elements, only when there is no color (to mask the change), try this every 30 seconds
+    if ((strokeBrightnessTarget == 0) && (fillBrightnessTarget == 0) && (frameCount % (60 * 30) == 0)) resetNoise();
 }
 
 //lerp value to target over time
@@ -201,7 +203,7 @@ function lerpOverTime(value, target) {
         lerpCount++;
         let amt = lerpCount/lerpTime;
         let lerped = lerp(value, target, amt)
-        value = round(lerped, 0);
+        value = floor(lerped);
 
         //keep lerp from "hanging" at the last digits
         if (target > value) value += 1;
@@ -221,7 +223,7 @@ function computeLerping() {
     fillAlpha = lerpOverTime(fillAlpha, fillAlphaTarget);
     fillBrightness = lerpOverTime(fillBrightness, fillBrightnessTarget);
     strokeAlpha = lerpOverTime(strokeAlpha, strokeAlphaTarget);
-    strokeBrightness = lerpOverTime(strokeBrightness, strokeBrightnessTarget);    
+    strokeBrightness = lerpOverTime(strokeBrightness, strokeBrightnessTarget);
 }
 
 //assign values depending on mode
@@ -400,32 +402,42 @@ function keyPressed() {
         }
     }
 
-    //cycle through modes (n key)
-    if (keyCode == 78) {
+    //cycle through modes (q key)
+    if (keyCode == 81) {
         nextMode();
     }
 
-    //random modes (m key)
-    if (keyCode == 77) {
+    //random mode (w key)
+    if (keyCode == 87) {
         randomMode();
     }
 
-    //cycle through rotation modes (b key)
-    if (keyCode == 66) {
+    //cycle through rotation modes (e key)
+    if (keyCode == 69) {
         nextRotationMode();
     }
 
-    //reset noise
-    if (keyCode == 86) {
+    //random rotation mode (r key)
+    if (keyCode == 82) {
+        randomRotationMode();
+    }
+
+    //reset noise (n key)
+    if (keyCode == 78) {
         resetNoise();
     }
 
-    //order array by ascending index
-    if (keyCode == 67) {
+    //order array by ascending index (a key)
+    if (keyCode == 65) {
         orderArrayByAscendingIndex(elements);
     }
 
-    //draw FPS
+    //shuffle array randomly (s key)
+    if (keyCode == 83) {
+        shuffleArrayRandomly(elements);
+    }
+
+    //draw FPS (f key)
     if (keyCode == 70) {
         debug = !debug;
     }
