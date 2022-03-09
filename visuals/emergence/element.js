@@ -4,10 +4,8 @@ class Element {
     constructor(size, xPos, yPos, index) {
         
         //position
-        this.xPos = xPos;
-        this.yPos = yPos;
         this.index = index;
-        this.pos = createVector(this.xPos, this.yPos);
+        this.pos = createVector(xPos, yPos);
 
         //size & scale
         this.size = size;
@@ -58,23 +56,24 @@ class Element {
 
     compute() {
         //color
-        this.hT += random(.0005, .005);
-        this.sT += random(.0005, .005);
+        this.hT += Math.random() * (.005 - .0005) + .0005; //use JS native random function for performance
+        this.sT += Math.random() * (.005 - .0005) + .0005; //use JS native random function for performance
         this.hue = map(noise(this.hT), 0, 1, -60, 160);
-        this.sat = map(noise(this.sT), 0, 1, 20, 100);
+        this.sat = map(noise(this.sT), 0, 1, 10, 100);
 
         //apply
         this.fillCol = color(this.hue, this.sat, fillBrightness, fillAlpha);
         this.strokeCol = color(this.hue, this.sat, strokeBrightness, strokeAlpha);
 
         //scale
-        this.scaleT += random(.01);
+        this.scaleT += Math.random() * .005; //use JS native random function for performance
         this.scale = map(noise(this.scaleT), 0, 1, 0.2, 2.5);
 
         //rotation
-        this.roT += random(.008);
+        this.roT += Math.random() * .008; //use JS native random function for performance
         if (this.isRotating) this.rotation = map(noise(this.roT), 0, 1, 0, 10);
-        else if (areRotating) this.rotation = globalRotation;
+        else if (areRotating && this.rotatingRight) this.rotation = globalRotation;
+        else if (areRotating && !this.rotatingRight) this.rotation = -globalRotation;
         else this.rotation = 0;
     }
 
@@ -114,7 +113,7 @@ class Element {
         //look at each vertex
         for (let i = 0; i < this.circle.length; i++) {
             let v1;
-            //are we lerping to the circle or square?
+            //are we lerping to the circle or the square?
             if (this.state == 0) {
                 v1 = this.circle[i];
             } else if (this.state == 1) {
