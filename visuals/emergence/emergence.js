@@ -4,7 +4,7 @@ p5.disableFriendlyErrors = true; // disables FES for better performance
 var elements = [];
 var elementSize;
 var gap;
-var elementsPerRow = 25;
+var elementsPerRow = 22;
 
 //switch between modes / shapes
 var areOverlapping = true;
@@ -57,7 +57,7 @@ var strokeAlphaTarget;
 var debug = false;
 
 function setup() {
-    createCanvas(windowHeight, windowHeight);       //limit for performance
+    createCanvas(800, 800);       //limit for performance
     colorMode(HSB, 100, 100, 100, 100);
     rectMode(CENTER);
     frameRate(60);
