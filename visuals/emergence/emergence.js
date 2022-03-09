@@ -4,7 +4,7 @@ p5.disableFriendlyErrors = true; // disables FES for better performance
 var elements = [];
 var elementSize;
 var gap;
-var elementsPerRow = 30;
+var elementsPerRow = 25;
 
 //switch between modes / shapes
 var areOverlapping = true;
