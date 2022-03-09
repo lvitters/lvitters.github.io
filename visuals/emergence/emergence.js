@@ -57,7 +57,7 @@ var strokeAlphaTarget;
 var debug = false;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);       //limit for performance
+    createCanvas(windowHeight, windowHeight);       //limit for performance
     colorMode(HSB, 100, 100, 100, 100);
     rectMode(CENTER);
     frameRate(60);
