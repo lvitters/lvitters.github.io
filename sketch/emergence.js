@@ -6,7 +6,7 @@ var elementSize;
 var gap;
 var elementsPerRow = 22;
 var limitedWidth = 800;
-var limitedHeight = 300;
+var limitedHeight = 280;
 
 //switch between modes / shapes
 var areOverlapping = true;
@@ -61,7 +61,7 @@ function setup() {
     randomMode();
 
     //get width of parent for sizing the sketch
-    let parentDiv = document.getElementById('main-content-for-width');  
+    let parentDiv = document.getElementById('sketch-holder');  
     let parentWidth = parentDiv.clientWidth;
 
     let cnv = createCanvas(parentWidth, limitedHeight);         //limit for performance

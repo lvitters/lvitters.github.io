@@ -58,8 +58,12 @@ var strokeAlphaTarget;
 var debug = false;
 
 function setup() {
-    let cnv = createCanvas(limitedWidth, limitedHeight);       //limit for performance
-    cnv.parent(document.getElementById('sketch-holder'));      //for positioning with css
+    //get width of parent for sizing the sketch
+    let parentDiv = document.getElementById('sketch-holder');  
+    let parentWidth = parentDiv.clientWidth;
+
+    let cnv = createCanvas(parentWidth, parentWidth);         //limit for performance
+    cnv.parent(document.getElementById('sketch-holder'));       //for positioning with css
     colorMode(HSB, 100, 100, 100, 100);
     rectMode(CENTER);
     frameRate(60);
