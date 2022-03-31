@@ -58,8 +58,6 @@ var strokeAlphaTarget;
 var debug = false;
 
 function setup() {
-    randomMode();
-
     //get width of parent for sizing the sketch
     let parentDiv = document.getElementById('sketch-holder');  
     let parentWidth = parentDiv.clientWidth;
@@ -73,8 +71,8 @@ function setup() {
 
     buildGrid();
     pushElements();
-    applyMode();
-    applyRotationMode();
+    randomMode();
+    randomRotationMode();
 }
 
 function draw() {
@@ -96,6 +94,7 @@ function draw() {
 
 //push elements to list
 function pushElements() {
+    elements = [];
     for (let i = -1; i < (width / elementSize) + 1; i++) {
         for (let j = -1; j < (height / elementSize) + 1; j++) {
             elements.push(new Element(elementSize, i * elementSize, (j * elementSize), elements.length));
@@ -498,4 +497,9 @@ function orderArrayByAscendingIndex(array) {
     for (let i = 0; i < temp.length; i++) {
         array[i] = temp[i];
     }
+}
+
+//resize canvas on window resize
+function windowResized() {
+    setup();
 }

@@ -66,8 +66,8 @@ function setup() {
 
     buildGrid();
     pushElements();
-    applyMode();
-    applyRotationMode();
+    randomMode();
+    randomRotationMode();
 }
 
 function draw() {
