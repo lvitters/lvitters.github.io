@@ -105,6 +105,11 @@
   video {
     width: 100%;
   }
+
+  #sketch-holder {
+      padding: 0px;
+      bottom: 0;
+  }
   
   @media (max-width: 1200px) {
     .project-list li {
