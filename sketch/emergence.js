@@ -26,7 +26,7 @@ var strT = 0;   //strokeWeight noise value
 
 //global rotation
 var globalRotation = 0;
-var rotationMode = 1;
+var rotationMode = 5;
 var areRotating = false;
 var areRotatingRandomDirections = false;
 
@@ -72,7 +72,7 @@ function setup() {
     buildGrid();
     pushElements();
     randomMode();
-    randomRotationMode();
+    applyRotationMode();
 }
 
 function draw() {
