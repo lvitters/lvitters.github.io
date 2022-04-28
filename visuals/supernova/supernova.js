@@ -2,14 +2,14 @@
 var spheres = [];
 var sizeMin = 5;
 var sizeMax = 300;
-var freq = 800;         //frequency of new sphere creation in milliseconds
+var freq = 400;         //frequency of new sphere creation in milliseconds
 var speed = .1;         //speed by which sphere moves
 
 //easyCam
 var easy;
 var forward = true;
-var maxCamDist = 800;
-var minCamDist = 1;
+var maxCamDist = 300;
+var minCamDist = 50;
 
 function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL);
@@ -18,6 +18,10 @@ function setup() {
     frameRate(60);
 
     initEasyCam();
+
+    for (let i = 0; i < 50; i++) {
+        pushSphere();
+    }
 
     cycleSpheres();
 }
@@ -63,13 +67,13 @@ function moveCam() {
     var camDist = easy.getDistance();
 
     if (camDist > minCamDist && forward == true) {
-        easy.zoom(-.1);
+        easy.zoom(-.2);
     }
     if (camDist == minCamDist) {
         forward = false;
     }
     if (camDist < maxCamDist && forward == false) {
-        easy.zoom(.1);
+        easy.zoom(.2);
     }
     if (camDist >= maxCamDist) {
         forward = true;
@@ -119,7 +123,7 @@ function initEasyCam() {
 
 function keyReleased() {
     //get camera state
-    if (keyCode == 49) {
+    if (keyCode == 81) {
         print(easy.getState());
         print(spheres.length);
     }
