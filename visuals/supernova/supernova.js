@@ -2,24 +2,28 @@
 var spheres = [];
 var sizeMin = 5;
 var sizeMax = 300;
-var freq = 400;         //frequency of new sphere creation in milliseconds
+var freq = 800;         //frequency of new sphere creation in milliseconds
 var speed = .1;         //speed by which sphere moves
 
 //easyCam
 var easy;
-var forward = true;
+var forward = false;
 var maxCamDist = 300;
 var minCamDist = 50;
+var camSpeed = .2;
+var camSpeedT = 0;
 
 function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL);
     pixelDensity(1.0);
+    colorMode(HSB, 360, 100, 100, 100);
     setAttributes('antialias', true);
     frameRate(60);
+    camSpeedT = random(10);
 
     initEasyCam();
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 20; i++) {
         pushSphere();
     }
 
@@ -44,12 +48,12 @@ function drawSpheres() {
         //delete from array
         popSphere(b);
 
-        b.display();
+        b.draw();
     }
 }
 
 function cycleSpheres() {
-    var interval = window.setInterval(pushSphere, freq);
+    window.setInterval(pushSphere, freq);
 }
 
 function pushSphere() {
@@ -60,20 +64,24 @@ function popSphere(sphere) {
     var b = sphere;
     if (b.zPos >= maxCamDist) {
         spheres.shift();
+        console.log("ping");
     }
 }
 
 function moveCam() {
+    camSpeedT += random(.0005, .005);
+    camSpeed = map(noise(camSpeedT), 0, 1, -0.5, 1.5)
+
     var camDist = easy.getDistance();
 
     if (camDist > minCamDist && forward == true) {
-        easy.zoom(-.2);
+        easy.zoom(-camSpeed);
     }
-    if (camDist == minCamDist) {
+    if (camDist <= minCamDist) {
         forward = false;
     }
     if (camDist < maxCamDist && forward == false) {
-        easy.zoom(.2);
+        easy.zoom(camSpeed);
     }
     if (camDist >= maxCamDist) {
         forward = true;
@@ -83,30 +91,31 @@ function moveCam() {
 function Sphere(zPos) {
     this.size = random(sizeMin, sizeMax);
 
-    //position
-    this.xPos = 0;
-    this.yPos = 0;
-    this.zPos = 0;
-
     //rotation
     this.rX = noise(this.size) / 400;
     this.rY = noise(this.size) / 400;
     this.rZ = noise(this.size) / 400;
 
     //color
-    this.r = random(255);
-    this.g = random(255);
-    this.b = random(255);
+    this.h = random(360);
+
+    //transparency
+    this.aT = random(100);
+    this.a = 100;
 
     //stroke weight
+    this.wT = random(100);
     this.w = 5;
 
-    this.display = function () {
-        noFill();
+    this.draw = function () {
+        this.wT += random(.0005, .005);
+        this.w = map(noise(this.wT), 0, 1, -1, 8);
+
+        let col = color(this.h, 100, 100, 100);
+        fill(col);
         strokeWeight(this.w);
-        stroke(this.r, this.g, this.b);
+        stroke(col);
         push();
-            translate(this.xPos, this.yPos, this.zPos);
             rotateZ(frameCount * this.rZ);
             rotateX(frameCount * this.rX);
             rotateY(frameCount * this.rY);
