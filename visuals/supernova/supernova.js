@@ -2,7 +2,7 @@
 var spheres = [];
 var sizeMin = 5;
 var sizeMax = 300;
-var freq = 800;         //frequency of new sphere creation in milliseconds
+var freq = 500;         //frequency of new sphere creation in milliseconds
 var speed = .1;         //speed by which sphere moves
 
 //easyCam
@@ -23,7 +23,7 @@ function setup() {
 
     initEasyCam();
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 50; i++) {
         pushSphere();
     }
 
@@ -90,6 +90,7 @@ function moveCam() {
 
 function Sphere(zPos) {
     this.size = random(sizeMin, sizeMax);
+    this.zPos = 0;
 
     //rotation
     this.rX = noise(this.size) / 400;
@@ -116,6 +117,7 @@ function Sphere(zPos) {
         strokeWeight(this.w);
         stroke(col);
         push();
+            translate(0, 0, this.zPos);
             rotateZ(frameCount * this.rZ);
             rotateX(frameCount * this.rX);
             rotateY(frameCount * this.rY);
