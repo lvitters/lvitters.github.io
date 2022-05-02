@@ -64,7 +64,6 @@ function popSphere(sphere) {
     var b = sphere;
     if (b.zPos >= maxCamDist) {
         spheres.shift();
-        console.log("ping");
     }
 }
 
