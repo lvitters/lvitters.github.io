@@ -1,16 +1,18 @@
-User-agent: *
-Disallow: /
-
 User-agent: Googlebot-Image
 Disallow: /
 
-User-agent: Googlebot
-Disallow: /*.js$
-
 User-agent: *
-Disallow: /visuals/
-Disallow: /libs/
-Disallow: /js/
+Disallow: /css/
 Disallow: /favicon_io/
+Disallow: /js/
+Disallow: /libs/
+Disallow: /sketch/
+Disallow: /visuals/
+Disallow: /*.js$
+Disallow: /*.jpeg$
+Disallow: /*.jpg$
+Disallow: /*.png$
+Disallow: /*.gif$
+Disallow: /*.gitignore$
 
 Sitemap: https://luccavitters.art/sitemap.xml
