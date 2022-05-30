@@ -69,7 +69,7 @@ function popSphere(sphere) {
 
 function moveCam() {
     camSpeedT += random(.0005, .005);
-    camSpeed = map(noise(camSpeedT), 0, 1, -0.5, 1.5)
+    camSpeed = map(noise(camSpeedT), 0, 1, -.2, .5)
 
     var camDist = easy.getDistance();
 
