@@ -14,9 +14,9 @@ function startTimer() {
 
 var images = [], x = -1;
 
-images[0] = "../einHauchVonTüll_v2/media/tull10.jpg";
-images[1] = "../einHauchVonTüll_v2/media/tull11.jpg";
-images[2] = "../einHauchVonTüll_v2/media/tull12.jpg";
-images[3] = "../einHauchVonTüll_v2/media/tull13.jpg";
+images[0] = "../einHauchVonTull_v2/media/tull10.jpg";
+images[1] = "../einHauchVonTull_v2/media/tull11.jpg";
+images[2] = "../einHauchVonTull_v2/media/tull12.jpg";
+images[3] = "../einHauchVonTull_v2/media/tull13.jpg";
 
 startTimer();
