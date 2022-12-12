@@ -1,5 +1,5 @@
-//individual element
-class Element {
+//individual tile
+class Tile {
 
     constructor(size, xPos, yPos, index) {
         

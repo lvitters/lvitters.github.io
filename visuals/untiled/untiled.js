@@ -1,10 +1,10 @@
 p5.disableFriendlyErrors = true; // disables FES for better performance
 
 //grid
-var elements = [];
-var elementSize;
+var tiles = [];
+var tileSize;
 var gap;
-var elementsPerRow = 22;
+var tilesPerRow = 22;
 var limitedWidth = 800;
 var limitedHeight = 800;
 
@@ -65,7 +65,7 @@ function setup() {
     pixelDensity(1);    //limit for performance
 
     buildGrid();
-    pushElements();
+    pushTiles();
     randomMode();
     randomRotationMode();
 }
@@ -77,47 +77,47 @@ function draw() {
 
     incMorphCounter();
 
-    //translate elements to middle of their position in grid
-    translate(elementSize/2, elementSize/2);
+    //translate tiles to middle of their position in grid
+    translate(tileSize/2, tileSize/2);
 
     computeLerping();
 
-    drawElements();
+    drawTiles();
 
     if (debug) showDebug();
 }
 
-//push elements to list
-function pushElements() {
-    for (let i = -1; i < (width / elementSize) + 1; i++) {
-        for (let j = -1; j < (height / elementSize) + 1; j++) {
-            elements.push(new Element(elementSize, i * elementSize, (j * elementSize), elements.length));
+//push tiles to list
+function pushTiles() {
+    for (let i = -1; i < (width / tileSize) + 1; i++) {
+        for (let j = -1; j < (height / tileSize) + 1; j++) {
+            tiles.push(new Tile(tileSize, i * tileSize, (j * tileSize), tiles.length));
         }
     }
     //shuffle once at beginning in order to not get fish scale effect
-    shuffleArrayRandomly(elements);
+    shuffleArrayRandomly(tiles);
 }
 
-//draw all elements in list
-function drawElements() {
+//draw all tiles in list
+function drawTiles() {
     
     //reset bool
     areOverlapping = false;
 
     //change strokeWeight globally with noise
     strT += Math.random() * (.005 - .0005) + .0005; //use JS native random function for performance
-    strokeW = map(noise(this.strT), 0, 1, -10, elementSize * (2/3)); //map from -10 so that it will "stick" to 1 sometimes
+    strokeW = map(noise(this.strT), 0, 1, -10, tileSize * (2/3)); //map from -10 so that it will "stick" to 1 sometimes
     if (strokeW <= 2) strokeW = 2;
 
     //increment globalRotation
     globalRotation += .02;
 
-    //display elements and check for scale
-    for (let i = 0; i < elements.length; i++) {
-        let b = elements[i];
+    //display tiles and check for scale
+    for (let i = 0; i < tiles.length; i++) {
+        let b = tiles[i];
         b.draw();
         
-        //are any elements overlapping? (if the scale is over 1 and it is not only circles then they not overlapping); only set areOverlapping to true if it is false for performance
+        //are any tiles overlapping? (if the scale is over 1 and it is not only circles then they not overlapping); only set areOverlapping to true if it is false for performance
         if (((b.scale >= 1) || (b.state == 1)) && areOverlapping == false) areOverlapping = true;
     }
 }
@@ -125,19 +125,19 @@ function drawElements() {
 //determine grid
 function buildGrid() {
     //determine size of single element
-    elementSize = (width / elementsPerRow);
+    tileSize = (width / tilesPerRow);
 
     //determine size of gap
-    gap = - (elementSize / 5);
+    gap = - (tileSize / 5);
 }
 
 //switch the shapes in time interval
 function switchShapes() {
     areMorphing = true;
-    if (elements[0].state == 1) console.log("circles");
+    if (tiles[0].state == 1) console.log("circles");
     else console.log("squares");
-    for (let i = 0; i < elements.length; i++) {
-        let b = elements[i];
+    for (let i = 0; i < tiles.length; i++) {
+        let b = tiles[i];
         b.state++;
         if (b.state > 1) {
             b.state = 0;
@@ -172,7 +172,7 @@ function timedEvents() {
     //shapes
     if (shapeSwitchCounter % (nextShapeSwitch * 60) == 0) {
         switchShapes();
-        if (elements[0].state == 1) nextShapeSwitch = floor(random(10, maxSwitchTime));
+        if (tiles[0].state == 1) nextShapeSwitch = floor(random(10, maxSwitchTime));
         else nextShapeSwitch = floor(random(10, maxSwitchTime/2))     //circles should be there for less time than squares
         shapeSwitchCounter = 0;
 
@@ -182,17 +182,17 @@ function timedEvents() {
     //rotation modes
     //if only circles are there, every x seconds, if the shapes aren't currently morphing, switch between rotation modes
     //(to hide the transition between rotation and no rotation)
-    if (elements[0].state == 0 && (frameCount % 300 == 0) && areMorphing == false) {
+    if (tiles[0].state == 0 && (frameCount % 300 == 0) && areMorphing == false) {
         randomRotationMode();
     }
 
-    //once every second, if no elements are overlapping, shuffle the elements so they will overlap differently 
+    //once every second, if no tiles are overlapping, shuffle the tiles so they will overlap differently 
     //(because they are drawn on top of each other in the order of the array index)
     if ((frameCount % 60 == 0) && (!areOverlapping)) {
-        shuffleArrayRandomly(elements);
+        shuffleArrayRandomly(tiles);
     }
 
-    //reset noise values for all elements, only when there is no color (to mask the change), try this every 30 seconds
+    //reset noise values for all tiles, only when there is no color (to mask the change), try this every 30 seconds
     if ((strokeBrightnessTarget == 0) && (fillBrightnessTarget == 0) && (frameCount % (60 * 30) == 0)) resetNoise();
 }
 
@@ -324,24 +324,24 @@ function applyRotationMode() {
     switch (rotationMode) {
         case 1:
             areRotating = false;
-            for (let i = 0; i < elements.length; i++) {
-                let b = elements[i];
+            for (let i = 0; i < tiles.length; i++) {
+                let b = tiles[i];
                 b.isRotating = false;
             }
             break;
         break;
         case 2:
             areRotating = false;
-            for (let i = 0; i < elements.length; i++) {
-                let b = elements[i];
+            for (let i = 0; i < tiles.length; i++) {
+                let b = tiles[i];
                 b.isRotating = true;
             }
             break;
         break;
         case 3:
             areRotating = true;
-            for (let i = 0; i < elements.length; i++) {
-                let b = elements[i];
+            for (let i = 0; i < tiles.length; i++) {
+                let b = tiles[i];
                 b.isRotating = false;
                 b.rotatingRight = true;
             }
@@ -349,8 +349,8 @@ function applyRotationMode() {
         break;
         case 4:
             areRotating = true;
-            for (let i = 0; i < elements.length; i++) {
-                let b = elements[i];
+            for (let i = 0; i < tiles.length; i++) {
+                let b = tiles[i];
                 b.isRotating = false;
                 b.rotatingRight = false;
             }
@@ -358,8 +358,8 @@ function applyRotationMode() {
         break;
         case 5:
             areRotating = true;
-            for (let i = 0; i < elements.length; i++) {
-                let b = elements[i];
+            for (let i = 0; i < tiles.length; i++) {
+                let b = tiles[i];
                 b.isRotating = false;
                 if (random(2) < 1) b.rotatingRight = false;
                 else b.rotatingRight = true;
@@ -388,16 +388,16 @@ function randomRotationMode() {
 function keyPressed() {
     //circles
     if (key == "1") {
-        for (let i = 0; i < elements.length; i++) {
-            let b = elements[i];
+        for (let i = 0; i < tiles.length; i++) {
+            let b = tiles[i];
             b.state = 0;
         }
     }
 
     //squares    
     if (key == "2") {
-        for (let i = 0; i < elements.length; i++) {
-            let b = elements[i];
+        for (let i = 0; i < tiles.length; i++) {
+            let b = tiles[i];
             b.state = 1;
         }
     }
@@ -429,12 +429,12 @@ function keyPressed() {
 
     //order array by ascending index (a key)
     if (keyCode == 65) {
-        orderArrayByAscendingIndex(elements);
+        orderArrayByAscendingIndex(tiles);
     }
 
     //shuffle array randomly (s key)
     if (keyCode == 83) {
-        shuffleArrayRandomly(elements);
+        shuffleArrayRandomly(tiles);
     }
 
     //draw FPS (f key)
@@ -454,12 +454,12 @@ function showDebug() {
     text("fps: " + floor(frameRate()), 0, 10);
 }
 
-//reset noise time value for all elements
+//reset noise time value for all tiles
 function resetNoise() {
     console.log("noise reset");
     
-    for(let i = 0; i < elements.length; i++) {
-        let b = elements[i];
+    for(let i = 0; i < tiles.length; i++) {
+        let b = tiles[i];
         b.hT = 0;
         b.sT = 0;
     }
