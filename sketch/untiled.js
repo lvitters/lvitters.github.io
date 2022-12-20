@@ -6,7 +6,7 @@ var tileSize;
 var gap;
 var tilesPerRow = 22;
 var limitedWidth = 800;
-var limitedHeight = 280;
+var limitedHeight = 250;
 
 //switch between modes / shapes
 var areOverlapping = true;
