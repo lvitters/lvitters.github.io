@@ -5,7 +5,7 @@ function randomSketch() {
     urls[1] = "../../visuals/untiled/index.html";
     urls[2] = "../../visuals/carpet/index.html"
     urls[3] = "../../visuals/supernova/index.html";
-    //urls[4] = "../../visuals/doubleVortex/index.html";
+    urls[4] = "../../visuals/doubleVortex/index.html";
 
     var random = Math.floor(Math.random() * urls.length);
 
