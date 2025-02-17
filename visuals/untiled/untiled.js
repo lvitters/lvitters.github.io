@@ -4,9 +4,9 @@ p5.disableFriendlyErrors = true; // disables FES for better performance
 var tiles = [];
 var tileSize;
 var gap;
-var tilesPerRow = 22;
-var limitedWidth = 800;
-var limitedHeight = 800;
+var tilesPerRow = 24;
+var limitedWidth = 1000;
+var limitedHeight = 1000;
 
 //switch between modes / shapes
 var areOverlapping = true;
@@ -26,7 +26,7 @@ var strT = 0;   //strokeWeight noise value
 
 //global rotation
 var globalRotation = 0;
-var rotationMode = 1;
+var rotationMode = 5;
 var areRotating = false;
 var areRotatingRandomDirections = false;
 
@@ -58,7 +58,7 @@ var strokeAlphaTarget;
 var debug = false;
 
 function setup() {
-    createCanvas(limitedWidth, limitedHeight);       //limit for performance
+	createCanvas(limitedWidth, limitedWidth);         //limit for performance
     colorMode(HSB, 100, 100, 100, 100);
     rectMode(CENTER);
     frameRate(60);
@@ -67,7 +67,7 @@ function setup() {
     buildGrid();
     pushTiles();
     randomMode();
-    randomRotationMode();
+    applyRotationMode();
 }
 
 function draw() {
@@ -89,6 +89,7 @@ function draw() {
 
 //push tiles to list
 function pushTiles() {
+    tiles = [];
     for (let i = -1; i < (width / tileSize) + 1; i++) {
         for (let j = -1; j < (height / tileSize) + 1; j++) {
             tiles.push(new Tile(tileSize, i * tileSize, (j * tileSize), tiles.length));
@@ -491,4 +492,9 @@ function orderArrayByAscendingIndex(array) {
     for (let i = 0; i < temp.length; i++) {
         array[i] = temp[i];
     }
+}
+
+//resize canvas on window resize
+function windowResized() {
+    setup();
 }
