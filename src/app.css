@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: 'Consolas';
+	src: url('/fonts/Consolas.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.font-consolas {
+	font-family: 'Consolas', monospace;
+}
