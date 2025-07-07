@@ -3,9 +3,11 @@ let blobs = [];
 let blobsLength = 20;
 
 function setup() {
-	var canvas = createCanvas(windowWidth, windowHeight);
+	// assign sketch to website div
+	let container = document.getElementById('sketch-container');
+	let canvas = createCanvas(container.offsetWidth, container.offsetHeight);
+	canvas.parent('sketch-container');
 	canvas.id('canvas');
-	canvas.position(0, 0);
 	canvas.style('z-index', '1');
 	colorMode(RGB, 360, 360, 360, 360);
 
@@ -91,5 +93,9 @@ function Blob(index) {
 }
 
 function windowResized() {
+	let container = document.getElementById('sketch-container');
+	if (container) {
+		resizeCanvas(container.offsetWidth, container.offsetHeight);
+	}
 	setup();
 }

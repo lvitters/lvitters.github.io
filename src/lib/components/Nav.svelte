@@ -1,4 +1,18 @@
-<nav class="absolute top-0 right-0 left-0 z-10 flex items-center justify-center p-4">
+<script lang="ts">
+	interface Props {
+		centered?: boolean;
+	}
+
+	let { centered = false }: Props = $props();
+</script>
+
+<nav
+	class={`absolute z-20 transition-all duration-500 ease-in-out ${
+		centered
+			? 'top-1/2 left-8 flex -translate-y-1/2 flex-col items-start justify-center'
+			: 'top-8 left-8 flex flex-row items-center gap-4'
+	}`}
+>
 	<div class="font-consolas flex space-x-4 text-[10px]">
 		<a href="/" class="cursor-pointer px-5 text-[rgb(0,0,255)] underline transition-colors">
 			Lucca Vitters

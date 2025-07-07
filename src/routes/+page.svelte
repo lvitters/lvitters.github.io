@@ -1,22 +1,16 @@
 <script lang="ts">
-	import Nav from '$lib/components/Nav.svelte';
+	import { beforeNavigate } from '$app/navigation';
 
-	// add class to body for this page to remove scrollbar
-	// $effect(() => {
-	// 	document.documentElement.className += ' overflow-hidden h-screen w-screen';
-	// 	document.body.className += ' overflow-hidden h-screen w-screen';
-
-	// 	return () => {
-	// 		document.documentElement.className = document.documentElement.className.replace(
-	// 			' overflow-hidden h-screen w-screen',
-	// 			''
-	// 		);
-	// 		document.body.className = document.body.className.replace(
-	// 			' overflow-hidden h-screen w-screen',
-	// 			''
-	// 		);
-	// 	};
-	// });
+	// clean up only when navigating away (not on reload)
+	beforeNavigate(() => {
+		if (typeof window !== 'undefined' && (window as any).noLoop) {
+			(window as any).noLoop();
+		}
+		const container = document.getElementById('sketch-container');
+		if (container) {
+			container.innerHTML = '';
+		}
+	});
 </script>
 
 <svelte:head>
@@ -25,7 +19,14 @@
 	<script src="/sketches/blob.js"></script>
 </svelte:head>
 
-<main class="relative h-screen w-screen">
-	<Nav />
-	<!-- sketch canvas -->
+<main class="relative flex h-screen w-screen overflow-hidden">
+	<!-- <Nav centered={true} /> -->
+
+	<!-- left 1/3 -->
+	<section class="h-full w-1/3"></section>
+
+	<!-- right 2/3 -->
+	<section class="h-full w-2/3">
+		<div id="sketch-container" class="h-full w-full"></div>
+	</section>
 </main>
