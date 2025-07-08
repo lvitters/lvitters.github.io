@@ -1,6 +1,7 @@
-// prevent multiple sketches
-if (typeof tilesSketchInitialized === 'undefined') {
-	var tilesSketchInitialized = true;
+// prevent multiple sketches, but allow reinit if container is empty
+var container = document.getElementById('sketch-container');
+if (typeof sketchInitialized === 'undefined' || (container && !container.querySelector('canvas'))) {
+	sketchInitialized = true;
 
 	// use instance mode to prevent multiple instances of functions to be running
 	var sketch = function (p) {
@@ -10,19 +11,14 @@ if (typeof tilesSketchInitialized === 'undefined') {
 		var tiles = [];
 		var tileSize;
 		var gap;
-		var tilesPerRow = 12;
-
-		// inherit height
-		let container = document.getElementById('sketch-container');
-		let containerHeight = container.offsetHeight;
-		var limitedHeight = containerHeight;
+		var tilesPerRow = 14;
 
 		//switch between modes / shapes
 		var areOverlapping = true;
 		var areMorphing = false;
 		var morphCounter = 0;
 		var morphTime = 180;
-		var mode = 1;
+		var mode;
 		var nextModeSwitch = 10; //init with 10 seconds
 		var modeSwitchCounter = 0;
 		var nextShapeSwitch = 10; //init with 10 seconds
@@ -68,10 +64,11 @@ if (typeof tilesSketchInitialized === 'undefined') {
 
 		p.setup = function () {
 			//get width of parent for sizing the sketch
-			var parentDiv = document.getElementById('sketch-container');
-			var parentWidth = parentDiv.clientWidth;
+			var container = document.getElementById('sketch-container');
+			var parentWidth = container.clientWidth;
+			var containerHeight = container.offsetHeight;
 
-			var cnv = p.createCanvas(parentWidth, limitedHeight); //limit for performance
+			var cnv = p.createCanvas(parentWidth, containerHeight); //limit for performance
 			cnv.parent('sketch-container'); //for positioning with css
 			cnv.id('canvas');
 			cnv.style('z-index', '-1');
@@ -79,7 +76,7 @@ if (typeof tilesSketchInitialized === 'undefined') {
 			p.colorMode(p.HSB, 100, 100, 100, 100);
 			p.rectMode(p.CENTER);
 			p.frameRate(60);
-			p.pixelDensity(1); //limit for performance
+			p.pixelDensity(); //use device pixel density for crisp rendering
 
 			buildGrid();
 			pushTiles();
@@ -151,8 +148,10 @@ if (typeof tilesSketchInitialized === 'undefined') {
 		//switch the shapes in time interval
 		function switchShapes() {
 			areMorphing = true;
-			if (tiles[0].state == 1) console.log('circles');
-			else console.log('squares');
+			if (tiles.length > 0 && tiles[0]) {
+				// if (tiles[0].state == 1) console.log('circles');
+				// else console.log('squares');
+			}
 			for (var i = 0; i < tiles.length; i++) {
 				var b = tiles[i];
 				b.state++;
@@ -188,10 +187,13 @@ if (typeof tilesSketchInitialized === 'undefined') {
 
 			//shapes
 			if (shapeSwitchCounter % (nextShapeSwitch * 60) == 0) {
-				switchShapes();
-				if (tiles[0].state == 1) nextShapeSwitch = p.floor(p.random(10, maxSwitchTime));
-				else nextShapeSwitch = p.floor(p.random(10, maxSwitchTime / 2)); //circles should be there for less time than squares
-				shapeSwitchCounter = 0;
+				// Safety check: make sure tiles array exists and has elements
+				if (tiles.length > 0 && tiles[0]) {
+					switchShapes();
+					if (tiles[0].state == 1) nextShapeSwitch = p.floor(p.random(10, maxSwitchTime));
+					else nextShapeSwitch = p.floor(p.random(10, maxSwitchTime / 2)); //circles should be there for less time than squares
+					shapeSwitchCounter = 0;
+				}
 
 				//console.log("next shape switch: " + nextShapeSwitch);
 			}
@@ -199,7 +201,13 @@ if (typeof tilesSketchInitialized === 'undefined') {
 			//rotation modes
 			//if only circles are there, every x seconds, if the shapes aren't currently morphing, switch between rotation modes
 			//(to hide the transition between rotation and no rotation)
-			if (tiles[0].state == 0 && p.frameCount % 300 == 0 && areMorphing == false) {
+			if (
+				tiles.length > 0 &&
+				tiles[0] &&
+				tiles[0].state == 0 &&
+				p.frameCount % 300 == 0 &&
+				areMorphing == false
+			) {
 				randomRotationMode();
 			}
 
@@ -324,7 +332,7 @@ if (typeof tilesSketchInitialized === 'undefined') {
 		function nextMode() {
 			if (mode < 10) mode += 1;
 			else mode = 1;
-			console.log('mode: ' + mode);
+			// console.log('mode: ' + mode);
 
 			applyMode();
 		}
@@ -332,7 +340,7 @@ if (typeof tilesSketchInitialized === 'undefined') {
 		//go to random mode
 		function randomMode() {
 			mode = p.floor(p.random(1, 11));
-			console.log('mode: ' + mode);
+			// console.log('mode: ' + mode);
 
 			applyMode();
 		}
@@ -386,14 +394,14 @@ if (typeof tilesSketchInitialized === 'undefined') {
 		function nextRotationMode() {
 			if (rotationMode < 5) rotationMode += 1;
 			else rotationMode = 1;
-			console.log('rotationMode: ' + rotationMode);
+			// console.log('rotationMode: ' + rotationMode);
 			applyRotationMode();
 		}
 
 		//go to random rotation mode and apply
 		function randomRotationMode() {
 			rotationMode = p.floor(p.random(1, 6));
-			console.log('rotationMode: ' + rotationMode);
+			// console.log('rotationMode: ' + rotationMode);
 			applyRotationMode();
 		}
 
@@ -469,7 +477,7 @@ if (typeof tilesSketchInitialized === 'undefined') {
 
 		//reset noise time value for all tiles
 		function resetNoise() {
-			console.log('noise reset');
+			// console.log('noise reset');
 
 			for (var i = 0; i < tiles.length; i++) {
 				var b = tiles[i];
@@ -480,7 +488,7 @@ if (typeof tilesSketchInitialized === 'undefined') {
 
 		//randomize array in-place using Durstenfeld shuffle algorithm
 		function shuffleArrayRandomly(array) {
-			console.log('array shuffled');
+			// console.log('array shuffled');
 
 			for (var i = array.length - 1; i > 0; i--) {
 				var j = Math.floor(Math.random() * (i + 1));
@@ -492,7 +500,7 @@ if (typeof tilesSketchInitialized === 'undefined') {
 
 		//order array by index in ascending order (unused)
 		function orderArrayByAscendingIndex(array) {
-			console.log('array ordered by ascending index');
+			// console.log('array ordered by ascending index');
 
 			var temp = [];
 
@@ -506,6 +514,7 @@ if (typeof tilesSketchInitialized === 'undefined') {
 			}
 		}
 
+		//resize canvas on window resize
 		p.windowResized = function () {
 			p.setup();
 		};
