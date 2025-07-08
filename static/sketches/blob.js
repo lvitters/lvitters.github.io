@@ -15,7 +15,7 @@ if (typeof sketchInitialized === 'undefined' || (container && !container.querySe
 			var canvas = p.createCanvas(container.offsetWidth, container.offsetHeight);
 			canvas.parent('sketch-container');
 			canvas.id('canvas');
-			canvas.style('z-index', '1');
+			canvas.style('z-index', '-1');
 			p.colorMode(p.RGB, 360, 360, 360, 360);
 
 			pushBlobs();

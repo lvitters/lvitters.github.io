@@ -8,8 +8,6 @@
 </svelte:head>
 
 <main class="relative flex h-screen w-screen overflow-hidden">
-	<!-- <Nav centered={true} /> -->
-
 	<!-- left 1/3 -->
 	<section class="h-full w-1/3"></section>
 

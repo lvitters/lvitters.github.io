@@ -7,10 +7,10 @@
 </script>
 
 <nav
-	class={`absolute transition-all duration-500 ease-in-out ${
+	class={`absolute z-50 transition-all duration-500 ease-in-out ${
 		centered
-			? 'top-1/2 left-8 flex -translate-y-1/2 flex-col items-start justify-center'
-			: 'top-8 left-8 flex flex-row items-center gap-4'
+			? 'top-1/2 left-6 flex -translate-y-1/2 flex-col items-start justify-center'
+			: 'top-8 left-6 flex flex-row items-center gap-4'
 	}`}
 >
 	<div class="font-consolas flex space-x-4 text-[10px]">
