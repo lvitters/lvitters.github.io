@@ -30,6 +30,8 @@
 
 <svelte:head>
 	<title>Lucca Vitters</title>
+	<script src="/libs/p5_v1.4.0.min.js"></script>
+	<script src="/sketches/untiled/untiled.js"></script>
 </svelte:head>
 
 <main class="font-consolas relative flex h-screen w-screen overflow-hidden pt-20 text-[10px]">
@@ -49,7 +51,7 @@
 				<img
 					src={rayarrayImages[currentRayarrayImageIndex]}
 					alt="RAYARRAY preview"
-					class="h-auto w-full max-w-xs transition-opacity duration-300"
+					class="h-auto w-full transition-opacity duration-300"
 				/>
 				<div>RAYARRAY (2023)</div>
 			</div>
@@ -57,7 +59,7 @@
 				<img
 					src="/media/feedback_cube/feedback_cube_preview.jpg"
 					alt="feedback_cube preview"
-					class="h-auto w-full max-w-xs transition-opacity duration-300"
+					class="h-auto w-full transition-opacity duration-300"
 				/>
 				<div>feedback_cube (2022)</div>
 			</div>
@@ -65,16 +67,19 @@
 				<img
 					src="/media/einHauchVonTullv2/tull2_3_preview.jpg"
 					alt="Ein Hauch Von Tuell v2 preview"
-					class="h-auto w-full max-w-xs transition-opacity duration-300"
+					class="h-auto w-full transition-opacity duration-300"
 				/>
 				<div>Ein Hauch von Tüll v2 (2022)</div>
 			</div>
-			<!-- <div>untiled (2022)</div> -->
+			<div class="mb-1">
+				<div id="sketch-container" class="w-full" style="height: 100px;"></div>
+				<div>untiled (2022)</div>
+			</div>
 			<div class="mb-1">
 				<img
 					src="/media/einHauchVonTull/tull_1_preview.jpg"
 					alt="Ein Hauch Von Tuell preview"
-					class="h-auto w-full max-w-xs transition-opacity duration-300"
+					class="h-auto w-full transition-opacity duration-300"
 				/>
 				<div>Ein Hauch von Tüll (2021)</div>
 			</div>
@@ -84,8 +89,8 @@
 					<img
 						src="/media/rooms/rooms_cutoff_transparent.png"
 						alt="available.rooms preview"
-						class="h-auto w-full max-w-xs transition-opacity duration-300"
-						style="width: 105%; margin-top: -1.5rem;"
+						class="h-auto w-full transition-opacity duration-300"
+						style="transform: scale(1.05) translateX(.5%); transform-origin: bottom left; margin-top: -3vh;"
 					/>
 				</div>
 				<div>available.rooms (2021)</div>
@@ -94,7 +99,7 @@
 				<img
 					src="/media/blob/blob_preview.png"
 					alt="blob preview"
-					class="h-auto w-full max-w-xs transition-opacity duration-300"
+					class="h-auto w-full transition-opacity duration-300"
 				/>
 				<div>blob (2020)</div>
 			</div>
@@ -102,7 +107,7 @@
 				<img
 					src="/media/BreakThePattern/BreakThePattern_1.jpg"
 					alt="Break the Pattern preview"
-					class="h-auto w-full max-w-xs transition-opacity duration-300"
+					class="h-auto w-full transition-opacity duration-300"
 				/>
 				<div>Break the Pattern (2019)</div>
 			</div>
@@ -110,7 +115,7 @@
 				<img
 					src="/media/image_blender/image_blender_1.gif"
 					alt="image_blender preview"
-					class="h-auto w-full max-w-xs transition-opacity duration-300"
+					class="h-auto w-full transition-opacity duration-300"
 				/>
 				<div>Image Blender (2017)</div>
 			</div>

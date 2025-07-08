@@ -4,7 +4,7 @@
 <svelte:head>
 	<title>Lucca Vitters</title>
 	<script src="/libs/p5_v0.10.2.min.js"></script>
-	<script src="/sketches/blob.js"></script>
+	<script src="/sketches/blob/blob.js"></script>
 </svelte:head>
 
 <main class="relative flex h-screen w-screen overflow-hidden">
