@@ -1,16 +1,4 @@
 <script lang="ts">
-	import { beforeNavigate } from '$app/navigation';
-
-	// clean up only when navigating away (not on reload)
-	beforeNavigate(() => {
-		if (typeof window !== 'undefined' && (window as any).noLoop) {
-			(window as any).noLoop();
-		}
-		const container = document.getElementById('sketch-container');
-		if (container) {
-			container.innerHTML = '';
-		}
-	});
 </script>
 
 <svelte:head>

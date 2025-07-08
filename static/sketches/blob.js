@@ -1,105 +1,121 @@
-// guard so no multiple sketches are running
-if (typeof sketchInitialized === 'undefined') {
-	var sketchInitialized = true;
+// prevent multiple sketches, but allow reinit if container is empty
+var container = document.getElementById('sketch-container');
+if (typeof sketchInitialized === 'undefined' || (container && !container.querySelector('canvas'))) {
+	sketchInitialized = true;
 
-	var xT = 0.0;
-	var blobs = [];
-	var blobsLength = 20;
+	// use instance mode to prevent multiple instances of functions to be running
+	var sketch = function (p) {
+		var xT = 0.0;
+		var blobs = [];
+		var blobsLength = 20;
 
-	function setup() {
-		// assign sketch to proper container
-		var container = document.getElementById('sketch-container');
-		var canvas = createCanvas(container.offsetWidth, container.offsetHeight);
-		canvas.parent('sketch-container');
-		canvas.id('canvas');
-		canvas.style('z-index', '1');
-		colorMode(RGB, 360, 360, 360, 360);
+		p.setup = function () {
+			// assign sketch to correct container
+			var container = document.getElementById('sketch-container');
+			var canvas = p.createCanvas(container.offsetWidth, container.offsetHeight);
+			canvas.parent('sketch-container');
+			canvas.id('canvas');
+			canvas.style('z-index', '1');
+			p.colorMode(p.RGB, 360, 360, 360, 360);
 
-		pushBlobs();
-	}
-
-	function draw() {
-		// reset background each frame
-		clear();
-		background(360, 0);
-
-		// move everything to center
-		translate(width / 2, height / 2);
-
-		// zoom out a bit
-		scale(0.8);
-
-		drawBlobs();
-	}
-
-	function pushBlobs() {
-		for (var i = 0; i < blobsLength; i++) {
-			blobs.push(new Blob(i));
-		}
-	}
-
-	function drawBlobs() {
-		for (var i = blobs.length - 1; i > 0; i--) {
-			var b = blobs[i];
-			b.draw();
-		}
-	}
-
-	function Blob(index) {
-		// blob's radius, gets bigger with higher index
-		var ra = index * 20;
-
-		// noise
-		var noiseMax = 0;
-		var zT = random(1);
-
-		// init noise values for colors
-		var rT = random(360);
-		var gT = random(360);
-		var bT = random(360);
-		//var alT = random(360);
-
-		this.draw = function () {
-			// noise
-			noiseMax = sin(zT);
-
-			// map color noise values to RGB(A)
-			var r = map(noise(rT), 0, 1, -30, 390);
-			var g = map(noise(gT), 0, 1, -30, 390);
-			var b = map(noise(bT), 0, 1, -30, 390);
-			//var al = map(noise(alT), 0, 1, -30, 390);
-
-			// apply colors
-			noStroke(0);
-			fill(r % 360, g % 360, b % 360);
-			//fill(r % 360, g % 360, b % 360, al % 360);
-
-			// draw blobs
-			beginShape();
-			for (var a = 0; a < TWO_PI; a += 0.08) {
-				var xT = map(cos(a), -1, 1, 0, noiseMax);
-				var yT = map(sin(a), -1, 1, 0, noiseMax);
-				var r = map(noise(xT, yT, zT), 0, 1, 0, ra);
-				var x = r * cos(a);
-				var y = r * sin(a);
-				vertex(x, y);
-			}
-			endShape(CLOSE);
-
-			// increment noise values
-			zT += random(0.001, 0.005);
-
-			rT += random(0.001, 0.005);
-			gT += random(0.001, 0.005);
-			bT += random(0.001, 0.005);
-			//alT += random(0.001, 0.005);
+			pushBlobs();
 		};
-	}
 
-	function windowResized() {
+		p.draw = function () {
+			// reset background each frame
+			p.clear();
+			p.background(360, 0);
+
+			// move everything to center
+			p.translate(p.width / 2, p.height / 2);
+
+			// zoom out a bit
+			p.scale(0.8);
+
+			drawBlobs();
+		};
+
+		function pushBlobs() {
+			for (var i = 0; i < blobsLength; i++) {
+				blobs.push(new Blob(i));
+			}
+		}
+
+		function drawBlobs() {
+			for (var i = blobs.length - 1; i > 0; i--) {
+				var b = blobs[i];
+				b.draw();
+			}
+		}
+
+		function Blob(index) {
+			// blob's radius, gets bigger with higher index
+			var ra = index * 20;
+
+			// noise
+			var noiseMax = 0;
+			var zT = p.random(1);
+
+			// init noise values for colors
+			var rT = p.random(360);
+			var gT = p.random(360);
+			var bT = p.random(360);
+			//var alT = p.random(360);
+
+			this.draw = function () {
+				// noise
+				noiseMax = p.sin(zT);
+
+				// map color noise values to RGB(A)
+				var r = p.map(p.noise(rT), 0, 1, -30, 390);
+				var g = p.map(p.noise(gT), 0, 1, -30, 390);
+				var b = p.map(p.noise(bT), 0, 1, -30, 390);
+				//var al = p.map(p.noise(alT), 0, 1, -30, 390);
+
+				// apply colors
+				p.noStroke(0);
+				p.fill(r % 360, g % 360, b % 360);
+				//p.fill(r % 360, g % 360, b % 360, al % 360);
+
+				// draw blobs
+				p.beginShape();
+				for (var a = 0; a < p.TWO_PI; a += 0.08) {
+					var xT = p.map(p.cos(a), -1, 1, 0, noiseMax);
+					var yT = p.map(p.sin(a), -1, 1, 0, noiseMax);
+					var r = p.map(p.noise(xT, yT, zT), 0, 1, 0, ra);
+					var x = r * p.cos(a);
+					var y = r * p.sin(a);
+					p.vertex(x, y);
+				}
+				p.endShape(p.CLOSE);
+
+				// increment noise values
+				zT += p.random(0.001, 0.005);
+
+				rT += p.random(0.001, 0.005);
+				gT += p.random(0.001, 0.005);
+				bT += p.random(0.001, 0.005);
+				//alT += p.random(0.001, 0.005);
+			};
+		}
+
+		p.windowResized = function () {
+			var container = document.getElementById('sketch-container');
+			if (container) {
+				p.resizeCanvas(container.offsetWidth, container.offsetHeight);
+			}
+		};
+	};
+
+	// wait for container to exist before initializing sketch
+	function initSketch() {
 		var container = document.getElementById('sketch-container');
 		if (container) {
-			resizeCanvas(container.offsetWidth, container.offsetHeight);
+			new p5(sketch, container);
+		} else {
+			setTimeout(initSketch, 100);
 		}
 	}
+
+	initSketch();
 }
