@@ -7,7 +7,7 @@
 </script>
 
 <nav
-	class={`absolute z-20 transition-all duration-500 ease-in-out ${
+	class={`absolute transition-all duration-500 ease-in-out ${
 		centered
 			? 'top-1/2 left-8 flex -translate-y-1/2 flex-col items-start justify-center'
 			: 'top-8 left-8 flex flex-row items-center gap-4'

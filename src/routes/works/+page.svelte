@@ -15,7 +15,7 @@
 	<title>Lucca Vitters</title>
 </svelte:head>
 
-<main class="font-consolas relative flex h-screen w-screen overflow-hidden pt-20">
+<main class="font-consolas relative flex h-screen w-screen overflow-hidden pt-20 text-[10px]">
 	<!-- wrap content in a transition container -->
 	<div
 		class="flex h-full w-full transition-all duration-700 ease-out {pageVisible
