@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	let pageVisible = $state(false);
+	let currentRayarrayImageIndex = $state(0);
 
-	let pageVisible = false;
-	let currentRayarrayImageIndex = 0;
-
-	onMount(() => {
+	$effect(() => {
 		// small delay to ensure smooth transition
 		setTimeout(() => {
 			pageVisible = true;
