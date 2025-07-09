@@ -2,15 +2,12 @@
 </script>
 
 <svelte:head>
-	<title>feedback_cube</title>
 	<meta name="description" content="feedback_cube" />
 </svelte:head>
 
-<main
-	class="font-consolas max-w-[950p m-0 mx-auto min-h-screen bg-[rgb(42,0,25)] px-0 pt-12 pb-5 text-white md:px-2"
->
-	<article class="px-0 md:px-2">
-		<div class="mb-5 flex items-center justify-center px-2 text-center md:px-0">
+<main class="font-consolas m-0 min-h-screen bg-[rgb(42,0,25)] px-0 pt-12 pb-5 text-white">
+	<article class="px-5">
+		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-2xl font-normal">feedback_cube</h1>
 				<div class="mt-1 text-sm text-white">

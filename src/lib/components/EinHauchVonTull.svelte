@@ -19,15 +19,12 @@
 </script>
 
 <svelte:head>
-	<title>Ein Hauch von Tüll</title>
 	<meta name="description" content="Ein Hauch Von Tüll" />
 </svelte:head>
 
-<main
-	class="font-consolas max-w-[950p m-0 mx-auto min-h-screen bg-[rgb(0,40,0)] px-0 pt-12 pb-5 text-white md:px-2"
->
-	<article class="px-0 md:px-2">
-		<div class="mb-5 flex items-center justify-center px-2 text-center md:px-0">
+<main class="font-consolas m-0 min-h-screen bg-[rgb(0,40,0)] px-0 pt-12 pb-5 text-white">
+	<article class="px-5">
+		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-2xl font-normal">Ein Hauch Von Tüll</h1>
 				<div class="mt-1 text-sm text-white">

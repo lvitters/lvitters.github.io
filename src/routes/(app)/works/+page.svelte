@@ -56,7 +56,7 @@
 
 			// smooth scroll to the section
 			rightPanel.scrollTo({
-				top: sectionTop, // no offset
+				top: sectionTop + 1, // no offset
 				behavior: 'smooth'
 			});
 		}
@@ -69,10 +69,10 @@
 	<script src="/sketches/untiled/untiled_preview.js"></script>
 </svelte:head>
 
-<main class="font-consolas relative flex h-screen w-screen overflow-hidden text-[10px]">
+<main class="font-consolas relative flex h-screen w-full overflow-hidden text-[10px]">
 	<!-- wrap content in a transition container -->
 	<div
-		class="flex h-full w-full transition-all duration-700 ease-out {pageVisible
+		class="flex h-full overflow-hidden transition-all duration-700 ease-out {pageVisible
 			? 'translate-y-0 opacity-100'
 			: 'translate-y-4 opacity-0'}"
 	>
@@ -277,9 +277,6 @@
 		/* hide scrollbar for WebKit browsers */
 		scrollbar-width: none; /* Firefox */
 		-ms-overflow-style: none; /* Internet Explorer 10+ */
-		/* reclaim scrollbar space with negative margin */
-		margin-right: -1rem; /* typical scrollbar width */
-		padding-right: 1rem; /* restore padding to maintain content positioning */
 	}
 
 	.scrollable-section::-webkit-scrollbar {
