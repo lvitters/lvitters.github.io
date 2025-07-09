@@ -1,5 +1,5 @@
 // prevent multiple sketches, but allow reinit if container is empty
-var container = document.getElementById('sketch-container');
+var container = document.getElementById('untiled-full-container');
 if (typeof sketchInitialized === 'undefined' || (container && !container.querySelector('canvas'))) {
 	sketchInitialized = true;
 
@@ -11,7 +11,7 @@ if (typeof sketchInitialized === 'undefined' || (container && !container.querySe
 		var tiles = [];
 		var tileSize;
 		var gap;
-		var tilesPerRow = 14;
+		var tilesPerRow = 20;
 
 		//switch between modes / shapes
 		var areOverlapping = true;
@@ -64,12 +64,12 @@ if (typeof sketchInitialized === 'undefined' || (container && !container.querySe
 
 		p.setup = function () {
 			//get width of parent for sizing the sketch
-			var container = document.getElementById('sketch-container');
+			var container = document.getElementById('untiled-full-container');
 			var parentWidth = container.clientWidth;
 			var containerHeight = container.offsetHeight;
 
-			var cnv = p.createCanvas(parentWidth, containerHeight); //limit for performance
-			cnv.parent('sketch-container'); //for positioning with css
+			var cnv = p.createCanvas(parentWidth, parentWidth); //limit for performance
+			cnv.parent('untiled-full-container'); //for positioning with css
 			cnv.id('canvas');
 			cnv.style('z-index', '-1');
 			cnv.style('pointer-events', 'none');
@@ -655,7 +655,7 @@ if (typeof sketchInitialized === 'undefined' || (container && !container.querySe
 
 	// wait for container to exist before initializing sketch
 	function initSketch() {
-		var container = document.getElementById('sketch-container');
+		var container = document.getElementById('untiled-full-container');
 		if (container) {
 			new p5(sketch, container);
 		} else {
@@ -666,7 +666,7 @@ if (typeof sketchInitialized === 'undefined' || (container && !container.querySe
 	initSketch();
 } else {
 	// reset flag if container doesn't exist (we navigated away and back)
-	var container = document.getElementById('sketch-container');
+	var container = document.getElementById('untiled-full-container');
 	if (container && !container.querySelector('canvas')) {
 		tilesSketchInitialized = undefined;
 		// re-run the initialization by calling the script again

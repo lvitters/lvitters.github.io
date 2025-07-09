@@ -1,0 +1,69 @@
+<script>
+	let cyclingImagesIndex = $state(0);
+
+	$effect(() => {
+		// cycle through images every 3 seconds
+		const imageInterval = setInterval(() => {
+			cyclingImagesIndex = (cyclingImagesIndex + 1) % 4; // 4 preview images for RAYARRAY
+		}, 3000);
+
+		return () => clearInterval(imageInterval);
+	});
+
+	const cyclingImages = [
+		'/media/einHauchVonTullv2/tull2_10.jpg',
+		'/media/einHauchVonTullv2/tull2_11.jpg',
+		'/media/einHauchVonTullv2/tull2_12.jpg',
+		'/media/einHauchVonTullv2/tull2_13.jpg'
+	];
+</script>
+
+<svelte:head>
+	<title>Ein Hauch von Tüll v2</title>
+	<meta name="description" content="untiled" />
+	<script src="/../libs/p5_v1.4.0.min.js"></script>
+	<script src="/sketches/untiled/untiled_full.js"></script>
+</svelte:head>
+
+<main
+	class="font-consolas max-w-[950p m-0 mx-auto min-h-screen bg-white px-0 pt-12 pb-5 text-black md:px-2"
+>
+	<article class="px-0 md:px-2">
+		<div class="mb-5 flex items-center justify-center px-2 text-center md:px-0">
+			<div class="flex-1 text-center">
+				<h1 class="mb-0 pb-1 text-center text-2xl font-normal">untiled</h1>
+				<div class="mt-1 text-sm">
+					<time class="text-sm">2022</time>
+					<span> | p5.js | generative</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-2xs">
+			<p class="mb-4">
+				Emergence occurs when an entity is observed to have properties its parts do not have on
+				their own. This program generates emergent visuals from the interaction between ever
+				changing simple geometric tiles.
+			</p>
+
+			<div class="my-4"></div>
+
+			<p class="mb-4">
+				"Now, I was sitting at my desk at home, observing on screen your work as it was developing
+				and changing, in a very calm way, the pure joy and surprise of colors and forms in slow and
+				steady movements, surprises here and there, interplay without end, pure meditation, all
+				based on the simple regular grid, but rich and richer in what was happening in detail. [...]
+				I was wondering, would I have to observe and admire your work all day before something would
+				seem to be repeating? You have created a marble." - <a
+					class="underline hover:text-[rgb(0,0,255)]"
+					href="https://www.google.com/search?q=frieder+nake&oq=frieder+nake&aqs=chrome.0.69i59j0i512l2j69i60j69i61j69i60l2j69i61.1599j0j7&sourceid=chrome&ie=UTF-8"
+					>Frieder Nake</a
+				>
+			</p>
+
+			<div class="my-4"></div>
+
+			<div id="untiled-full-container" class="w-full"></div>
+		</div>
+	</article>
+</main>

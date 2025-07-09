@@ -7,14 +7,14 @@
 </script>
 
 <nav
-	class={`absolute z-50 transition-all duration-500 ease-in-out ${
+	class={`absolute left-7 z-50 ml-4 flex rounded-md bg-white/60 px-2 pt-0.5 transition-all duration-500 ease-in-out ${
 		centered
-			? 'top-1/2 left-6 flex -translate-y-1/2 flex-col items-start justify-center'
-			: 'top-8 left-6 flex flex-row items-center gap-4'
+			? 'top-1/2 -translate-y-1/2 flex-col items-start justify-center'
+			: 'top-8 flex-row items-center gap-4'
 	}`}
 >
 	<div class="font-consolas flex space-x-4 text-[10px]">
-		<a href="/" class="cursor-pointer px-5 text-[rgb(0,0,255)] underline transition-colors">
+		<a href="/" class="cursor-pointer pr-5 text-[rgb(0,0,255)] underline transition-colors">
 			Lucca Vitters
 		</a>
 		<a

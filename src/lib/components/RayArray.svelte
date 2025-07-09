@@ -20,112 +20,97 @@
 </script>
 
 <svelte:head>
-	<title>RAYARRAY - Lucca Vitters</title>
-	<meta name="description" content="RAYARRAY - kinetic light installation by Lucca Vitters" />
+	<title>RAYARRAY</title>
+	<meta name="description" content="RAYARRAY" />
 </svelte:head>
 
-<div class="font-consolas m-0 min-h-screen bg-black pb-5 text-base text-white">
-	<main class="mx-auto max-w-[950px] px-0 md:px-2">
-		<article class="px-0 md:px-2">
-			<div class="mb-5 flex items-center justify-center px-2 text-center md:px-0">
-				<div class="flex-1 text-center">
-					<h1 class="mb-0 py-1 text-center text-base font-normal">RAYARRAY</h1>
-					<div class="mt-1 text-sm text-white">
-						<time class="text-sm">2023</time>
-						<span> | kinetic light installation | Processing | Arduino</span>
-					</div>
+<main
+	class="font-consolas m-0 mx-auto min-h-screen max-w-[950px] bg-black px-0 pt-12 pb-5 text-white md:px-2"
+>
+	<article class="px-0 md:px-2">
+		<div class="mb-5 flex items-center justify-center px-2 text-center md:px-0">
+			<div class="flex-1 text-center">
+				<h1 class="mb-0 pb-1 text-center text-2xl font-normal">RAYARRAY</h1>
+				<div class="mt-1 text-sm text-white">
+					<time class="text-sm">2023</time>
+					<span> | kinetic light installation | Processing | Arduino</span>
 				</div>
 			</div>
+		</div>
 
-			<div>
-				<p class="mb-4 text-center">
-					in collaboration with <a
-						href="https://simonslang.de/"
-						class="bg-transparent text-white no-underline hover:text-red-500">Simon Lang</a
-					>
-				</p>
+		<div class="text-2xs">
+			<p class="mb-1 text-center">
+				in collaboration with <a
+					href="https://simonslang.de/"
+					class="text-white underline hover:text-red-500">Simon Lang</a
+				>
+			</p>
 
-				<p class="mb-4 text-center">
-					many thanks to <a
-						href="https://www.dennisppaul.de/"
-						class="bg-transparent text-white no-underline hover:text-red-500">Dennis Paul</a
-					>
-					and
-					<a
-						href="https://rlfbckr.io/"
-						class="bg-transparent text-white no-underline hover:text-red-500">Ralf Bäcker</a
-					> for the coding guidance
-				</p>
+			<p class="mb-1 text-center">
+				many thanks to <a
+					href="https://www.dennisppaul.de/"
+					class="text-white underline hover:text-red-500">Dennis Paul</a
+				>
+				and
+				<a href="https://rlfbckr.io/" class=" text-white underline hover:text-red-500"
+					>Ralf Bäcker</a
+				> for the coding guidance
+			</p>
 
-				<p class="mb-4 text-center">
-					enter <a
-						href="https://github.com/lvitters/RAYARRAY"
-						class="bg-transparent text-white no-underline hover:text-red-500"
-						>RAYARRAY github page</a
-					> for more details
-				</p>
+			<p class="mb-1 text-center">
+				enter <a
+					href="https://github.com/lvitters/RAYARRAY"
+					class="text-white underline hover:text-red-500">RAYARRAY github page</a
+				> for more details
+			</p>
 
-				<p class="mb-4 text-center">
-					photos by <a
-						href="https://benschl.com/"
-						class="bg-transparent text-white no-underline hover:text-red-500">Benjamin Schlemmer</a
-					>
-				</p>
+			<p class="pb-2 text-center">
+				photos by <a href="https://benschl.com/" class="text-white underline hover:text-red-500"
+					>Benjamin Schlemmer</a
+				>
+			</p>
 
-				<div class="my-4"></div>
+			<div class="my-4"></div>
 
-				<p class="mb-4">
-					RAYARRAY is a modular kinetic light installation that reflects emergent collective agency
-					by exploring generative choreographies.
-				</p>
+			<p class="mb-4">
+				RAYARRAY is a modular kinetic light installation that reflects emergent collective agency by
+				exploring generative choreographies.
+			</p>
 
-				<div class="my-4"></div>
+			<div class="my-4"></div>
 
-				<figure class="m-0 p-0">
-					<img
-						src="/media/rayarray/rayarray_3.jpg"
-						alt="RAYARRAY installation"
-						class="block w-full"
-					/>
-				</figure>
+			<figure class="m-0 p-0">
+				<img src="/media/rayarray/rayarray_3.jpg" alt="RAYARRAY" class="block w-full" />
+			</figure>
 
-				<div class="my-4"></div>
+			<div class="my-4"></div>
 
-				<p class="mb-4">
-					RAYARRAY consists of an ARRAY of nodes that carry either a rotating mirror or a laser
-					diode emitting a RAY. The rotation of the mirrors creates an emergent light sculpture that
-					is continually generated through a range of behaviors in which the nodes act together or
-					individually.
-				</p>
+			<p class="mb-4">
+				RAYARRAY consists of an ARRAY of nodes that carry either a rotating mirror or a laser diode
+				emitting a RAY. The rotation of the mirrors creates an emergent light sculpture that is
+				continually generated through a range of behaviors in which the nodes act together or
+				individually.
+			</p>
 
-				<div class="my-4"></div>
+			<div class="my-4"></div>
 
-				<figure class="m-0 p-0">
-					<img src="/media/rayarray/rayarray_4.jpg" alt="RAYARRAY detail" class="block w-full" />
-				</figure>
+			<figure class="m-0 p-0">
+				<img src="/media/rayarray/rayarray_4.jpg" alt="RAYARRAY" class="block w-full" />
+			</figure>
 
-				<div class="my-4"></div>
+			<div class="my-4"></div>
 
-				<figure class="m-0 p-0">
-					<img
-						src="/media/rayarray/rayarray_2.jpg"
-						alt="RAYARRAY components"
-						class="block w-full"
-					/>
-				</figure>
+			<figure class="m-0 p-0">
+				<img src="/media/rayarray/rayarray_2.jpg" alt="RAYARRAY" class="block w-full" />
+			</figure>
 
-				<div class="my-4"></div>
+			<div class="my-4"></div>
 
-				<figure class="m-0 p-0">
-					<img
-						src={cyclingImages[cyclingImagesIndex]}
-						alt="RAYARRAY preview"
-						class="block w-full"
-					/>
-				</figure>
+			<figure class="m-0 p-0">
+				<img src={cyclingImages[cyclingImagesIndex]} alt="RAYARRAY" class="block w-full" />
+			</figure>
 
-				<div class="my-4"></div>
-			</div>
-		</article>
-	</main>
-</div>
+			<div class="my-4"></div>
+		</div>
+	</article>
+</main>

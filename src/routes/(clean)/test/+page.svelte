@@ -1,5 +1,5 @@
 <script>
-	import RayArray from '$lib/components/RayArray.svelte';
+	import Untiled from '$lib/components/Untiled.svelte';
 </script>
 
-<RayArray />
+<Untiled />
