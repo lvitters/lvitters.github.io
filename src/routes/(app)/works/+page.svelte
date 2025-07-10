@@ -69,16 +69,17 @@
 	<script src="/sketches/untiled/untiled_preview.js"></script>
 </svelte:head>
 
-<main class="font-consolas relative flex h-screen w-full overflow-hidden text-[10px]">
+<main class="font-consolas relative flex h-screen w-full text-[10px]">
 	<!-- wrap content in a transition container -->
 	<div
-		class="flex h-full overflow-hidden transition-all duration-700 ease-out {pageVisible
+		class="flex h-full transition-all duration-700 ease-out {pageVisible
 			? 'translate-y-0 opacity-100'
 			: 'translate-y-4 opacity-0'}"
 	>
 		<!-- left 1/3 -->
 		<section
-			class="scrollable-section overflow-fix relative z-20 h-full w-1/3 overflow-y-auto pt-20 pl-8 text-left"
+			class="scrollable-section overflow-fix relative z-20 h-full w-1/3 overflow-x-visible overflow-y-auto pt-20 pl-8 text-left"
+			style="width: calc(33.333% + 1rem);"
 		>
 			<!-- <div>RAUSCHEN (2025)</div>
 			<div>Radio Angrezi Archive (2025)</div> -->
@@ -277,6 +278,8 @@
 		/* hide scrollbar for WebKit browsers */
 		scrollbar-width: none; /* Firefox */
 		-ms-overflow-style: none; /* Internet Explorer 10+ */
+		margin-right: -1rem; /* typical scrollbar width */
+		padding-right: 1rem; /* restore padding to maintain content positioning */
 	}
 
 	.scrollable-section::-webkit-scrollbar {

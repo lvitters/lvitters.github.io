@@ -36,12 +36,7 @@
 		</div>
 
 		<div class="text-2xs">
-			<p class="mb-1 text-center">
-				in collaboration with <a
-					href="https://simonslang.de/"
-					class="text-white underline hover:text-red-500">Simon Lang</a
-				>
-			</p>
+			<p class="mb-1 text-center">in collaboration with Simon Lang</p>
 
 			<p class="mb-1 text-center">
 				many thanks to <a
