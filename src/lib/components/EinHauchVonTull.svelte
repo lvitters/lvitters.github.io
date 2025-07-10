@@ -5,7 +5,7 @@
 	<meta name="description" content="Ein Hauch Von Tüll" />
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-[rgb(0,40,0)] px-0 pt-12 pb-5 text-white">
+<main class="font-consolas m-0 min-h-screen bg-[rgb(0,40,0)] px-7 pt-12 pb-5 text-white">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
@@ -18,7 +18,7 @@
 		</div>
 
 		<div class="text-2xs">
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img
@@ -28,7 +28,7 @@
 				/>
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img
@@ -38,7 +38,7 @@
 				/>
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img
@@ -58,7 +58,7 @@
 				/>
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img
@@ -68,7 +68,7 @@
 				/>
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img
@@ -78,7 +78,7 @@
 				/>
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img
@@ -88,7 +88,7 @@
 				/>
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img
@@ -98,7 +98,7 @@
 				/>
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 		</div>
 	</article>
 </main>

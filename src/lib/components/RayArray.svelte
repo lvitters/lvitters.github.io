@@ -23,7 +23,7 @@
 	<meta name="description" content="RAYARRAY" />
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-black px-0 pt-12 pb-5 text-white">
+<main class="font-consolas m-0 min-h-screen bg-black px-7 pt-12 pb-5 text-white">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
@@ -62,20 +62,20 @@
 				>
 			</p>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<p class="mb-4">
 				RAYARRAY is a modular kinetic light installation that reflects emergent collective agency by
 				exploring generative choreographies.
 			</p>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img src="/media/rayarray/rayarray_3.jpg" alt="RAYARRAY" class="block w-full" />
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<p class="mb-4">
 				RAYARRAY consists of an ARRAY of nodes that carry either a rotating mirror or a laser diode
@@ -84,25 +84,25 @@
 				individually.
 			</p>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img src="/media/rayarray/rayarray_4.jpg" alt="RAYARRAY" class="block w-full" />
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img src="/media/rayarray/rayarray_2.jpg" alt="RAYARRAY" class="block w-full" />
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<figure class="m-0 p-0">
 				<img src={cyclingImages[cyclingImagesIndex]} alt="RAYARRAY" class="block w-full" />
 			</figure>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 		</div>
 	</article>
 </main>

@@ -138,7 +138,7 @@
 				onkeydown={(e) =>
 					e.key === 'Enter' || e.key === ' ' ? scrollToSection('untiled-section') : null}
 			>
-				<div id="untiled_preview_container" class="w-full" style="height: 100px;"></div>
+				<div id="untiled_preview_container" class="w-full" style="height: 90px;"></div>
 				<div>untiled (2022)</div>
 			</div>
 			<div
@@ -223,7 +223,7 @@
 		</section>
 
 		<!-- right 2/3 -->
-		<section class="relative z-10 h-full w-2/3 overflow-y-auto pl-13 text-left">
+		<section class="relative z-10 h-full w-2/3 overflow-y-auto pl-10 text-left">
 			<!-- <div>RAUSCHEN (2025)</div>
 
 			<div>Radio Angrezi Archive (2025)</div> -->

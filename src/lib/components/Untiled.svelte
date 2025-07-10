@@ -24,7 +24,7 @@
 	<script src="/sketches/untiled/untiled_full.js"></script>
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-white px-0 pt-12 pb-5 text-black">
+<main class="font-consolas m-0 min-h-screen bg-white px-7 pt-12 pb-5 text-black">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
@@ -43,7 +43,7 @@
 				changing simple geometric tiles.
 			</p>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<p class="mb-4">
 				"Now, I was sitting at my desk at home, observing on screen your work as it was developing
@@ -58,7 +58,7 @@
 				>
 			</p>
 
-			<div class="my-4"></div>
+			<div class="my-5"></div>
 
 			<div id="untiled-full-container" class="w-full"></div>
 		</div>
