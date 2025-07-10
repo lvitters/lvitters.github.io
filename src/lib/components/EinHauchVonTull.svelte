@@ -1,21 +1,4 @@
 <script>
-	let cyclingImagesIndex = $state(0);
-
-	$effect(() => {
-		// cycle through images every 3 seconds
-		const imageInterval = setInterval(() => {
-			cyclingImagesIndex = (cyclingImagesIndex + 1) % 4; // 4 preview images for RAYARRAY
-		}, 3000);
-
-		return () => clearInterval(imageInterval);
-	});
-
-	const cyclingImages = [
-		'/media/einHauchVonTullv2/tull2_10.jpg',
-		'/media/einHauchVonTullv2/tull2_11.jpg',
-		'/media/einHauchVonTullv2/tull2_12.jpg',
-		'/media/einHauchVonTullv2/tull2_13.jpg'
-	];
 </script>
 
 <svelte:head>
