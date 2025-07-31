@@ -28,7 +28,7 @@
 
 			<div class="my-5"></div>
 
-			<figure class="m-0 p-10">
+			<figure class="m-20 p-10">
 				<a href="/rooms">
 					<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
 				</a>

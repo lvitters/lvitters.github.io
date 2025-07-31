@@ -41,6 +41,9 @@
 		var sketch = function (p) {
 			p.disableFriendlyErrors = true;
 
+			// reference to the canvas element for styling
+			let canvasElement;
+
 			// custom camera controls
 			let camera = {
 				// camera position and orientation
@@ -72,10 +75,8 @@
 				wiggle: {
 					active: true,
 					startTime: 0,
-					duration: 6000, // 6 seconds
-					intensity: 0.008, // strong enough to see
-					returnToOrigin: false,
-					returnDuration: 2000 // 2 seconds to return
+					duration: 5000,
+					intensity: 0.2
 				}
 			};
 
@@ -151,6 +152,10 @@
 				let cnv = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
 				cnv.parent('rooms-sketch-container');
 				cnv.id('canvas');
+
+				// get canvas element for direct styling
+				canvasElement = document.getElementById('canvas');
+
 				p.frameRate(30);
 				p.colorMode(p.HSB, 360, 100, 100);
 
@@ -316,7 +321,6 @@
 					// mark that user has interacted with camera
 					camera.hasBeenMoved = true;
 					camera.wiggle.active = false; // stop wiggle immediately when user takes control
-					camera.wiggle.returnToOrigin = false; // stop return animation too
 
 					let deltaX = (p.mouseX - camera.lastMouseX) * camera.sensitivity;
 					let deltaY = (p.mouseY - camera.lastMouseY) * camera.sensitivity;
@@ -335,7 +339,6 @@
 				// mark that user has interacted with camera
 				camera.hasBeenMoved = true;
 				camera.wiggle.active = false; // stop wiggle when user zooms
-				camera.wiggle.returnToOrigin = false; // stop return animation too
 
 				// ultra-fine steps for barely noticeable zoom increments
 				camera.velocity.distance += event.delta * 0.2;
@@ -369,6 +372,15 @@
 					p.mouseX <= rightButton.x + rightButton.width &&
 					p.mouseY >= rightButton.y &&
 					p.mouseY <= rightButton.y + rightButton.height;
+
+				// --- MODIFIED: Use direct DOM manipulation for cursor style ---
+				if (canvasElement) {
+					if (leftButton.hovered || rightButton.hovered) {
+						canvasElement.style.cursor = 'pointer';
+					} else {
+						canvasElement.style.cursor = 'default';
+					}
+				}
 			}
 
 			function drawButtons() {
@@ -418,60 +430,29 @@
 					let elapsed = p.millis() - camera.wiggle.startTime;
 
 					if (elapsed < camera.wiggle.duration) {
-						// create wiggle motion
+						// Progress (0 to 1) and an envelope that smoothly goes 0 -> 1 -> 0
 						let progress = elapsed / camera.wiggle.duration;
-						let fadeOut = 1 - progress * progress;
+						let envelope = Math.sin(progress * p.PI);
 
-						let wiggleX = Math.sin(elapsed * 0.002) * camera.wiggle.intensity * fadeOut;
-						let wiggleY = Math.cos(elapsed * 0.0015) * camera.wiggle.intensity * 0.6 * fadeOut;
+						// Calculate wiggle angles based on time and the envelope
+						let wiggleX = Math.sin(elapsed * 0.002) * camera.wiggle.intensity * envelope;
+						let wiggleY = Math.cos(elapsed * 0.0015) * camera.wiggle.intensity * 0.6 * envelope;
 
-						// apply wiggle directly to camera rotation
-						rotateCamera(wiggleX, wiggleY);
-					} else {
-						// start return to origin
-						camera.wiggle.active = false;
-						camera.wiggle.returnToOrigin = true;
-						camera.wiggle.returnStartTime = p.millis();
-					}
-				}
-
-				// handle return to original position
-				if (camera.wiggle.returnToOrigin && !camera.hasBeenMoved) {
-					let elapsed = p.millis() - camera.wiggle.returnStartTime;
-
-					if (elapsed < camera.wiggle.returnDuration) {
-						// smoothly interpolate back to original position
-						let progress = elapsed / camera.wiggle.returnDuration;
-						let easeProgress = 0.5 * (1 - Math.cos(progress * p.PI)); // smooth ease in/out
-
-						camera.position.x = p.lerp(
-							camera.position.x,
-							camera.initialPosition.x,
-							easeProgress * 0.1
-						);
-						camera.position.y = p.lerp(
-							camera.position.y,
-							camera.initialPosition.y,
-							easeProgress * 0.1
-						);
-						camera.position.z = p.lerp(
-							camera.position.z,
-							camera.initialPosition.z,
-							easeProgress * 0.1
-						);
-
-						camera.up.x = p.lerp(camera.up.x, camera.initialUp.x, easeProgress * 0.1);
-						camera.up.y = p.lerp(camera.up.y, camera.initialUp.y, easeProgress * 0.1);
-						camera.up.z = p.lerp(camera.up.z, camera.initialUp.z, easeProgress * 0.1);
-					} else {
-						// snap to exact original position and stop
+						// Reset to initial state each frame to prevent drift
 						camera.position = { ...camera.initialPosition };
 						camera.up = { ...camera.initialUp };
-						camera.wiggle.returnToOrigin = false;
+
+						// Apply the temporary wiggle rotation
+						rotateCamera(wiggleX, wiggleY);
+					} else {
+						// Animation finished, snap to the exact start and deactivate
+						camera.wiggle.active = false;
+						camera.position = { ...camera.initialPosition };
+						camera.up = { ...camera.initialUp };
 					}
 				}
 
-				// apply damping to velocities
+				// apply damping to velocities for user mouse input
 				camera.velocity.x *= camera.damping;
 				camera.velocity.y *= camera.damping;
 				camera.velocity.distance *= 0.85;
@@ -485,8 +466,8 @@
 				camera.distance += camera.velocity.distance;
 				camera.distance = p.constrain(camera.distance, camera.minDistance, camera.maxDistance);
 
-				// update position based on distance (only if not returning to origin)
-				if (!camera.wiggle.returnToOrigin) {
+				// update position based on distance (unless wiggle is happening)
+				if (!camera.wiggle.active) {
 					let dir = normalizeVector(subtractVectors(camera.position, camera.target));
 					camera.position = addVectors(camera.target, scaleVector(dir, camera.distance));
 				}
