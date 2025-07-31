@@ -5,6 +5,7 @@
 	import Untiled from '$lib/components/Untiled.svelte';
 	import EinHauchVonTull from '$lib/components/EinHauchVonTull.svelte';
 	import Rooms from '$lib/components/Rooms.svelte';
+	import Blob from '$lib/components/Blob.svelte';
 
 	// for untiled_preview
 	import { browser } from '$app/environment';
@@ -273,7 +274,7 @@
 			</div>
 
 			<div id="blob-section">
-				<div>blob (2020)</div>
+				<Blob />
 			</div>
 
 			<div id="break-the-pattern-section">

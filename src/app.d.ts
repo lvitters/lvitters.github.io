@@ -10,6 +10,8 @@ declare global {
 	}
 
 	interface Window {
+		cleanupBlobSketch?: () => void;
+		blobSketchInitialized?: boolean;
 		cleanupUntiledFullSketch?: () => void;
 		untiledFullSketchInitialized?: boolean;
 		cleanupUntiledPreviewSketch?: () => void;

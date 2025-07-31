@@ -3,8 +3,6 @@
 
 <svelte:head>
 	<meta name="description" content="rooms" />
-	<script src="/../libs/p5_v1.4.0.min.js"></script>
-	<script src="/sketches/untiled/untiled_full.js"></script>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-white px-7 pt-12 pb-5 text-black">
@@ -28,7 +26,7 @@
 
 			<div class="my-5"></div>
 
-			<figure class="m-20 p-10">
+			<figure class="mx-30 my-10">
 				<a href="/rooms">
 					<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
 				</a>

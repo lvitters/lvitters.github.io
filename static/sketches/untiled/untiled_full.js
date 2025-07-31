@@ -100,10 +100,10 @@
 			p.setup = function () {
 				//get width of parent for sizing the sketch
 				var container = document.getElementById('untiled-full-container');
-				var parentWidth = container.clientWidth;
+				var containerWidth = container.clientWidth;
 				var containerHeight = container.offsetHeight;
 
-				var cnv = p.createCanvas(parentWidth, parentWidth); //limit for performance
+				var cnv = p.createCanvas(containerWidth, containerWidth); //limit for performance
 				cnv.parent('untiled-full-container'); //for positioning with css
 				cnv.id('canvas');
 				cnv.style('z-index', '-1');

@@ -100,10 +100,10 @@
 			p.setup = function () {
 				//get width of parent for sizing the sketch
 				var container = document.getElementById('untiled_preview_container');
-				var parentWidth = container.clientWidth;
+				var containerWidth = container.clientWidth;
 				var containerHeight = container.offsetHeight;
 
-				var cnv = p.createCanvas(parentWidth, containerHeight); //limit for performance
+				var cnv = p.createCanvas(containerWidth, containerHeight); //limit for performance
 				cnv.parent('untiled_preview_container'); //for positioning with css
 				cnv.id('canvas');
 				cnv.style('z-index', '-1');

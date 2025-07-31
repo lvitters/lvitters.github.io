@@ -13,6 +13,6 @@
 
 	<!-- right 2/3 -->
 	<section class="h-full w-2/3">
-		<div id="sketch-container" class="h-full w-full"></div>
+		<div id="blob-container" class="h-full w-full"></div>
 	</section>
 </main>
