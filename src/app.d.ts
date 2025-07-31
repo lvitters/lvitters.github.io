@@ -10,7 +10,12 @@ declare global {
 	}
 
 	interface Window {
-		p5: any;
+		cleanupUntiledFullSketch?: () => void;
+		untiledFullSketchInitialized?: boolean;
+		cleanupUntiledPreviewSketch?: () => void;
+		untiledPreviewSketchInitialized?: boolean;
+		cleanupRoomsSketch?: () => void;
+		roomsSketchInitialized?: boolean;
 	}
 }
 

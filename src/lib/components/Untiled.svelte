@@ -1,21 +1,17 @@
-<script>
-	let cyclingImagesIndex = $state(0);
+<script lang="ts">
+	import { browser } from '$app/environment';
+	import { onDestroy } from 'svelte';
+	import { beforeNavigate } from '$app/navigation';
 
-	$effect(() => {
-		// cycle through images every 3 seconds
-		const imageInterval = setInterval(() => {
-			cyclingImagesIndex = (cyclingImagesIndex + 1) % 4; // 4 preview images for RAYARRAY
-		}, 3000);
+	const cleanup = () => {
+		if (browser && window.cleanupUntiledFullSketch) {
+			window.cleanupUntiledFullSketch();
+			delete window.cleanupUntiledFullSketch;
+		}
+	};
 
-		return () => clearInterval(imageInterval);
-	});
-
-	const cyclingImages = [
-		'/media/einHauchVonTullv2/tull2_10.jpg',
-		'/media/einHauchVonTullv2/tull2_11.jpg',
-		'/media/einHauchVonTullv2/tull2_12.jpg',
-		'/media/einHauchVonTullv2/tull2_13.jpg'
-	];
+	beforeNavigate(cleanup);
+	onDestroy(cleanup);
 </script>
 
 <svelte:head>
@@ -61,6 +57,8 @@
 			<div class="my-5"></div>
 
 			<div id="untiled-full-container" class="w-full"></div>
+
+			<div class="my-5"></div>
 		</div>
 	</article>
 </main>

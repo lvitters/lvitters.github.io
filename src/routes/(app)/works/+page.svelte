@@ -4,6 +4,12 @@
 	import EinHauchVonTullv2 from '$lib/components/EinHauchVonTullv2.svelte';
 	import Untiled from '$lib/components/Untiled.svelte';
 	import EinHauchVonTull from '$lib/components/EinHauchVonTull.svelte';
+	import Rooms from '$lib/components/Rooms.svelte';
+
+	// for untiled_preview
+	import { browser } from '$app/environment';
+	import { onDestroy } from 'svelte';
+	import { beforeNavigate } from '$app/navigation';
 
 	let pageVisible = $state(false);
 	let currentRayarrayImageIndex = $state(0);
@@ -20,8 +26,9 @@
 			currentRayarrayImageIndex = (currentRayarrayImageIndex + 1) % 5; // 5 preview images for RAYARRAY
 		}, 3000);
 
+		// cycle through images every 3 seconds
 		const tullInterval = setInterval(() => {
-			currentTullImageIndex = (currentTullImageIndex + 1) % 4; // 5 preview images for RAYARRAY
+			currentTullImageIndex = (currentTullImageIndex + 1) % 4; // 4 preview images for EinHauchVonTüll
 		}, 3000);
 
 		return () => {
@@ -61,6 +68,17 @@
 			});
 		}
 	}
+
+	// for untiled_preview
+	const cleanup = () => {
+		if (browser && window.cleanupUntiledPreviewSketch) {
+			window.cleanupUntiledPreviewSketch();
+			delete window.cleanupUntiledPreviewSketch;
+		}
+	};
+
+	beforeNavigate(cleanup);
+	onDestroy(cleanup);
 </script>
 
 <svelte:head>
@@ -251,7 +269,7 @@
 			</div>
 
 			<div id="available-rooms-section">
-				<div>available.rooms (2021)</div>
+				<Rooms />
 			</div>
 
 			<div id="blob-section">

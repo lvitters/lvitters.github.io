@@ -1,0 +1,659 @@
+(function () {
+	// store the p5 instance for cleanup
+	let p5Instance = null;
+
+	// cleanup function
+	function cleanupSketch() {
+		if (p5Instance && p5Instance.remove) {
+			p5Instance.remove();
+			p5Instance = null;
+		}
+
+		// clean the container
+		var container = document.getElementById('rooms-sketch-container');
+		if (container) {
+			var canvas = container.querySelector('canvas');
+			if (canvas) {
+				canvas.remove();
+			}
+		}
+	}
+
+	// register cleanup handlers
+	function registerCleanup() {
+		// store cleanup function globally so SvelteKit can access it
+		window.cleanupRoomsSketch = cleanupSketch;
+
+		// also handle browser navigation
+		window.addEventListener('beforeunload', cleanupSketch);
+		window.addEventListener('pagehide', cleanupSketch);
+	}
+
+	// prevent multiple sketches, but allow reinit if container is empty
+	var container = document.getElementById('rooms-sketch-container');
+	if (
+		typeof window.roomsSketchInitialized === 'undefined' ||
+		(container && !container.querySelector('canvas'))
+	) {
+		window.roomsSketchInitialized = true;
+
+		// use instance mode to prevent multiple instances of functions to be running
+		var sketch = function (p) {
+			p.disableFriendlyErrors = true;
+
+			// custom camera controls
+			let camera = {
+				// camera position and orientation
+				distance: 2500,
+				position: { x: 0, y: 0, z: 2500 }, // start facing front
+
+				// target point to orbit around
+				target: { x: 0, y: 0, z: 0 },
+
+				// up vector for camera orientation
+				up: { x: 0, y: 1, z: 0 },
+
+				// mouse interaction
+				isDragging: false,
+				lastMouseX: 0,
+				lastMouseY: 0,
+				hasBeenMoved: false, // track if user has moved camera
+
+				// smooth movement
+				velocity: { x: 0, y: 0, distance: 0 },
+				damping: 0.85,
+				sensitivity: 0.003,
+
+				// zoom
+				minDistance: 800,
+				maxDistance: 4000,
+
+				// wiggle animation
+				wiggle: {
+					active: true,
+					startTime: 0,
+					duration: 6000, // 6 seconds
+					intensity: 0.008, // strong enough to see
+					returnToOrigin: false,
+					returnDuration: 2000 // 2 seconds to return
+				}
+			};
+
+			// buttons (now drawn on canvas)
+			let leftButton = {
+				x: 0,
+				y: 0,
+				width: 80,
+				height: 50,
+				visible: true,
+				hovered: false,
+				text: '<'
+			};
+			let rightButton = {
+				x: 0,
+				y: 0,
+				width: 80,
+				height: 50,
+				visible: true,
+				hovered: false,
+				text: '>'
+			};
+
+			// array for shapes
+			let shapes = [];
+
+			// array for cities
+			let cities = [
+				'Berlin',
+				'Hamburg',
+				'Munchen',
+				'Koln',
+				'Frankfurt-am-Main',
+				'Stuttgart',
+				'Dusseldorf',
+				'Dortmund',
+				'Essen',
+				'Leipzig',
+				'Bremen'
+			];
+			let cityJSONs = [];
+			let cityIndex = 0;
+
+			// displayed info
+			let cityName;
+			let lastModified = '07.04.21';
+
+			// text
+			let font;
+
+			// json data
+			let rooms = {};
+			let numberOfRooms;
+
+			// grid
+			let cellSize = 5;
+			let rows;
+			let sideLength;
+			let scale = 10;
+
+			p.preload = function () {
+				// load JSONs
+				for (let i = 0; i < 11; i++) {
+					cityJSONs[i] = p.loadJSON('/sketches/rooms/assets/' + cities[i] + '.json');
+				}
+
+				// font
+				font = p.loadFont('/sketches/rooms/assets/Inconsolata-Regular.ttf');
+			};
+
+			p.setup = function () {
+				// general settings
+				let cnv = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+				cnv.parent('rooms-sketch-container');
+				cnv.id('canvas');
+				p.frameRate(30);
+				p.colorMode(p.HSB, 360, 100, 100);
+
+				setCity(0);
+
+				// initialize wiggle start time and store initial camera state
+				camera.wiggle.startTime = p.millis();
+				camera.initialPosition = { ...camera.position };
+				camera.initialUp = { ...camera.up };
+			};
+
+			p.draw = function () {
+				p.background(255);
+				p.smooth(4);
+
+				// update camera with smooth movement
+				updateCamera();
+
+				// apply camera transform
+				applyCameraTransform();
+
+				// recenter grid in canvas
+				p.translate((-sideLength / 2) * scale, (-sideLength / 2) * scale);
+
+				drawShapes();
+				drawName();
+
+				// reset camera transform for UI elements
+				p.camera();
+				p.resetMatrix();
+
+				// draw UI buttons on top
+				drawButtons();
+			};
+
+			// calculate grid according to number of rooms in JSON
+			function calcGrid() {
+				// get number of rooms from number of json objects in file
+				numberOfRooms = Object.keys(rooms).length;
+				// get number of rows (same as columns because grid is square)
+				rows = p.floor(p.sqrt(numberOfRooms));
+				// calc length of entire grid's side for centering to sketch
+				sideLength = rows * cellSize;
+			}
+
+			// for every object in rooms add a Shape to shapes according to grid
+			function pushShapes() {
+				shapes = [];
+				for (let i = 0; i < rows; i++) {
+					for (var j = 0; j < rows; j++) {
+						let index = j * rows + i;
+						if (rooms[index]) {
+							// safety check
+							let roomSize = rooms[index].size;
+							let roomPrice = rooms[index].price;
+							shapes.push(new Shape(roomSize, roomPrice, i * cellSize, j * cellSize));
+						}
+					}
+				}
+			}
+
+			// set current city name and rooms array
+			function setCity(i) {
+				// set cityIndex
+				if (cityIndex >= 0 && cities.length - 1 >= cityIndex) {
+					cityIndex = cityIndex + i;
+				}
+
+				// keep between 0 and 10
+				if (cityIndex <= 0) {
+					cityIndex = 0;
+				} else if (cityIndex >= cities.length - 1) {
+					cityIndex = cities.length - 1;
+				}
+
+				cityName = cities[cityIndex];
+				rooms = cityJSONs[cityIndex];
+
+				calcGrid();
+				pushShapes();
+			}
+
+			// display all shapes in shapes[]
+			function drawShapes() {
+				for (var i = 0; i < shapes.length; i++) {
+					var shape = shapes[i];
+					shape.display(i);
+				}
+			}
+
+			// draw infos next to grid
+			function drawName() {
+				p.textFont(font);
+				p.textStyle(p.BOLD);
+
+				// city name
+				p.textSize(sideLength * 0.7);
+				p.textAlign(p.LEFT, p.BOTTOM);
+				p.fill(0);
+				p.text(cityName + '.rooms', 0, -sideLength * 0.25);
+
+				// last modified
+				p.rotateZ((3 / 2) * p.PI);
+				p.textAlign(p.RIGHT);
+				p.textSize(sideLength * 0.5);
+				p.text(lastModified, 0, -sideLength * 0.25);
+
+				// number of rooms
+				p.rotateZ((1 / 2) * p.PI);
+				p.textAlign(p.RIGHT);
+				p.textSize(sideLength);
+				p.text(rows * rows, sideLength * scale, sideLength * scale + sideLength);
+			}
+
+			// called when window is resized
+			p.windowResized = function () {
+				p.resizeCanvas(p.windowWidth, p.windowHeight);
+			};
+
+			// helper functions because button callback's can't have parameters
+			function goLeft() {
+				setCity(-1);
+			}
+			function goRight() {
+				setCity(1);
+			}
+
+			// switch cities with arrow keys
+			p.keyPressed = function () {
+				if (p.keyCode == p.RIGHT_ARROW) {
+					goRight();
+				} else if (p.keyCode == p.LEFT_ARROW) {
+					goLeft();
+				}
+			};
+
+			// mouse interaction for camera control
+			p.mousePressed = function () {
+				// check button clicks first
+				if (leftButton.visible && leftButton.hovered) {
+					goLeft();
+					return;
+				}
+				if (rightButton.visible && rightButton.hovered) {
+					goRight();
+					return;
+				}
+
+				// camera controls
+				if (p.mouseX >= 0 && p.mouseX <= p.width && p.mouseY >= 0 && p.mouseY <= p.height) {
+					camera.isDragging = true;
+					camera.lastMouseX = p.mouseX;
+					camera.lastMouseY = p.mouseY;
+				}
+			};
+
+			p.mouseReleased = function () {
+				camera.isDragging = false;
+			};
+
+			p.mouseDragged = function () {
+				if (camera.isDragging) {
+					// mark that user has interacted with camera
+					camera.hasBeenMoved = true;
+					camera.wiggle.active = false; // stop wiggle immediately when user takes control
+					camera.wiggle.returnToOrigin = false; // stop return animation too
+
+					let deltaX = (p.mouseX - camera.lastMouseX) * camera.sensitivity;
+					let deltaY = (p.mouseY - camera.lastMouseY) * camera.sensitivity;
+
+					// add to velocity for smooth trackball rotation
+					camera.velocity.x -= deltaX; // horizontal rotation (inverted)
+					camera.velocity.y += deltaY; // vertical rotation
+
+					camera.lastMouseX = p.mouseX;
+					camera.lastMouseY = p.mouseY;
+				}
+			};
+
+			// mouse wheel for zooming
+			p.mouseWheel = function (event) {
+				// mark that user has interacted with camera
+				camera.hasBeenMoved = true;
+				camera.wiggle.active = false; // stop wiggle when user zooms
+				camera.wiggle.returnToOrigin = false; // stop return animation too
+
+				// ultra-fine steps for barely noticeable zoom increments
+				camera.velocity.distance += event.delta * 0.2;
+				return false; // prevent page scrolling
+			};
+
+			// set up button positions and visibility
+			function updateButtons() {
+				// position buttons
+				leftButton.x = p.windowWidth / 8 - leftButton.width;
+				leftButton.y = p.windowHeight / 2 - leftButton.height / 2;
+
+				rightButton.x = (p.windowWidth / 8) * 7 - rightButton.width;
+				rightButton.y = p.windowHeight / 2 - rightButton.height / 2;
+
+				// update visibility
+				leftButton.visible = cityIndex > 0;
+				rightButton.visible = cityIndex < cities.length - 1;
+
+				// check hover states
+				leftButton.hovered =
+					leftButton.visible &&
+					p.mouseX >= leftButton.x &&
+					p.mouseX <= leftButton.x + leftButton.width &&
+					p.mouseY >= leftButton.y &&
+					p.mouseY <= leftButton.y + leftButton.height;
+
+				rightButton.hovered =
+					rightButton.visible &&
+					p.mouseX >= rightButton.x &&
+					p.mouseX <= rightButton.x + rightButton.width &&
+					p.mouseY >= rightButton.y &&
+					p.mouseY <= rightButton.y + rightButton.height;
+			}
+
+			function drawButtons() {
+				updateButtons();
+
+				// switch to 2D mode for UI
+				p.push();
+				p.resetMatrix();
+				p.ortho(-p.width / 2, p.width / 2, -p.height / 2, p.height / 2, 0, 1000);
+
+				// translate to screen coordinates
+				p.translate(-p.width / 2, -p.height / 2);
+
+				// set text properties
+				p.textAlign(p.CENTER, p.CENTER);
+				if (font) p.textFont(font);
+				p.textSize(32); // larger size for prominence
+
+				// draw left button
+				if (leftButton.visible) {
+					drawButton(leftButton);
+				}
+
+				// draw right button
+				if (rightButton.visible) {
+					drawButton(rightButton);
+				}
+
+				p.pop();
+			}
+
+			function drawButton(button) {
+				// just draw the text symbol - no background or border
+				if (button.hovered) {
+					p.fill(240, 100, 100); // blue on hover
+				} else {
+					p.fill(0, 0, 0); // black normally
+				}
+
+				p.noStroke();
+				p.text(button.text, button.x + button.width / 2, button.y + button.height / 2);
+			}
+
+			function updateCamera() {
+				// Handle initial wiggle animation
+				if (camera.wiggle.active && !camera.hasBeenMoved) {
+					let elapsed = p.millis() - camera.wiggle.startTime;
+
+					if (elapsed < camera.wiggle.duration) {
+						// create wiggle motion
+						let progress = elapsed / camera.wiggle.duration;
+						let fadeOut = 1 - progress * progress;
+
+						let wiggleX = Math.sin(elapsed * 0.002) * camera.wiggle.intensity * fadeOut;
+						let wiggleY = Math.cos(elapsed * 0.0015) * camera.wiggle.intensity * 0.6 * fadeOut;
+
+						// apply wiggle directly to camera rotation
+						rotateCamera(wiggleX, wiggleY);
+					} else {
+						// start return to origin
+						camera.wiggle.active = false;
+						camera.wiggle.returnToOrigin = true;
+						camera.wiggle.returnStartTime = p.millis();
+					}
+				}
+
+				// handle return to original position
+				if (camera.wiggle.returnToOrigin && !camera.hasBeenMoved) {
+					let elapsed = p.millis() - camera.wiggle.returnStartTime;
+
+					if (elapsed < camera.wiggle.returnDuration) {
+						// smoothly interpolate back to original position
+						let progress = elapsed / camera.wiggle.returnDuration;
+						let easeProgress = 0.5 * (1 - Math.cos(progress * p.PI)); // smooth ease in/out
+
+						camera.position.x = p.lerp(
+							camera.position.x,
+							camera.initialPosition.x,
+							easeProgress * 0.1
+						);
+						camera.position.y = p.lerp(
+							camera.position.y,
+							camera.initialPosition.y,
+							easeProgress * 0.1
+						);
+						camera.position.z = p.lerp(
+							camera.position.z,
+							camera.initialPosition.z,
+							easeProgress * 0.1
+						);
+
+						camera.up.x = p.lerp(camera.up.x, camera.initialUp.x, easeProgress * 0.1);
+						camera.up.y = p.lerp(camera.up.y, camera.initialUp.y, easeProgress * 0.1);
+						camera.up.z = p.lerp(camera.up.z, camera.initialUp.z, easeProgress * 0.1);
+					} else {
+						// snap to exact original position and stop
+						camera.position = { ...camera.initialPosition };
+						camera.up = { ...camera.initialUp };
+						camera.wiggle.returnToOrigin = false;
+					}
+				}
+
+				// apply damping to velocities
+				camera.velocity.x *= camera.damping;
+				camera.velocity.y *= camera.damping;
+				camera.velocity.distance *= 0.85;
+
+				// apply rotation velocities using trackball rotation
+				if (Math.abs(camera.velocity.x) > 0.001 || Math.abs(camera.velocity.y) > 0.001) {
+					rotateCamera(camera.velocity.x, camera.velocity.y);
+				}
+
+				// update distance
+				camera.distance += camera.velocity.distance;
+				camera.distance = p.constrain(camera.distance, camera.minDistance, camera.maxDistance);
+
+				// update position based on distance (only if not returning to origin)
+				if (!camera.wiggle.returnToOrigin) {
+					let dir = normalizeVector(subtractVectors(camera.position, camera.target));
+					camera.position = addVectors(camera.target, scaleVector(dir, camera.distance));
+				}
+			}
+
+			function applyCameraTransform() {
+				p.camera(
+					camera.position.x,
+					camera.position.y,
+					camera.position.z, // camera position
+					camera.target.x,
+					camera.target.y,
+					camera.target.z, // look at target
+					camera.up.x,
+					camera.up.y,
+					camera.up.z // up vector
+				);
+			}
+
+			// camera rotation functions
+			function rotateCamera(deltaX, deltaY) {
+				// get camera direction and right vector
+				let forward = normalizeVector(subtractVectors(camera.target, camera.position));
+				let right = normalizeVector(crossProduct(forward, camera.up));
+				let up = normalizeVector(crossProduct(right, forward));
+
+				// create rotation around the right axis (vertical mouse movement)
+				if (Math.abs(deltaY) > 0.001) {
+					let angle = deltaY;
+					camera.position = rotatePointAroundAxis(camera.position, camera.target, right, angle);
+					camera.up = rotateVectorAroundAxis(camera.up, right, angle);
+				}
+
+				// create rotation around the up axis (horizontal mouse movement)
+				if (Math.abs(deltaX) > 0.001) {
+					let angle = deltaX;
+					camera.position = rotatePointAroundAxis(camera.position, camera.target, up, angle);
+				}
+
+				// update distance
+				camera.distance = distance3D(camera.position, camera.target);
+			}
+
+			// vector math helper functions
+			function addVectors(a, b) {
+				return { x: a.x + b.x, y: a.y + b.y, z: a.z + b.z };
+			}
+
+			function subtractVectors(a, b) {
+				return { x: a.x - b.x, y: a.y - b.y, z: a.z - b.z };
+			}
+
+			function scaleVector(v, s) {
+				return { x: v.x * s, y: v.y * s, z: v.z * s };
+			}
+
+			function normalizeVector(v) {
+				let len = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+				if (len === 0) return { x: 0, y: 1, z: 0 };
+				return { x: v.x / len, y: v.y / len, z: v.z / len };
+			}
+
+			function crossProduct(a, b) {
+				return {
+					x: a.y * b.z - a.z * b.y,
+					y: a.z * b.x - a.x * b.z,
+					z: a.x * b.y - a.y * b.x
+				};
+			}
+
+			function distance3D(a, b) {
+				let dx = a.x - b.x;
+				let dy = a.y - b.y;
+				let dz = a.z - b.z;
+				return Math.sqrt(dx * dx + dy * dy + dz * dz);
+			}
+
+			function rotatePointAroundAxis(point, center, axis, angle) {
+				// translate point to origin
+				let p = subtractVectors(point, center);
+
+				// rodrigues' rotation formula
+				let cosA = Math.cos(angle);
+				let sinA = Math.sin(angle);
+				let dotProduct = p.x * axis.x + p.y * axis.y + p.z * axis.z;
+
+				let result = {
+					x: p.x * cosA + (axis.y * p.z - axis.z * p.y) * sinA + axis.x * dotProduct * (1 - cosA),
+					y: p.y * cosA + (axis.z * p.x - axis.x * p.z) * sinA + axis.y * dotProduct * (1 - cosA),
+					z: p.z * cosA + (axis.x * p.y - axis.y * p.x) * sinA + axis.z * dotProduct * (1 - cosA)
+				};
+
+				// translate back
+				return addVectors(result, center);
+			}
+
+			function rotateVectorAroundAxis(vector, axis, angle) {
+				let cosA = Math.cos(angle);
+				let sinA = Math.sin(angle);
+				let dotProduct = vector.x * axis.x + vector.y * axis.y + vector.z * axis.z;
+
+				return {
+					x:
+						vector.x * cosA +
+						(axis.y * vector.z - axis.z * vector.y) * sinA +
+						axis.x * dotProduct * (1 - cosA),
+					y:
+						vector.y * cosA +
+						(axis.z * vector.x - axis.x * vector.z) * sinA +
+						axis.y * dotProduct * (1 - cosA),
+					z:
+						vector.z * cosA +
+						(axis.x * vector.y - axis.y * vector.x) * sinA +
+						axis.z * dotProduct * (1 - cosA)
+				};
+			}
+
+			// Shape class
+			class Shape {
+				constructor(size, price, xPos, yPos) {
+					// get price per m²
+					this.relativePrice = price / size;
+
+					// calc dimensions from size and price (in m²)
+					this.side = p.sqrt(size) * scale;
+					this.height = (this.relativePrice * scale) / 5;
+
+					// calc color
+					this.colorMap = p.map(this.relativePrice, 0, 35, 0, 360);
+					this.color = p.color(this.colorMap, 100, 100);
+
+					// position
+					this.xPos = xPos * scale;
+					this.yPos = yPos * scale;
+					this.zPos = this.height / 2;
+				}
+
+				// display a box for this room
+				display() {
+					p.strokeWeight(0);
+					p.fill(this.color);
+					p.push();
+					p.translate(this.xPos, this.yPos, this.zPos);
+					p.box(this.side, this.side, this.height);
+					p.pop();
+				}
+			}
+		};
+
+		// wait for container to exist before initializing sketch
+		function initSketch() {
+			var container = document.getElementById('rooms-sketch-container');
+			if (container) {
+				p5Instance = new p5(sketch, container);
+				registerCleanup(); // register cleanup after creating the instance
+			} else {
+				setTimeout(initSketch, 100);
+			}
+		}
+
+		initSketch();
+	} else {
+		// reset flag if container doesn't exist (we navigated away and back)
+		var container = document.getElementById('rooms-sketch-container');
+		if (!container) {
+			window.roomsSketchInitialized = undefined;
+			cleanupSketch(); // clean up if container doesn't exist
+		}
+	}
+})();
