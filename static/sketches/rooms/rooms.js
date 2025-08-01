@@ -17,24 +17,29 @@
 				canvas.remove();
 			}
 		}
+
+		// reset the initialization flag
+		window.roomsSketchInitialized = undefined;
+
+		// schedule reinitialization after cleanup
+		setTimeout(tryReinit, 100);
 	}
 
-	// register cleanup handlers
-	function registerCleanup() {
-		// store cleanup function globally so SvelteKit can access it
-		window.cleanupRoomsSketch = cleanupSketch;
-
-		// also handle browser navigation
-		window.addEventListener('beforeunload', cleanupSketch);
-		window.addEventListener('pagehide', cleanupSketch);
+	function tryReinit() {
+		var container = document.getElementById('rooms-sketch-container');
+		if (
+			container &&
+			!container.querySelector('canvas') &&
+			typeof window.blobSketchInitialized === 'undefined'
+		) {
+			initializeSketch();
+		}
 	}
 
-	// prevent multiple sketches, but allow reinit if container is empty
-	var container = document.getElementById('rooms-sketch-container');
-	if (
-		typeof window.roomsSketchInitialized === 'undefined' ||
-		(container && !container.querySelector('canvas'))
-	) {
+	// store cleanup function globally so SvelteKit can access it
+	window.cleanupRoomsSketch = cleanupSketch;
+
+	function initializeSketch() {
 		window.roomsSketchInitialized = true;
 
 		// use instance mode to prevent multiple instances of functions to be running
@@ -622,19 +627,23 @@
 			var container = document.getElementById('rooms-sketch-container');
 			if (container) {
 				p5Instance = new p5(sketch, container);
-				registerCleanup(); // register cleanup after creating the instance
 			} else {
 				setTimeout(initSketch, 100);
 			}
 		}
 
 		initSketch();
-	} else {
-		// reset flag if container doesn't exist (we navigated away and back)
-		var container = document.getElementById('rooms-sketch-container');
-		if (!container) {
-			window.roomsSketchInitialized = undefined;
-			cleanupSketch(); // clean up if container doesn't exist
-		}
+	}
+
+	// store cleanup function globally so SvelteKit can access it
+	window.cleanupBlobSketch = cleanupSketch;
+
+	// prevent multiple sketches, but allow reinit if container is empty
+	var container = document.getElementById('blob-container');
+	if (
+		typeof window.blobSketchInitialized === 'undefined' ||
+		(container && !container.querySelector('canvas'))
+	) {
+		initializeSketch();
 	}
 })();

@@ -1,4 +1,17 @@
-<script>
+<script lang="ts">
+	import { browser } from '$app/environment';
+	import { onDestroy } from 'svelte';
+	import { beforeNavigate } from '$app/navigation';
+
+	const cleanup = () => {
+		if (browser && window.cleanupRoomsSketch) {
+			window.cleanupRoomsSketch();
+			delete window.cleanupRoomsSketch;
+		}
+	};
+
+	beforeNavigate(cleanup);
+	onDestroy(cleanup);
 </script>
 
 <svelte:head>

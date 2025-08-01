@@ -1,30 +1,23 @@
 <script lang="ts">
 	let pageVisible = $state(false);
-	let hue1 = $state(Math.random() * 360); // first random hue
-	let hue2 = $state(Math.random() * 360); // second random hue
-	let rotationAngle = $state(0);
 
-	// create linear gradient that rotates around the screen edges
-	let backgroundGradient = $derived(
-		`linear-gradient(${rotationAngle}deg, hsl(${hue1}, 90%, 70%), hsl(${hue2}, 90%, 70%))`
-	);
-
+	// page transition effect
 	$effect(() => {
-		// small delay to ensure smooth transition
 		setTimeout(() => {
 			pageVisible = true;
 		}, 50);
 	});
 
-	// separate effect for rotation animation
-	$effect(() => {
-		const rotationInterval = setInterval(() => {
-			// rotate the gradient by 2 degrees every 50ms
-			rotationAngle = (rotationAngle + 2) % 360;
-		}, 50);
+	// dynamic color
+	let currentHue = $state(Math.random() * 360);
+	let color = $derived(`hsl(${currentHue}, 90%, 70%)`);
 
-		// cleanup interval on component destroy
-		return () => clearInterval(rotationInterval);
+	$effect(() => {
+		const interval = setInterval(() => {
+			currentHue = (currentHue + 1) % 360;
+		}, 100);
+
+		return () => clearInterval(interval);
 	});
 </script>
 
@@ -32,56 +25,66 @@
 	<meta name="description" content="About Lucca Vitters" />
 </svelte:head>
 
-<main
-	class="relative flex h-screen w-screen overflow-hidden text-[10px] transition-all duration-1000 ease-in-out"
-	style="background: {backgroundGradient}; opacity: {pageVisible ? 1 : 0};"
->
-	<!-- wrap content in a transition container -->
-	<div
-		class="flex h-full transition-all duration-700 ease-out {pageVisible
-			? 'translate-y-0 opacity-100'
-			: 'translate-y-4 opacity-0'}"
+<div>
+	<main
+		class="relative flex h-screen w-screen overflow-hidden text-[10px] transition-all duration-1000 ease-in-out"
+		style="background: {color}; opacity: {pageVisible ? 1 : 0};"
 	>
-		<!-- left 1/3 -->
-		<section class="left-column h-full bg-transparent"></section>
+		<!-- wrap content in a transition container -->
+		<div
+			class="flex h-full transition-all duration-700 ease-out {pageVisible
+				? 'translate-y-0 opacity-100'
+				: 'translate-y-4 opacity-0'}"
+		>
+			<!-- left 1/3 -->
+			<section class="left-column h-full"></section>
 
-		<!-- right 2/3 -->
-		<section class="right-column h-full overflow-y-auto bg-transparent">
-			<main
-				class="font-consolas m-0 min-h-screen border border-white/10 bg-white/10 px-7 pt-12 pb-5 text-black backdrop-blur-sm transition-all duration-700"
-			>
-				<article class="px-5">
-					<div class="text-2xs">
+			<!-- right 2/3 -->
+			<section class="right-column h-full overflow-y-auto">
+				<main
+					class="font-consolas m-0 min-h-screen bg-white px-7 pt-12 pb-5 text-black transition-all duration-700"
+				>
+					<article class="px-5">
+						<div class="mb-5 flex items-center justify-center text-center">
+							<div class="flex-1 text-center">
+								<div class="mt-1 text-sm">
+									<span>
+										<a
+											href="mailto:lucca.vitters@gmail.com"
+											class="dynamic-link underline"
+											style="color: {color}">lucca.vitters@gmail.com</a
+										>
+										|
+										<a
+											href="https://github.com/lvitters"
+											class="dynamic-link underline"
+											style="color: {color}">github.com/lvitters</a
+										>
+										|
+										<a
+											href="https://soundcloud.com/katze203"
+											class="dynamic-link underline"
+											style="color: {color}">SoundCloud</a
+										></span
+									>
+								</div>
+							</div>
+						</div>
+
 						<div class="my-5"></div>
+
+						<div class="mb-4"></div>
+
+						<div class="mb-4"></div>
+
+						<div class="mb-4"></div>
 
 						<p class="mb-4">
 							Hey! I am a generative media artist based in Bremen, Germany. My work involves
-							creating up possibility spaces and emergent choreographies through code. With my
+							creating possibility spaces and emergent choreographies through code. With my
 							background in computer science, I try to find ways of bringing my virtual entities to
 							screens, to the web, to real world surfaces, and to physical installations.
 						</p>
-
-						<div class="my-5"></div>
-
-						<div class="mb-4">
-							<a href="https://github.com/lvitters" class="text-black underline hover:text-blue-500"
-								>github.com/lvitters</a
-							>
-						</div>
-
-						<div class="mb-4">
-							<a
-								href="mailto:lucca.vitters@gmail.com"
-								class="text-black underline hover:text-blue-500">lucca.vitters@gmail.com</a
-							>
-						</div>
-
-						<div class="mb-4">
-							<a
-								href="https://soundcloud.com/katze203"
-								class="text-black underline hover:text-blue-500">SoundCloud</a
-							>
-						</div>
 
 						<div class="my-5"></div>
 
@@ -175,20 +178,28 @@
 						</table>
 
 						<div class="my-5"></div>
-					</div>
-				</article>
-			</main>
-		</section>
-	</div>
-</main>
+					</article>
+				</main>
+			</section>
+		</div>
+	</main>
+</div>
 
 <style>
-	/* left column */
 	.left-column {
 		width: calc(33.333% + 1rem);
 	}
 
 	.right-column {
 		width: calc(66.667% - 1rem);
+	}
+
+	.dynamic-link {
+		transition: color 0.15s ease; /* match the background timing */
+	}
+
+	.dynamic-link:hover {
+		color: black !important;
+		transition: color 0.15s ease;
 	}
 </style>

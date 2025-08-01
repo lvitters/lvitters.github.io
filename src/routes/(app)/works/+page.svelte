@@ -158,7 +158,7 @@
 				onkeydown={(e) =>
 					e.key === 'Enter' || e.key === ' ' ? scrollToSection('untiled-section') : null}
 			>
-				<div id="untiled_preview_container" class="w-full" style="height: 90px;"></div>
+				<div id="untiled-preview-container" class="w-full" style="height: 90px;"></div>
 				<div>untiled (2022)</div>
 			</div>
 			<div

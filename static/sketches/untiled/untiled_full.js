@@ -1,16 +1,15 @@
-// untiled_full.js - Revised for SvelteKit navigation support
 (function () {
-	// Store the p5 instance for cleanup
+	// store the p5 instance for cleanup
 	let p5Instance = null;
 
-	// Cleanup function
+	// cleanup function
 	function cleanupSketch() {
 		if (p5Instance && p5Instance.remove) {
 			p5Instance.remove();
 			p5Instance = null;
 		}
 
-		// Also manually clean the container
+		// also manually clean the container
 		var container = document.getElementById('untiled-full-container');
 		if (container) {
 			var canvas = container.querySelector('canvas');
@@ -18,24 +17,29 @@
 				canvas.remove();
 			}
 		}
+
+		// reset the initialization flag
+		window.untiledFullSketchInitialized = undefined;
+
+		// schedule reinitialization after cleanup
+		setTimeout(tryReinit, 100);
 	}
 
-	// Register cleanup handlers
-	function registerCleanup() {
-		// Store cleanup function globally so SvelteKit can access it
-		window.cleanupUntiledFullSketch = cleanupSketch;
-
-		// Also handle browser navigation
-		window.addEventListener('beforeunload', cleanupSketch);
-		window.addEventListener('pagehide', cleanupSketch);
+	function tryReinit() {
+		var container = document.getElementById('untiled-full-container');
+		if (
+			container &&
+			!container.querySelector('canvas') &&
+			typeof window.untiledFullSketchInitialized === 'undefined'
+		) {
+			initializeSketch();
+		}
 	}
 
-	// prevent multiple sketches, but allow reinit if container is empty
-	var container = document.getElementById('untiled-full-container');
-	if (
-		typeof window.untiledFullSketchInitialized === 'undefined' ||
-		(container && !container.querySelector('canvas'))
-	) {
+	// store cleanup function globally so SvelteKit can access it
+	window.cleanupUntiledFullSketch = cleanupSketch;
+
+	function initializeSketch() {
 		window.untiledFullSketchInitialized = true;
 
 		// use instance mode to prevent multiple instances of functions to be running
@@ -555,7 +559,28 @@
 
 			//resize canvas on window resize
 			p.windowResized = function () {
-				p.setup();
+				// clean restart: remove current instance and reinitialize
+				if (p5Instance && p5Instance.remove) {
+					p5Instance.remove();
+					p5Instance = null;
+				}
+
+				// clear any existing canvas in container
+				var container = document.getElementById('untiled-full-container');
+				if (container) {
+					var canvas = container.querySelector('canvas');
+					if (canvas) {
+						canvas.remove();
+					}
+				}
+
+				// reset flag and reinitialize
+				window.untiledFullSketchInitialized = undefined;
+				setTimeout(() => {
+					if (typeof window.untiledFullSketchInitialized === 'undefined') {
+						initializeSketch();
+					}
+				}, 50);
 			};
 
 			//individual tile
@@ -697,19 +722,23 @@
 			var container = document.getElementById('untiled-full-container');
 			if (container) {
 				p5Instance = new p5(sketch, container);
-				registerCleanup(); // Register cleanup after creating the instance
 			} else {
 				setTimeout(initSketch, 100);
 			}
 		}
 
 		initSketch();
-	} else {
-		// reset flag if container doesn't exist (we navigated away and back)
-		var container = document.getElementById('untiled-full-container');
-		if (!container) {
-			window.untiledFullSketchInitialized = undefined;
-			cleanupSketch(); // Clean up if container doesn't exist
-		}
+	}
+
+	// store cleanup function globally so SvelteKit can access it
+	window.cleanupUntiledFullSketch = cleanupSketch;
+
+	// prevent multiple sketches, but allow reinit if container is empty
+	var container = document.getElementById('untiled-full-container');
+	if (
+		typeof window.untiledFullSketchInitialized === 'undefined' ||
+		(container && !container.querySelector('canvas'))
+	) {
+		initializeSketch();
 	}
 })();

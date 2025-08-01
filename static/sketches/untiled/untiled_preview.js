@@ -1,41 +1,45 @@
-// untiled_preview.js - Revised for SvelteKit navigation support
 (function () {
-	// Store the p5 instance for cleanup
+	// store the p5 instance for cleanup
 	let p5Instance = null;
 
-	// Cleanup function
+	// cleanup function
 	function cleanupSketch() {
 		if (p5Instance && p5Instance.remove) {
 			p5Instance.remove();
 			p5Instance = null;
 		}
 
-		// Also manually clean the container
-		var container = document.getElementById('untiled_preview_container');
+		// also manually clean the container
+		var container = document.getElementById('untiled-preview-container');
 		if (container) {
 			var canvas = container.querySelector('canvas');
 			if (canvas) {
 				canvas.remove();
 			}
 		}
+
+		// reset the initialization flag so sketch can reinitialize
+		window.untiledPreviewSketchInitialized = undefined;
+
+		// schedule reinitialization after cleanup
+		setTimeout(tryReinit, 100);
 	}
 
-	// Register cleanup handlers
-	function registerCleanup() {
-		// Store cleanup function globally so SvelteKit can access it
-		window.cleanupUntiledPreviewSketch = cleanupSketch;
-
-		// Also handle browser navigation
-		window.addEventListener('beforeunload', cleanupSketch);
-		window.addEventListener('pagehide', cleanupSketch);
+	function tryReinit() {
+		var container = document.getElementById('untiled-preview-container');
+		if (
+			container &&
+			!container.querySelector('canvas') &&
+			typeof window.untiledPreviewSketchInitialized === 'undefined'
+		) {
+			initializeSketch();
+		}
 	}
 
-	// prevent multiple sketches, but allow reinit if container is empty
-	var container = document.getElementById('untiled_preview_container');
-	if (
-		typeof window.untiledPreviewSketchInitialized === 'undefined' ||
-		(container && !container.querySelector('canvas'))
-	) {
+	// store cleanup function globally so SvelteKit can access it
+	window.cleanupUntiledPreviewSketch = cleanupSketch;
+
+	function initializeSketch() {
 		window.untiledPreviewSketchInitialized = true;
 
 		// use instance mode to prevent multiple instances of functions to be running
@@ -99,12 +103,12 @@
 
 			p.setup = function () {
 				//get width of parent for sizing the sketch
-				var container = document.getElementById('untiled_preview_container');
+				var container = document.getElementById('untiled-preview-container');
 				var containerWidth = container.clientWidth;
 				var containerHeight = container.offsetHeight;
 
 				var cnv = p.createCanvas(containerWidth, containerHeight); //limit for performance
-				cnv.parent('untiled_preview_container'); //for positioning with css
+				cnv.parent('untiled-preview-container'); //for positioning with css
 				cnv.id('canvas');
 				cnv.style('z-index', '-1');
 				cnv.style('pointer-events', 'none');
@@ -555,7 +559,28 @@
 
 			//resize canvas on window resize
 			p.windowResized = function () {
-				p.setup();
+				// Clean restart: remove current instance and reinitialize
+				if (p5Instance && p5Instance.remove) {
+					p5Instance.remove();
+					p5Instance = null;
+				}
+
+				// clear any existing canvas in container
+				var container = document.getElementById('untiled_preview_container');
+				if (container) {
+					var canvas = container.querySelector('canvas');
+					if (canvas) {
+						canvas.remove();
+					}
+				}
+
+				// reset flag and reinitialize
+				window.untiledPreviewSketchInitialized = undefined;
+				setTimeout(() => {
+					if (typeof window.untiledPreviewSketchInitialized === 'undefined') {
+						initializeSketch();
+					}
+				}, 50);
 			};
 
 			//individual tile
@@ -694,22 +719,26 @@
 
 		// wait for container to exist before initializing sketch
 		function initSketch() {
-			var container = document.getElementById('untiled_preview_container');
+			var container = document.getElementById('untiled-preview-container');
 			if (container) {
 				p5Instance = new p5(sketch, container);
-				registerCleanup(); // Register cleanup after creating the instance
 			} else {
 				setTimeout(initSketch, 100);
 			}
 		}
 
 		initSketch();
-	} else {
-		// reset flag if container doesn't exist (we navigated away and back)
-		var container = document.getElementById('untiled_preview_container');
-		if (!container) {
-			window.untiledPreviewSketchInitialized = undefined;
-			cleanupSketch(); // Clean up if container doesn't exist
-		}
+	}
+
+	// store cleanup function globally so SvelteKit can access it
+	window.cleanupUntiledPreviewSketch = cleanupSketch;
+
+	// prevent multiple sketches, but allow reinit if container is empty
+	var container = document.getElementById('untiled-preview-container');
+	if (
+		typeof window.untiledPreviewSketchInitialized === 'undefined' ||
+		(container && !container.querySelector('canvas'))
+	) {
+		initializeSketch();
 	}
 })();
