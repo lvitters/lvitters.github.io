@@ -16,23 +16,20 @@
 				</div>
 			</div>
 		</div>
+		<p class="mb-4">
+			available.rooms scraped WG-Gesucht.de for all available rooms in shared flats for the 11 most
+			populous German cities in a snapshot from 2021. It displays them according to their relative
+			size and price per m². Click the preview to enter. Click and drag to move around.
+		</p>
 
-		<div class="text-2xs">
-			<p class="mb-4">
-				available.rooms scraped WG-Gesucht.de for all available rooms in shared flats for the 11
-				most populous German cities in a snapshot from 2021. It displays them according to their
-				relative size and price per m². Click the preview to enter. Click and drag to move around.
-			</p>
+		<div class="my-5"></div>
 
-			<div class="my-5"></div>
+		<figure class="mx-30 my-10">
+			<a href="/rooms">
+				<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
+			</a>
+		</figure>
 
-			<figure class="mx-30 my-10">
-				<a href="/rooms">
-					<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
-				</a>
-			</figure>
-
-			<div class="my-5"></div>
-		</div>
+		<div class="my-5"></div>
 	</article>
 </main>

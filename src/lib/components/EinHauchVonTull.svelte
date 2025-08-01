@@ -17,88 +17,54 @@
 			</div>
 		</div>
 
-		<div class="text-2xs">
-			<div class="my-5"></div>
+		<div class="my-5"></div>
 
-			<figure class="m-0 p-0">
-				<img
-					src="/media/einHauchVonTull/tull_7.jpg"
-					alt="Ein Hauch Von Tüll"
-					class="block w-full"
-				/>
-			</figure>
+		<figure class="m-0 p-0">
+			<img src="/media/einHauchVonTull/tull_7.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+		</figure>
 
-			<div class="my-5"></div>
+		<div class="my-5"></div>
 
-			<figure class="m-0 p-0">
-				<img
-					src="/media/einHauchVonTull/tull_4.jpg"
-					alt="Ein Hauch Von Tüll"
-					class="block w-full"
-				/>
-			</figure>
+		<figure class="m-0 p-0">
+			<img src="/media/einHauchVonTull/tull_4.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+		</figure>
 
-			<div class="my-5"></div>
+		<div class="my-5"></div>
 
-			<figure class="m-0 p-0">
-				<img
-					src="/media/einHauchVonTull/tull_1.jpg"
-					alt="Ein Hauch Von Tüll"
-					class="block w-full"
-				/>
-			</figure>
+		<figure class="m-0 p-0">
+			<img src="/media/einHauchVonTull/tull_1.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+		</figure>
 
-			<div class="my-4"></div>
+		<div class="my-4"></div>
 
-			<figure class="m-0 p-0">
-				<img
-					src="/media/einHauchVonTull/tull_8.jpg"
-					alt="Ein Hauch Von Tüll"
-					class="block w-full"
-				/>
-			</figure>
+		<figure class="m-0 p-0">
+			<img src="/media/einHauchVonTull/tull_8.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+		</figure>
 
-			<div class="my-5"></div>
+		<div class="my-5"></div>
 
-			<figure class="m-0 p-0">
-				<img
-					src="/media/einHauchVonTull/tull_6.jpg"
-					alt="Ein Hauch Von Tüll"
-					class="block w-full"
-				/>
-			</figure>
+		<figure class="m-0 p-0">
+			<img src="/media/einHauchVonTull/tull_6.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+		</figure>
 
-			<div class="my-5"></div>
+		<div class="my-5"></div>
 
-			<figure class="m-0 p-0">
-				<img
-					src="/media/einHauchVonTull/tull_2.jpg"
-					alt="Ein Hauch Von Tüll"
-					class="block w-full"
-				/>
-			</figure>
+		<figure class="m-0 p-0">
+			<img src="/media/einHauchVonTull/tull_2.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+		</figure>
 
-			<div class="my-5"></div>
+		<div class="my-5"></div>
 
-			<figure class="m-0 p-0">
-				<img
-					src="/media/einHauchVonTull/tull_9.jpg"
-					alt="Ein Hauch Von Tüll"
-					class="block w-full"
-				/>
-			</figure>
+		<figure class="m-0 p-0">
+			<img src="/media/einHauchVonTull/tull_9.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+		</figure>
 
-			<div class="my-5"></div>
+		<div class="my-5"></div>
 
-			<figure class="m-0 p-0">
-				<img
-					src="/media/einHauchVonTull/tull_5.jpg"
-					alt="Ein Hauch Von Tüll"
-					class="block w-full"
-				/>
-			</figure>
+		<figure class="m-0 p-0">
+			<img src="/media/einHauchVonTull/tull_5.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+		</figure>
 
-			<div class="my-5"></div>
-		</div>
+		<div class="my-5"></div>
 	</article>
 </main>

@@ -31,34 +31,31 @@
 				</div>
 			</div>
 		</div>
+		<p class="mb-4">
+			Emergence occurs when an entity is observed to have properties its parts do not have on their
+			own. This program generates emergent visuals from the interaction between ever changing simple
+			geometric tiles.
+		</p>
 
-		<div class="text-2xs">
-			<p class="mb-4">
-				Emergence occurs when an entity is observed to have properties its parts do not have on
-				their own. This program generates emergent visuals from the interaction between ever
-				changing simple geometric tiles.
-			</p>
+		<div class="my-5"></div>
 
-			<div class="my-5"></div>
+		<p class="mb-4">
+			"Now, I was sitting at my desk at home, observing on screen your work as it was developing and
+			changing, in a very calm way, the pure joy and surprise of colors and forms in slow and steady
+			movements, surprises here and there, interplay without end, pure meditation, all based on the
+			simple regular grid, but rich and richer in what was happening in detail. [...] I was
+			wondering, would I have to observe and admire your work all day before something would seem to
+			be repeating? You have created a marble." - <a
+				class="underline hover:text-[rgb(0,0,255)]"
+				href="https://www.google.com/search?q=frieder+nake&oq=frieder+nake&aqs=chrome.0.69i59j0i512l2j69i60j69i61j69i60l2j69i61.1599j0j7&sourceid=chrome&ie=UTF-8"
+				>Frieder Nake</a
+			>
+		</p>
 
-			<p class="mb-4">
-				"Now, I was sitting at my desk at home, observing on screen your work as it was developing
-				and changing, in a very calm way, the pure joy and surprise of colors and forms in slow and
-				steady movements, surprises here and there, interplay without end, pure meditation, all
-				based on the simple regular grid, but rich and richer in what was happening in detail. [...]
-				I was wondering, would I have to observe and admire your work all day before something would
-				seem to be repeating? You have created a marble." - <a
-					class="underline hover:text-[rgb(0,0,255)]"
-					href="https://www.google.com/search?q=frieder+nake&oq=frieder+nake&aqs=chrome.0.69i59j0i512l2j69i60j69i61j69i60l2j69i61.1599j0j7&sourceid=chrome&ie=UTF-8"
-					>Frieder Nake</a
-				>
-			</p>
+		<div class="my-5"></div>
 
-			<div class="my-5"></div>
+		<div id="untiled-full-container" class="w-full"></div>
 
-			<div id="untiled-full-container" class="w-full"></div>
-
-			<div class="my-5"></div>
-		</div>
+		<div class="my-5"></div>
 	</article>
 </main>
