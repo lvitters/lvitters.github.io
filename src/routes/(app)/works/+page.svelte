@@ -88,7 +88,7 @@
 	<script src="/sketches/untiled/untiled_preview.js"></script>
 </svelte:head>
 
-<main class="font-consolas relative flex h-screen w-full text-[10px]">
+<main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[10px]">
 	<!-- wrap content in a transition container -->
 	<div
 		class="flex h-full transition-all duration-700 ease-out {pageVisible
@@ -97,8 +97,7 @@
 	>
 		<!-- left 1/3 -->
 		<section
-			class="scrollable-section overflow-fix relative z-20 h-full w-1/3 overflow-x-visible overflow-y-auto pt-20 pl-8 text-left"
-			style="width: calc(33.333% + 1rem);"
+			class="left-column overflow-fix relative z-20 h-full w-1/3 overflow-x-visible overflow-y-auto pt-20 pl-8 text-left"
 		>
 			<!-- <div>RAUSCHEN (2025)</div>
 			<div>Radio Angrezi Archive (2025)</div> -->
@@ -242,7 +241,7 @@
 		</section>
 
 		<!-- right 2/3 -->
-		<section class="relative z-10 h-full w-2/3 overflow-y-auto pl-10 text-left">
+		<section class="right-column relative z-10 h-full w-2/3 overflow-y-auto pl-5 text-left">
 			<!-- <div>RAUSCHEN (2025)</div>
 
 			<div>Radio Angrezi Archive (2025)</div> -->
@@ -289,19 +288,26 @@
 </main>
 
 <style>
+	/* keep rooms overflow visible */
 	.overflow-visible {
 		overflow: visible !important;
 	}
 
-	.scrollable-section {
-		/* hide scrollbar for WebKit browsers */
-		scrollbar-width: none; /* Firefox */
-		-ms-overflow-style: none; /* Internet Explorer 10+ */
-		margin-right: -1rem; /* typical scrollbar width */
-		padding-right: 1rem; /* restore padding to maintain content positioning */
+	/* left column - hide scrollbar without layout shift */
+	.left-column {
+		width: 33.33vw !important;
+		scrollbar-width: none !important;
+		-ms-overflow-style: none !important;
+		padding-right: 1rem;
 	}
 
-	.scrollable-section::-webkit-scrollbar {
-		display: none; /* WebKit browsers */
+	.left-column::-webkit-scrollbar {
+		display: none !important;
+		width: 0 !important;
+	}
+
+	/* right column - keep normal scrollbar */
+	.right-column {
+		width: 66.67vw !important;
 	}
 </style>
