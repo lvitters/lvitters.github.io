@@ -5,7 +5,7 @@
 
 	let { children } = $props();
 
-	let centered = $derived(page.url.pathname === '/');
+	let centered = $derived(page.url.pathname === '/' || page.url.pathname === '/about');
 </script>
 
 <Nav {centered} />

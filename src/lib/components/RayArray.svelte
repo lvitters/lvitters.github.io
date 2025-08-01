@@ -46,7 +46,7 @@
 				and
 				<a href="https://rlfbckr.io/" class=" text-white underline hover:text-red-500"
 					>Ralf Bäcker</a
-				> for the coding guidance
+				> for the guidance
 			</p>
 
 			<p class="mb-1 text-center">

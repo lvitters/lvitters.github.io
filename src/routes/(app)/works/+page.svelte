@@ -6,6 +6,8 @@
 	import EinHauchVonTull from '$lib/components/EinHauchVonTull.svelte';
 	import Rooms from '$lib/components/Rooms.svelte';
 	import Blob from '$lib/components/Blob.svelte';
+	import BreakThePattern from '$lib/components/BreakThePattern.svelte';
+	import ImageBlender from '$lib/components/ImageBlender.svelte';
 
 	// for untiled_preview
 	import { browser } from '$app/environment';
@@ -277,11 +279,11 @@
 			</div>
 
 			<div id="break-the-pattern-section">
-				<div>Break the Pattern (2019)</div>
+				<BreakThePattern />
 			</div>
 
 			<div id="image-blender-section">
-				<div>Image Blender (2017)</div>
+				<ImageBlender />
 			</div>
 		</section>
 	</div>

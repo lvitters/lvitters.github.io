@@ -31,9 +31,16 @@
 
 			<div class="my-5"></div>
 
-			<div id="blob-container" class="aspect-square w-full"></div>
+			<div id="blob-container" class="responsive-overlap relative aspect-square w-full"></div>
 
 			<div class="my-5"></div>
 		</div>
 	</article>
 </main>
+
+<style>
+	.responsive-overlap {
+		margin-top: -100px !important;
+		margin-bottom: -100px !important;
+	}
+</style>
