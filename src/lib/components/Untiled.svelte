@@ -54,7 +54,7 @@
 
 		<div class="my-5"></div>
 
-		<div id="untiled-full-container" class="w-full"></div>
+		<div id="untiled-full-container" class="mx-auto w-9/10"></div>
 
 		<div class="my-5"></div>
 	</article>

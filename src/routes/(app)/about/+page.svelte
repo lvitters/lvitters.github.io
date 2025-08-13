@@ -195,7 +195,7 @@
 	}
 
 	.dynamic-link {
-		transition: color 0.15s ease; /* match the background timing */
+		transition: color 1s ease; /* match the background timing */
 	}
 
 	.dynamic-link:hover {
