@@ -105,8 +105,8 @@
 
 		<figure class="m-0 p-0">
 			<video
-				src="media/feedback_cube/feedback_cube_phone.mp4"
-				title="feedback_cube phone video"
+				src="media/feedback_cube/feedback_cube_trailer.mp4"
+				title="feedback_cube trailer video"
 				class="block h-auto w-full object-cover"
 				controls
 				muted
@@ -116,6 +116,8 @@
 				Your browser does not support the video tag.
 			</video>
 		</figure>
+
+		<!--
 
 		<div class="my-5"></div>
 
@@ -130,6 +132,24 @@
 			>
 			</iframe>
 		</figure>
+
+		<figure class="m-0 p-0">
+			<video
+				src="media/feedback_cube/feedback_cube_phone.mp4"
+				title="feedback_cube phone video"
+				class="block h-auto w-full object-cover"
+				controls
+				muted
+				autoplay
+				loop
+			>
+				Your browser does not support the video tag.
+			</video>
+		</figure>
+
+		<div class="my-5"></div>
+
+		-->
 
 		<div class="my-5"></div>
 	</article>
