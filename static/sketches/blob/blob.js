@@ -37,6 +37,21 @@
 	}
 
 	function initializeSketch() {
+		// prevent double initialization
+		if (window.blobSketchInitialized) {
+			return;
+		}
+		
+		// check if there's already a canvas in the container
+		var container = document.getElementById('blob-container');
+		if (!container) {
+			return;
+		}
+		
+		if (container.querySelector('canvas')) {
+			return; // already has a canvas, don't create another
+		}
+		
 		window.blobSketchInitialized = true;
 
 		// use instance mode to prevent multiple instances of functions to be running

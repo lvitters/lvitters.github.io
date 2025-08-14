@@ -17,11 +17,42 @@
 	let pageVisible = $state(false);
 	let currentRayarrayImageIndex = $state(0);
 	let currentTullImageIndex = $state(0);
+	
+	// mobile state management
+	let isMobile = $state(false);
+	let showDetailView = $state(false);
+	let currentDetailSection = $state('');
+	let detailViewVisible = $state(false);
 
 	$effect(() => {
-		// small delay to ensure smooth transition
+		// check if mobile on mount
+		if (browser) {
+			const checkMobile = () => {
+				isMobile = window.innerWidth < 768;
+			};
+			checkMobile();
+			window.addEventListener('resize', checkMobile);
+			
+			return () => {
+				window.removeEventListener('resize', checkMobile);
+			};
+		}
+	});
+	
+	$effect(() => {
+		// small delay to ensure smooth transition and proper layout
 		setTimeout(() => {
 			pageVisible = true;
+			
+			// force untiled sketch reinitialization after layout is ready
+			// this ensures proper width calculation when navigating from other pages
+			if (browser) {
+				setTimeout(() => {
+					if (window.cleanupUntiledPreviewSketch) {
+						window.cleanupUntiledPreviewSketch();
+					}
+				}, 100);
+			}
 		}, 50);
 
 		// cycle through images every 3 seconds
@@ -57,20 +88,68 @@
 	];
 
 	function scrollToSection(sectionId: string) {
-		const section = document.getElementById(sectionId);
-		const rightPanel = document.querySelector('.relative.z-10.h-full.w-2\\/3.overflow-y-auto');
+		if (isMobile) {
+			// on mobile, switch to detail view
+			currentDetailSection = sectionId;
+			showDetailView = true;
+			
+			// reset transition state and then trigger it
+			detailViewVisible = false;
+			setTimeout(() => {
+				detailViewVisible = true;
+			}, 50);
+			
+			// notify nav component about detail view state
+			if (browser) {
+				window.dispatchEvent(new CustomEvent('detailViewChange', {
+					detail: { showDetailView: true, isMobile: true }
+				}));
+			}
+		} else {
+			// desktop behavior remains the same
+			const section = document.getElementById(sectionId);
+			const rightPanel = document.querySelector('.relative.z-10.h-full.w-2\\/3.overflow-y-auto');
 
-		if (section && rightPanel) {
-			// get the position of the section relative to the scrollable container
-			const sectionTop = section.offsetTop;
+			if (section && rightPanel) {
+				// get the position of the section relative to the scrollable container
+				const sectionTop = section.offsetTop;
 
-			// smooth scroll to the section
-			rightPanel.scrollTo({
-				top: sectionTop + 1, // no offset
-				behavior: 'smooth'
-			});
+				// smooth scroll to the section
+				rightPanel.scrollTo({
+					top: sectionTop + 1, // no offset
+					behavior: 'smooth'
+				});
+			}
 		}
 	}
+	
+	function goBackToOverview() {
+		showDetailView = false;
+		currentDetailSection = '';
+		detailViewVisible = false;
+		
+		// notify nav component about state change
+		if (browser) {
+			window.dispatchEvent(new CustomEvent('detailViewChange', {
+				detail: { showDetailView: false, isMobile: isMobile }
+			}));
+		}
+	}
+	
+	// listen for back navigation from nav component
+	$effect(() => {
+		if (browser) {
+			const handleGoBack = () => {
+				goBackToOverview();
+			};
+			
+			window.addEventListener('goBackToOverview', handleGoBack);
+			
+			return () => {
+				window.removeEventListener('goBackToOverview', handleGoBack);
+			};
+		}
+	});
 
 	// for untiled_preview
 	const cleanup = () => {
@@ -90,6 +169,7 @@
 	<script src="/sketches/untiled/untiled_preview.js"></script>
 </svelte:head>
 
+
 <main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[10px]">
 	<!-- wrap content in a transition container -->
 	<div
@@ -97,9 +177,12 @@
 			? 'translate-y-0 opacity-100'
 			: 'translate-y-4 opacity-0'}"
 	>
-		<!-- left 1/3 -->
+		<!-- left 1/3 - overview section -->
 		<section
-			class="left-column overflow-fix relative z-20 h-full w-1/3 overflow-x-visible overflow-y-auto pt-20 pl-8 text-left"
+			class="relative z-20 h-full overflow-y-auto pt-20 text-left scrollbar-none
+			{isMobile 
+				? (showDetailView ? 'hidden' : 'w-full px-8') 
+				: 'w-1/3 pl-8 pr-4 md:w-[33.33vw] overflow-x-visible'}"
 		>
 			<!-- <div>RAUSCHEN (2025)</div>
 			<div>Radio Angrezi Archive (2025)</div> -->
@@ -158,7 +241,11 @@
 				onkeydown={(e) =>
 					e.key === 'Enter' || e.key === ' ' ? scrollToSection('untiled-section') : null}
 			>
-				<div id="untiled-preview-container" class="w-full" style="height: 90px;"></div>
+				<div 
+					id="untiled-preview-container" 
+					class="w-full" 
+					style="height: 90px; width: 100%; box-sizing: border-box;"
+				></div>
 				<div>untiled (2022)</div>
 			</div>
 			<div
@@ -242,49 +329,115 @@
 			</div>
 		</section>
 
-		<!-- right 2/3 -->
-		<section class="right-column relative z-10 h-full w-2/3 overflow-y-auto pl-5 text-left">
+		<!-- right 2/3 - detail section -->
+		<section class="relative z-10 h-full overflow-y-auto text-left
+			{isMobile ? (showDetailView ? 'w-full pt-20' : 'hidden') : 'w-2/3 pl-5 md:w-[66.67vw]'}">
+			
 			<!-- <div>RAUSCHEN (2025)</div>
 
 			<div>Radio Angrezi Archive (2025)</div> -->
 
-			<div id="rayarray-section">
-				<RayArray />
-			</div>
+			{#if !isMobile || currentDetailSection === 'rayarray-section'}
+				<div id="rayarray-section" 
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					<RayArray />
+				</div>
+			{/if}
 
-			<div id="feedback-cube-section">
-				<FeedbackCube />
-			</div>
+			{#if !isMobile || currentDetailSection === 'feedback-cube-section'}
+				<div id="feedback-cube-section"
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					<FeedbackCube />
+				</div>
+			{/if}
 
-			<div id="ein-hauch-von-tull-v2-section">
-				<EinHauchVonTullv2 />
-			</div>
+			{#if !isMobile || currentDetailSection === 'ein-hauch-von-tull-v2-section'}
+				<div id="ein-hauch-von-tull-v2-section"
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					<EinHauchVonTullv2 />
+				</div>
+			{/if}
 
-			<div id="untiled-section">
-				{#key 'untiled'}
-					<Untiled />
-				{/key}
-			</div>
+			{#if !isMobile || currentDetailSection === 'untiled-section'}
+				<div id="untiled-section"
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					{#key 'untiled'}
+						<Untiled />
+					{/key}
+				</div>
+			{/if}
 
-			<div id="ein-hauch-von-tull-section">
-				<EinHauchVonTull />
-			</div>
+			{#if !isMobile || currentDetailSection === 'ein-hauch-von-tull-section'}
+				<div id="ein-hauch-von-tull-section"
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					<EinHauchVonTull />
+				</div>
+			{/if}
 
-			<div id="available-rooms-section">
-				<Rooms />
-			</div>
+			{#if !isMobile || currentDetailSection === 'available-rooms-section'}
+				<div id="available-rooms-section"
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					<Rooms />
+				</div>
+			{/if}
 
-			<div id="blob-section">
-				<Blob />
-			</div>
+			{#if !isMobile || currentDetailSection === 'blob-section'}
+				<div id="blob-section"
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					<Blob />
+				</div>
+			{/if}
 
-			<div id="break-the-pattern-section">
-				<BreakThePattern />
-			</div>
+			{#if !isMobile || currentDetailSection === 'break-the-pattern-section'}
+				<div id="break-the-pattern-section"
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					<BreakThePattern />
+				</div>
+			{/if}
 
-			<div id="image-blender-section">
-				<ImageBlender />
-			</div>
+			{#if !isMobile || currentDetailSection === 'image-blender-section'}
+				<div id="image-blender-section"
+					class="{isMobile && showDetailView 
+						? 'transition-all duration-700 ease-out ' + (detailViewVisible
+							? 'translate-y-0 opacity-100'
+							: 'translate-y-4 opacity-0')
+						: ''}">
+					<ImageBlender />
+				</div>
+			{/if}
+			
 		</section>
 	</div>
 </main>
@@ -295,21 +448,33 @@
 		overflow: visible !important;
 	}
 
-	/* left column - hide scrollbar without layout shift */
-	.left-column {
-		width: 33.33vw !important;
+	/* hide scrollbar */
+	.scrollbar-none {
 		scrollbar-width: none !important;
 		-ms-overflow-style: none !important;
-		padding-right: 1rem;
 	}
 
-	.left-column::-webkit-scrollbar {
+	.scrollbar-none::-webkit-scrollbar {
 		display: none !important;
 		width: 0 !important;
 	}
 
-	/* right column - keep normal scrollbar */
-	.right-column {
-		width: 66.67vw !important;
+	/* remove all white space around components on mobile */
+	@media (max-width: 767px) {
+		/* remove margins and padding from component containers */
+		:global(main.font-consolas) {
+			margin: 0 !important;
+		}
+		
+		/* remove any spacing from component wrapper divs */
+		:global(div[id$="-section"]) {
+			margin: 0 !important;
+			padding: 0 !important;
+		}
+		
+		/* remove body margins if any */
+		:global(body) {
+			margin: 0 !important;
+		}
 	}
 </style>

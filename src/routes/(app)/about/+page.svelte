@@ -1,11 +1,29 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	
 	let pageVisible = $state(false);
+	let isMobile = $state(false);
 
 	// page transition effect
 	$effect(() => {
 		setTimeout(() => {
 			pageVisible = true;
 		}, 50);
+	});
+	
+	// check if mobile
+	$effect(() => {
+		if (browser) {
+			const checkMobile = () => {
+				isMobile = window.innerWidth < 768;
+			};
+			checkMobile();
+			window.addEventListener('resize', checkMobile);
+			
+			return () => {
+				window.removeEventListener('resize', checkMobile);
+			};
+		}
 	});
 
 	// dynamic color
@@ -36,43 +54,17 @@
 				? 'translate-y-0 opacity-100'
 				: 'translate-y-4 opacity-0'}"
 		>
-			<!-- left 1/3 -->
-			<section class="left-column h-full"></section>
+			{#if !isMobile}
+				<!-- left 1/3 - desktop only -->
+				<section class="h-full md:w-[calc(33.333%+1rem)]"></section>
+			{/if}
 
-			<!-- right 2/3 -->
-			<section class="right-column h-full overflow-y-auto">
+			<!-- right 2/3 or full width on mobile -->
+			<section class="{isMobile ? 'w-full flex justify-center' : 'md:w-[calc(66.667%-1rem)]'} h-full overflow-y-auto">
 				<main
-					class="font-consolas m-0 min-h-screen bg-white px-7 pt-12 pb-5 text-black transition-all duration-700"
+					class="font-consolas m-0 min-h-screen bg-white pb-5 text-black transition-all duration-700 {isMobile ? 'pt-16 w-full max-w-2xl px-7' : 'pt-12 px-7'}"
 				>
-					<article class="px-5">
-						<div class="mb-5 flex items-center justify-center text-center">
-							<div class="flex-1 text-center">
-								<div class="mt-1 text-sm">
-									<span>
-										<a
-											href="mailto:lucca.vitters@gmail.com"
-											class="dynamic-link underline"
-											style="color: {color}">lucca.vitters@gmail.com</a
-										>
-										|
-										<a
-											href="https://github.com/lvitters"
-											class="dynamic-link underline"
-											style="color: {color}">github.com/lvitters</a
-										>
-										|
-										<a
-											href="https://soundcloud.com/katze203"
-											class="dynamic-link underline"
-											style="color: {color}">SoundCloud</a
-										></span
-									>
-								</div>
-							</div>
-						</div>
-
-						<div class="my-5"></div>
-
+					<article class="{isMobile ? '' : 'px-5'}">
 						<div class="mb-4"></div>
 
 						<div class="mb-4"></div>
@@ -85,6 +77,34 @@
 							background in computer science, I try to find ways of bringing my virtual entities to
 							screens, to the web, to real world surfaces, and to physical installations.
 						</p>
+
+						<div class="my-5"></div>
+
+						<div class="mb-5 flex items-center justify-center text-center">
+							<div class="flex-1 text-center">
+								<div class="mt-1 text-sm">
+									<div class="{isMobile ? 'flex flex-col items-center space-y-1' : ''}">
+										<a
+											href="mailto:lucca.vitters@gmail.com"
+											class="dynamic-link underline"
+											style="color: {color}">lucca.vitters@gmail.com</a
+										>
+										{#if !isMobile}|{/if}
+										<a
+											href="https://github.com/lvitters"
+											class="dynamic-link underline"
+											style="color: {color}">github.com/lvitters</a
+										>
+										{#if !isMobile}|{/if}
+										<a
+											href="https://soundcloud.com/katze203"
+											class="dynamic-link underline"
+											style="color: {color}">SoundCloud</a
+										>
+									</div>
+								</div>
+							</div>
+						</div>
 
 						<div class="my-5"></div>
 
@@ -186,14 +206,6 @@
 </div>
 
 <style>
-	.left-column {
-		width: calc(33.333% + 1rem);
-	}
-
-	.right-column {
-		width: calc(66.667% - 1rem);
-	}
-
 	.dynamic-link {
 		transition: color 1s ease; /* match the background timing */
 	}

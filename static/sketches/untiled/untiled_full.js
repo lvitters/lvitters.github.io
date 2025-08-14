@@ -40,6 +40,21 @@
 	window.cleanupUntiledFullSketch = cleanupSketch;
 
 	function initializeSketch() {
+		// prevent double initialization
+		if (window.untiledFullSketchInitialized) {
+			return;
+		}
+		
+		// check if there's already a canvas in the container
+		var container = document.getElementById('untiled-full-container');
+		if (!container) {
+			return;
+		}
+		
+		if (container.querySelector('canvas')) {
+			return; // already has a canvas, don't create another
+		}
+		
 		window.untiledFullSketchInitialized = true;
 
 		// use instance mode to prevent multiple instances of functions to be running
