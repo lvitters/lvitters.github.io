@@ -47,8 +47,8 @@
 
 		previewSketchLoaded = true;
 
-		// Load p5.js if not already loaded
-		if (!window.p5) {
+		// load p5.js if not already loaded
+		if (!(window as any).p5) {
 			await new Promise((resolve) => {
 				const script = document.createElement('script');
 				script.src = '/libs/p5_v1.4.0.min.js';
@@ -57,7 +57,7 @@
 			});
 		}
 
-		// Load the untiled preview sketch script
+		// load the untiled preview sketch script
 		await new Promise((resolve) => {
 			const script = document.createElement('script');
 			script.src = '/sketches/untiled/untiled_preview.js';
