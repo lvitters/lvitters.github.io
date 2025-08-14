@@ -1,8 +1,34 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 	
 	let isMobile = $state(browser ? window.innerWidth < 768 : false);
 	let pageVisible = $state(false);
+	let isLoaded = false;
+	
+	const loadSketch = async () => {
+		if (!browser || isLoaded) return;
+		
+		isLoaded = true;
+		
+		// Load p5.js if not already loaded
+		if (!window.p5) {
+			await new Promise((resolve) => {
+				const script = document.createElement('script');
+				script.src = '/libs/p5_v0.10.2.min.js';
+				script.onload = resolve;
+				document.head.appendChild(script);
+			});
+		}
+
+		// Load the blob sketch script
+		await new Promise((resolve) => {
+			const script = document.createElement('script');
+			script.src = '/sketches/blob/blob.js';
+			script.onload = resolve;
+			document.head.appendChild(script);
+		});
+	};
 	
 	$effect(() => {
 		if (browser) {
@@ -14,11 +40,6 @@
 			// small delay to ensure smooth transition
 			setTimeout(() => {
 				pageVisible = true;
-				
-				// ensure blob sketch initializes after layout is set
-				if (window.cleanupBlobSketch) {
-					window.cleanupBlobSketch();
-				}
 			}, 100);
 			
 			window.addEventListener('resize', checkMobile);
@@ -28,12 +49,14 @@
 			};
 		}
 	});
+
+	onMount(() => {
+		loadSketch();
+	});
 </script>
 
 <svelte:head>
 	<title>Lucca Vitters</title>
-	<script src="/libs/p5_v0.10.2.min.js"></script>
-	<script src="/sketches/blob/blob.js"></script>
 </svelte:head>
 
 <!-- wrap content in a transition container -->

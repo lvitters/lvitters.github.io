@@ -11,6 +11,7 @@
 
 	// for untiled_preview
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 	import { onDestroy } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
 
@@ -39,20 +40,36 @@
 		}
 	});
 	
+	let previewSketchLoaded = false;
+
+	const loadSketch = async () => {
+		if (!browser || previewSketchLoaded) return;
+		
+		previewSketchLoaded = true;
+		
+		// Load p5.js if not already loaded
+		if (!window.p5) {
+			await new Promise((resolve) => {
+				const script = document.createElement('script');
+				script.src = '/libs/p5_v1.4.0.min.js';
+				script.onload = resolve;
+				document.head.appendChild(script);
+			});
+		}
+
+		// Load the untiled preview sketch script
+		await new Promise((resolve) => {
+			const script = document.createElement('script');
+			script.src = '/sketches/untiled/untiled_preview.js';
+			script.onload = resolve;
+			document.head.appendChild(script);
+		});
+	};
+
 	$effect(() => {
 		// small delay to ensure smooth transition and proper layout
 		setTimeout(() => {
 			pageVisible = true;
-			
-			// force untiled sketch reinitialization after layout is ready
-			// this ensures proper width calculation when navigating from other pages
-			if (browser) {
-				setTimeout(() => {
-					if (window.cleanupUntiledPreviewSketch) {
-						window.cleanupUntiledPreviewSketch();
-					}
-				}, 100);
-			}
 		}, 50);
 
 		// cycle through images every 3 seconds
@@ -135,6 +152,13 @@
 			}));
 		}
 	}
+
+	onMount(() => {
+		// Small delay to ensure layout is fully rendered
+		setTimeout(() => {
+			loadSketch();
+		}, 100);
+	});
 	
 	// listen for back navigation from nav component
 	$effect(() => {
@@ -157,6 +181,10 @@
 			window.cleanupUntiledPreviewSketch();
 			delete window.cleanupUntiledPreviewSketch;
 		}
+		if (browser) {
+			window.untiledPreviewSketchInitialized = undefined;
+		}
+		previewSketchLoaded = false;
 	};
 
 	beforeNavigate(cleanup);
@@ -165,8 +193,6 @@
 
 <svelte:head>
 	<title>Lucca Vitters</title>
-	<script src="/libs/p5_v1.4.0.min.js"></script>
-	<script src="/sketches/untiled/untiled_preview.js"></script>
 </svelte:head>
 
 

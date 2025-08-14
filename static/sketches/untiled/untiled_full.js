@@ -45,14 +45,13 @@
 			return;
 		}
 		
-		// check if there's already a canvas in the container
+		// check if there's already a canvas in the container and remove it
 		var container = document.getElementById('untiled-full-container');
-		if (!container) {
-			return;
-		}
-		
-		if (container.querySelector('canvas')) {
-			return; // already has a canvas, don't create another
+		if (container) {
+			var existingCanvas = container.querySelector('canvas');
+			if (existingCanvas) {
+				existingCanvas.remove();
+			}
 		}
 		
 		window.untiledFullSketchInitialized = true;

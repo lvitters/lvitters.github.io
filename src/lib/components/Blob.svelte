@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { onDestroy } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
 
 	const cleanup = () => {
@@ -8,7 +8,42 @@
 			window.cleanupBlobSketch();
 			delete window.cleanupBlobSketch;
 		}
+		if (browser) {
+			window.blobSketchInitialized = undefined;
+		}
 	};
+
+	const loadSketch = async () => {
+		if (!browser) return;
+		
+		// Load p5.js if not already loaded
+		if (!window.p5) {
+			await new Promise((resolve) => {
+				const script = document.createElement('script');
+				script.src = '/libs/p5_v0.10.2.min.js';
+				script.onload = resolve;
+				document.head.appendChild(script);
+			});
+		}
+
+		// Always reset the flag and load the sketch
+		window.blobSketchInitialized = undefined;
+		
+		// Load the blob sketch script
+		await new Promise((resolve) => {
+			const script = document.createElement('script');
+			script.src = '/sketches/blob/blob.js';
+			script.onload = resolve;
+			document.head.appendChild(script);
+		});
+	};
+
+	onMount(() => {
+		// Wait a bit for the DOM to be fully ready
+		setTimeout(() => {
+			loadSketch();
+		}, 100);
+	});
 
 	beforeNavigate(cleanup);
 	onDestroy(cleanup);
@@ -16,8 +51,6 @@
 
 <svelte:head>
 	<meta name="description" content="blob" />
-	<script src="/../libs/p5_v0.10.2.min.js"></script>
-	<script src="/sketches/blob/blob.js"></script>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-white px-7 pt-12 pb-5 text-black">
@@ -50,8 +83,11 @@
 </main>
 
 <style>
-	.responsive-overlap {
-		margin-top: -100px !important;
-		margin-bottom: -100px !important;
+	/* Only apply negative margins on desktop (larger screens) */
+	@media (min-width: 768px) {
+		.responsive-overlap {
+			margin-top: -100px !important;
+			margin-bottom: -100px !important;
+		}
 	}
 </style>

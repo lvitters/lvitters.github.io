@@ -1,14 +1,48 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { onDestroy } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
+
+	let isLoaded = false;
 
 	const cleanup = () => {
 		if (browser && window.cleanupUntiledFullSketch) {
 			window.cleanupUntiledFullSketch();
 			delete window.cleanupUntiledFullSketch;
 		}
+		if (browser) {
+			window.untiledFullSketchInitialized = undefined;
+		}
+		isLoaded = false;
 	};
+
+	const loadSketch = async () => {
+		if (!browser || isLoaded) return;
+		
+		isLoaded = true;
+		
+		// Load p5.js if not already loaded (different version for untiled)
+		if (!window.p5) {
+			await new Promise((resolve) => {
+				const script = document.createElement('script');
+				script.src = '/libs/p5_v1.4.0.min.js';
+				script.onload = resolve;
+				document.head.appendChild(script);
+			});
+		}
+
+		// Load the untiled sketch script
+		await new Promise((resolve) => {
+			const script = document.createElement('script');
+			script.src = '/sketches/untiled/untiled_full.js';
+			script.onload = resolve;
+			document.head.appendChild(script);
+		});
+	};
+
+	onMount(() => {
+		loadSketch();
+	});
 
 	beforeNavigate(cleanup);
 	onDestroy(cleanup);
@@ -16,8 +50,6 @@
 
 <svelte:head>
 	<meta name="description" content="untiled" />
-	<script src="/../libs/p5_v1.4.0.min.js"></script>
-	<script src="/sketches/untiled/untiled_full.js"></script>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-white px-7 pt-12 pb-5 text-black">
