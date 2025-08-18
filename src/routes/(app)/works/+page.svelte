@@ -217,146 +217,166 @@
 		>
 			<!-- <div>RAUSCHEN (2025)</div>
 			<div>Radio Angrezi Archive (2025)</div> -->
-			<div
-				class="mb-1 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('rayarray-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' ' ? scrollToSection('rayarray-section') : null}
-			>
-				<img
-					src={rayarrayImages[currentRayarrayImageIndex]}
-					alt="RAYARRAY preview"
-					class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-				/>
-				<div>RAYARRAY (2023)</div>
+			<div class="mb-1">
+				<button
+					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					onclick={() => scrollToSection('rayarray-section')}
+				>
+					<img
+						src={rayarrayImages[currentRayarrayImageIndex]}
+						alt="RAYARRAY preview"
+						class="h-auto w-full"
+					/>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('rayarray-section')}
+				>
+					RAYARRAY (2023)
+				</button>
 			</div>
-			<div
-				class="mb-1 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('feedback-cube-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' ' ? scrollToSection('feedback-cube-section') : null}
-			>
-				<img
-					src="/media/feedback_cube/feedback_cube_preview.jpg"
-					alt="feedback_cube preview"
-					class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-				/>
-				<div>feedback_cube (2022)</div>
+			<div class="mb-1">
+				<button
+					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					onclick={() => scrollToSection('feedback-cube-section')}
+				>
+					<img
+						src="/media/feedback_cube/feedback_cube_preview.jpg"
+						alt="feedback_cube preview"
+						class="h-auto w-full"
+					/>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('feedback-cube-section')}
+				>
+					feedback_cube (2022)
+				</button>
 			</div>
-			<div
-				class="mb-1 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('ein-hauch-von-tull-v2-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' '
-						? scrollToSection('ein-hauch-von-tull-v2-section')
-						: null}
-			>
-				<img
-					src="/media/einHauchVonTullv2/tull2_3_preview.jpg"
-					alt="Ein Hauch Von Tuell v2 preview"
-					class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-				/>
-				<div>Ein Hauch von Tüll v2 (2022)</div>
+			<div class="mb-1">
+				<button
+					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					onclick={() => scrollToSection('ein-hauch-von-tull-v2-section')}
+				>
+					<img
+						src="/media/einHauchVonTullv2/tull2_3_preview.jpg"
+						alt="Ein Hauch Von Tuell v2 preview"
+						class="h-auto w-full"
+					/>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('ein-hauch-von-tull-v2-section')}
+				>
+					Ein Hauch von Tüll v2 (2022)
+				</button>
 			</div>
-			<div
-				class="mb-1 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('untiled-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' ' ? scrollToSection('untiled-section') : null}
-			>
-				<div
+			<div class="mb-1">
+				<button
 					id="untiled-preview-container"
-					class="w-full"
+					class="w-full cursor-pointer p-0 m-0 border-0 bg-transparent block"
 					style="height: 90px; width: 100%; box-sizing: border-box;"
-				></div>
-				<div>untiled (2022)</div>
+					aria-label="View untiled project details"
+					onclick={() => scrollToSection('untiled-section')}
+				></button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('untiled-section')}
+				>
+					untiled (2022)
+				</button>
 			</div>
-			<div
-				class="mb-1 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('ein-hauch-von-tull-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' ' ? scrollToSection('ein-hauch-von-tull-section') : null}
-			>
-				<img
-					src={tullImages[currentTullImageIndex]}
-					alt="Ein Hauch Von Tuell preview"
-					class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-				/>
-				<div>Ein Hauch von Tüll (2021)</div>
+			<div class="mb-1">
+				<button
+					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					onclick={() => scrollToSection('ein-hauch-von-tull-section')}
+				>
+					<img
+						src={tullImages[currentTullImageIndex]}
+						alt="Ein Hauch Von Tuell preview"
+						class="h-auto w-full"
+					/>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('ein-hauch-von-tull-section')}
+				>
+					Ein Hauch von Tüll (2021)
+				</button>
 			</div>
-			<div
-				class="mb-1 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('available-rooms-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' ' ? scrollToSection('available-rooms-section') : null}
-			>
+			<div class="mb-1">
 				<!-- stick out from container -->
-				<div class="overflow-visible border-1">
+				<button
+					class="cursor-pointer overflow-visible p-0 m-0 bg-transparent w-full block border-1"
+					onclick={() => scrollToSection('available-rooms-section')}
+				>
 					<img
 						src="/media/rooms/rooms_cutoff_transparent.png"
 						alt="available.rooms preview"
 						class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
 						style="transform: scale(1.05) translateX(.5%); transform-origin: bottom left; margin-top: -3vh;"
 					/>
-				</div>
-				<div>available.rooms (2021)</div>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('available-rooms-section')}
+				>
+					available.rooms (2021)
+				</button>
 			</div>
-			<div
-				class="mb-1 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('blob-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' ' ? scrollToSection('blob-section') : null}
-			>
-				<img
-					src="/media/blob/blob_preview.png"
-					alt="blob preview"
-					class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-				/>
-				<div>blob (2020)</div>
+			<div class="mb-1">
+				<button
+					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					onclick={() => scrollToSection('blob-section')}
+				>
+					<img
+						src="/media/blob/blob_preview.png"
+						alt="blob preview"
+						class="h-auto w-full"
+					/>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('blob-section')}
+				>
+					blob (2020)
+				</button>
 			</div>
-			<div
-				class="mb-1 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('break-the-pattern-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' ' ? scrollToSection('break-the-pattern-section') : null}
-			>
-				<img
-					src="/media/BreakThePattern/BreakThePattern_1.jpg"
-					alt="Break the Pattern preview"
-					class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-				/>
-				<div>Break the Pattern (2019)</div>
+			<div class="mb-1">
+				<button
+					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					onclick={() => scrollToSection('break-the-pattern-section')}
+				>
+					<img
+						src="/media/BreakThePattern/BreakThePattern_1.jpg"
+						alt="Break the Pattern preview"
+						class="h-auto w-full"
+					/>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('break-the-pattern-section')}
+				>
+					Break the Pattern (2019)
+				</button>
 			</div>
-			<div
-				class="mb-5 cursor-pointer"
-				role="button"
-				tabindex="0"
-				onclick={() => scrollToSection('image-blender-section')}
-				onkeydown={(e) =>
-					e.key === 'Enter' || e.key === ' ' ? scrollToSection('image-blender-section') : null}
-			>
-				<img
-					src="/media/image_blender/image_blender_1.gif"
-					alt="image_blender preview"
-					class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-				/>
-				<div>Image Blender (2017)</div>
+			<div class="mb-5">
+				<button
+					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					onclick={() => scrollToSection('image-blender-section')}
+				>
+					<img
+						src="/media/image_blender/image_blender_1.gif"
+						alt="image_blender preview"
+						class="h-auto w-full"
+					/>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('image-blender-section')}
+				>
+					Image Blender (2017)
+				</button>
 			</div>
 		</section>
 
