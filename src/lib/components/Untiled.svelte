@@ -86,7 +86,7 @@
 
 		<div class="my-5"></div>
 
-		<div id="untiled-full-container" class="mx-auto w-4/5"></div>
+		<div id="untiled-full-container" class="mx-auto w-full md:w-4/5"></div>
 
 		<div class="my-5"></div>
 	</article>
