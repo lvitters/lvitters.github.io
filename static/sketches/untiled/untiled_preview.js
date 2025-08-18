@@ -107,7 +107,15 @@
 				var containerWidth = container.clientWidth;
 				var containerHeight = container.offsetHeight;
 
-				var cnv = p.createCanvas(containerWidth, containerHeight); //limit for performance
+				// Calculate proper height to show complete rows
+				var tileSize = containerWidth / tilesPerRow;
+				var numberOfCompleteRows = Math.floor(containerHeight / tileSize);
+				var adjustedHeight = numberOfCompleteRows * tileSize;
+
+				// Update container height to match canvas height
+				container.style.height = adjustedHeight + 'px';
+
+				var cnv = p.createCanvas(containerWidth, adjustedHeight);
 				cnv.parent('untiled-preview-container'); //for positioning with css
 				cnv.id('canvas');
 				cnv.style('z-index', '-1');
