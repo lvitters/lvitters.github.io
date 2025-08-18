@@ -76,7 +76,7 @@
 
 		<div class="my-5"></div>
 
-		<div id="blob-container" class="responsive-overlap relative aspect-square w-full"></div>
+		<div id="blob-container" class="responsive-overlap relative aspect-square w-screen md:w-full ml-[calc(-50vw+50%)] md:ml-0"></div>
 
 		<div class="my-5"></div>
 	</article>
