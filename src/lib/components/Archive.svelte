@@ -36,13 +36,15 @@
 			<br />
 			<br />
 			Radio Angrezi itself is an experimental ground for sound, music, voice and live performance. It
-			broadcasts weekly from its studio at Speicher XI (Bremen) on radioangrezi.de, as well as occasionally
-			on 92,5 FM, receivable in the Bremen and the surrounding area. In addition, special broadcasts
-			covering concerts, lectures, presentations and exhibition openings are produced regularly. Radio
-			Angrezi is an autonomous student collective, spanning all disciplines, study departments and multiple
-			languages. It is open for students, teachers and guests. It aims to rise questions, develop new
-			conditions, shapes and formats, to perform and to broadcast collectively or individually, to listen,
-			to observe and to discuss.
+			broadcasts weekly from its studio at Speicher XI (Bremen) on
+			<a href="http://radioangrezi.de" class="text-black underline hover:text-[#ff69b4]"
+				>radioangrezi.de</a
+			>, as well as occasionally on 92,5 FM, receivable in the Bremen and the surrounding area. In
+			addition, special broadcasts covering concerts, lectures, presentations and exhibition
+			openings are produced regularly. Radio Angrezi is an autonomous student collective, spanning
+			all disciplines, study departments and multiple languages. It is open for students, teachers
+			and guests. It aims to rise questions, develop new conditions, shapes and formats, to perform
+			and to broadcast collectively or individually, to listen, to observe and to discuss.
 		</p>
 
 		<div class="my-5"></div>
