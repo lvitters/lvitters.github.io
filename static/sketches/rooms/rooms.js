@@ -51,7 +51,7 @@
 
 			// detect if mobile
 			let isMobile = window.innerWidth < 768;
-			
+
 			// custom camera controls
 			let camera = {
 				// camera position and orientation - adjusted for mobile
@@ -187,7 +187,10 @@
 				applyCameraTransform();
 
 				// recenter grid in canvas - slight offset to improve centering
-				p.translate((-sideLength / 2 + cellSize / 2) * scale, (-sideLength / 2 + cellSize / 2) * scale);
+				p.translate(
+					(-sideLength / 2 + cellSize / 2) * scale,
+					(-sideLength / 2 + cellSize / 2) * scale
+				);
 
 				drawShapes();
 				drawName();
@@ -320,10 +323,12 @@
 
 			// helper function to check if point is inside button
 			function isPointInButton(x, y, button) {
-				return x >= button.x && 
-				       x <= button.x + button.width && 
-				       y >= button.y && 
-				       y <= button.y + button.height;
+				return (
+					x >= button.x &&
+					x <= button.x + button.width &&
+					y >= button.y &&
+					y <= button.y + button.height
+				);
 			}
 
 			// mouse interaction for camera control
@@ -351,7 +356,7 @@
 			};
 
 			p.mouseMoved = function () {
-				// Update button hover states and cursor on mouse move
+				// update button hover states and cursor on mouse move
 				updateButtonHoverStates();
 			};
 
@@ -415,14 +420,14 @@
 			function updateButtons() {
 				// position buttons - responsive for mobile
 				if (isMobile) {
-					// Mobile: position buttons closer to edges and lower
+					// mobile: position buttons closer to edges and lower
 					leftButton.x = 20;
 					leftButton.y = p.windowHeight * 0.8 - leftButton.height / 2;
-					
+
 					rightButton.x = p.windowWidth - rightButton.width - 20;
 					rightButton.y = p.windowHeight * 0.8 - rightButton.height / 2;
 				} else {
-					// Desktop: original positioning
+					// desktop: original positioning
 					leftButton.x = p.windowWidth / 8 - leftButton.width;
 					leftButton.y = p.windowHeight / 2 - leftButton.height / 2;
 
@@ -480,57 +485,57 @@
 			}
 
 			function updateCamera() {
-				// Handle initial camera tour animation
+				// handle initial camera tour animation
 				if (camera.tour.active && !camera.hasBeenMoved) {
 					let elapsed = p.millis() - camera.tour.startTime;
 
 					if (elapsed < camera.tour.duration) {
-						// Progress (0 to 1)
+						// progress (0 to 1)
 						let progress = elapsed / camera.tour.duration;
-						
-						// Create overlapping smooth movements that blend together
-						// Use different frequencies and phases to create complex but smooth motion
-						
-						// Horizontal orbit - more subtle
+
+						// create overlapping smooth movements that blend together
+						// use different frequencies and phases to create complex but smooth motion
+
+						// horizontal orbit - more subtle
 						let rotationY = Math.sin(progress * p.PI * 2) * 0.35; // Reduced from 0.6 to 0.35
-						
-						// Vertical movement - more gentle
+
+						// vertical movement - more gentle
 						let rotationX = Math.cos((progress + 0.25) * p.PI * 1.5) * 0.25; // Reduced from 0.4 to 0.25
-						
-						// Subtle, pleasant zoom effect - less intense
+
+						// subtle, pleasant zoom effect - less intense
 						let zoomCycle = Math.sin(progress * p.PI * 2.5); // Same cycles
-						let zoomMultiplier = 1 + (zoomCycle * 0.08); // Reduced from 0.15 to 0.08
-						
-						// Add a subtle spiral effect - toned down
+						let zoomMultiplier = 1 + zoomCycle * 0.08; // Reduced from 0.15 to 0.08
+
+						// add a subtle spiral effect - toned down
 						let spiralProgress = progress * p.PI * 2;
 						rotationY += Math.cos(spiralProgress * 0.8) * 0.05; // Reduced from 0.1 to 0.05
 						rotationX += Math.sin(spiralProgress * 0.8) * 0.04; // Reduced from 0.08 to 0.04
-						
-						// Smooth envelope that fades to zero at the end for seamless return
+
+						// smooth envelope that fades to zero at the end for seamless return
 						let envelope = Math.sin(progress * p.PI);
 						rotationX *= envelope;
 						rotationY *= envelope;
-						
-						// Apply envelope to zoom for smooth return to original distance
+
+						// apply envelope to zoom for smooth return to original distance
 						let zoomWithEnvelope = zoomCycle * envelope;
-						
-						// Reset to initial state each frame
+
+						// reset to initial state each frame
 						camera.position = { ...camera.initialPosition };
 						camera.up = { ...camera.initialUp };
-						
-						// Apply rotations if any
+
+						// apply rotations if any
 						if (Math.abs(rotationX) > 0.001 || Math.abs(rotationY) > 0.001) {
 							rotateCamera(rotationY, rotationX);
 						}
-						
-						// Apply subtle zoom with smooth envelope
-						camera.distance = camera.initialDistance * (1 + (zoomWithEnvelope * 0.08));
-						
-						// Update position based on current distance - this should show the zoom
+
+						// apply subtle zoom with smooth envelope
+						camera.distance = camera.initialDistance * (1 + zoomWithEnvelope * 0.08);
+
+						// update position based on current distance - this should show the zoom
 						let dir = normalizeVector(subtractVectors(camera.position, camera.target));
 						camera.position = addVectors(camera.target, scaleVector(dir, camera.distance));
 					} else {
-						// Animation finished, smoothly at original position
+						// animation finished, smoothly at original position
 						camera.tour.active = false;
 						camera.position = { ...camera.initialPosition };
 						camera.up = { ...camera.initialUp };
