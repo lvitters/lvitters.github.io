@@ -3,7 +3,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
 
-	let isLoaded = false;
+	let isUntiledFullLoaded = false;
 
 	const cleanup = () => {
 		if (browser && window.cleanupUntiledFullSketch) {
@@ -13,16 +13,16 @@
 		if (browser) {
 			window.untiledFullSketchInitialized = undefined;
 		}
-		isLoaded = false;
+		isUntiledFullLoaded = false;
 	};
 
-	const loadSketch = async () => {
-		if (!browser || isLoaded) return;
-		
-		isLoaded = true;
-		
-		// Load p5.js if not already loaded (different version for untiled)
-		if (!window.p5) {
+	const loadUntiledFullSketch = async () => {
+		if (!browser || isUntiledFullLoaded) return;
+
+		isUntiledFullLoaded = true;
+
+		// load p5.js if not already loaded (different version for untiled)
+		if (!(window as any).p5) {
 			await new Promise((resolve) => {
 				const script = document.createElement('script');
 				script.src = '/libs/p5_v1.4.0.min.js';
@@ -31,7 +31,7 @@
 			});
 		}
 
-		// Load the untiled sketch script
+		// load the untiled sketch script
 		await new Promise((resolve) => {
 			const script = document.createElement('script');
 			script.src = '/sketches/untiled/untiled_full.js';
@@ -41,7 +41,7 @@
 	};
 
 	onMount(() => {
-		loadSketch();
+		loadUntiledFullSketch();
 	});
 
 	beforeNavigate(cleanup);

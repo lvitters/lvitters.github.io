@@ -40,12 +40,12 @@
 		}
 	});
 
-	let previewSketchLoaded = false;
+	let untiledPreviewSketchLoaded = false;
 
-	const loadSketch = async () => {
-		if (!browser || previewSketchLoaded) return;
+	const loadUntiledPreviewSketch = async () => {
+		if (!browser || untiledPreviewSketchLoaded) return;
 
-		previewSketchLoaded = true;
+		untiledPreviewSketchLoaded = true;
 
 		// load p5.js if not already loaded
 		if (!(window as any).p5) {
@@ -158,9 +158,9 @@
 	}
 
 	onMount(() => {
-		// Small delay to ensure layout is fully rendered
+		// small delay to ensure layout is fully rendered
 		setTimeout(() => {
-			loadSketch();
+			loadUntiledPreviewSketch();
 		}, 100);
 	});
 
@@ -188,7 +188,7 @@
 		if (browser) {
 			window.untiledPreviewSketchInitialized = undefined;
 		}
-		previewSketchLoaded = false;
+		untiledPreviewSketchLoaded = false;
 	};
 
 	beforeNavigate(cleanup);

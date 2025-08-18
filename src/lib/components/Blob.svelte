@@ -13,11 +13,11 @@
 		}
 	};
 
-	const loadSketch = async () => {
+	const loadBlobSketch = async () => {
 		if (!browser) return;
-		
-		// Load p5.js if not already loaded
-		if (!window.p5) {
+
+		// load p5.js if not already loaded
+		if (!(window as any).p5) {
 			await new Promise((resolve) => {
 				const script = document.createElement('script');
 				script.src = '/libs/p5_v0.10.2.min.js';
@@ -26,10 +26,10 @@
 			});
 		}
 
-		// Always reset the flag and load the sketch
+		// always reset the flag and load the sketch
 		window.blobSketchInitialized = undefined;
-		
-		// Load the blob sketch script
+
+		// load the blob sketch script
 		await new Promise((resolve) => {
 			const script = document.createElement('script');
 			script.src = '/sketches/blob/blob.js';
@@ -41,7 +41,7 @@
 	onMount(() => {
 		// Wait a bit for the DOM to be fully ready
 		setTimeout(() => {
-			loadSketch();
+			loadBlobSketch();
 		}, 100);
 	});
 

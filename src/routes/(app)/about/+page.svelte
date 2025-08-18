@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	
+
 	let pageVisible = $state(false);
 	let isMobile = $state(false);
 
@@ -10,7 +10,7 @@
 			pageVisible = true;
 		}, 50);
 	});
-	
+
 	// check if mobile
 	$effect(() => {
 		if (browser) {
@@ -19,7 +19,7 @@
 			};
 			checkMobile();
 			window.addEventListener('resize', checkMobile);
-			
+
 			return () => {
 				window.removeEventListener('resize', checkMobile);
 			};
@@ -60,11 +60,17 @@
 			{/if}
 
 			<!-- right 2/3 or full width on mobile -->
-			<section class="{isMobile ? 'w-full flex justify-center' : 'md:w-[calc(66.667%-1rem)]'} h-full overflow-y-auto">
+			<section
+				class="{isMobile
+					? 'flex w-full justify-center'
+					: 'md:w-[calc(66.667%-1rem)]'} h-full overflow-y-auto"
+			>
 				<main
-					class="font-consolas m-0 min-h-screen bg-white pb-5 text-black transition-all duration-700 {isMobile ? 'pt-16 w-full max-w-2xl px-7' : 'pt-12 px-7'}"
+					class="font-consolas m-0 min-h-screen bg-white pb-5 text-black transition-all duration-700 {isMobile
+						? 'w-full max-w-2xl px-7 pt-16'
+						: 'px-7 pt-12'}"
 				>
-					<article class="{isMobile ? '' : 'px-5'}">
+					<article class={isMobile ? '' : 'px-5'}>
 						<div class="mb-4"></div>
 
 						<div class="mb-4"></div>
@@ -83,7 +89,7 @@
 						<div class="mb-5 flex items-center justify-center text-center">
 							<div class="flex-1 text-center">
 								<div class="mt-1 text-sm">
-									<div class="{isMobile ? 'flex flex-col items-center space-y-1' : ''}">
+									<div class={isMobile ? 'flex flex-col items-center space-y-1' : ''}>
 										<a
 											href="mailto:lucca.vitters@gmail.com"
 											class="dynamic-link underline"

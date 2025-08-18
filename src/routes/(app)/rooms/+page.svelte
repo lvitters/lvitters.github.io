@@ -3,7 +3,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { beforeNavigate } from '$app/navigation';
 
-	let isLoaded = false;
+	let isRoomsSketchLoaded = false;
 
 	const cleanup = () => {
 		if (browser && window.cleanupRoomsSketch) {
@@ -13,16 +13,16 @@
 		if (browser) {
 			window.roomsSketchInitialized = undefined;
 		}
-		isLoaded = false;
+		isRoomsSketchLoaded = false;
 	};
 
-	const loadSketch = async () => {
-		if (!browser || isLoaded) return;
-		
-		isLoaded = true;
-		
-		// Load p5.js if not already loaded
-		if (!window.p5) {
+	const loadRoomsSketch = async () => {
+		if (!browser || isRoomsSketchLoaded) return;
+
+		isRoomsSketchLoaded = true;
+
+		// load p5.js if not already loaded
+		if (!(window as any).p5) {
 			await new Promise((resolve) => {
 				const script = document.createElement('script');
 				script.src = '/libs/p5_v1.4.0.min.js';
@@ -31,7 +31,7 @@
 			});
 		}
 
-		// Load the rooms sketch script
+		// load the rooms sketch script
 		await new Promise((resolve) => {
 			const script = document.createElement('script');
 			script.src = '/sketches/rooms/rooms.js';
@@ -41,7 +41,7 @@
 	};
 
 	onMount(() => {
-		loadSketch();
+		loadRoomsSketch();
 	});
 
 	beforeNavigate(cleanup);
