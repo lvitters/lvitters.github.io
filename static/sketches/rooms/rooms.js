@@ -75,16 +75,16 @@
 				damping: 0.85,
 				sensitivity: 0.003,
 
-				// zoom - adjusted for mobile
+				// zoom - adjusted for mobile, increased max zoom out
 				minDistance: isMobile ? 1500 : 800,
-				maxDistance: isMobile ? 5000 : 4000,
+				maxDistance: isMobile ? 6500 : 5500,
 
-				// wiggle animation
-				wiggle: {
+				// camera tour animation
+				tour: {
 					active: true,
 					startTime: 0,
-					duration: 5000,
-					intensity: 0.2
+					duration: 4000, // much shorter duration
+					phase: 0 // current phase of the tour
 				}
 			};
 
@@ -169,10 +169,11 @@
 
 				setCity(0);
 
-				// initialize wiggle start time and store initial camera state
-				camera.wiggle.startTime = p.millis();
+				// initialize camera tour and store initial camera state
+				camera.tour.startTime = p.millis();
 				camera.initialPosition = { ...camera.position };
 				camera.initialUp = { ...camera.up };
+				camera.initialDistance = camera.distance;
 			};
 
 			p.draw = function () {
@@ -285,15 +286,27 @@
 				isMobile = window.innerWidth < 768;
 				// adjust camera settings for new screen size
 				camera.minDistance = isMobile ? 1500 : 800;
-				camera.maxDistance = isMobile ? 5000 : 4000;
+				camera.maxDistance = isMobile ? 6500 : 5500;
 			};
+
+			// debounce to prevent rapid button clicks
+			let lastButtonClick = 0;
+			const buttonDebounceTime = 200; // 200ms between clicks
 
 			// helper functions because button callback's can't have parameters
 			function goLeft() {
-				setCity(-1);
+				let now = p.millis();
+				if (now - lastButtonClick > buttonDebounceTime) {
+					setCity(-1);
+					lastButtonClick = now;
+				}
 			}
 			function goRight() {
-				setCity(1);
+				let now = p.millis();
+				if (now - lastButtonClick > buttonDebounceTime) {
+					setCity(1);
+					lastButtonClick = now;
+				}
 			}
 
 			// switch cities with arrow keys
@@ -305,14 +318,22 @@
 				}
 			};
 
+			// helper function to check if point is inside button
+			function isPointInButton(x, y, button) {
+				return x >= button.x && 
+				       x <= button.x + button.width && 
+				       y >= button.y && 
+				       y <= button.y + button.height;
+			}
+
 			// mouse interaction for camera control
 			p.mousePressed = function () {
-				// check button clicks first
-				if (leftButton.visible && leftButton.hovered) {
+				// check button clicks first - use direct coordinate check for reliability
+				if (leftButton.visible && isPointInButton(p.mouseX, p.mouseY, leftButton)) {
 					goLeft();
 					return;
 				}
-				if (rightButton.visible && rightButton.hovered) {
+				if (rightButton.visible && isPointInButton(p.mouseX, p.mouseY, rightButton)) {
 					goRight();
 					return;
 				}
@@ -329,11 +350,16 @@
 				camera.isDragging = false;
 			};
 
+			p.mouseMoved = function () {
+				// Update button hover states and cursor on mouse move
+				updateButtonHoverStates();
+			};
+
 			p.mouseDragged = function () {
 				if (camera.isDragging) {
 					// mark that user has interacted with camera
 					camera.hasBeenMoved = true;
-					camera.wiggle.active = false; // stop wiggle immediately when user takes control
+					camera.tour.active = false; // stop tour immediately when user takes control
 
 					let deltaX = (p.mouseX - camera.lastMouseX) * camera.sensitivity;
 					let deltaY = (p.mouseY - camera.lastMouseY) * camera.sensitivity;
@@ -351,12 +377,39 @@
 			p.mouseWheel = function (event) {
 				// mark that user has interacted with camera
 				camera.hasBeenMoved = true;
-				camera.wiggle.active = false; // stop wiggle when user zooms
+				camera.tour.active = false; // stop tour when user zooms
 
 				// ultra-fine steps for barely noticeable zoom increments
 				camera.velocity.distance += event.delta * 0.2;
 				return false; // prevent page scrolling
 			};
+
+			// update button hover states and cursor (called frequently)
+			function updateButtonHoverStates() {
+				// check hover states
+				leftButton.hovered =
+					leftButton.visible &&
+					p.mouseX >= leftButton.x &&
+					p.mouseX <= leftButton.x + leftButton.width &&
+					p.mouseY >= leftButton.y &&
+					p.mouseY <= leftButton.y + leftButton.height;
+
+				rightButton.hovered =
+					rightButton.visible &&
+					p.mouseX >= rightButton.x &&
+					p.mouseX <= rightButton.x + rightButton.width &&
+					p.mouseY >= rightButton.y &&
+					p.mouseY <= rightButton.y + rightButton.height;
+
+				// update cursor style based on hover
+				if (canvasElement) {
+					if (leftButton.hovered || rightButton.hovered) {
+						canvasElement.style.cursor = 'pointer';
+					} else {
+						canvasElement.style.cursor = 'default';
+					}
+				}
+			}
 
 			// set up button positions and visibility
 			function updateButtons() {
@@ -381,29 +434,8 @@
 				leftButton.visible = cityIndex > 0;
 				rightButton.visible = cityIndex < cities.length - 1;
 
-				// check hover states
-				leftButton.hovered =
-					leftButton.visible &&
-					p.mouseX >= leftButton.x &&
-					p.mouseX <= leftButton.x + leftButton.width &&
-					p.mouseY >= leftButton.y &&
-					p.mouseY <= leftButton.y + leftButton.height;
-
-				rightButton.hovered =
-					rightButton.visible &&
-					p.mouseX >= rightButton.x &&
-					p.mouseX <= rightButton.x + rightButton.width &&
-					p.mouseY >= rightButton.y &&
-					p.mouseY <= rightButton.y + rightButton.height;
-
-				// --- MODIFIED: Use direct DOM manipulation for cursor style ---
-				if (canvasElement) {
-					if (leftButton.hovered || rightButton.hovered) {
-						canvasElement.style.cursor = 'pointer';
-					} else {
-						canvasElement.style.cursor = 'default';
-					}
-				}
+				// update hover states and cursor
+				updateButtonHoverStates();
 			}
 
 			function drawButtons() {
@@ -448,49 +480,82 @@
 			}
 
 			function updateCamera() {
-				// Handle initial wiggle animation
-				if (camera.wiggle.active && !camera.hasBeenMoved) {
-					let elapsed = p.millis() - camera.wiggle.startTime;
+				// Handle initial camera tour animation
+				if (camera.tour.active && !camera.hasBeenMoved) {
+					let elapsed = p.millis() - camera.tour.startTime;
 
-					if (elapsed < camera.wiggle.duration) {
-						// Progress (0 to 1) and an envelope that smoothly goes 0 -> 1 -> 0
-						let progress = elapsed / camera.wiggle.duration;
+					if (elapsed < camera.tour.duration) {
+						// Progress (0 to 1)
+						let progress = elapsed / camera.tour.duration;
+						
+						// Create overlapping smooth movements that blend together
+						// Use different frequencies and phases to create complex but smooth motion
+						
+						// Horizontal orbit - more subtle
+						let rotationY = Math.sin(progress * p.PI * 2) * 0.35; // Reduced from 0.6 to 0.35
+						
+						// Vertical movement - more gentle
+						let rotationX = Math.cos((progress + 0.25) * p.PI * 1.5) * 0.25; // Reduced from 0.4 to 0.25
+						
+						// Subtle, pleasant zoom effect - less intense
+						let zoomCycle = Math.sin(progress * p.PI * 2.5); // Same cycles
+						let zoomMultiplier = 1 + (zoomCycle * 0.08); // Reduced from 0.15 to 0.08
+						
+						// Add a subtle spiral effect - toned down
+						let spiralProgress = progress * p.PI * 2;
+						rotationY += Math.cos(spiralProgress * 0.8) * 0.05; // Reduced from 0.1 to 0.05
+						rotationX += Math.sin(spiralProgress * 0.8) * 0.04; // Reduced from 0.08 to 0.04
+						
+						// Smooth envelope that fades to zero at the end for seamless return
 						let envelope = Math.sin(progress * p.PI);
-
-						// Calculate wiggle angles based on time and the envelope
-						let wiggleX = Math.sin(elapsed * 0.002) * camera.wiggle.intensity * envelope;
-						let wiggleY = Math.cos(elapsed * 0.0015) * camera.wiggle.intensity * 0.6 * envelope;
-
-						// Reset to initial state each frame to prevent drift
+						rotationX *= envelope;
+						rotationY *= envelope;
+						
+						// Apply envelope to zoom for smooth return to original distance
+						let zoomWithEnvelope = zoomCycle * envelope;
+						
+						// Reset to initial state each frame
 						camera.position = { ...camera.initialPosition };
 						camera.up = { ...camera.initialUp };
-
-						// Apply the temporary wiggle rotation
-						rotateCamera(wiggleX, wiggleY);
+						
+						// Apply rotations if any
+						if (Math.abs(rotationX) > 0.001 || Math.abs(rotationY) > 0.001) {
+							rotateCamera(rotationY, rotationX);
+						}
+						
+						// Apply subtle zoom with smooth envelope
+						camera.distance = camera.initialDistance * (1 + (zoomWithEnvelope * 0.08));
+						
+						// Update position based on current distance - this should show the zoom
+						let dir = normalizeVector(subtractVectors(camera.position, camera.target));
+						camera.position = addVectors(camera.target, scaleVector(dir, camera.distance));
 					} else {
-						// Animation finished, snap to the exact start and deactivate
-						camera.wiggle.active = false;
+						// Animation finished, smoothly at original position
+						camera.tour.active = false;
 						camera.position = { ...camera.initialPosition };
 						camera.up = { ...camera.initialUp };
+						camera.distance = camera.initialDistance;
 					}
 				}
 
-				// apply damping to velocities for user mouse input
-				camera.velocity.x *= camera.damping;
-				camera.velocity.y *= camera.damping;
-				camera.velocity.distance *= 0.85;
+				// apply damping to velocities for user mouse input (but not during tour)
+				if (!camera.tour.active) {
+					camera.velocity.x *= camera.damping;
+					camera.velocity.y *= camera.damping;
+					camera.velocity.distance *= 0.85;
 
-				// apply rotation velocities using trackball rotation
-				if (Math.abs(camera.velocity.x) > 0.001 || Math.abs(camera.velocity.y) > 0.001) {
-					rotateCamera(camera.velocity.x, camera.velocity.y);
+					// apply rotation velocities using trackball rotation
+					if (Math.abs(camera.velocity.x) > 0.001 || Math.abs(camera.velocity.y) > 0.001) {
+						rotateCamera(camera.velocity.x, camera.velocity.y);
+					}
+
+					// update distance
+					camera.distance += camera.velocity.distance;
+					camera.distance = p.constrain(camera.distance, camera.minDistance, camera.maxDistance);
 				}
 
-				// update distance
-				camera.distance += camera.velocity.distance;
-				camera.distance = p.constrain(camera.distance, camera.minDistance, camera.maxDistance);
-
-				// update position based on distance (unless wiggle is happening)
-				if (!camera.wiggle.active) {
+				// update position based on distance (unless tour is happening)
+				if (!camera.tour.active) {
 					let dir = normalizeVector(subtractVectors(camera.position, camera.target));
 					camera.position = addVectors(camera.target, scaleVector(dir, camera.distance));
 				}
