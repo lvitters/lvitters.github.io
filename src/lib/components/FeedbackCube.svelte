@@ -105,8 +105,8 @@
 
 		<figure class="m-0 p-0">
 			<video
-				src="media/feedback_cube/feedback_cube_trailer.mp4"
-				title="feedback_cube trailer video"
+				src="media/feedback_cube/feedback_cube_reel.mp4"
+				title="feedback_cube reel video"
 				class="block h-auto w-full object-cover"
 				controls
 				muted

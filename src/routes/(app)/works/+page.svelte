@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Rauschen from '$lib/components/Rauschen.svelte';
 	import RayArray from '$lib/components/RayArray.svelte';
 	import FeedbackCube from '$lib/components/FeedbackCube.svelte';
 	import EinHauchVonTullv2 from '$lib/components/EinHauchVonTullv2.svelte';
@@ -215,11 +216,28 @@
 					: 'w-full px-8'
 				: 'w-1/3 overflow-x-visible pr-4 pl-8 md:w-[33.33vw]'}"
 		>
-			<!-- <div>RAUSCHEN (2025)</div>
-			<div>Radio Angrezi Archive (2025)</div> -->
 			<div class="mb-1">
 				<button
-					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
+					onclick={() => scrollToSection('rauschen-section')}
+				>
+					<img
+						src="/media/rauschen/rauschen_preview.png"
+						alt="RAUSCHEN preview"
+						class="h-auto w-full"
+					/>
+				</button>
+				<button
+					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
+					onclick={() => scrollToSection('rauschen-section')}
+				>
+					RAUSCHEN (2025)
+				</button>
+			</div>
+			<!--<div>Radio Angrezi Archive (2025)</div>-->
+			<div class="mb-1">
+				<button
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('rayarray-section')}
 				>
 					<img
@@ -237,7 +255,7 @@
 			</div>
 			<div class="mb-1">
 				<button
-					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('feedback-cube-section')}
 				>
 					<img
@@ -255,7 +273,7 @@
 			</div>
 			<div class="mb-1">
 				<button
-					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('ein-hauch-von-tull-v2-section')}
 				>
 					<img
@@ -274,7 +292,7 @@
 			<div class="mb-1">
 				<button
 					id="untiled-preview-container"
-					class="w-full cursor-pointer p-0 m-0 border-0 bg-transparent block"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0"
 					style="height: 90px; width: 100%; box-sizing: border-box;"
 					aria-label="View untiled project details"
 					onclick={() => scrollToSection('untiled-section')}
@@ -288,7 +306,7 @@
 			</div>
 			<div class="mb-1">
 				<button
-					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('ein-hauch-von-tull-section')}
 				>
 					<img
@@ -307,7 +325,7 @@
 			<div class="mb-1">
 				<!-- stick out from container -->
 				<button
-					class="cursor-pointer overflow-visible p-0 m-0 bg-transparent w-full block border-1"
+					class="m-0 block w-full cursor-pointer overflow-visible border-1 bg-transparent p-0"
 					onclick={() => scrollToSection('available-rooms-section')}
 				>
 					<img
@@ -326,14 +344,10 @@
 			</div>
 			<div class="mb-1">
 				<button
-					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('blob-section')}
 				>
-					<img
-						src="/media/blob/blob_preview.png"
-						alt="blob preview"
-						class="h-auto w-full"
-					/>
+					<img src="/media/blob/blob_preview.png" alt="blob preview" class="h-auto w-full" />
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
@@ -344,7 +358,7 @@
 			</div>
 			<div class="mb-1">
 				<button
-					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('break-the-pattern-section')}
 				>
 					<img
@@ -362,7 +376,7 @@
 			</div>
 			<div class="mb-5">
 				<button
-					class="cursor-pointer p-0 m-0 border-0 bg-transparent transition-opacity duration-300 hover:opacity-80 w-full block"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('image-blender-section')}
 				>
 					<img
@@ -388,6 +402,18 @@
 			<!-- <div>RAUSCHEN (2025)</div>
 
 			<div>Radio Angrezi Archive (2025)</div> -->
+
+			{#if !isMobile || currentDetailSection === 'rauschen-section'}
+				<div
+					id="rauschen-section"
+					class={isMobile && showDetailView
+						? 'transition-all duration-700 ease-out ' +
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+						: ''}
+				>
+					<Rauschen />
+				</div>
+			{/if}
 
 			{#if !isMobile || currentDetailSection === 'rayarray-section'}
 				<div
