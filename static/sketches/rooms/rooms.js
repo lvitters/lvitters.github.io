@@ -30,7 +30,7 @@
 		if (
 			container &&
 			!container.querySelector('canvas') &&
-			typeof window.blobSketchInitialized === 'undefined'
+			typeof window.roomsSketchInitialized === 'undefined'
 		) {
 			initializeSketch();
 		}
@@ -49,11 +49,14 @@
 			// reference to the canvas element for styling
 			let canvasElement;
 
+			// detect if mobile
+			let isMobile = window.innerWidth < 768;
+			
 			// custom camera controls
 			let camera = {
-				// camera position and orientation
-				distance: 2500,
-				position: { x: 0, y: 0, z: 2500 }, // start facing front
+				// camera position and orientation - adjusted for mobile
+				distance: isMobile ? 4000 : 2500,
+				position: { x: 0, y: 0, z: isMobile ? 4000 : 2500 }, // start facing front
 
 				// target point to orbit around
 				target: { x: 0, y: 0, z: 0 },
@@ -72,9 +75,9 @@
 				damping: 0.85,
 				sensitivity: 0.003,
 
-				// zoom
-				minDistance: 800,
-				maxDistance: 4000,
+				// zoom - adjusted for mobile
+				minDistance: isMobile ? 1500 : 800,
+				maxDistance: isMobile ? 5000 : 4000,
 
 				// wiggle animation
 				wiggle: {
@@ -85,12 +88,12 @@
 				}
 			};
 
-			// buttons (now drawn on canvas)
+			// buttons (now drawn on canvas) - responsive sizes
 			let leftButton = {
 				x: 0,
 				y: 0,
-				width: 80,
-				height: 50,
+				width: isMobile ? 100 : 80,
+				height: isMobile ? 60 : 50,
 				visible: true,
 				hovered: false,
 				text: '<'
@@ -98,8 +101,8 @@
 			let rightButton = {
 				x: 0,
 				y: 0,
-				width: 80,
-				height: 50,
+				width: isMobile ? 100 : 80,
+				height: isMobile ? 60 : 50,
 				visible: true,
 				hovered: false,
 				text: '>'
@@ -182,8 +185,8 @@
 				// apply camera transform
 				applyCameraTransform();
 
-				// recenter grid in canvas
-				p.translate((-sideLength / 2) * scale, (-sideLength / 2) * scale);
+				// recenter grid in canvas - slight offset to improve centering
+				p.translate((-sideLength / 2 + cellSize / 2) * scale, (-sideLength / 2 + cellSize / 2) * scale);
 
 				drawShapes();
 				drawName();
@@ -278,6 +281,11 @@
 			// called when window is resized
 			p.windowResized = function () {
 				p.resizeCanvas(p.windowWidth, p.windowHeight);
+				// update mobile detection on resize
+				isMobile = window.innerWidth < 768;
+				// adjust camera settings for new screen size
+				camera.minDistance = isMobile ? 1500 : 800;
+				camera.maxDistance = isMobile ? 5000 : 4000;
 			};
 
 			// helper functions because button callback's can't have parameters
@@ -352,12 +360,22 @@
 
 			// set up button positions and visibility
 			function updateButtons() {
-				// position buttons
-				leftButton.x = p.windowWidth / 8 - leftButton.width;
-				leftButton.y = p.windowHeight / 2 - leftButton.height / 2;
+				// position buttons - responsive for mobile
+				if (isMobile) {
+					// Mobile: position buttons closer to edges and lower
+					leftButton.x = 20;
+					leftButton.y = p.windowHeight * 0.8 - leftButton.height / 2;
+					
+					rightButton.x = p.windowWidth - rightButton.width - 20;
+					rightButton.y = p.windowHeight * 0.8 - rightButton.height / 2;
+				} else {
+					// Desktop: original positioning
+					leftButton.x = p.windowWidth / 8 - leftButton.width;
+					leftButton.y = p.windowHeight / 2 - leftButton.height / 2;
 
-				rightButton.x = (p.windowWidth / 8) * 7 - rightButton.width;
-				rightButton.y = p.windowHeight / 2 - rightButton.height / 2;
+					rightButton.x = (p.windowWidth / 8) * 7 - rightButton.width;
+					rightButton.y = p.windowHeight / 2 - rightButton.height / 2;
+				}
 
 				// update visibility
 				leftButton.visible = cityIndex > 0;
@@ -399,10 +417,10 @@
 				// translate to screen coordinates
 				p.translate(-p.width / 2, -p.height / 2);
 
-				// set text properties
+				// set text properties - responsive text size
 				p.textAlign(p.CENTER, p.CENTER);
 				if (font) p.textFont(font);
-				p.textSize(32); // larger size for prominence
+				p.textSize(isMobile ? 40 : 32); // larger on mobile for better touch targets
 
 				// draw left button
 				if (leftButton.visible) {
@@ -636,12 +654,12 @@
 	}
 
 	// store cleanup function globally so SvelteKit can access it
-	window.cleanupBlobSketch = cleanupSketch;
+	window.cleanupRoomsSketch = cleanupSketch;
 
 	// prevent multiple sketches, but allow reinit if container is empty
-	var container = document.getElementById('blob-container');
+	var container = document.getElementById('rooms-sketch-container');
 	if (
-		typeof window.blobSketchInitialized === 'undefined' ||
+		typeof window.roomsSketchInitialized === 'undefined' ||
 		(container && !container.querySelector('canvas'))
 	) {
 		initializeSketch();

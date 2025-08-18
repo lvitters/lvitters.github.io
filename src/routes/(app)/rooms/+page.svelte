@@ -41,7 +41,10 @@
 	};
 
 	onMount(() => {
-		loadRoomsSketch();
+		// Add a small delay to ensure DOM is fully rendered, especially on mobile
+		setTimeout(() => {
+			loadRoomsSketch();
+		}, 100);
 	});
 
 	beforeNavigate(cleanup);
