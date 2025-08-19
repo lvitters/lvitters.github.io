@@ -201,7 +201,7 @@
 	<title>Lucca Vitters</title>
 </svelte:head>
 
-<main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[10px]">
+<main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[17px]">
 	<!-- wrap content in a transition container -->
 	<div
 		class="flex h-full transition-all duration-700 ease-out {pageVisible
@@ -214,7 +214,7 @@
 			{isMobile
 				? showDetailView
 					? 'hidden'
-					: 'w-full px-8'
+					: 'w-full px-10'
 				: 'w-1/3 overflow-x-visible pr-4 pl-8 md:w-[33.33vw]'}"
 		>
 			<div class="mb-1">
@@ -369,7 +369,7 @@
 				<button
 					id="untiled-preview-container"
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0"
-					style="height: 90px; width: 100%; box-sizing: border-box;"
+					style="height: 150px; width: 100%; box-sizing: border-box;"
 					aria-label="View untiled project details"
 					onclick={() => scrollToSection('untiled-section')}
 				></button>

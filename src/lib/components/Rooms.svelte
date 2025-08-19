@@ -18,13 +18,13 @@
 	<meta name="description" content="rooms" />
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-white px-7 pt-12 pb-5 text-black">
+<main class="font-consolas m-0 min-h-screen bg-white px-6 pt-12 pb-5 text-black">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
-				<h1 class="mb-0 pb-1 text-center text-2xl font-normal">available.rooms</h1>
-				<div class="mt-1 text-sm">
-					<time class="text-sm">2021</time>
+				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">available.rooms</h1>
+				<div class="mt-1 text-xl">
+					<time class="text-xl">2021</time>
 					<span> | p5.js | Python</span>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 
 		<div class="my-5"></div>
 
-		<figure class="mx-0 md:mx-30 my-10">
+		<figure class="mx-0 my-10 md:mx-50">
 			<a href="/rooms">
 				<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
 			</a>

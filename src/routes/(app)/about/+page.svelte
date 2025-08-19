@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 
 	let pageVisible = $state(false);
-	let isMobile = $state(false);
+	let isMobile = $state(browser ? window.innerWidth < 768 : false);
 
 	// page transition effect
 	$effect(() => {
@@ -15,9 +15,18 @@
 	$effect(() => {
 		if (browser) {
 			const checkMobile = () => {
-				isMobile = window.innerWidth < 768;
+				const newIsMobile = window.innerWidth < 768;
+				if (newIsMobile !== isMobile) {
+					isMobile = newIsMobile;
+				}
 			};
+
+			// check immediately
 			checkMobile();
+
+			// also check on next tick to ensure DOM is ready
+			setTimeout(checkMobile, 0);
+
 			window.addEventListener('resize', checkMobile);
 
 			return () => {
@@ -44,33 +53,25 @@
 </svelte:head>
 
 <div>
+	<!-- Mobile: full screen white background, Desktop: colored background with white content area -->
 	<main
-		class="relative flex h-screen w-screen overflow-hidden text-[10px] transition-all duration-1000 ease-in-out"
-		style="background: {color}; opacity: {pageVisible ? 1 : 0};"
+		class="relative h-screen w-screen overflow-hidden text-[17px] transition-all duration-1000 ease-in-out md:flex"
+		style="background: {pageVisible ? 'white' : 'white'}; opacity: {pageVisible ? 1 : 0};"
 	>
-		<!-- wrap content in a transition container -->
-		<div
-			class="flex h-full transition-all duration-700 ease-out {pageVisible
+		<!-- Left spacer - desktop only -->
+		<section 
+			class="hidden md:block md:w-1/3 md:h-full" 
+			style="background: {color};"
+		></section>
+
+		<!-- Main content area -->
+		<section 
+			class="h-full overflow-y-auto w-full md:w-2/3 bg-white flex justify-center transition-all duration-700 ease-out {pageVisible
 				? 'translate-y-0 opacity-100'
 				: 'translate-y-4 opacity-0'}"
 		>
-			{#if !isMobile}
-				<!-- left 1/3 - desktop only -->
-				<section class="h-full md:w-[calc(33.333%+1rem)]"></section>
-			{/if}
-
-			<!-- right 2/3 or full width on mobile -->
-			<section
-				class="{isMobile
-					? 'flex w-full justify-center'
-					: 'md:w-[calc(66.667%-1rem)]'} h-full overflow-y-auto"
-			>
-				<main
-					class="font-consolas m-0 min-h-screen bg-white pb-5 text-black transition-all duration-700 {isMobile
-						? 'w-full max-w-2xl px-7 pt-16'
-						: 'px-7 pt-12'}"
-				>
-					<article class={isMobile ? '' : 'px-5'}>
+			<main class="font-consolas w-full max-w-2xl px-6 pt-16 md:pt-12 pb-5 text-black">
+				<article>
 						<div class="mb-4"></div>
 
 						<div class="mb-4"></div>
@@ -88,7 +89,7 @@
 
 						<div class="mb-5 flex items-center justify-center text-center">
 							<div class="flex-1 text-center">
-								<div class="mt-1 text-sm">
+								<div class="mt-1 text-xl">
 									<div class={isMobile ? 'flex flex-col items-center space-y-1' : ''}>
 										<a
 											href="mailto:lucca.vitters@gmail.com"
@@ -204,10 +205,9 @@
 						</table>
 
 						<div class="my-5"></div>
-					</article>
-				</main>
-			</section>
-		</div>
+				</article>
+			</main>
+		</section>
 	</main>
 </div>
 
@@ -219,5 +219,12 @@
 	.dynamic-link:hover {
 		color: black !important;
 		transition: color 0.15s ease;
+	}
+
+	/* Make table text smaller on mobile to prevent overflow */
+	@media (max-width: 767px) {
+		table {
+			font-size: 10px;
+		}
 	}
 </style>

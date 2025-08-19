@@ -40,13 +40,13 @@
 	<meta name="description" content="Break the Pattern" />
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-[rgb(80,0,0)] px-7 pt-12 pb-5 text-white">
+<main class="font-consolas m-0 min-h-screen bg-[rgb(80,0,0)] px-6 pt-12 pb-5 text-white">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
-				<h1 class="mb-0 pb-1 text-center text-2xl font-normal">Break the Pattern</h1>
-				<div class="mt-1 text-sm text-white">
-					<time class="text-sm">2019</time>
+				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">Break the Pattern</h1>
+				<div class="mt-1 text-xl text-white">
+					<time class="text-xl">2019</time>
 					<span> | Processing | interactive installation</span>
 				</div>
 			</div>
@@ -99,7 +99,7 @@
 				<!-- slides -->
 				{#each photoSlides as slide, index}
 					<div class="slide" class:hidden={slideIndex[0] !== index + 1}>
-						<div class="bg-opacity-50 absolute top-2 left-2 bg-black px-2 py-1 text-xs">
+						<div class="bg-opacity-50 absolute top-2 left-2 bg-black px-2 py-1 text-lg">
 							{index + 1} / {photoSlides.length}
 						</div>
 						<img src={slide} alt="Break the Pattern Installation" class="block w-full" />
@@ -108,13 +108,13 @@
 
 				<!-- navigation buttons -->
 				<button
-					class="prev absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer px-4 py-3 text-2xl text-white hover:text-blue-500"
+					class="prev absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer px-6 py-3 text-4xl text-white hover:text-blue-500"
 					on:click={() => plusSlides(-1, 0)}
 				>
 					{'<'}
 				</button>
 				<button
-					class="next absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer px-4 py-3 text-2xl text-white hover:text-blue-500"
+					class="next absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer px-6 py-3 text-4xl text-white hover:text-blue-500"
 					on:click={() => plusSlides(1, 0)}
 				>
 					{'>'}
@@ -130,7 +130,7 @@
 				<!-- slides -->
 				{#each designSlides as slide, index}
 					<div class="slide" class:hidden={slideIndex[1] !== index + 1}>
-						<div class="bg-opacity-50 absolute top-2 left-2 bg-black px-2 py-1 text-xs">
+						<div class="bg-opacity-50 absolute top-2 left-2 bg-black px-2 py-1 text-lg">
 							{index + 1} / {designSlides.length}
 						</div>
 						<img src={slide} alt="Break the Pattern Design" class="block w-full" />
@@ -139,19 +139,21 @@
 
 				<!-- navigation buttons -->
 				<button
-					class="prev absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer px-4 py-3 text-2xl text-white hover:text-blue-500"
+					class="prev absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer px-6 py-3 text-4xl text-white hover:text-blue-500"
 					on:click={() => plusSlides(-1, 1)}
 				>
 					{'<'}
 				</button>
 				<button
-					class="next absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer px-4 py-3 text-2xl text-white hover:text-blue-500"
+					class="next absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer px-6 py-3 text-4xl text-white hover:text-blue-500"
 					on:click={() => plusSlides(1, 1)}
 				>
 					{'>'}
 				</button>
 			</div>
 		</div>
+
+		<div class="my-5"></div>
 	</article>
 </main>
 

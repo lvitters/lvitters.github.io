@@ -10,3 +10,33 @@
 .font-consolas {
 	font-family: 'Consolas', monospace;
 }
+
+/* Mobile text size adjustments - make text smaller on mobile */
+@media (max-width: 767px) {
+	.text-\[17px\] {
+		font-size: 14px !important;
+	}
+	
+	.text-lg {
+		font-size: 16px !important;
+	}
+	
+	.text-xl {
+		font-size: 18px !important;
+	}
+	
+	.text-4xl {
+		font-size: 28px !important;
+	}
+
+	/* Reduce padding on mobile */
+	.px-4 {
+		padding-left: 0.5rem !important; /* 8px instead of 16px */
+		padding-right: 0.5rem !important;
+	}
+	
+	.px-8 {
+		padding-left: 1rem !important; /* 16px instead of 32px */
+		padding-right: 1rem !important;
+	}
+}

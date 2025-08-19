@@ -5,13 +5,13 @@
 	<meta name="description" content="feedback_cube" />
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-[rgb(42,0,25)] px-7 pt-12 pb-5 text-white">
+<main class="font-consolas m-0 min-h-screen bg-[rgb(42,0,25)] px-6 pt-12 pb-5 text-white">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
-				<h1 class="mb-0 pb-1 text-center text-2xl font-normal">feedback_cube</h1>
-				<div class="mt-1 text-sm text-white">
-					<time class="text-sm">2022</time>
+				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">feedback_cube</h1>
+				<div class="mt-1 text-xl text-white">
+					<time class="text-xl">2022</time>
 					<span> | interactive installation | Processing | Max/MSP</span>
 				</div>
 			</div>
@@ -117,9 +117,9 @@
 			</video>
 		</figure>
 
-		<!--
-
 		<div class="my-5"></div>
+
+		<!--
 
 		<figure class="m-0 p-0">
 			<iframe
@@ -132,6 +132,8 @@
 			>
 			</iframe>
 		</figure>
+
+		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
 			<video
@@ -150,7 +152,5 @@
 		<div class="my-5"></div>
 
 		-->
-
-		<div class="my-5"></div>
 	</article>
 </main>

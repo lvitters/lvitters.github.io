@@ -23,13 +23,13 @@
 	<meta name="description" content="RAYARRAY" />
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-black px-7 pt-12 pb-5 text-white">
+<main class="font-consolas m-0 min-h-screen bg-black px-6 pt-12 pb-5 text-white">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
-				<h1 class="mb-0 pb-1 text-center text-2xl font-normal">RAYARRAY</h1>
-				<div class="mt-1 text-sm text-white">
-					<time class="text-sm">2023</time>
+				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">RAYARRAY</h1>
+				<div class="mt-1 text-xl text-white">
+					<time class="text-xl">2023</time>
 					<span> | kinetic light installation | Processing | Arduino</span>
 				</div>
 			</div>
