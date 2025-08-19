@@ -87,6 +87,8 @@
 				class="block h-auto w-full object-cover"
 				controls
 				muted
+				autoplay
+				loop
 			>
 				Your browser does not support the video tag.
 			</video>

@@ -8,7 +8,30 @@ const criticalResources = [
 	'/libs/p5_v1.4.0.min.js',
 	'/libs/p5_v0.10.2.min.js',
 	'/media/me.jpg',
-	'/fonts/Consolas.ttf'
+	'/fonts/Consolas.ttf',
+	// RAUSCHEN component media (first thing users see)
+	'/media/rauschen/rauschen_reel.mp4',
+	'/media/rauschen/rauschen_1.jpg',
+	'/media/rauschen/rauschen_2.jpg',
+	'/media/rauschen/rauschen_3.jpg',
+	'/media/rauschen/rauschen_4.jpg',
+	// works page preview images
+	'/media/rauschen/rauschen_preview.png',
+	'/media/rayarray/rayarray_preview_1.jpg',
+	'/media/rayarray/rayarray_preview_2.jpg',
+	'/media/rayarray/rayarray_preview_3.jpg',
+	'/media/rayarray/rayarray_preview_4.jpg',
+	'/media/rayarray/rayarray_preview_5.jpg',
+	'/media/feedback_cube/feedback_cube_preview.jpg',
+	'/media/einHauchVonTullv2/tull2_3_preview.jpg',
+	'/media/einHauchVonTull/tull_7_preview.jpg',
+	'/media/einHauchVonTull/tull_5_preview.jpg',
+	'/media/einHauchVonTull/tull_1_preview.jpg',
+	'/media/einHauchVonTull/tull_6_preview.jpg',
+	'/media/rooms/rooms_cutoff_transparent.png',
+	'/media/blob/blob_preview.png',
+	'/media/BreakThePattern/BreakThePattern_1.jpg',
+	'/media/image_blender/image_blender_1.gif'
 ];
 
 let loadedCount = 0;
@@ -25,13 +48,22 @@ export async function preloadCriticalResources() {
 					script.onerror = reject;
 					document.head.appendChild(script);
 				});
-			} else if (url.endsWith('.jpg') || url.endsWith('.png')) {
+			} else if (url.endsWith('.jpg') || url.endsWith('.png') || url.endsWith('.gif')) {
 				// preload images
 				await new Promise((resolve, reject) => {
 					const img = new Image();
 					img.onload = resolve;
 					img.onerror = reject;
 					img.src = url;
+				});
+			} else if (url.endsWith('.mp4')) {
+				// preload videos
+				await new Promise((resolve, reject) => {
+					const video = document.createElement('video');
+					video.onloadeddata = resolve;
+					video.onerror = reject;
+					video.preload = 'auto';
+					video.src = url;
 				});
 			} else if (url.endsWith('.ttf')) {
 				// preload fonts
