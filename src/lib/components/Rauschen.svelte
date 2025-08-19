@@ -72,7 +72,7 @@
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex-1 p-0">
 				<video
-					src="media/rauschen/rauschen_reel.mp4"
+					src="/media/rauschen/rauschen_reel.mp4"
 					title="rauschen reel video"
 					class="block h-auto w-full object-cover"
 					controls

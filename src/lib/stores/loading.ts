@@ -7,7 +7,6 @@ export const loadingProgress = writable(0);
 const criticalResources = [
 	'/libs/p5_v1.4.0.min.js',
 	'/libs/p5_v0.10.2.min.js',
-	'/media/me.jpg',
 	'/fonts/Consolas.ttf',
 	// RAUSCHEN component media (first thing users see)
 	'/media/rauschen/rauschen_reel.mp4',
