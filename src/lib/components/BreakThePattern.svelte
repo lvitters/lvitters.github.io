@@ -81,14 +81,15 @@
 
 		<!-- video -->
 		<div class="my-5">
-			<div class="relative h-0 overflow-hidden" style="padding-bottom: 56.25%;">
-				<iframe
-					src="https://2024.markenfilm-space.de/wp-content/uploads/2024/09/190409_0850_Edit2.mp4"
-					class="absolute top-0 left-0 h-full w-full border-0"
-					title="Break the Pattern Video"
-					allowfullscreen
-				></iframe>
-			</div>
+			<video
+				src="https://2024.markenfilm-space.de/wp-content/uploads/2024/09/190409_0850_Edit2.mp4"
+				title="Break the Pattern Video"
+				class="block h-auto w-full object-cover"
+				controls
+				muted
+			>
+				Your browser does not support the video tag.
+			</video>
 		</div>
 
 		<div class="my-5"></div>

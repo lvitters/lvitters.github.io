@@ -37,7 +37,7 @@
 
 		<div class="my-5"></div>
 
-		<figure class="mx-0 my-10 md:mx-50">
+		<figure class="mx-0 my-10 md:mx-60">
 			<a href="/rooms">
 				<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
 			</a>

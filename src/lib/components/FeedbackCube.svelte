@@ -1,4 +1,20 @@
-<script>
+<script lang="ts">
+	let cyclingImagesIndex = $state(0);
+
+	$effect(() => {
+		// cycle through images every 3 seconds
+		const imageInterval = setInterval(() => {
+			cyclingImagesIndex = (cyclingImagesIndex + 1) % 3; // 3 images for cycling
+		}, 3000);
+
+		return () => clearInterval(imageInterval);
+	});
+
+	const cyclingImages = [
+		'/media/feedback_cube/feedback_cube_1.jpg',
+		'/media/feedback_cube/feedback_cube_4.jpg',
+		'/media/feedback_cube/feedback_cube_2.jpg'
+	];
 </script>
 
 <svelte:head>
@@ -44,8 +60,14 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
+			<img src={cyclingImages[cyclingImagesIndex]} alt="feedback_cube" class="block w-full" />
+		</figure>
+
+		<div class="my-5"></div>
+
+		<figure class="m-0 p-0">
 			<img
-				src="/media/feedback_cube/feedback_cube_1.jpg"
+				src="/media/feedback_cube/feedback_cube_5.jpg"
 				alt="feedback_cube"
 				class="block w-full"
 			/>
@@ -55,7 +77,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/feedback_cube/feedback_cube_4.jpg"
+				src="/media/feedback_cube/feedback_cube_6.jpg"
 				alt="feedback_cube"
 				class="block w-full"
 			/>
@@ -65,37 +87,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/feedback_cube/feedback_cube_2.jpg"
-				alt="feedback_cube"
-				class="block w-full"
-			/>
-		</figure>
-
-		<div class="my-5"></div>
-
-		<figure class="m-0 p-0">
-			<img
-				src="/media/feedback_cube/feedback_cube_5_slim.jpg"
-				alt="feedback_cube"
-				class="block w-full"
-			/>
-		</figure>
-
-		<div class="my-5"></div>
-
-		<figure class="m-0 p-0">
-			<img
-				src="/media/feedback_cube/feedback_cube_6_slim.jpg"
-				alt="feedback_cube"
-				class="block w-full"
-			/>
-		</figure>
-
-		<div class="my-5"></div>
-
-		<figure class="m-0 p-0">
-			<img
-				src="/media/feedback_cube/feedback_cube_3_slim.jpg"
+				src="/media/feedback_cube/feedback_cube_3.jpg"
 				alt="feedback_cube"
 				class="block w-full"
 			/>
@@ -110,7 +102,6 @@
 				class="block h-auto w-full object-cover"
 				controls
 				muted
-				autoplay
 				loop
 			>
 				Your browser does not support the video tag.
@@ -118,39 +109,5 @@
 		</figure>
 
 		<div class="my-5"></div>
-
-		<!--
-
-		<figure class="m-0 p-0">
-			<iframe
-				src="https://www.youtube.com/embed/-1TlFn3s8OU"
-				title="feedback_cube reel"
-				class="block aspect-video w-full"
-				frameborder="0"
-				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-				allowfullscreen
-			>
-			</iframe>
-		</figure>
-
-		<div class="my-5"></div>
-
-		<figure class="m-0 p-0">
-			<video
-				src="media/feedback_cube/feedback_cube_phone.mp4"
-				title="feedback_cube phone video"
-				class="block h-auto w-full object-cover"
-				controls
-				muted
-				autoplay
-				loop
-			>
-				Your browser does not support the video tag.
-			</video>
-		</figure>
-
-		<div class="my-5"></div>
-
-		-->
 	</article>
 </main>

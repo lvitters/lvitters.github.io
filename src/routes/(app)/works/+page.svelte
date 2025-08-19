@@ -204,9 +204,9 @@
 <main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[17px]">
 	<!-- wrap content in a transition container -->
 	<div
-		class="flex h-full transition-all duration-700 ease-out {pageVisible
-			? 'translate-y-0 opacity-100'
-			: 'translate-y-4 opacity-0'}"
+		class="flex h-full transition-opacity duration-700 ease-out {pageVisible
+			? 'opacity-100'
+			: 'opacity-0'}"
 	>
 		<!-- left 1/3 - overview section -->
 		<section
@@ -408,7 +408,7 @@
 						src="/media/rooms/rooms_cutoff_transparent.png"
 						alt="available.rooms preview"
 						class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-						style="transform: scale(1.05) translateX(.5%); transform-origin: bottom left; margin-top: -3vh;"
+						style="transform: scale(1.03) translateX(.6%); transform-origin: bottom left; margin-top: -3vh;"
 					/>
 				</button>
 				<button
@@ -475,10 +475,6 @@
 			class="relative z-10 h-full overflow-y-auto text-left
 			{isMobile ? (showDetailView ? 'w-full pt-20' : 'hidden') : 'w-2/3 pl-5 md:w-[66.67vw]'}"
 		>
-			<!-- <div>RAUSCHEN (2025)</div>
-
-			<div>Radio Angrezi Archive (2025)</div> -->
-
 			{#if !isMobile || currentDetailSection === 'rauschen-section'}
 				<div
 					id="rauschen-section"
