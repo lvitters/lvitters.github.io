@@ -6,17 +6,30 @@
 		let cleanup: (() => void) | null = null;
 		let mounted = true;
 
-		const tryMount = () => {
-			if (!mounted) return;
-
-			if (window.mountBlobSketch) {
-				cleanup = window.mountBlobSketch('blob-component-container');
-			} else {
-				setTimeout(tryMount, 50);
+		// Async function to load p5 and initialize sketch
+		const initializeSketch = async () => {
+			// Dynamically import p5 only in the browser
+			const { default: p5 } = await import('p5');
+			
+			// Make p5 available globally for the sketch files
+			if (!(window as any).p5) {
+				(window as any).p5 = p5;
 			}
+
+			const tryMount = () => {
+				if (!mounted) return;
+
+				if (window.mountBlobSketch) {
+					cleanup = window.mountBlobSketch('blob-component-container');
+				} else {
+					setTimeout(tryMount, 50);
+				}
+			};
+
+			tryMount();
 		};
 
-		tryMount();
+		initializeSketch();
 
 		return () => {
 			mounted = false;
@@ -27,7 +40,6 @@
 
 <svelte:head>
 	<meta name="description" content="blob" />
-	<script src="/libs/p5_v0.10.2.min.js" defer></script>
 	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 

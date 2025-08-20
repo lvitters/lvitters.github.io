@@ -6,17 +6,30 @@
 		let cleanup: (() => void) | null = null;
 		let mounted = true;
 
-		const tryMount = () => {
-			if (!mounted) return;
-
-			if (window.mountRoomsSketch) {
-				cleanup = window.mountRoomsSketch('rooms-sketch-container');
-			} else {
-				setTimeout(tryMount, 50);
+		// Async function to load p5 and initialize sketch
+		const initializeSketch = async () => {
+			// Dynamically import p5 only in the browser
+			const { default: p5 } = await import('p5');
+			
+			// Make p5 available globally for the sketch files
+			if (!(window as any).p5) {
+				(window as any).p5 = p5;
 			}
+
+			const tryMount = () => {
+				if (!mounted) return;
+
+				if (window.mountRoomsSketch) {
+					cleanup = window.mountRoomsSketch('rooms-sketch-container');
+				} else {
+					setTimeout(tryMount, 50);
+				}
+			};
+
+			tryMount();
 		};
 
-		tryMount();
+		initializeSketch();
 
 		return () => {
 			mounted = false;
@@ -28,7 +41,6 @@
 <svelte:head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<script src="/libs/p5_v1.4.0.min.js" defer></script>
 	<script src="/sketches/rooms/rooms.js" defer></script>
 </svelte:head>
 

@@ -14,6 +14,7 @@ declare global {
 		mountUntiledFullSketch: (containerId: string) => () => void;
 		mountUntiledPreviewSketch: (containerId: string) => () => void;
 		mountRoomsSketch: (containerId: string) => () => void;
+		p5?: typeof import('p5');
 	}
 }
 

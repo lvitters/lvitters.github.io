@@ -17,16 +17,32 @@
 
 	// load sketch
 	onMount(() => {
-		// this component manages its own sketch instance.
-		const cleanup = window.mountBlobSketch('blob-container');
+		let cleanup: (() => void) | null = null;
 
-		return cleanup;
+		// Async function to load p5 and initialize sketch
+		const initializeSketch = async () => {
+			// Dynamically import p5 only in the browser
+			const { default: p5 } = await import('p5');
+			
+			// Make p5 available globally for the sketch files
+			if (!(window as any).p5) {
+				(window as any).p5 = p5;
+			}
+
+			// this component manages its own sketch instance.
+			cleanup = window.mountBlobSketch('blob-container');
+		};
+
+		initializeSketch();
+
+		return () => {
+			if (cleanup) cleanup();
+		};
 	});
 </script>
 
 <svelte:head>
 	<title>Lucca Vitters</title>
-	<script src="/libs/p5_v0.10.2.min.js" defer></script>
 	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 
