@@ -4,41 +4,22 @@
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
 		let mounted = true;
-		
-		// Wait for both the mount function and container to be available
-		const waitForMountFunction = (): Promise<() => void> => {
-			return new Promise((resolve) => {
-				const checkAndMount = () => {
-					if (!mounted) return; // Component unmounted, stop trying
-					
-					const container = document.getElementById('untiled-full-container');
-					if (window.mountUntiledFullSketch && container) {
-						const cleanup = window.mountUntiledFullSketch('untiled-full-container');
-						resolve(cleanup);
-					} else {
-						// If mount function or container not available yet, wait a bit and try again
-						setTimeout(checkAndMount, 50);
-					}
-				};
-				checkAndMount();
-			});
+
+		const tryMount = () => {
+			if (!mounted) return;
+
+			if (window.mountUntiledFullSketch) {
+				cleanup = window.mountUntiledFullSketch('untiled-full-container');
+			} else {
+				setTimeout(tryMount, 50);
+			}
 		};
 
-		waitForMountFunction().then((cleanupFn) => {
-			if (mounted) {
-				cleanup = cleanupFn;
-			} else if (cleanupFn) {
-				// Component was unmounted while we were waiting, clean up immediately
-				cleanupFn();
-			}
-		});
-		
-		// Return cleanup function
+		tryMount();
+
 		return () => {
 			mounted = false;
-			if (cleanup) {
-				cleanup();
-			}
+			if (cleanup) cleanup();
 		};
 	});
 </script>
@@ -83,6 +64,7 @@
 
 		<div class="my-5"></div>
 
+		<!-- p5 sketch container -->
 		<div id="untiled-full-container" class="mx-auto w-full md:w-4/5"></div>
 
 		<div class="my-5"></div>

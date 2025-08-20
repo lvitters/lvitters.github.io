@@ -17,6 +17,13 @@
 			</div>
 		</div>
 
+		<p class="mb-1 text-center">
+			in collaboration with <a
+				href="https://jcluq.art"
+				class="text-white underline hover:text-[rgb(100,149,237)]">jcluq</a
+			>
+		</p>
+
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">

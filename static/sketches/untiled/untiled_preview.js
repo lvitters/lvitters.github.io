@@ -27,9 +27,7 @@
 			};
 		}
 
-		// Small delay to ensure container has proper layout after navigation/reload
-		setTimeout(() => {
-			// The actual p5 sketch logic
+		// The actual p5 sketch logic
 			const sketch = function (p) {
 				p.disableFriendlyErrors = true; // disables FES for better performance
 
@@ -566,7 +564,7 @@
 					container.style.height = adjustedHeight + 'px';
 
 					p.resizeCanvas(containerWidth, adjustedHeight);
-					
+
 					buildGrid();
 					pushTiles();
 				};
@@ -705,10 +703,9 @@
 				}
 			};
 
-			// Create the new p5 instance and store it.
-			const p5Instance = new p5(sketch, container);
-			p5Instances.set(containerId, p5Instance);
-		}, 100); // 100ms delay to ensure proper layout
+		// Create the new p5 instance and store it.
+		const p5Instance = new p5(sketch, container);
+		p5Instances.set(containerId, p5Instance);
 
 		// **Crucially, return the cleanup function.**
 		return function cleanup() {

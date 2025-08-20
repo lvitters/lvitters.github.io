@@ -25,8 +25,6 @@
 	let currentDetailSection = $state('');
 	let detailViewVisible = $state(false);
 
-	let untiledPreviewCleanup: (() => void) | null = null;
-
 	$effect(() => {
 		// small delay to ensure smooth transition and proper layout
 		setTimeout(() => {
@@ -65,6 +63,7 @@
 		'/media/einHauchVonTull/tull_6_preview.jpg'
 	];
 
+	// scroll to section corresponding to component (desktop)
 	function scrollToSection(sectionId: string) {
 		if (mobile.current) {
 			// on mobile, switch to detail view
@@ -103,6 +102,7 @@
 		}
 	}
 
+	// go back from single component to works page (mobile)
 	function goBackToOverview() {
 		showDetailView = false;
 		currentDetailSection = '';
@@ -117,46 +117,6 @@
 			);
 		}
 	}
-
-	onMount(() => {
-		let mounted = true;
-
-		// Wait for both the mount function and container to be available
-		const waitForMountFunction = (): Promise<() => void> => {
-			return new Promise((resolve) => {
-				const checkAndMount = () => {
-					if (!mounted) return; // Component unmounted, stop trying
-
-					const container = document.getElementById('untiled-preview-container');
-					if (window.mountUntiledPreviewSketch && container) {
-						const cleanup = window.mountUntiledPreviewSketch('untiled-preview-container');
-						resolve(cleanup);
-					} else {
-						// If mount function or container not available yet, wait a bit and try again
-						setTimeout(checkAndMount, 50);
-					}
-				};
-				checkAndMount();
-			});
-		};
-
-		waitForMountFunction().then((cleanupFn) => {
-			if (mounted) {
-				untiledPreviewCleanup = cleanupFn;
-			} else if (cleanupFn) {
-				// Component was unmounted while we were waiting, clean up immediately
-				cleanupFn();
-			}
-		});
-
-		// Return cleanup function
-		return () => {
-			mounted = false;
-			if (untiledPreviewCleanup) {
-				untiledPreviewCleanup();
-			}
-		};
-	});
 
 	// listen for back navigation from nav component
 	$effect(() => {
@@ -173,7 +133,28 @@
 		}
 	});
 
-	// cleanup is handled automatically by onMount return
+	// run untiled preview
+	onMount(() => {
+		let cleanup: (() => void) | null = null;
+		let mounted = true;
+
+		const tryMount = () => {
+			if (!mounted) return;
+
+			if (window.mountUntiledPreviewSketch) {
+				cleanup = window.mountUntiledPreviewSketch('untiled-preview-container');
+			} else {
+				setTimeout(tryMount, 50);
+			}
+		};
+
+		tryMount();
+
+		return () => {
+			mounted = false;
+			if (cleanup) cleanup();
+		};
+	});
 </script>
 
 <svelte:head>
@@ -347,6 +328,7 @@
 				</button>
 			</div>
 			<div class="mb-1">
+				<!-- p5 sketch container -->
 				<button
 					id="untiled-preview-container"
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0"

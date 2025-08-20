@@ -1,45 +1,26 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	// load sketch
+	// run blob
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
 		let mounted = true;
 
-		// Wait for both the mount function and container to be available
-		const waitForMountFunction = (): Promise<() => void> => {
-			return new Promise((resolve) => {
-				const checkAndMount = () => {
-					if (!mounted) return; // Component unmounted, stop trying
+		const tryMount = () => {
+			if (!mounted) return;
 
-					const container = document.getElementById('blob-works-container');
-					if (window.mountBlobSketch && container) {
-						const cleanup = window.mountBlobSketch('blob-works-container');
-						resolve(cleanup);
-					} else {
-						// If mount function or container not available yet, wait a bit and try again
-						setTimeout(checkAndMount, 50);
-					}
-				};
-				checkAndMount();
-			});
+			if (window.mountBlobSketch) {
+				cleanup = window.mountBlobSketch('blob-component-container');
+			} else {
+				setTimeout(tryMount, 50);
+			}
 		};
 
-		waitForMountFunction().then((cleanupFn) => {
-			if (mounted) {
-				cleanup = cleanupFn;
-			} else if (cleanupFn) {
-				// Component was unmounted while we were waiting, clean up immediately
-				cleanupFn();
-			}
-		});
+		tryMount();
 
-		// Return cleanup function
 		return () => {
 			mounted = false;
-			if (cleanup) {
-				cleanup();
-			}
+			if (cleanup) cleanup();
 		};
 	});
 </script>
@@ -71,8 +52,9 @@
 			It was made as a thesis project at Hochschule Bremen. Here it just lives as a neat little animation.
 		</p>
 
+		<!-- p5 sketch container -->
 		<div
-			id="blob-works-container"
+			id="blob-component-container"
 			class="responsive-overlap relative ml-[calc(-50vw+50%)] aspect-square w-screen md:-mt-[200px] md:ml-0 md:w-full"
 		></div>
 

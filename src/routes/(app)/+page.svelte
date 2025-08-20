@@ -39,6 +39,7 @@
 	{#if mobile.current}
 		<!-- mobile layout - centered p5 sketch -->
 		<main class="relative flex h-screen w-full items-center justify-center overflow-hidden">
+			<!-- p5 sketch container -->
 			<div id="blob-container" class="h-full w-full"></div>
 		</main>
 	{:else}
@@ -49,6 +50,7 @@
 
 			<!-- right 2/3 -->
 			<section class="h-full w-2/3">
+				<!-- p5 sketch container -->
 				<div id="blob-container" class="h-full w-full"></div>
 			</section>
 		</main>
