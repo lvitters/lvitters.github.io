@@ -6,12 +6,12 @@
 		let cleanup: (() => void) | null = null;
 		let mounted = true;
 
-		// Async function to load p5 and initialize sketch
+		// async function to load p5 and initialize sketch
 		const initializeSketch = async () => {
-			// Dynamically import p5 only in the browser
+			// dynamically import p5 only in the browser
 			const { default: p5 } = await import('p5');
-			
-			// Make p5 available globally for the sketch files
+
+			// make p5 available globally for the sketch files
 			if (!(window as any).p5) {
 				(window as any).p5 = p5;
 			}
@@ -39,8 +39,9 @@
 </script>
 
 <svelte:head>
+	<meta name="description" content="untiled" />
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 	<script src="/sketches/rooms/rooms.js" defer></script>
 </svelte:head>
 
