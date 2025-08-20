@@ -1,55 +1,52 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { onMount, onDestroy } from 'svelte';
-	import { beforeNavigate } from '$app/navigation';
-
-	let isUntiledFullLoaded = false;
-
-	const cleanup = () => {
-		if (browser && window.cleanupUntiledFullSketch) {
-			window.cleanupUntiledFullSketch();
-			delete window.cleanupUntiledFullSketch;
-		}
-		if (browser) {
-			window.untiledFullSketchInitialized = undefined;
-		}
-		isUntiledFullLoaded = false;
-	};
-
-	const loadUntiledFullSketch = async () => {
-		if (!browser || isUntiledFullLoaded) return;
-
-		isUntiledFullLoaded = true;
-
-		// load p5.js if not already loaded (different version for untiled)
-		if (!(window as any).p5) {
-			await new Promise((resolve) => {
-				const script = document.createElement('script');
-				script.src = '/libs/p5_v1.4.0.min.js';
-				script.onload = resolve;
-				document.head.appendChild(script);
-			});
-		}
-
-		// load the untiled sketch script
-		await new Promise((resolve) => {
-			const script = document.createElement('script');
-			script.src = '/sketches/untiled/untiled_full.js';
-			script.onload = resolve;
-			document.head.appendChild(script);
-		});
-	};
+	import { onMount } from 'svelte';
 
 	onMount(() => {
-		loadUntiledFullSketch();
-	});
+		let cleanup: (() => void) | null = null;
+		let mounted = true;
+		
+		// Wait for both the mount function and container to be available
+		const waitForMountFunction = (): Promise<() => void> => {
+			return new Promise((resolve) => {
+				const checkAndMount = () => {
+					if (!mounted) return; // Component unmounted, stop trying
+					
+					const container = document.getElementById('untiled-full-container');
+					if (window.mountUntiledFullSketch && container) {
+						const cleanup = window.mountUntiledFullSketch('untiled-full-container');
+						resolve(cleanup);
+					} else {
+						// If mount function or container not available yet, wait a bit and try again
+						setTimeout(checkAndMount, 50);
+					}
+				};
+				checkAndMount();
+			});
+		};
 
-	beforeNavigate(cleanup);
-	onDestroy(cleanup);
+		waitForMountFunction().then((cleanupFn) => {
+			if (mounted) {
+				cleanup = cleanupFn;
+			} else if (cleanupFn) {
+				// Component was unmounted while we were waiting, clean up immediately
+				cleanupFn();
+			}
+		});
+		
+		// Return cleanup function
+		return () => {
+			mounted = false;
+			if (cleanup) {
+				cleanup();
+			}
+		};
+	});
 </script>
 
 <svelte:head>
 	<meta name="description" content="untiled" />
+	<script src="/libs/p5_v1.4.0.min.js" defer></script>
+	<script src="/sketches/untiled/untiled_full.js" defer></script>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-white px-6 pt-12 pb-5 text-black">

@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { mobile } from '$lib/utils/mobile.svelte';
 
 	let pageVisible = $state(false);
-	let isMobile = $state(browser ? window.innerWidth < 768 : false);
+	// mobile.current is automatically reactive - no local state needed!
 
 	// page transition effect
 	$effect(() => {
@@ -11,29 +12,7 @@
 		}, 50);
 	});
 
-	// check if mobile
-	$effect(() => {
-		if (browser) {
-			const checkMobile = () => {
-				const newIsMobile = window.innerWidth < 768;
-				if (newIsMobile !== isMobile) {
-					isMobile = newIsMobile;
-				}
-			};
-
-			// check immediately
-			checkMobile();
-
-			// also check on next tick to ensure DOM is ready
-			setTimeout(checkMobile, 0);
-
-			window.addEventListener('resize', checkMobile);
-
-			return () => {
-				window.removeEventListener('resize', checkMobile);
-			};
-		}
-	});
+	// No more manual mobile detection needed!
 
 	// dynamic color
 	let currentHue = $state(Math.random() * 360);
@@ -76,19 +55,19 @@
 					<div class="mb-5 flex items-center justify-center text-center">
 						<div class="flex-1 text-center">
 							<div class="mt-1 text-xl">
-								<div class={isMobile ? 'flex flex-col items-center space-y-1' : ''}>
+								<div class={mobile.current ? 'flex flex-col items-center space-y-1' : ''}>
 									<a
 										href="mailto:lucca.vitters@gmail.com"
 										class="dynamic-link underline"
 										style="color: {color}">lucca.vitters@gmail.com</a
 									>
-									{#if !isMobile}|{/if}
+									{#if !mobile.current}|{/if}
 									<a
 										href="https://github.com/lvitters"
 										class="dynamic-link underline"
 										style="color: {color}">github.com/lvitters</a
 									>
-									{#if !isMobile}|{/if}
+									{#if !mobile.current}|{/if}
 									<a
 										href="https://soundcloud.com/katze203"
 										class="dynamic-link underline"

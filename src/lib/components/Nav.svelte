@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
+	import { mobile } from '$lib/utils/mobile.svelte';
 
 	interface Props {
 		centered?: boolean;
@@ -8,8 +9,7 @@
 
 	let { centered = false }: Props = $props();
 
-	// detect mobile - initialize correctly to prevent position flash
-	let isMobile = $state(browser ? window.innerWidth < 768 : false);
+	// Use global mobile state - automatically reactive!
 	let isInDetailView = $state(false);
 	let isVisible = $state(false);
 
@@ -40,28 +40,18 @@
 			setTimeout(() => {
 				isVisible = true;
 			}, 10);
-
-			const checkMobile = () => {
-				isMobile = window.innerWidth < 768;
-			};
-			// Don't call checkMobile() here since we already initialized above
-			window.addEventListener('resize', checkMobile);
-
-			return () => {
-				window.removeEventListener('resize', checkMobile);
-			};
 		}
 	});
 
 	// determine if we should use mobile centering or desktop left-column centering
-	let shouldCenterOnScreen = $derived(isMobile || page.url.pathname === '/rooms');
+	let shouldCenterOnScreen = $derived(mobile.current || page.url.pathname === '/rooms');
 </script>
 
 <nav
 	class={`font-consolas absolute z-50 flex rounded-md border border-white/20 bg-white/20 px-2 pt-0.5 text-[17px] whitespace-nowrap backdrop-blur-sm ${
-		!isMobile ? 'transition-all duration-500 ease-in-out' : ''
+		!mobile.current ? 'transition-all duration-500 ease-in-out' : ''
 	} ${
-		centered && !isMobile
+		centered && !mobile.current
 			? 'top-1/2 -translate-y-1/2 flex-col items-start justify-center'
 			: 'top-8 flex-row items-center'
 	} ${isVisible ? 'opacity-100' : 'opacity-0'}`}

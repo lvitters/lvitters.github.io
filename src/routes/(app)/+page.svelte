@@ -1,63 +1,33 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { mobile } from '$lib/utils/mobile.svelte';
 	import { onMount } from 'svelte';
 
-	let isMobile = $state(browser ? window.innerWidth < 768 : false);
 	let pageVisible = $state(false);
 
-	let isBlobSketchLoaded = false;
-
-	const loadBlobSketch = async () => {
-		if (!browser || isBlobSketchLoaded) return;
-
-		isBlobSketchLoaded = true;
-
-		// load p5.js if not already loaded
-		if (!(window as any).p5) {
-			await new Promise((resolve) => {
-				const script = document.createElement('script');
-				script.src = '/libs/p5_v0.10.2.min.js';
-				script.onload = resolve;
-				document.head.appendChild(script);
-			});
-		}
-
-		// load the blob sketch script
-		await new Promise((resolve) => {
-			const script = document.createElement('script');
-			script.src = '/sketches/blob/blob.js';
-			script.onload = resolve;
-			document.head.appendChild(script);
-		});
-	};
-
+	// setup page transition
 	$effect(() => {
 		if (browser) {
-			const checkMobile = () => {
-				isMobile = window.innerWidth < 768;
-			};
-			// don't call checkMobile() here since we already initialized above
-
 			// small delay to ensure smooth transition
 			setTimeout(() => {
 				pageVisible = true;
 			}, 100);
-
-			window.addEventListener('resize', checkMobile);
-
-			return () => {
-				window.removeEventListener('resize', checkMobile);
-			};
 		}
 	});
 
+	// load sketch
 	onMount(() => {
-		loadBlobSketch();
+		// this component manages its own sketch instance.
+		const cleanup = window.mountBlobSketch('blob-container');
+
+		return cleanup;
 	});
 </script>
 
 <svelte:head>
 	<title>Lucca Vitters</title>
+	<script src="/libs/p5_v0.10.2.min.js" defer></script>
+	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 
 <!-- wrap content in a transition container -->
@@ -66,7 +36,7 @@
 		? 'translate-y-0 opacity-100'
 		: 'translate-y-4 opacity-0'}"
 >
-	{#if isMobile}
+	{#if mobile.current}
 		<!-- mobile layout - centered p5 sketch -->
 		<main class="relative flex h-screen w-full items-center justify-center overflow-hidden">
 			<div id="blob-container" class="h-full w-full"></div>

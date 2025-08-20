@@ -10,14 +10,10 @@ declare global {
 	}
 
 	interface Window {
-		cleanupBlobSketch?: () => void;
-		blobSketchInitialized?: boolean;
-		cleanupUntiledFullSketch?: () => void;
-		untiledFullSketchInitialized?: boolean;
-		cleanupUntiledPreviewSketch?: () => void;
-		untiledPreviewSketchInitialized?: boolean;
-		cleanupRoomsSketch?: () => void;
-		roomsSketchInitialized?: boolean;
+		mountBlobSketch: (containerId: string) => () => void;
+		mountUntiledFullSketch: (containerId: string) => () => void;
+		mountUntiledPreviewSketch: (containerId: string) => () => void;
+		mountRoomsSketch: (containerId: string) => () => void;
 	}
 }
 

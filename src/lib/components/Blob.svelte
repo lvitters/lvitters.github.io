@@ -1,56 +1,53 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { onMount, onDestroy } from 'svelte';
-	import { beforeNavigate } from '$app/navigation';
+	import { onMount } from 'svelte';
 
-	const cleanup = () => {
-		if (browser && window.cleanupBlobSketch) {
-			window.cleanupBlobSketch();
-			delete window.cleanupBlobSketch;
-		}
-		if (browser) {
-			window.blobSketchInitialized = undefined;
-		}
-	};
-
-	const loadBlobSketch = async () => {
-		if (!browser) return;
-
-		// load p5.js if not already loaded
-		if (!(window as any).p5) {
-			await new Promise((resolve) => {
-				const script = document.createElement('script');
-				script.src = '/libs/p5_v0.10.2.min.js';
-				script.onload = resolve;
-				document.head.appendChild(script);
-			});
-		}
-
-		// always reset the flag and load the sketch
-		window.blobSketchInitialized = undefined;
-
-		// load the blob sketch script
-		await new Promise((resolve) => {
-			const script = document.createElement('script');
-			script.src = '/sketches/blob/blob.js';
-			script.onload = resolve;
-			document.head.appendChild(script);
-		});
-	};
-
+	// load sketch
 	onMount(() => {
-		// Wait a bit for the DOM to be fully ready
-		setTimeout(() => {
-			loadBlobSketch();
-		}, 100);
-	});
+		let cleanup: (() => void) | null = null;
+		let mounted = true;
 
-	beforeNavigate(cleanup);
-	onDestroy(cleanup);
+		// Wait for both the mount function and container to be available
+		const waitForMountFunction = (): Promise<() => void> => {
+			return new Promise((resolve) => {
+				const checkAndMount = () => {
+					if (!mounted) return; // Component unmounted, stop trying
+
+					const container = document.getElementById('blob-works-container');
+					if (window.mountBlobSketch && container) {
+						const cleanup = window.mountBlobSketch('blob-works-container');
+						resolve(cleanup);
+					} else {
+						// If mount function or container not available yet, wait a bit and try again
+						setTimeout(checkAndMount, 50);
+					}
+				};
+				checkAndMount();
+			});
+		};
+
+		waitForMountFunction().then((cleanupFn) => {
+			if (mounted) {
+				cleanup = cleanupFn;
+			} else if (cleanupFn) {
+				// Component was unmounted while we were waiting, clean up immediately
+				cleanupFn();
+			}
+		});
+
+		// Return cleanup function
+		return () => {
+			mounted = false;
+			if (cleanup) {
+				cleanup();
+			}
+		};
+	});
 </script>
 
 <svelte:head>
 	<meta name="description" content="blob" />
+	<script src="/libs/p5_v0.10.2.min.js" defer></script>
+	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-white px-6 pt-12 pb-5 text-black">
@@ -75,7 +72,7 @@
 		</p>
 
 		<div
-			id="blob-container"
+			id="blob-works-container"
 			class="responsive-overlap relative ml-[calc(-50vw+50%)] aspect-square w-screen md:-mt-[200px] md:ml-0 md:w-full"
 		></div>
 

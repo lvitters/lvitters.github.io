@@ -14,59 +14,18 @@
 	// for untiled_preview
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { onDestroy } from 'svelte';
-	import { beforeNavigate } from '$app/navigation';
+	import { mobile } from '$lib/utils/mobile.svelte';
 
 	let pageVisible = $state(false);
 	let currentRayarrayImageIndex = $state(0);
 	let currentTullImageIndex = $state(0);
 
-	// mobile state management
-	let isMobile = $state(false);
+	// mobile state - reactive with runes
 	let showDetailView = $state(false);
 	let currentDetailSection = $state('');
 	let detailViewVisible = $state(false);
 
-	$effect(() => {
-		// check if mobile on mount
-		if (browser) {
-			const checkMobile = () => {
-				isMobile = window.innerWidth < 768;
-			};
-			checkMobile();
-			window.addEventListener('resize', checkMobile);
-
-			return () => {
-				window.removeEventListener('resize', checkMobile);
-			};
-		}
-	});
-
-	let untiledPreviewSketchLoaded = false;
-
-	const loadUntiledPreviewSketch = async () => {
-		if (!browser || untiledPreviewSketchLoaded) return;
-
-		untiledPreviewSketchLoaded = true;
-
-		// load p5.js if not already loaded
-		if (!(window as any).p5) {
-			await new Promise((resolve) => {
-				const script = document.createElement('script');
-				script.src = '/libs/p5_v1.4.0.min.js';
-				script.onload = resolve;
-				document.head.appendChild(script);
-			});
-		}
-
-		// load the untiled preview sketch script
-		await new Promise((resolve) => {
-			const script = document.createElement('script');
-			script.src = '/sketches/untiled/untiled_preview.js';
-			script.onload = resolve;
-			document.head.appendChild(script);
-		});
-	};
+	let untiledPreviewCleanup: (() => void) | null = null;
 
 	$effect(() => {
 		// small delay to ensure smooth transition and proper layout
@@ -107,7 +66,7 @@
 	];
 
 	function scrollToSection(sectionId: string) {
-		if (isMobile) {
+		if (mobile.current) {
 			// on mobile, switch to detail view
 			currentDetailSection = sectionId;
 			showDetailView = true;
@@ -122,7 +81,7 @@
 			if (browser) {
 				window.dispatchEvent(
 					new CustomEvent('detailViewChange', {
-						detail: { showDetailView: true, isMobile: true }
+						detail: { showDetailView: true, isMobile: mobile.current }
 					})
 				);
 			}
@@ -153,17 +112,50 @@
 		if (browser) {
 			window.dispatchEvent(
 				new CustomEvent('detailViewChange', {
-					detail: { showDetailView: false, isMobile: isMobile }
+					detail: { showDetailView: false, isMobile: mobile.current }
 				})
 			);
 		}
 	}
 
 	onMount(() => {
-		// small delay to ensure layout is fully rendered
-		setTimeout(() => {
-			loadUntiledPreviewSketch();
-		}, 100);
+		let mounted = true;
+
+		// Wait for both the mount function and container to be available
+		const waitForMountFunction = (): Promise<() => void> => {
+			return new Promise((resolve) => {
+				const checkAndMount = () => {
+					if (!mounted) return; // Component unmounted, stop trying
+
+					const container = document.getElementById('untiled-preview-container');
+					if (window.mountUntiledPreviewSketch && container) {
+						const cleanup = window.mountUntiledPreviewSketch('untiled-preview-container');
+						resolve(cleanup);
+					} else {
+						// If mount function or container not available yet, wait a bit and try again
+						setTimeout(checkAndMount, 50);
+					}
+				};
+				checkAndMount();
+			});
+		};
+
+		waitForMountFunction().then((cleanupFn) => {
+			if (mounted) {
+				untiledPreviewCleanup = cleanupFn;
+			} else if (cleanupFn) {
+				// Component was unmounted while we were waiting, clean up immediately
+				cleanupFn();
+			}
+		});
+
+		// Return cleanup function
+		return () => {
+			mounted = false;
+			if (untiledPreviewCleanup) {
+				untiledPreviewCleanup();
+			}
+		};
 	});
 
 	// listen for back navigation from nav component
@@ -181,24 +173,13 @@
 		}
 	});
 
-	// for untiled_preview
-	const cleanup = () => {
-		if (browser && window.cleanupUntiledPreviewSketch) {
-			window.cleanupUntiledPreviewSketch();
-			delete window.cleanupUntiledPreviewSketch;
-		}
-		if (browser) {
-			window.untiledPreviewSketchInitialized = undefined;
-		}
-		untiledPreviewSketchLoaded = false;
-	};
-
-	beforeNavigate(cleanup);
-	onDestroy(cleanup);
+	// cleanup is handled automatically by onMount return
 </script>
 
 <svelte:head>
 	<title>Lucca Vitters</title>
+	<script src="/libs/p5_v1.4.0.min.js" defer></script>
+	<script src="/sketches/untiled/untiled_preview.js" defer></script>
 </svelte:head>
 
 <main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[17px]">
@@ -211,7 +192,7 @@
 		<!-- left 1/3 - overview section -->
 		<section
 			class="scrollbar-none relative z-20 h-full overflow-y-auto pt-20 text-left
-			{isMobile
+			{mobile.current
 				? showDetailView
 					? 'hidden'
 					: 'w-full px-10'
@@ -473,12 +454,12 @@
 		<!-- right 2/3 - detail section -->
 		<section
 			class="relative z-10 h-full overflow-y-auto text-left
-			{isMobile ? (showDetailView ? 'w-full pt-20' : 'hidden') : 'w-2/3 pl-5 md:w-[66.67vw]'}"
+			{mobile.current ? (showDetailView ? 'w-full pt-20' : 'hidden') : 'w-2/3 pl-5 md:w-[66.67vw]'}"
 		>
-			{#if !isMobile || currentDetailSection === 'rauschen-section'}
+			{#if !mobile.current || currentDetailSection === 'rauschen-section'}
 				<div
 					id="rauschen-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -487,10 +468,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'archive-section'}
+			{#if !mobile.current || currentDetailSection === 'archive-section'}
 				<div
 					id="archive-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -499,10 +480,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'rayarray-section'}
+			{#if !mobile.current || currentDetailSection === 'rayarray-section'}
 				<div
 					id="rayarray-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -511,10 +492,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'feedback-cube-section'}
+			{#if !mobile.current || currentDetailSection === 'feedback-cube-section'}
 				<div
 					id="feedback-cube-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -523,10 +504,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'ein-hauch-von-tull-v2-section'}
+			{#if !mobile.current || currentDetailSection === 'ein-hauch-von-tull-v2-section'}
 				<div
 					id="ein-hauch-von-tull-v2-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -535,10 +516,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'untiled-section'}
+			{#if !mobile.current || currentDetailSection === 'untiled-section'}
 				<div
 					id="untiled-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -549,10 +530,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'ein-hauch-von-tull-section'}
+			{#if !mobile.current || currentDetailSection === 'ein-hauch-von-tull-section'}
 				<div
 					id="ein-hauch-von-tull-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -561,10 +542,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'available-rooms-section'}
+			{#if !mobile.current || currentDetailSection === 'available-rooms-section'}
 				<div
 					id="available-rooms-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -573,10 +554,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'blob-section'}
+			{#if !mobile.current || currentDetailSection === 'blob-section'}
 				<div
 					id="blob-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -585,10 +566,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'break-the-pattern-section'}
+			{#if !mobile.current || currentDetailSection === 'break-the-pattern-section'}
 				<div
 					id="break-the-pattern-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
@@ -597,10 +578,10 @@
 				</div>
 			{/if}
 
-			{#if !isMobile || currentDetailSection === 'image-blender-section'}
+			{#if !mobile.current || currentDetailSection === 'image-blender-section'}
 				<div
 					id="image-blender-section"
-					class={isMobile && showDetailView
+					class={mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}
