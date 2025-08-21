@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	// load rooms
+	// load untiled_full
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
 		let mounted = true;
@@ -19,8 +19,8 @@
 			const tryMount = () => {
 				if (!mounted) return;
 
-				if (window.mountRoomsSketch) {
-					cleanup = window.mountRoomsSketch('rooms-sketch-container');
+				if (window.mountUntiledFullSketch) {
+					cleanup = window.mountUntiledFullSketch('untiled-full-container');
 				} else {
 					setTimeout(tryMount, 50);
 				}
@@ -40,7 +40,7 @@
 
 <svelte:head>
 	<meta name="description" content="untiled" />
-	<script src="/sketches/rooms/rooms.js" defer></script>
+	<script src="/sketches/untiled/untiled_full.js" defer></script>
 </svelte:head>
 
 <!-- main container that mimics old body styling from former portfolio page -->
@@ -48,7 +48,7 @@
 	class="m-0 flex h-screen w-screen touch-none items-center justify-center overflow-hidden select-none"
 >
 	<!-- p5 sketch container -->
-	<div id="rooms-sketch-container" class="h-full w-full touch-none select-none"></div>
+	<div id="untiled-full-container" class="h-full w-full"></div>
 </div>
 
 <style>

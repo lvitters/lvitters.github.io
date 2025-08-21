@@ -54,7 +54,7 @@
 		</p>
 
 		<p class="pb-2 text-center">
-			photos by <a href="https://benschl.com/" class="text-white underline hover:text-red-500"
+			photography <a href="https://benschl.com/" class="text-white underline hover:text-red-500"
 				>Benjamin Schlemmer</a
 			>
 		</p>
@@ -101,7 +101,7 @@
 
 		<div class="my-5"></div>
 	</article>
-	
+
 	<!-- mobile-only spacer -->
 	<div class="h-12 md:hidden"></div>
 </main>

@@ -16,18 +16,25 @@
 				</div>
 			</div>
 		</div>
+
+		<p class="mb-1 text-center">
+			<a href="/rooms" class="text-[rgb(0,0,255)] underline hover:text-[rgb(255,0,0)]"
+				>Enter sketch</a
+			>. Drag to move the camera.
+		</p>
+
+		<div class="my-5"></div>
+
 		<p class="mb-4">
 			available.rooms scraped WG-Gesucht.de for all available rooms in shared flats for the 11 most
-			populous German cities in a snapshot from 2021. It displays them according to their relative
-			size and price per m². Click the preview to enter. Click and drag to move around.
+			populous German cities. It displays the snapshot from 2021 according to their relative size
+			and price per m².
 		</p>
 
 		<div class="my-5"></div>
 
 		<figure class="mx-0 my-10 md:mx-60">
-			<a href="/rooms">
-				<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
-			</a>
+			<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>

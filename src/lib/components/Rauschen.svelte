@@ -95,11 +95,19 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<img src="/media/rauschen/rauschen_3.jpg" alt="RAUSCHEN" class="block h-auto max-h-500" />
+				<img
+					src="/media/rauschen/rauschen_3.jpg"
+					alt="RAUSCHEN"
+					class="block h-auto max-h-screen"
+				/>
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<img src="/media/rauschen/rauschen_4.jpg" alt="RAUSCHEN" class="block h-auto max-h-500" />
+				<img
+					src="/media/rauschen/rauschen_4.jpg"
+					alt="RAUSCHEN"
+					class="block h-auto max-h-screen"
+				/>
 			</figure>
 		</div>
 

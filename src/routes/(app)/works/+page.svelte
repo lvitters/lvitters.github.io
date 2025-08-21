@@ -410,14 +410,27 @@
 				</button>
 			</div>
 			<div class="mb-1">
-				<!-- p5 sketch container -->
-				<button
-					id="untiled-preview-container"
-					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0"
-					style="height: 150px; width: 100%; box-sizing: border-box;"
-					aria-label="View untiled project details"
-					onclick={() => scrollToSection('untiled-section')}
-				></button>
+				{#if mobile.current}
+					<button
+						class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
+						onclick={() => scrollToSection('untiled-section')}
+					>
+						<img
+							src="/media/untiled/untiled_preview.jpg"
+							alt="untiled preview"
+							class="h-auto w-full"
+						/>
+					</button>
+				{:else}
+					<!-- p5 sketch container -->
+					<button
+						id="untiled-preview-container"
+						class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0"
+						style="height: 150px; width: 100%; box-sizing: border-box;"
+						aria-label="View untiled project details"
+						onclick={() => scrollToSection('untiled-section')}
+					></button>
+				{/if}
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
 					onclick={() => scrollToSection('untiled-section')}

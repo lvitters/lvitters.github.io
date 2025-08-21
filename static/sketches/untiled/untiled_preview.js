@@ -94,6 +94,12 @@
 				// calculate proper height to show complete rows
 				var tileSize = containerWidth / tilesPerRow;
 				var numberOfCompleteRows = Math.floor(containerHeight / tileSize);
+				
+				// ensure we have at least 3 rows
+				if (numberOfCompleteRows < 3) {
+					numberOfCompleteRows = 3;
+				}
+				
 				var adjustedHeight = numberOfCompleteRows * tileSize;
 
 				// update container height to match canvas height
@@ -558,6 +564,12 @@
 				// calculate proper height to show complete rows
 				var tileSize = containerWidth / tilesPerRow;
 				var numberOfCompleteRows = Math.floor(containerHeight / tileSize);
+				
+				// ensure we have at least 3 rows
+				if (numberOfCompleteRows < 3) {
+					numberOfCompleteRows = 3;
+				}
+				
 				var adjustedHeight = numberOfCompleteRows * tileSize;
 
 				// update container height to match canvas height

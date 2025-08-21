@@ -1,6 +1,24 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	let cyclingImagesIndex = $state(0);
+
+	$effect(() => {
+		// cycle through images every 3 seconds
+		const imageInterval = setInterval(() => {
+			cyclingImagesIndex = (cyclingImagesIndex + 1) % 4; // 4 images for cycling
+		}, 3000);
+
+		return () => clearInterval(imageInterval);
+	});
+
+	const cyclingImages = [
+		'/media/untiled/untiled_large_1.jpg',
+		'/media/untiled/untiled_large_2.jpg',
+		'/media/untiled/untiled_large_3.jpg',
+		'/media/untiled/untiled_large_4.jpg'
+	];
+
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
 		let mounted = true;
@@ -39,10 +57,10 @@
 
 <svelte:head>
 	<meta name="description" content="untiled" />
-	<script src="/sketches/untiled/untiled_full.js" defer></script>
+	<!-- <script src="/sketches/untiled/untiled_full.js" defer></script> -->
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-white px-6 pt-12 pb-5 text-black">
+<main class="font-consolas m-0 min-h-screen bg-[rgb(0,0,100)] px-6 pt-12 pb-5 text-white">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
@@ -53,6 +71,19 @@
 				</div>
 			</div>
 		</div>
+
+		<p class="pb-2 text-center">photography: Lars Gonikmann | Jennifer Braun</p>
+
+		<div class="my-5"></div>
+
+		<p class="mb-1 text-center">
+			<a href="/untiled" class="text-[rgb(255,0,137)] underline hover:text-[rgb(137,0,255)]"
+				>Enter sketch.</a
+			> (Might be slow on your machine!)
+		</p>
+
+		<div class="my-5"></div>
+
 		<p class="mb-4">
 			Emergence occurs when an entity is observed to have properties its parts do not have on their
 			own. This program generates emergent visuals from the interaction between ever changing simple
@@ -68,7 +99,7 @@
 			simple regular grid, but rich and richer in what was happening in detail. [...] I was
 			wondering, would I have to observe and admire your work all day before something would seem to
 			be repeating? You have created a marble." - <a
-				class="underline hover:text-[rgb(0,0,255)]"
+				class="underline hover:text-[rgb(137,0,255)]"
 				href="https://www.google.com/search?q=frieder+nake&oq=frieder+nake&aqs=chrome.0.69i59j0i512l2j69i60j69i61j69i60l2j69i61.1599j0j7&sourceid=chrome&ie=UTF-8"
 				>Frieder Nake</a
 			>
@@ -76,10 +107,44 @@
 
 		<div class="my-5"></div>
 
-		<!-- p5 sketch container -->
-		<div id="untiled-full-container" class="mx-auto w-full md:w-4/5"></div>
+		<div class="flex flex-col gap-4 md:flex-row">
+			<figure class="m-0 flex p-0">
+				<img src="/media/untiled/untiled_1.jpg" alt="untiled" class="block h-auto max-h-screen" />
+			</figure>
+
+			<figure class="m-0 flex p-0">
+				<img src="/media/untiled/untiled_5.jpg" alt="untiled" class="block h-auto max-h-screen" />
+			</figure>
+		</div>
 
 		<div class="my-5"></div>
+
+		<figure class="m-0 p-0">
+			<img src="/media/untiled/untiled_4.jpg" alt="untiled" class="block w-full" />
+		</figure>
+
+		<div class="my-5"></div>
+
+		<div class="flex flex-col gap-4 md:flex-row">
+			<figure class="m-0 flex p-0">
+				<img
+					src={cyclingImages[cyclingImagesIndex]}
+					alt="untiled large"
+					class="block h-auto max-h-screen"
+				/>
+			</figure>
+
+			<figure class="m-0 flex p-0">
+				<img src="/media/untiled/untiled_3.jpg" alt="untiled" class="block h-auto max-h-screen" />
+			</figure>
+		</div>
+
+		<div class="my-5"></div>
+
+		<!-- p5 sketch container
+		<div id="untiled-full-container" class="mx-auto w-full md:w-4/5"></div>
+
+		<div class="my-5"></div> -->
 	</article>
 
 	<!-- mobile-only spacer -->

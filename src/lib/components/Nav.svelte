@@ -44,7 +44,9 @@
 	});
 
 	// determine if we should use mobile centering or desktop left-column centering
-	let shouldCenterOnScreen = $derived(mobile.current || page.url.pathname === '/rooms');
+	let shouldCenterOnScreen = $derived(
+		mobile.current || page.url.pathname === '/rooms' || page.url.pathname === '/untiled'
+	);
 </script>
 
 <nav
@@ -75,6 +77,13 @@
 			>
 				← selected works
 			</button>
+		{:else if page.url.pathname === '/rooms' || page.url.pathname === '/untiled'}
+			<a
+				href="/works"
+				class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors"
+			>
+				← selected works
+			</a>
 		{:else}
 			<a
 				href="/works"
