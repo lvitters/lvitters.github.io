@@ -374,6 +374,67 @@
 				return false; // prevent page scrolling
 			};
 
+			// pinch zoom variables
+			let touches = [];
+			let initialDistance = 0;
+			let initialCameraDistance = 0;
+			let isPinching = false;
+
+			// helper function to calculate distance between two touches
+			function getTouchDistance(touch1, touch2) {
+				let dx = touch1.clientX - touch2.clientX;
+				let dy = touch1.clientY - touch2.clientY;
+				return Math.sqrt(dx * dx + dy * dy);
+			}
+
+			// add touch event listeners for pinch zoom
+			if (typeof window !== 'undefined') {
+				let canvas = null;
+				
+				// wait for canvas to be created
+				setTimeout(() => {
+					canvas = document.getElementById('defaultCanvas0') || document.querySelector('#rooms-container canvas');
+					if (canvas) {
+						canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+						canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+						canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+					}
+				}, 100);
+
+				function handleTouchStart(event) {
+					if (event.touches.length >= 2) {
+						isPinching = true;
+						touches = Array.from(event.touches);
+						initialDistance = getTouchDistance(touches[0], touches[1]);
+						initialCameraDistance = camera.distance;
+						camera.hasBeenMoved = true;
+						camera.tour.active = false;
+						event.preventDefault();
+					} else {
+						isPinching = false;
+					}
+				}
+
+				function handleTouchMove(event) {
+					if (isPinching && event.touches.length >= 2) {
+						let currentDistance = getTouchDistance(event.touches[0], event.touches[1]);
+						let scale = currentDistance / initialDistance;
+						
+						let newDistance = initialCameraDistance / scale;
+						newDistance = p.constrain(newDistance, camera.minDistance, camera.maxDistance);
+						camera.distance = newDistance;
+						
+						event.preventDefault();
+					}
+				}
+
+				function handleTouchEnd(event) {
+					if (event.touches.length < 2) {
+						isPinching = false;
+					}
+				}
+			}
+
 			// update button hover states and cursor (called frequently)
 			function updateButtonHoverStates() {
 				// check hover states

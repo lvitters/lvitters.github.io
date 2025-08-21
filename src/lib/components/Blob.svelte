@@ -67,14 +67,14 @@
 		<!-- p5 sketch container -->
 		<div
 			id="blob-component-container"
-			class="responsive-overlap relative ml-[calc(-50vw+50%)] aspect-square w-screen md:-mt-[200px] md:ml-0 md:w-full"
+			class="responsive-overlap relative -mt-[70%] ml-[calc(-50vw+50%)] h-[100vh] w-screen overflow-hidden md:-mt-[20vh] md:ml-0 md:aspect-square md:w-full"
 		></div>
 
-		<div class="my-5"></div>
+		<div class="my-5 md:hidden"></div>
 	</article>
 
 	<!-- mobile-only spacer -->
-	<div class="h-12 md:hidden"></div>
+	<!-- <div class="h-12 md:hidden"></div> -->
 </main>
 
 <style>

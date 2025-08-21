@@ -33,8 +33,12 @@
 
 		<div class="my-5"></div>
 
-		<figure class="mx-0 my-10 md:mx-60">
-			<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full" />
+		<figure class="mx-0 my-10">
+			<img
+				src="/media/rooms/rooms_full.png"
+				alt="rooms"
+				class="block w-full md:mx-auto md:w-3/4"
+			/>
 		</figure>
 
 		<div class="my-5"></div>

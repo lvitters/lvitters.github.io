@@ -42,10 +42,11 @@
 				class="text-black underline hover:text-purple-500">Mika Stoerkel</a
 			>
 			|
-			<a
+			<!-- <a
 				href="https://portfolio.hfk-bremen.de/omar-zaki/"
 				class="text-black underline hover:text-purple-500">Omar Zaki</a
-			>
+			> -->
+			Omar Zaki
 		</p>
 
 		<div class="my-5"></div>
