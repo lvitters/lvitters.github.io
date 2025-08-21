@@ -72,6 +72,9 @@
 
 		<div class="my-5"></div>
 	</article>
+	
+	<!-- mobile-only spacer -->
+	<div class="h-12 md:hidden"></div>
 </main>
 
 <style>

@@ -75,23 +75,23 @@
 
 		<div class="my-5"></div>
 
-		<figure class="m-0 p-0">
-			<img
-				src="/media/feedback_cube/feedback_cube_6.jpg"
-				alt="feedback_cube"
-				class="block w-full"
-			/>
-		</figure>
+		<div class="flex flex-col gap-4 md:flex-row">
+			<figure class="m-0 flex p-0">
+				<img
+					src="/media/feedback_cube/feedback_cube_3.jpg"
+					alt="feedback_cube"
+					class="block h-auto max-h-500"
+				/>
+			</figure>
 
-		<div class="my-5"></div>
-
-		<figure class="m-0 p-0">
-			<img
-				src="/media/feedback_cube/feedback_cube_3.jpg"
-				alt="feedback_cube"
-				class="block w-full"
-			/>
-		</figure>
+			<figure class="m-0 flex p-0">
+				<img
+					src="/media/feedback_cube/feedback_cube_6.jpg"
+					alt="feedback_cube"
+					class="block h-auto max-h-500"
+				/>
+			</figure>
+		</div>
 
 		<div class="my-5"></div>
 
@@ -111,4 +111,7 @@
 
 		<div class="my-5"></div>
 	</article>
+
+	<!-- mobile-only spacer -->
+	<div class="h-12 md:hidden"></div>
 </main>

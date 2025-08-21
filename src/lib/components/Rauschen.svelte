@@ -79,6 +79,8 @@
 					muted
 					autoplay
 					loop
+					preload="auto"
+					poster="/media/rauschen/rauschen_reel_preview.png"
 				>
 					Your browser does not support the video tag.
 				</video>
@@ -109,4 +111,7 @@
 
 		<div class="my-5"></div>
 	</article>
+
+	<!-- mobile-only spacer -->
+	<div class="h-12 md:hidden"></div>
 </main>

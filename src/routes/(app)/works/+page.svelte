@@ -1,15 +1,5 @@
 <script lang="ts">
-	import Rauschen from '$lib/components/Rauschen.svelte';
-	import Archive from '$lib/components/Archive.svelte';
-	import RayArray from '$lib/components/RayArray.svelte';
-	import FeedbackCube from '$lib/components/FeedbackCube.svelte';
-	import EinHauchVonTullv2 from '$lib/components/EinHauchVonTullv2.svelte';
-	import Untiled from '$lib/components/Untiled.svelte';
-	import EinHauchVonTull from '$lib/components/EinHauchVonTull.svelte';
-	import Rooms from '$lib/components/Rooms.svelte';
-	import Blob from '$lib/components/Blob.svelte';
-	import BreakThePattern from '$lib/components/BreakThePattern.svelte';
-	import ImageBlender from '$lib/components/ImageBlender.svelte';
+	import type { Component } from 'svelte';
 
 	// for untiled_preview
 	import { browser } from '$app/environment';
@@ -25,6 +15,74 @@
 	let currentDetailSection = $state('');
 	let detailViewVisible = $state(false);
 
+	// dynamic component loading
+	let componentCache: Record<string, Component> = {};
+	let loadingComponents = $state<Set<string>>(new Set());
+
+	// lazy load components
+	async function loadComponent(name: string): Promise<Component> {
+		if (componentCache[name]) {
+			return componentCache[name];
+		}
+
+		if (loadingComponents.has(name)) {
+			// wait for existing load to complete
+			while (loadingComponents.has(name)) {
+				await new Promise((resolve) => setTimeout(resolve, 50));
+			}
+			return componentCache[name];
+		}
+
+		loadingComponents.add(name);
+
+		try {
+			let module;
+			switch (name) {
+				case 'Rauschen':
+					module = await import('$lib/components/Rauschen.svelte');
+					break;
+				case 'Archive':
+					module = await import('$lib/components/Archive.svelte');
+					break;
+				case 'RayArray':
+					module = await import('$lib/components/RayArray.svelte');
+					break;
+				case 'FeedbackCube':
+					module = await import('$lib/components/FeedbackCube.svelte');
+					break;
+				case 'EinHauchVonTullv2':
+					module = await import('$lib/components/EinHauchVonTullv2.svelte');
+					break;
+				case 'Untiled':
+					module = await import('$lib/components/Untiled.svelte');
+					break;
+				case 'EinHauchVonTull':
+					module = await import('$lib/components/EinHauchVonTull.svelte');
+					break;
+				case 'Rooms':
+					module = await import('$lib/components/Rooms.svelte');
+					break;
+				case 'Blob':
+					module = await import('$lib/components/Blob.svelte');
+					break;
+				case 'BreakThePattern':
+					module = await import('$lib/components/BreakThePattern.svelte');
+					break;
+				case 'ImageBlender':
+					module = await import('$lib/components/ImageBlender.svelte');
+					break;
+				default:
+					throw new Error(`Unknown component: ${name}`);
+			}
+
+			componentCache[name] = module.default;
+			return module.default;
+		} finally {
+			loadingComponents.delete(name);
+		}
+	}
+
+	// cycle through images
 	$effect(() => {
 		// small delay to ensure smooth transition and proper layout
 		setTimeout(() => {
@@ -47,7 +105,7 @@
 		};
 	});
 
-	// define images for projects that have multiple
+	// define images for projects that have multiple images
 	const rayarrayImages = [
 		'/media/rayarray/rayarray_preview_1.jpg',
 		'/media/rayarray/rayarray_preview_2.jpg',
@@ -133,7 +191,7 @@
 		}
 	});
 
-	// run untiled preview
+	// load untiled preview sketch
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
 		let mounted = true;
@@ -152,7 +210,19 @@
 				if (!mounted) return;
 
 				if (window.mountUntiledPreviewSketch) {
-					cleanup = window.mountUntiledPreviewSketch('untiled-preview-container');
+					const container = document.getElementById('untiled-preview-container');
+					if (container) {
+						// on mobile, the sketch will handle dimension fallbacks
+						// so we can mount even if dimensions aren't immediately available
+						if (mobile.current || (container.clientWidth > 0 && container.offsetHeight > 0)) {
+							cleanup = window.mountUntiledPreviewSketch('untiled-preview-container');
+						} else {
+							// container not ready yet, try again
+							setTimeout(tryMount, 50);
+						}
+					} else {
+						setTimeout(tryMount, 50);
+					}
 				} else {
 					setTimeout(tryMount, 50);
 				}
@@ -425,7 +495,7 @@
 					Break the Pattern (2019)
 				</button>
 			</div>
-			<div class="mb-5">
+			<div class="mb-1">
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('image-blender-section')}
@@ -443,83 +513,114 @@
 					Image Blender (2017)
 				</button>
 			</div>
+
+			<!-- mobile-only spacer -->
+			<div class="h-12 md:hidden"></div>
 		</section>
 
 		<!-- right 2/3 - detail section -->
 		<section
-			class="relative z-10 h-full overflow-y-auto text-left
-			{mobile.current ? (showDetailView ? 'w-full pt-20' : 'hidden') : 'w-2/3 pl-5 md:w-[66.67vw]'}"
+			class="relative z-10 overflow-y-auto text-left
+			{mobile.current
+				? showDetailView
+					? 'h-fit min-h-full w-full pt-20'
+					: 'hidden'
+				: 'h-full w-2/3 pl-5 md:w-[66.67vw]'}"
 		>
 			{#if !mobile.current || currentDetailSection === 'rauschen-section'}
 				<div
 					id="rauschen-section"
-					class={mobile.current && showDetailView
+					class="bg-gray-300 {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<Rauschen />
+					{#await loadComponent('Rauschen')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'archive-section'}
 				<div
 					id="archive-section"
-					class={mobile.current && showDetailView
+					class="bg-[rgb(255,255,0)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<Archive />
+					{#await loadComponent('Archive')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'rayarray-section'}
 				<div
 					id="rayarray-section"
-					class={mobile.current && showDetailView
+					class="bg-black {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<RayArray />
+					{#await loadComponent('RayArray')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'feedback-cube-section'}
 				<div
 					id="feedback-cube-section"
-					class={mobile.current && showDetailView
+					class="bg-[rgb(42,0,25)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<FeedbackCube />
+					{#await loadComponent('FeedbackCube')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'ein-hauch-von-tull-v2-section'}
 				<div
 					id="ein-hauch-von-tull-v2-section"
-					class={mobile.current && showDetailView
+					class="bg-[rgb(10,0,50)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<EinHauchVonTullv2 />
+					{#await loadComponent('EinHauchVonTullv2')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'untiled-section'}
 				<div
 					id="untiled-section"
-					class={mobile.current && showDetailView
+					class="bg-white {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
 					{#key 'untiled'}
-						<Untiled />
+						{#await loadComponent('Untiled')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
 					{/key}
 				</div>
 			{/if}
@@ -527,60 +628,80 @@
 			{#if !mobile.current || currentDetailSection === 'ein-hauch-von-tull-section'}
 				<div
 					id="ein-hauch-von-tull-section"
-					class={mobile.current && showDetailView
+					class="bg-[rgb(0,40,0)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<EinHauchVonTull />
+					{#await loadComponent('EinHauchVonTull')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'available-rooms-section'}
 				<div
 					id="available-rooms-section"
-					class={mobile.current && showDetailView
+					class="bg-white {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<Rooms />
+					{#await loadComponent('Rooms')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'blob-section'}
 				<div
 					id="blob-section"
-					class={mobile.current && showDetailView
+					class="bg-white {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<Blob />
+					{#await loadComponent('Blob')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'break-the-pattern-section'}
 				<div
 					id="break-the-pattern-section"
-					class={mobile.current && showDetailView
+					class="bg-[rgb(80,0,0)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<BreakThePattern />
+					{#await loadComponent('BreakThePattern')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 
 			{#if !mobile.current || currentDetailSection === 'image-blender-section'}
 				<div
 					id="image-blender-section"
-					class={mobile.current && showDetailView
+					class="mb-24 bg-white md:mb-0 {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
-						: ''}
+						: ''}"
 				>
-					<ImageBlender />
+					{#await loadComponent('ImageBlender')}
+						<div class="flex h-64 items-center justify-center">Loading...</div>
+					{:then Component}
+						<Component />
+					{/await}
 				</div>
 			{/if}
 		</section>
@@ -602,24 +723,5 @@
 	.scrollbar-none::-webkit-scrollbar {
 		display: none !important;
 		width: 0 !important;
-	}
-
-	/* remove all white space around components on mobile */
-	@media (max-width: 767px) {
-		/* remove margins and padding from component containers */
-		:global(main.font-consolas) {
-			margin: 0 !important;
-		}
-
-		/* remove any spacing from component wrapper divs */
-		:global(div[id$='-section']) {
-			margin: 0 !important;
-			padding: 0 !important;
-		}
-
-		/* remove body margins if any */
-		:global(body) {
-			margin: 0 !important;
-		}
 	}
 </style>

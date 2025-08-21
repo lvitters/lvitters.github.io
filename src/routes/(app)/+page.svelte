@@ -15,9 +15,10 @@
 		}
 	});
 
-	// load sketch
+	// load blob sketch
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
+		let mounted = true;
 
 		// async function to load p5 and initialize sketch
 		const initializeSketch = async () => {
@@ -29,13 +30,24 @@
 				(window as any).p5 = p5;
 			}
 
-			// this component manages its own sketch instance.
-			cleanup = window.mountBlobSketch('blob-container');
+			const tryMount = () => {
+				if (!mounted) return;
+
+				if (window.mountBlobSketch) {
+					cleanup = window.mountBlobSketch('blob-container');
+				} else {
+					// Function not available yet, try again
+					setTimeout(tryMount, 50);
+				}
+			};
+
+			tryMount();
 		};
 
 		initializeSketch();
 
 		return () => {
+			mounted = false;
 			if (cleanup) cleanup();
 		};
 	});
