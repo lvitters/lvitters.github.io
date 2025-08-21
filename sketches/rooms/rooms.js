@@ -374,6 +374,49 @@
 				return false; // prevent page scrolling
 			};
 
+			// touch variables for pinch zoom
+			let touches = [];
+			let initialDistance = 0;
+			let initialCameraDistance = 0;
+
+			// touch start - record initial touches
+			p.touchStarted = function (event) {
+				if (event.touches && event.touches.length >= 2) {
+					// multi-touch for pinch zoom
+					touches = Array.from(event.touches);
+					initialDistance = getTouchDistance(touches[0], touches[1]);
+					initialCameraDistance = camera.distance;
+					camera.hasBeenMoved = true;
+					camera.tour.active = false;
+					return false; // prevent default
+				}
+				return true; // allow single touch to proceed normally
+			};
+
+			// touch moved - handle pinch zoom
+			p.touchMoved = function (event) {
+				if (event.touches && event.touches.length >= 2 && touches.length >= 2) {
+					// pinch zoom
+					let currentDistance = getTouchDistance(event.touches[0], event.touches[1]);
+					let scale = currentDistance / initialDistance;
+					
+					// apply zoom based on pinch scale
+					let newDistance = initialCameraDistance / scale;
+					newDistance = p.constrain(newDistance, camera.minDistance, camera.maxDistance);
+					camera.distance = newDistance;
+					
+					return false; // prevent default
+				}
+				return true; // allow single touch to proceed normally
+			};
+
+			// helper function to calculate distance between two touches
+			function getTouchDistance(touch1, touch2) {
+				let dx = touch1.clientX - touch2.clientX;
+				let dy = touch1.clientY - touch2.clientY;
+				return Math.sqrt(dx * dx + dy * dy);
+			}
+
 			// update button hover states and cursor (called frequently)
 			function updateButtonHoverStates() {
 				// check hover states
