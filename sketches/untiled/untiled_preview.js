@@ -91,10 +91,28 @@
 				var containerWidth = container.clientWidth;
 				var containerHeight = container.offsetHeight;
 
+				// fallback for mobile if dimensions aren't available yet
+				if (containerWidth === 0 || containerHeight === 0) {
+					// use window width as fallback on mobile
+					containerWidth = window.innerWidth < 768 ? window.innerWidth - 80 : container.clientWidth || 400; // 80px for mobile padding
+					containerHeight = 150; // fallback height
+				}
+
 				// calculate proper height to show complete rows
 				var tileSize = containerWidth / tilesPerRow;
 				var numberOfCompleteRows = Math.floor(containerHeight / tileSize);
+				
+				// ensure we have at least 3 rows on mobile
+				if (numberOfCompleteRows < 3) {
+					numberOfCompleteRows = 3;
+				}
+				
 				var adjustedHeight = numberOfCompleteRows * tileSize;
+
+				// ensure minimum height for 3 rows
+				if (adjustedHeight < 3 * tileSize) {
+					adjustedHeight = 3 * tileSize;
+				}
 
 				// update container height to match canvas height
 				container.style.height = adjustedHeight + 'px';
@@ -555,10 +573,28 @@
 				var containerWidth = container.clientWidth;
 				var containerHeight = container.offsetHeight;
 
+				// fallback for mobile if dimensions aren't available yet
+				if (containerWidth === 0 || containerHeight === 0) {
+					// use window width as fallback on mobile
+					containerWidth = window.innerWidth < 768 ? window.innerWidth - 80 : container.clientWidth || 400; // 80px for mobile padding
+					containerHeight = 150; // fallback height
+				}
+
 				// calculate proper height to show complete rows
 				var tileSize = containerWidth / tilesPerRow;
 				var numberOfCompleteRows = Math.floor(containerHeight / tileSize);
+				
+				// ensure we have at least 3 rows on mobile
+				if (numberOfCompleteRows < 3) {
+					numberOfCompleteRows = 3;
+				}
+				
 				var adjustedHeight = numberOfCompleteRows * tileSize;
+
+				// ensure minimum height for 3 rows
+				if (adjustedHeight < 3 * tileSize) {
+					adjustedHeight = 3 * tileSize;
+				}
 
 				// update container height to match canvas height
 				container.style.height = adjustedHeight + 'px';
