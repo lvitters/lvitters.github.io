@@ -13,7 +13,6 @@
 
 		// Guard against missing container or re-initialization.
 		if (!container) {
-			console.warn(`p5.js container with ID "${containerId}" was not found in the DOM.`);
 			return () => {}; // Return empty cleanup function
 		}
 		if (p5Instances.has(containerId)) {
@@ -91,7 +90,7 @@
 				var containerWidth = container.clientWidth;
 				var containerHeight = container.offsetHeight;
 
-				var cnv = p.createCanvas(containerWidth, containerWidth); //limit for performance
+				var cnv = p.createCanvas(containerWidth, containerHeight);
 				cnv.parent(container); //for positioning with css
 				cnv.id('canvas');
 				cnv.style('z-index', '-1');
@@ -161,8 +160,11 @@
 
 			// determine grid
 			function buildGrid() {
+				// use larger dimension for grid calculation
+				var largerDimension = p.width > p.height ? p.width : p.height;
+				
 				// determine size of single element
-				tileSize = p.width / tilesPerRow;
+				tileSize = largerDimension / tilesPerRow;
 
 				// determine size of gap
 				gap = -(tileSize / 5);
