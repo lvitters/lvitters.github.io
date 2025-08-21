@@ -149,6 +149,13 @@
 				// get canvas element for direct styling
 				canvasElement = document.getElementById('canvas');
 
+				// add touch event listeners for pinch zoom
+				if (canvasElement) {
+					canvasElement.addEventListener('touchstart', handleTouchStart, { passive: false });
+					canvasElement.addEventListener('touchmove', handleTouchMove, { passive: false });
+					canvasElement.addEventListener('touchend', handleTouchEnd, { passive: false });
+				}
+
 				p.frameRate(30);
 				p.colorMode(p.HSB, 360, 100, 100);
 
@@ -387,21 +394,8 @@
 				return Math.sqrt(dx * dx + dy * dy);
 			}
 
-			// add touch event listeners for pinch zoom
-			if (typeof window !== 'undefined') {
-				let canvas = null;
-				
-				// wait for canvas to be created
-				setTimeout(() => {
-					canvas = document.getElementById('defaultCanvas0') || document.querySelector('#rooms-container canvas');
-					if (canvas) {
-						canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-						canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-						canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
-					}
-				}, 100);
-
-				function handleTouchStart(event) {
+			// pinch zoom touch event handlers
+			function handleTouchStart(event) {
 					if (event.touches.length >= 2) {
 						isPinching = true;
 						touches = Array.from(event.touches);
@@ -433,7 +427,6 @@
 						isPinching = false;
 					}
 				}
-			}
 
 			// update button hover states and cursor (called frequently)
 			function updateButtonHoverStates() {
