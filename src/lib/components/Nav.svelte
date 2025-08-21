@@ -13,7 +13,7 @@
 	let isInDetailView = $state(false);
 	let isVisible = $state(false);
 
-	// listen for detail view state changes from works page
+	// listen for detail view state changes from works page  
 	$effect(() => {
 		if (browser) {
 			const handleDetailViewChange = (event: Event) => {
@@ -28,6 +28,14 @@
 			};
 		}
 	});
+
+	// reset detail view when not on works page
+	$effect(() => {
+		if (page.url.pathname !== '/works') {
+			isInDetailView = false;
+		}
+	});
+
 
 	// function to go back to overview
 	function goBackToOverview() {
