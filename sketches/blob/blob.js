@@ -33,9 +33,23 @@
 			const blobsLength = 20;
 
 			p.setup = function () {
-				const canvas = p.createCanvas(container.offsetWidth, container.offsetHeight);
+				// on mobile, make canvas full screen size
+				const isMobile = window.innerWidth < 768;
+				const canvasWidth = isMobile ? window.innerWidth : container.offsetWidth;
+				const canvasHeight = isMobile ? window.innerHeight : container.offsetHeight;
+				
+				const canvas = p.createCanvas(canvasWidth, canvasHeight);
 				canvas.parent(container);
-				canvas.style('z-index', '-1');
+				canvas.style('z-index', '10');
+				
+				// center the taller canvas on mobile
+				if (isMobile) {
+					const canvasElement = canvas.canvas;
+					canvasElement.style.position = 'absolute';
+					canvasElement.style.top = '50%';
+					canvasElement.style.left = '50%';
+					canvasElement.style.transform = 'translate(-50%, -50%)';
+				}
 				p.colorMode(p.RGB, 360, 360, 360, 360);
 				for (let i = 0; i < blobsLength; i++) {
 					blobs.push(new Blob(i));
@@ -53,7 +67,10 @@
 			};
 
 			p.windowResized = function () {
-				p.resizeCanvas(container.offsetWidth, container.offsetHeight);
+				const isMobile = window.innerWidth < 768;
+				const canvasWidth = isMobile ? window.innerWidth : container.offsetWidth;
+				const canvasHeight = isMobile ? window.innerHeight : container.offsetHeight;
+				p.resizeCanvas(canvasWidth, canvasHeight);
 			};
 
 			// The Blob class (unchanged)
