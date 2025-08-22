@@ -323,7 +323,32 @@
 				);
 			}
 
-			// mouse interaction for camera control
+			// touch interaction for mobile devices
+			p.touchStarted = function () {
+				// handle single touches for buttons and camera controls
+				if (p.touches.length === 1) {
+					// check button clicks first
+					if (leftButton.visible && isPointInButton(p.mouseX, p.mouseY, leftButton)) {
+						goLeft();
+						return false; // prevent default
+					}
+					if (rightButton.visible && isPointInButton(p.mouseX, p.mouseY, rightButton)) {
+						goRight();
+						return false; // prevent default
+					}
+
+					// camera controls for single touch (only if not pinching)
+					if (!isPinching) {
+						camera.isDragging = true;
+						camera.lastMouseX = p.mouseX;
+						camera.lastMouseY = p.mouseY;
+					}
+					return false; // prevent default
+				}
+				// allow multi-touch events to be handled by pinch zoom handlers
+			};
+
+			// mouse interaction for camera control (desktop)
 			p.mousePressed = function () {
 				// check button clicks first - use direct coordinate check for reliability
 				if (leftButton.visible && isPointInButton(p.mouseX, p.mouseY, leftButton)) {
@@ -340,6 +365,29 @@
 					camera.isDragging = true;
 					camera.lastMouseX = p.mouseX;
 					camera.lastMouseY = p.mouseY;
+				}
+			};
+
+			p.touchEnded = function () {
+				camera.isDragging = false;
+			};
+
+			p.touchMoved = function () {
+				if (camera.isDragging && p.touches.length === 1 && !isPinching) {
+					// mark that user has interacted with camera
+					camera.hasBeenMoved = true;
+					camera.tour.active = false; // stop tour immediately when user takes control
+
+					let deltaX = (p.mouseX - camera.lastMouseX) * camera.sensitivity;
+					let deltaY = (p.mouseY - camera.lastMouseY) * camera.sensitivity;
+
+					// add to velocity for smooth trackball rotation
+					camera.velocity.x -= deltaX; // horizontal rotation (inverted)
+					camera.velocity.y += deltaY; // vertical rotation
+
+					camera.lastMouseX = p.mouseX;
+					camera.lastMouseY = p.mouseY;
+					return false; // prevent default
 				}
 			};
 
@@ -396,37 +444,64 @@
 
 			// pinch zoom touch event handlers
 			function handleTouchStart(event) {
-					if (event.touches.length >= 2) {
+				if (event.touches.length >= 2) {
+					// Check if touches are on UI buttons - if so, don't interfere
+					let touchOnButton = false;
+					for (let touch of event.touches) {
+						let rect = canvasElement.getBoundingClientRect();
+						let touchX = touch.clientX - rect.left;
+						let touchY = touch.clientY - rect.top;
+						
+						if ((leftButton.visible && isPointInButton(touchX, touchY, leftButton)) ||
+							(rightButton.visible && isPointInButton(touchX, touchY, rightButton))) {
+							touchOnButton = true;
+							break;
+						}
+					}
+					
+					if (!touchOnButton) {
 						isPinching = true;
+						// stop any existing single-touch camera dragging
+						camera.isDragging = false;
 						touches = Array.from(event.touches);
 						initialDistance = getTouchDistance(touches[0], touches[1]);
 						initialCameraDistance = camera.distance;
 						camera.hasBeenMoved = true;
 						camera.tour.active = false;
 						event.preventDefault();
+					}
+				} else if (event.touches.length < 2) {
+					isPinching = false;
+				}
+			}
+
+			function handleTouchMove(event) {
+				if (isPinching && event.touches.length >= 2) {
+					let currentDistance = getTouchDistance(event.touches[0], event.touches[1]);
+					let scale = currentDistance / initialDistance;
+					
+					let newDistance = initialCameraDistance / scale;
+					newDistance = p.constrain(newDistance, camera.minDistance, camera.maxDistance);
+					camera.distance = newDistance;
+					
+					event.preventDefault();
+				}
+			}
+
+			function handleTouchEnd(event) {
+				if (event.touches.length < 2) {
+					isPinching = false;
+					// if there's still one touch remaining, allow single-touch camera controls to resume
+					if (event.touches.length === 1) {
+						// re-initialize single touch tracking for smooth transition
+						camera.lastMouseX = event.touches[0].clientX - canvasElement.getBoundingClientRect().left;
+						camera.lastMouseY = event.touches[0].clientY - canvasElement.getBoundingClientRect().top;
 					} else {
-						isPinching = false;
+						// no touches left, stop all camera dragging
+						camera.isDragging = false;
 					}
 				}
-
-				function handleTouchMove(event) {
-					if (isPinching && event.touches.length >= 2) {
-						let currentDistance = getTouchDistance(event.touches[0], event.touches[1]);
-						let scale = currentDistance / initialDistance;
-						
-						let newDistance = initialCameraDistance / scale;
-						newDistance = p.constrain(newDistance, camera.minDistance, camera.maxDistance);
-						camera.distance = newDistance;
-						
-						event.preventDefault();
-					}
-				}
-
-				function handleTouchEnd(event) {
-					if (event.touches.length < 2) {
-						isPinching = false;
-					}
-				}
+			}
 
 			// update button hover states and cursor (called frequently)
 			function updateButtonHoverStates() {
