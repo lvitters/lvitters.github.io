@@ -146,13 +146,46 @@
 				cnv.parent(container);
 				cnv.id('canvas');
 
-				// get canvas element for direct styling and touch events
+				// get canvas element for direct styling
 				canvasElement = cnv.canvas; // use p5.js canvas reference directly
 
-				// add touch event listeners for pinch zoom
-				canvasElement.addEventListener('touchstart', handleTouchStart, { passive: false });
-				canvasElement.addEventListener('touchmove', handleTouchMove, { passive: false });
-				canvasElement.addEventListener('touchend', handleTouchEnd, { passive: false });
+				// simple pinch zoom setup
+				let lastTouchDistance = 0;
+				let isZooming = false;
+
+				canvasElement.addEventListener('touchstart', function(e) {
+					if (e.touches.length === 2) {
+						isZooming = true;
+						let dx = e.touches[0].clientX - e.touches[1].clientX;
+						let dy = e.touches[0].clientY - e.touches[1].clientY;
+						lastTouchDistance = Math.sqrt(dx * dx + dy * dy);
+						e.preventDefault();
+					}
+				}, { passive: false });
+
+				canvasElement.addEventListener('touchmove', function(e) {
+					if (isZooming && e.touches.length === 2) {
+						let dx = e.touches[0].clientX - e.touches[1].clientX;
+						let dy = e.touches[0].clientY - e.touches[1].clientY;
+						let touchDistance = Math.sqrt(dx * dx + dy * dy);
+						
+						if (lastTouchDistance > 0) {
+							let scale = touchDistance / lastTouchDistance;
+							camera.distance *= (1 / scale);
+							camera.distance = p.constrain(camera.distance, camera.minDistance, camera.maxDistance);
+						}
+						
+						lastTouchDistance = touchDistance;
+						e.preventDefault();
+					}
+				}, { passive: false });
+
+				canvasElement.addEventListener('touchend', function(e) {
+					if (e.touches.length < 2) {
+						isZooming = false;
+						lastTouchDistance = 0;
+					}
+				}, { passive: false });
 
 				p.frameRate(30);
 				p.colorMode(p.HSB, 360, 100, 100);
@@ -324,7 +357,7 @@
 			// touch interaction for single touch (camera rotation and buttons)
 			p.touchStarted = function () {
 				// only handle single touch - let native handlers deal with multi-touch
-				if (p.touches.length === 1 && !isPinching) {
+				if (p.touches.length === 1) {
 					// check button clicks first
 					if (leftButton.visible && isPointInButton(p.mouseX, p.mouseY, leftButton)) {
 						goLeft();
@@ -364,14 +397,12 @@
 			};
 
 			p.touchEnded = function () {
-				if (!isPinching) {
-					camera.isDragging = false;
-				}
+				camera.isDragging = false;
 			};
 
 			p.touchMoved = function () {
-				// only handle single touch camera rotation when not pinching
-				if (camera.isDragging && p.touches.length === 1 && !isPinching) {
+				// handle single touch camera rotation 
+				if (camera.isDragging && p.touches.length === 1) {
 					camera.hasBeenMoved = true;
 					camera.tour.active = false;
 
@@ -425,53 +456,6 @@
 				return false; // prevent page scrolling
 			};
 
-			// pinch zoom variables
-			let touches = [];
-			let initialDistance = 0;
-			let initialCameraDistance = 0;
-			let isPinching = false;
-
-			// helper function to calculate distance between two touches
-			function getTouchDistance(touch1, touch2) {
-				let dx = touch1.clientX - touch2.clientX;
-				let dy = touch1.clientY - touch2.clientY;
-				return Math.sqrt(dx * dx + dy * dy);
-			}
-
-			// unified touch event handlers for both single-touch camera and pinch zoom
-			function handleTouchStart(event) {
-				if (event.touches.length === 2) {
-					// start pinch zoom
-					isPinching = true;
-					camera.isDragging = false; // stop any single-touch dragging
-					initialDistance = getTouchDistance(event.touches[0], event.touches[1]);
-					initialCameraDistance = camera.distance;
-					camera.hasBeenMoved = true;
-					camera.tour.active = false;
-					event.preventDefault(); // prevent p5.js from handling this
-					event.stopPropagation(); // stop event bubbling
-				}
-				// for single touch, let p5.js handle it - don't prevent default
-			}
-
-			function handleTouchMove(event) {
-				if (isPinching && event.touches.length === 2) {
-					// handle pinch zoom
-					let currentDistance = getTouchDistance(event.touches[0], event.touches[1]);
-					let scale = currentDistance / initialDistance;
-					let newDistance = initialCameraDistance / scale;
-					camera.distance = p.constrain(newDistance, camera.minDistance, camera.maxDistance);
-					event.preventDefault(); // prevent p5.js from handling this
-					event.stopPropagation(); // stop event bubbling
-				}
-				// for single touch, let p5.js handle it - don't prevent default
-			}
-
-			function handleTouchEnd(event) {
-				if (event.touches.length < 2) {
-					isPinching = false;
-				}
-			}
 
 			// update button hover states and cursor (called frequently)
 			function updateButtonHoverStates() {
