@@ -325,7 +325,7 @@
 
 			// touch interaction for mobile devices
 			p.touchStarted = function () {
-				// only handle single touches for buttons and camera - multi-touch is handled separately
+				// handle single touches for buttons and camera controls
 				if (p.touches.length === 1) {
 					// check button clicks first
 					if (leftButton.visible && isPointInButton(p.mouseX, p.mouseY, leftButton)) {
@@ -337,12 +337,15 @@
 						return false; // prevent default
 					}
 
-					// camera controls for single touch
-					camera.isDragging = true;
-					camera.lastMouseX = p.mouseX;
-					camera.lastMouseY = p.mouseY;
+					// camera controls for single touch (only if not pinching)
+					if (!isPinching) {
+						camera.isDragging = true;
+						camera.lastMouseX = p.mouseX;
+						camera.lastMouseY = p.mouseY;
+					}
 					return false; // prevent default
 				}
+				// allow multi-touch events to be handled by pinch zoom handlers
 			};
 
 			// mouse interaction for camera control (desktop)
@@ -370,7 +373,7 @@
 			};
 
 			p.touchMoved = function () {
-				if (camera.isDragging && p.touches.length === 1) {
+				if (camera.isDragging && p.touches.length === 1 && !isPinching) {
 					// mark that user has interacted with camera
 					camera.hasBeenMoved = true;
 					camera.tour.active = false; // stop tour immediately when user takes control
@@ -458,6 +461,8 @@
 					
 					if (!touchOnButton) {
 						isPinching = true;
+						// stop any existing single-touch camera dragging
+						camera.isDragging = false;
 						touches = Array.from(event.touches);
 						initialDistance = getTouchDistance(touches[0], touches[1]);
 						initialCameraDistance = camera.distance;
@@ -465,7 +470,7 @@
 						camera.tour.active = false;
 						event.preventDefault();
 					}
-				} else {
+				} else if (event.touches.length < 2) {
 					isPinching = false;
 				}
 			}
@@ -486,6 +491,15 @@
 			function handleTouchEnd(event) {
 				if (event.touches.length < 2) {
 					isPinching = false;
+					// if there's still one touch remaining, allow single-touch camera controls to resume
+					if (event.touches.length === 1) {
+						// re-initialize single touch tracking for smooth transition
+						camera.lastMouseX = event.touches[0].clientX - canvasElement.getBoundingClientRect().left;
+						camera.lastMouseY = event.touches[0].clientY - canvasElement.getBoundingClientRect().top;
+					} else {
+						// no touches left, stop all camera dragging
+						camera.isDragging = false;
+					}
 				}
 			}
 
