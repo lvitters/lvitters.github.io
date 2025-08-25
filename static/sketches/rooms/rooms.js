@@ -37,6 +37,11 @@
 			// detect if mobile - using consistent 768px breakpoint
 			let isMobile = window.innerWidth < 768;
 
+			// camera state tracking
+			let savedCameraPosition = { x: 0, y: 0, z: isMobile ? 3500 : 2000 };
+			let savedCameraTarget = { x: 0, y: 0, z: 0 };
+			let orbitControlEnabled = true;
+
 			// array for shapes
 			let shapes = [];
 
@@ -95,7 +100,7 @@
 				cnv.id('canvas');
 
 				// set initial camera position - more zoomed out depending on mobile or desktop
-				if (!isMobile) p.camera(0, 0, 1500, 0, 0, 0, 0, 1, 0);
+				if (!isMobile) p.camera(0, 0, 2000, 0, 0, 0, 0, 1, 0);
 				else p.camera(0, 0, 3500, 0, 0, 0, 0, 1, 0);
 
 				// get canvas element for direct styling
@@ -113,12 +118,10 @@
 				p.background(255);
 				p.smooth(4);
 
-				// only move camera if not interacting with buttons
-				// if (checkIgnoreOrbit()) {
-				// 	p.orbitControl();
-				// }
-
-				p.orbitControl();
+				// disable
+				if (orbitControlEnabled) {
+					p.orbitControl(1, 1, 0.5);
+				}
 
 				// recenter grid in canvas - slight offset to improve centering
 				p.translate(
@@ -156,74 +159,6 @@
 				}
 			}
 
-			// set HTML buttons using Tailwind, responsive for desktop and mobile
-			function setButtons() {
-				// --- fixed button dimensions for stability ---
-				const buttonWidth = 60; // fixed width
-				const buttonHeight = 60; // fixed height
-
-				// --- calculate padding dynamically ---
-				const paddingX = !isMobile ? p.windowWidth / 5 : p.windowWidth * 0.2; // desktop: 1/5 from edges, mobile: 20% between buttons
-				const paddingY = !isMobile ? 0 : p.windowHeight * 0.15; // vertical padding for mobile from bottom
-
-				// left button
-				if (left == null) {
-					left = p.createButton('<');
-					// tailwind classes for html buttons
-					left.class(
-						'p5-button font-consolas absolute z-50 flex rounded-md border hover:text-[rgb(0,0,255)] border-white/20 bg-white/20 hover:bg-black/20 px-2 pt-0.5 text-[40px] backdrop-blur-sm transition-colors duration-200 cursor-pointer'
-					);
-					left.mousePressed(goLeft);
-					left.style('width', buttonWidth + 'px'); // fix width
-					left.style('height', buttonHeight + 'px'); // fix height
-					// prevent orbitControl
-					addButtonEvents(left);
-				}
-
-				// right button
-				if (right == null) {
-					right = p.createButton('>');
-					right.class(
-						'p5-button font-consolas absolute z-50 flex rounded-md border hover:text-[rgb(0,0,255)] border-white/20 bg-white/20 hover:bg-black/20 px-2 pt-0.5 text-[40px] backdrop-blur-sm transition-colors duration-200 cursor-pointer'
-					);
-					right.mousePressed(goRight);
-					right.style('width', buttonWidth + 'px'); // fix width
-					right.style('height', buttonHeight + 'px'); // fix height
-					// prevent orbitControl
-					addButtonEvents(right);
-				}
-
-				// --- position buttons ---
-				if (!isMobile) {
-					// desktop: vertically centered, left/right 1/5 from edges
-					left.position(paddingX, p.windowHeight / 2 - buttonHeight / 2);
-					right.position(
-						p.windowWidth - buttonWidth - paddingX,
-						p.windowHeight / 2 - buttonHeight / 2
-					);
-				} else {
-					// mobile: bottom, horizontally centered
-					const totalWidth = buttonWidth * 2 + paddingX; // total width with padding
-					const xLeft = (p.windowWidth - totalWidth) / 2; // left button x
-					const xRight = xLeft + buttonWidth + paddingX; // right button x
-					const y = p.windowHeight - buttonHeight - paddingY; // y position for both
-
-					left.position(xLeft, y);
-					right.position(xRight, y);
-				}
-
-				// --- show/hide based on city index ---
-				cityIndex <= 0 ? left.hide() : left.show();
-				cityIndex >= cities.length - 1 ? right.hide() : right.show();
-			}
-
-			// prevent events to go "through" button to canvas
-			function addButtonEvents(btn) {
-				btn.elt.addEventListener('touchstart', (e) => e.stopPropagation()); // mobile
-				btn.elt.addEventListener('touchmove', (e) => e.stopPropagation()); // mobile drag
-				btn.elt.addEventListener('touchend', (e) => e.stopPropagation()); // mobile
-			}
-
 			// set current city name and rooms array
 			function setCity(i) {
 				// set cityIndex
@@ -240,11 +175,6 @@
 
 				cityName = cities[cityIndex];
 				rooms = cityJSONs[cityIndex];
-
-				// TODO: figure out how to extract lastModified from JSON <- not that important since the JSONS
-				// have to be updated manually with the crawler anyways
-				// let currentFile = loadJSON('crawler/data/' + cityName + '.json');
-				// lastModified = new Date(currentFile.lastModified);
 
 				calcGrid();
 				pushShapes();
@@ -292,11 +222,176 @@
 				setButtons();
 			};
 
+			// keyboard controls for testing
+			p.keyPressed = function () {
+				if (p.key === 'a' || p.key === 'A' || p.keyCode === p.LEFT_ARROW) {
+					setCity(-1);
+				} else if (p.key === 'd' || p.key === 'D' || p.keyCode === p.RIGHT_ARROW) {
+					setCity(1);
+				}
+			};
+
+			// custom touch handling to prevent orbit control on tap
+			let touchStartPos = null;
+			let isDragging = false;
+			const DRAG_THRESHOLD = 10; // pixels before we consider it a drag
+
+			// flag to track if we're in a button interaction
+			let isButtonTouch = false;
+
+			// after a touch has started
+			p.touchStarted = function () {
+				if (p.touches.length > 0) {
+					const touch = p.touches[0];
+
+					// check if touch is in button areas on mobile and allow button interaction
+					if (isMobile) {
+						const buttonWidth = 60;
+						const buttonHeight = 60;
+						const paddingX = p.windowWidth * 0.2;
+						const paddingY = p.windowHeight * 0.1;
+						const totalWidth = buttonWidth * 2 + paddingX;
+						const xLeft = (p.windowWidth - totalWidth) / 2;
+						const xRight = xLeft + buttonWidth + paddingX;
+						const y = p.windowHeight - buttonHeight - paddingY;
+
+						// if touch is in button area, don't intercept it
+						if (touch.y > y && touch.y < y + buttonHeight) {
+							if (
+								(touch.x > xLeft && touch.x < xLeft + buttonWidth) ||
+								(touch.x > xRight && touch.x < xRight + buttonWidth)
+							) {
+								// console.log('Touch in button area, allowing button interaction');
+								isButtonTouch = true;
+								return false; // prevent orbit control but don't set up drag tracking
+							}
+						}
+					}
+
+					isButtonTouch = false;
+					touchStartPos = { x: touch.x, y: touch.y };
+					isDragging = false;
+					orbitControlEnabled = false; // disable orbit control on touch start
+					// console.log('Touch started at:', touchStartPos.x, touchStartPos.y);
+				}
+				return false; // prevent default orbit control behavior
+			};
+
+			// after a touch has moved from the starting position
+			p.touchMoved = function () {
+				if (isButtonTouch) return; // ignore touch moves for button interactions
+
+				if (p.touches.length > 0 && touchStartPos) {
+					const currentPos = { x: p.touches[0].x, y: p.touches[0].y };
+					const distance = Math.sqrt(
+						Math.pow(currentPos.x - touchStartPos.x, 2) +
+							Math.pow(currentPos.y - touchStartPos.y, 2)
+					);
+
+					if (distance > DRAG_THRESHOLD && !isDragging) {
+						isDragging = true;
+						orbitControlEnabled = true; // enable orbit control once dragging starts
+						// console.log('Drag detected, enabling orbit controls');
+					}
+				}
+			};
+
+			// after the finger has been lifted
+			p.touchEnded = function () {
+				if (isButtonTouch) {
+					// console.log('Button touch ended, ignoring');
+					isButtonTouch = false;
+					return;
+				}
+
+				// console.log('Touch ended, was dragging:', isDragging);
+				touchStartPos = null;
+				isDragging = false;
+				orbitControlEnabled = true; // re-enable for next interaction
+			};
+
+			// set HTML buttons using Tailwind, responsive for desktop and mobile
+			function setButtons() {
+				// --- fixed button dimensions for stability ---
+				const buttonWidth = 60; // fixed width
+				const buttonHeight = 60; // fixed height
+
+				// --- calculate padding dynamically ---
+				const paddingX = !isMobile ? p.windowWidth / 5 : p.windowWidth * 0.2; // desktop: 1/5 from edges, mobile: 20% between buttons
+				const paddingY = !isMobile ? 0 : p.windowHeight * 0.1; // vertical padding for mobile from bottom
+
+				// left button
+				if (left == null) {
+					left = p.createButton('<');
+					// tailwind classes for html buttons
+					left.class(
+						'p5-button font-consolas absolute z-50 flex rounded-md border hover:text-[rgb(0,0,255)] border-white/20 bg-white/20 hover:bg-black/20 px-2 pt-0.5 text-[40px] backdrop-blur-sm transition-colors duration-200 cursor-pointer'
+					);
+					left.elt.addEventListener('click', goLeft);
+					left.elt.addEventListener('touchstart', (e) => {
+						e.stopPropagation();
+						// console.log('Left button touch start');
+					});
+					left.elt.addEventListener('touchend', (e) => {
+						e.stopPropagation();
+						goLeft();
+						// console.log('Left button touch end');
+					});
+					left.style('width', buttonWidth + 'px'); // fix width
+					left.style('height', buttonHeight + 'px'); // fix height
+				}
+
+				// right button
+				if (right == null) {
+					right = p.createButton('>');
+					right.class(
+						'p5-button font-consolas absolute z-50 flex rounded-md border hover:text-[rgb(0,0,255)] border-white/20 bg-white/20 hover:bg-black/20 px-2 pt-0.5 text-[40px] backdrop-blur-sm transition-colors duration-200 cursor-pointer'
+					);
+					right.elt.addEventListener('click', goRight);
+					right.elt.addEventListener('touchstart', (e) => {
+						e.stopPropagation();
+						// console.log('Right button touch start');
+					});
+					right.elt.addEventListener('touchend', (e) => {
+						e.stopPropagation();
+						goRight();
+						// console.log('Right button touch end');
+					});
+					right.style('width', buttonWidth + 'px'); // fix width
+					right.style('height', buttonHeight + 'px'); // fix height
+				}
+
+				// --- position buttons ---
+				if (!isMobile) {
+					// desktop: vertically centered, left/right 1/5 from edges
+					left.position(paddingX, p.windowHeight / 2 - buttonHeight / 2);
+					right.position(
+						p.windowWidth - buttonWidth - paddingX,
+						p.windowHeight / 2 - buttonHeight / 2
+					);
+				} else {
+					// mobile: bottom, horizontally centered
+					const totalWidth = buttonWidth * 2 + paddingX; // total width with padding
+					const xLeft = (p.windowWidth - totalWidth) / 2; // left button x
+					const xRight = xLeft + buttonWidth + paddingX; // right button x
+					const y = p.windowHeight - buttonHeight - paddingY; // y position for both
+
+					left.position(xLeft, y);
+					right.position(xRight, y);
+				}
+
+				// --- show/hide based on city index ---
+				cityIndex <= 0 ? left.hide() : left.show();
+				cityIndex >= cities.length - 1 ? right.hide() : right.show();
+			}
+
 			// helper functions because button callback's can't have parameters
 			function goLeft() {
+				// console.log('Left button clicked!');
 				setCity(-1);
 			}
 			function goRight() {
+				// console.log('Right button clicked!');
 				setCity(1);
 			}
 
