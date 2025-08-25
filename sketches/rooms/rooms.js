@@ -95,7 +95,7 @@
 				cnv.id('canvas');
 
 				// set initial camera position - more zoomed out depending on mobile or desktop
-				if (!isMobile) p.camera(0, 0, 1500, 0, 0, 0, 0, 1, 0);
+				if (!isMobile) p.camera(0, 0, 2000, 0, 0, 0, 0, 1, 0);
 				else p.camera(0, 0, 3500, 0, 0, 0, 0, 1, 0);
 
 				// get canvas element for direct styling
@@ -164,7 +164,7 @@
 
 				// --- calculate padding dynamically ---
 				const paddingX = !isMobile ? p.windowWidth / 5 : p.windowWidth * 0.2; // desktop: 1/5 from edges, mobile: 20% between buttons
-				const paddingY = !isMobile ? 0 : p.windowHeight * 0.15; // vertical padding for mobile from bottom
+				const paddingY = !isMobile ? 0 : p.windowHeight * 0.1; // vertical padding for mobile from bottom
 
 				// left button
 				if (left == null) {
