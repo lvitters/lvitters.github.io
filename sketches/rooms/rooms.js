@@ -620,14 +620,16 @@
 					camera.velocity.y *= camera.damping;
 					camera.velocity.distance *= 0.85;
 
-					// apply rotation velocities using trackball rotation
+					// apply rotation velocities using trackball rotation (even during pinch)
 					if (Math.abs(camera.velocity.x) > 0.001 || Math.abs(camera.velocity.y) > 0.001) {
 						rotateCamera(camera.velocity.x, camera.velocity.y);
 					}
 
-					// update distance
-					camera.distance += camera.velocity.distance;
-					camera.distance = p.constrain(camera.distance, camera.minDistance, camera.maxDistance);
+					// update distance (but not during pinch to avoid conflicts)
+					if (!isPinching) {
+						camera.distance += camera.velocity.distance;
+						camera.distance = p.constrain(camera.distance, camera.minDistance, camera.maxDistance);
+					}
 				}
 
 				// update position based on distance (unless tour is happening)
