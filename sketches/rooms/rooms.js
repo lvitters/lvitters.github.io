@@ -37,10 +37,12 @@
 			// detect if mobile - using consistent 768px breakpoint
 			let isMobile = window.innerWidth < 768;
 
-			// camera state tracking
-			let savedCameraPosition = { x: 0, y: 0, z: isMobile ? 3500 : 2000 };
-			let savedCameraTarget = { x: 0, y: 0, z: 0 };
+			// orbit control state
 			let orbitControlEnabled = true;
+
+			// zoom limits - adjusted for mobile vs desktop
+			const minZoom = isMobile ? 1500 : 800;
+			const maxZoom = isMobile ? 6500 : 5500;
 
 			// array for shapes
 			let shapes = [];
@@ -100,8 +102,8 @@
 				cnv.id('canvas');
 
 				// set initial camera position - more zoomed out depending on mobile or desktop
-				if (!isMobile) p.camera(0, 0, 2000, 0, 0, 0, 0, 1, 0);
-				else p.camera(0, 0, 3500, 0, 0, 0, 0, 1, 0);
+				if (!isMobile) p.camera(0, 0, 2100, 0, 0, 0, 0, 1, 0);
+				else p.camera(0, 0, 4000, 0, 0, 0, 0, 1, 0);
 
 				// get canvas element for direct styling
 				canvasElement = document.getElementById('canvas');
@@ -118,9 +120,34 @@
 				p.background(255);
 				p.smooth(4);
 
-				// disable
+				// apply orbit controls with zoom constraints
 				if (orbitControlEnabled) {
-					p.orbitControl(1, 1, 0.5);
+					p.orbitControl(1, 1, 0.8);
+
+					// constrain zoom by checking camera distance
+					let camX = p._renderer._curCamera.eyeX;
+					let camY = p._renderer._curCamera.eyeY;
+					let camZ = p._renderer._curCamera.eyeZ;
+					let centerX = p._renderer._curCamera.centerX;
+					let centerY = p._renderer._curCamera.centerY;
+					let centerZ = p._renderer._curCamera.centerZ;
+
+					let distance = Math.sqrt(
+						Math.pow(camX - centerX, 2) + Math.pow(camY - centerY, 2) + Math.pow(camZ - centerZ, 2)
+					);
+
+					if (distance < minZoom || distance > maxZoom) {
+						// constrain the distance
+						let constrainedDistance = Math.max(minZoom, Math.min(maxZoom, distance));
+						let ratio = constrainedDistance / distance;
+
+						// apply constrained position
+						let newCamX = centerX + (camX - centerX) * ratio;
+						let newCamY = centerY + (camY - centerY) * ratio;
+						let newCamZ = centerZ + (camZ - centerZ) * ratio;
+
+						p.camera(newCamX, newCamY, newCamZ, centerX, centerY, centerZ, 0, 1, 0);
+					}
 				}
 
 				// recenter grid in canvas - slight offset to improve centering
@@ -236,51 +263,26 @@
 			let isDragging = false;
 			const DRAG_THRESHOLD = 10; // pixels before we consider it a drag
 
-			// flag to track if we're in a button interaction
-			let isButtonTouch = false;
-
-			// after a touch has started
+			// disable orbit control on touch start, only enable after drag threshold
 			p.touchStarted = function () {
 				if (p.touches.length > 0) {
 					const touch = p.touches[0];
 
-					// check if touch is in button areas on mobile and allow button interaction
-					if (isMobile) {
-						const buttonWidth = 60;
-						const buttonHeight = 60;
-						const paddingX = p.windowWidth * 0.2;
-						const paddingY = p.windowHeight * 0.1;
-						const totalWidth = buttonWidth * 2 + paddingX;
-						const xLeft = (p.windowWidth - totalWidth) / 2;
-						const xRight = xLeft + buttonWidth + paddingX;
-						const y = p.windowHeight - buttonHeight - paddingY;
-
-						// if touch is in button area, don't intercept it
-						if (touch.y > y && touch.y < y + buttonHeight) {
-							if (
-								(touch.x > xLeft && touch.x < xLeft + buttonWidth) ||
-								(touch.x > xRight && touch.x < xRight + buttonWidth)
-							) {
-								// console.log('Touch in button area, allowing button interaction');
-								isButtonTouch = true;
-								return false; // prevent orbit control but don't set up drag tracking
-							}
-						}
+					// check if touch is in navbar area (top 100px of screen)
+					if (touch.y < 100) {
+						// allow navbar touches to pass through
+						return true;
 					}
 
-					isButtonTouch = false;
 					touchStartPos = { x: touch.x, y: touch.y };
 					isDragging = false;
 					orbitControlEnabled = false; // disable orbit control on touch start
-					// console.log('Touch started at:', touchStartPos.x, touchStartPos.y);
 				}
-				return false; // prevent default orbit control behavior
+				return false; // prevent default orbit control behavior only for canvas touches
 			};
 
-			// after a touch has moved from the starting position
+			// enable orbit control only after drag threshold is reached
 			p.touchMoved = function () {
-				if (isButtonTouch) return; // ignore touch moves for button interactions
-
 				if (p.touches.length > 0 && touchStartPos) {
 					const currentPos = { x: p.touches[0].x, y: p.touches[0].y };
 					const distance = Math.sqrt(
@@ -291,20 +293,12 @@
 					if (distance > DRAG_THRESHOLD && !isDragging) {
 						isDragging = true;
 						orbitControlEnabled = true; // enable orbit control once dragging starts
-						// console.log('Drag detected, enabling orbit controls');
 					}
 				}
 			};
 
-			// after the finger has been lifted
+			// reset for next interaction
 			p.touchEnded = function () {
-				if (isButtonTouch) {
-					// console.log('Button touch ended, ignoring');
-					isButtonTouch = false;
-					return;
-				}
-
-				// console.log('Touch ended, was dragging:', isDragging);
 				touchStartPos = null;
 				isDragging = false;
 				orbitControlEnabled = true; // re-enable for next interaction
@@ -330,12 +324,10 @@
 					left.elt.addEventListener('click', goLeft);
 					left.elt.addEventListener('touchstart', (e) => {
 						e.stopPropagation();
-						// console.log('Left button touch start');
 					});
 					left.elt.addEventListener('touchend', (e) => {
 						e.stopPropagation();
 						goLeft();
-						// console.log('Left button touch end');
 					});
 					left.style('width', buttonWidth + 'px'); // fix width
 					left.style('height', buttonHeight + 'px'); // fix height
@@ -350,12 +342,10 @@
 					right.elt.addEventListener('click', goRight);
 					right.elt.addEventListener('touchstart', (e) => {
 						e.stopPropagation();
-						// console.log('Right button touch start');
 					});
 					right.elt.addEventListener('touchend', (e) => {
 						e.stopPropagation();
 						goRight();
-						// console.log('Right button touch end');
 					});
 					right.style('width', buttonWidth + 'px'); // fix width
 					right.style('height', buttonHeight + 'px'); // fix height
@@ -387,11 +377,9 @@
 
 			// helper functions because button callback's can't have parameters
 			function goLeft() {
-				// console.log('Left button clicked!');
 				setCity(-1);
 			}
 			function goRight() {
-				// console.log('Right button clicked!');
 				setCity(1);
 			}
 
