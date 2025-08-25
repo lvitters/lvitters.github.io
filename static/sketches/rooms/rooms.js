@@ -40,6 +40,10 @@
 			// orbit control state
 			let orbitControlEnabled = true;
 
+			// zoom limits - adjusted for mobile vs desktop
+			const minZoom = isMobile ? 1500 : 800;
+			const maxZoom = isMobile ? 6500 : 5500;
+
 			// array for shapes
 			let shapes = [];
 
@@ -98,8 +102,8 @@
 				cnv.id('canvas');
 
 				// set initial camera position - more zoomed out depending on mobile or desktop
-				if (!isMobile) p.camera(0, 0, 2000, 0, 0, 0, 0, 1, 0);
-				else p.camera(0, 0, 3500, 0, 0, 0, 0, 1, 0);
+				if (!isMobile) p.camera(0, 0, 2100, 0, 0, 0, 0, 1, 0);
+				else p.camera(0, 0, 4000, 0, 0, 0, 0, 1, 0);
 
 				// get canvas element for direct styling
 				canvasElement = document.getElementById('canvas');
@@ -116,9 +120,34 @@
 				p.background(255);
 				p.smooth(4);
 
-				// disable
+				// apply orbit controls with zoom constraints
 				if (orbitControlEnabled) {
 					p.orbitControl(1, 1, 0.8);
+
+					// constrain zoom by checking camera distance
+					let camX = p._renderer._curCamera.eyeX;
+					let camY = p._renderer._curCamera.eyeY;
+					let camZ = p._renderer._curCamera.eyeZ;
+					let centerX = p._renderer._curCamera.centerX;
+					let centerY = p._renderer._curCamera.centerY;
+					let centerZ = p._renderer._curCamera.centerZ;
+
+					let distance = Math.sqrt(
+						Math.pow(camX - centerX, 2) + Math.pow(camY - centerY, 2) + Math.pow(camZ - centerZ, 2)
+					);
+
+					if (distance < minZoom || distance > maxZoom) {
+						// constrain the distance
+						let constrainedDistance = Math.max(minZoom, Math.min(maxZoom, distance));
+						let ratio = constrainedDistance / distance;
+
+						// apply constrained position
+						let newCamX = centerX + (camX - centerX) * ratio;
+						let newCamY = centerY + (camY - centerY) * ratio;
+						let newCamZ = centerZ + (camZ - centerZ) * ratio;
+
+						p.camera(newCamX, newCamY, newCamZ, centerX, centerY, centerZ, 0, 1, 0);
+					}
 				}
 
 				// recenter grid in canvas - slight offset to improve centering
@@ -238,11 +267,18 @@
 			p.touchStarted = function () {
 				if (p.touches.length > 0) {
 					const touch = p.touches[0];
+
+					// check if touch is in navbar area (top 100px of screen)
+					if (touch.y < 100) {
+						// allow navbar touches to pass through
+						return true;
+					}
+
 					touchStartPos = { x: touch.x, y: touch.y };
 					isDragging = false;
 					orbitControlEnabled = false; // disable orbit control on touch start
 				}
-				return false; // prevent default orbit control behavior
+				return false; // prevent default orbit control behavior only for canvas touches
 			};
 
 			// enable orbit control only after drag threshold is reached
