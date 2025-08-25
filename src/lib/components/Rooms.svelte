@@ -20,7 +20,7 @@
 		<p class="mb-1 text-center">
 			<a href="/rooms" class="text-[rgb(0,0,255)] underline hover:text-[rgb(255,0,0)]"
 				>Enter sketch</a
-			>. Drag to move the camera.
+			>. Drag to move the camera. Scroll / pinch to zoom.
 		</p>
 
 		<div class="my-5"></div>
@@ -34,11 +34,7 @@
 		<div class="my-5"></div>
 
 		<figure class="mx-0 my-10">
-			<img
-				src="/media/rooms/rooms_full.png"
-				alt="rooms"
-				class="block w-full md:mx-auto md:w-3/4"
-			/>
+			<img src="/media/rooms/rooms_full.png" alt="rooms" class="block w-full md:mx-auto md:w-3/4" />
 		</figure>
 
 		<div class="my-5"></div>

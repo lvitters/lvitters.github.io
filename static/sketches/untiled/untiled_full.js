@@ -162,7 +162,7 @@
 			function buildGrid() {
 				// use larger dimension for grid calculation
 				var largerDimension = p.width > p.height ? p.width : p.height;
-				
+
 				// determine size of single element
 				tileSize = largerDimension / tilesPerRow;
 
@@ -549,7 +549,7 @@
 				var containerWidth = container.clientWidth;
 				var containerHeight = container.offsetHeight;
 
-				p.resizeCanvas(containerWidth, containerWidth);
+				p.resizeCanvas(containerWidth, containerHeight);
 
 				buildGrid();
 				pushTiles();

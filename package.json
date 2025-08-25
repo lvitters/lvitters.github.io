@@ -30,6 +30,6 @@
 		"vite-plugin-devtools-json": "^0.2.0"
 	},
 	"dependencies": {
-		"p5": "^1.4.0"
+		"p5": "^1.11.10"
 	}
 }
