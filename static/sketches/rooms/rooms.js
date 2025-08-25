@@ -37,9 +37,7 @@
 			// detect if mobile - using consistent 768px breakpoint
 			let isMobile = window.innerWidth < 768;
 
-			// camera state tracking
-			let savedCameraPosition = { x: 0, y: 0, z: isMobile ? 3500 : 2000 };
-			let savedCameraTarget = { x: 0, y: 0, z: 0 };
+			// orbit control state
 			let orbitControlEnabled = true;
 
 			// array for shapes
@@ -120,7 +118,7 @@
 
 				// disable
 				if (orbitControlEnabled) {
-					p.orbitControl(1, 1, 0.5);
+					p.orbitControl(1, 1, 0.8);
 				}
 
 				// recenter grid in canvas - slight offset to improve centering
@@ -236,51 +234,19 @@
 			let isDragging = false;
 			const DRAG_THRESHOLD = 10; // pixels before we consider it a drag
 
-			// flag to track if we're in a button interaction
-			let isButtonTouch = false;
-
-			// after a touch has started
+			// disable orbit control on touch start, only enable after drag threshold
 			p.touchStarted = function () {
 				if (p.touches.length > 0) {
 					const touch = p.touches[0];
-
-					// check if touch is in button areas on mobile and allow button interaction
-					if (isMobile) {
-						const buttonWidth = 60;
-						const buttonHeight = 60;
-						const paddingX = p.windowWidth * 0.2;
-						const paddingY = p.windowHeight * 0.1;
-						const totalWidth = buttonWidth * 2 + paddingX;
-						const xLeft = (p.windowWidth - totalWidth) / 2;
-						const xRight = xLeft + buttonWidth + paddingX;
-						const y = p.windowHeight - buttonHeight - paddingY;
-
-						// if touch is in button area, don't intercept it
-						if (touch.y > y && touch.y < y + buttonHeight) {
-							if (
-								(touch.x > xLeft && touch.x < xLeft + buttonWidth) ||
-								(touch.x > xRight && touch.x < xRight + buttonWidth)
-							) {
-								// console.log('Touch in button area, allowing button interaction');
-								isButtonTouch = true;
-								return false; // prevent orbit control but don't set up drag tracking
-							}
-						}
-					}
-
-					isButtonTouch = false;
 					touchStartPos = { x: touch.x, y: touch.y };
 					isDragging = false;
 					orbitControlEnabled = false; // disable orbit control on touch start
-					// console.log('Touch started at:', touchStartPos.x, touchStartPos.y);
 				}
 				return false; // prevent default orbit control behavior
 			};
 
-			// after a touch has moved from the starting position
+			// enable orbit control only after drag threshold is reached
 			p.touchMoved = function () {
-				if (isButtonTouch) return; // ignore touch moves for button interactions
-
 				if (p.touches.length > 0 && touchStartPos) {
 					const currentPos = { x: p.touches[0].x, y: p.touches[0].y };
 					const distance = Math.sqrt(
@@ -291,20 +257,12 @@
 					if (distance > DRAG_THRESHOLD && !isDragging) {
 						isDragging = true;
 						orbitControlEnabled = true; // enable orbit control once dragging starts
-						// console.log('Drag detected, enabling orbit controls');
 					}
 				}
 			};
 
-			// after the finger has been lifted
+			// reset for next interaction
 			p.touchEnded = function () {
-				if (isButtonTouch) {
-					// console.log('Button touch ended, ignoring');
-					isButtonTouch = false;
-					return;
-				}
-
-				// console.log('Touch ended, was dragging:', isDragging);
 				touchStartPos = null;
 				isDragging = false;
 				orbitControlEnabled = true; // re-enable for next interaction
@@ -330,12 +288,10 @@
 					left.elt.addEventListener('click', goLeft);
 					left.elt.addEventListener('touchstart', (e) => {
 						e.stopPropagation();
-						// console.log('Left button touch start');
 					});
 					left.elt.addEventListener('touchend', (e) => {
 						e.stopPropagation();
 						goLeft();
-						// console.log('Left button touch end');
 					});
 					left.style('width', buttonWidth + 'px'); // fix width
 					left.style('height', buttonHeight + 'px'); // fix height
@@ -350,12 +306,10 @@
 					right.elt.addEventListener('click', goRight);
 					right.elt.addEventListener('touchstart', (e) => {
 						e.stopPropagation();
-						// console.log('Right button touch start');
 					});
 					right.elt.addEventListener('touchend', (e) => {
 						e.stopPropagation();
 						goRight();
-						// console.log('Right button touch end');
 					});
 					right.style('width', buttonWidth + 'px'); // fix width
 					right.style('height', buttonHeight + 'px'); // fix height
@@ -387,11 +341,9 @@
 
 			// helper functions because button callback's can't have parameters
 			function goLeft() {
-				// console.log('Left button clicked!');
 				setCity(-1);
 			}
 			function goRight() {
-				// console.log('Right button clicked!');
 				setCity(1);
 			}
 
