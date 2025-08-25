@@ -68,6 +68,7 @@
 	style={shouldCenterOnScreen
 		? 'left: 50%; transform: translateX(-50%);'
 		: 'left: calc(33.33vw / 2); transform: translateX(-50%);'}
+	ontouchstart={(e) => e.stopPropagation()}
 >
 	<div class="flex items-center space-x-2">
 		<a

@@ -124,30 +124,7 @@
 				if (orbitControlEnabled) {
 					p.orbitControl(1, 1, 0.8);
 
-					// constrain zoom by checking camera distance
-					let camX = p._renderer._curCamera.eyeX;
-					let camY = p._renderer._curCamera.eyeY;
-					let camZ = p._renderer._curCamera.eyeZ;
-					let centerX = p._renderer._curCamera.centerX;
-					let centerY = p._renderer._curCamera.centerY;
-					let centerZ = p._renderer._curCamera.centerZ;
-
-					let distance = Math.sqrt(
-						Math.pow(camX - centerX, 2) + Math.pow(camY - centerY, 2) + Math.pow(camZ - centerZ, 2)
-					);
-
-					if (distance < minZoom || distance > maxZoom) {
-						// constrain the distance
-						let constrainedDistance = Math.max(minZoom, Math.min(maxZoom, distance));
-						let ratio = constrainedDistance / distance;
-
-						// apply constrained position
-						let newCamX = centerX + (camX - centerX) * ratio;
-						let newCamY = centerY + (camY - centerY) * ratio;
-						let newCamZ = centerZ + (camZ - centerZ) * ratio;
-
-						p.camera(newCamX, newCamY, newCamZ, centerX, centerY, centerZ, 0, 1, 0);
-					}
+					constrainZoom();
 				}
 
 				// recenter grid in canvas - slight offset to improve centering
@@ -303,6 +280,33 @@
 				isDragging = false;
 				orbitControlEnabled = true; // re-enable for next interaction
 			};
+
+			function constrainZoom() {
+				// constrain zoom by checking camera distance
+				let camX = p._renderer._curCamera.eyeX;
+				let camY = p._renderer._curCamera.eyeY;
+				let camZ = p._renderer._curCamera.eyeZ;
+				let centerX = p._renderer._curCamera.centerX;
+				let centerY = p._renderer._curCamera.centerY;
+				let centerZ = p._renderer._curCamera.centerZ;
+
+				let distance = Math.sqrt(
+					Math.pow(camX - centerX, 2) + Math.pow(camY - centerY, 2) + Math.pow(camZ - centerZ, 2)
+				);
+
+				if (distance < minZoom || distance > maxZoom) {
+					// constrain the distance
+					let constrainedDistance = Math.max(minZoom, Math.min(maxZoom, distance));
+					let ratio = constrainedDistance / distance;
+
+					// apply constrained position
+					let newCamX = centerX + (camX - centerX) * ratio;
+					let newCamY = centerY + (camY - centerY) * ratio;
+					let newCamZ = centerZ + (camZ - centerZ) * ratio;
+
+					p.camera(newCamX, newCamY, newCamZ, centerX, centerY, centerZ, 0, 1, 0);
+				}
+			}
 
 			// set HTML buttons using Tailwind, responsive for desktop and mobile
 			function setButtons() {

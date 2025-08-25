@@ -18,9 +18,9 @@
 		</div>
 
 		<p class="mb-1 text-center">
-			<a href="/rooms" class="text-[rgb(0,0,255)] underline hover:text-[rgb(255,0,0)]"
-				>Enter sketch</a
-			>. Drag to move the camera. Scroll / pinch to zoom.
+			<a href="/rooms" class="text-[rgb(0,0,255)] underline hover:text-[rgb(255,0,0)]">Enter here</a
+			>
+			(drag to move camera | scroll/pinch to zoom)
 		</p>
 
 		<div class="my-5"></div>
