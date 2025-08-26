@@ -13,7 +13,7 @@
 	let isInDetailView = $state(false);
 	let isVisible = $state(false);
 
-	// listen for detail view state changes from works page  
+	// listen for detail view state changes from works page
 	$effect(() => {
 		if (browser) {
 			const handleDetailViewChange = (event: Event) => {
@@ -36,7 +36,6 @@
 		}
 	});
 
-
 	// function to go back to overview
 	function goBackToOverview() {
 		window.dispatchEvent(new CustomEvent('goBackToOverview'));
@@ -58,7 +57,7 @@
 </script>
 
 <nav
-	class={`font-consolas absolute z-50 flex rounded-md border border-white/20 bg-white/20 px-2 pt-0.5 text-[17px] whitespace-nowrap backdrop-blur-sm ${
+	class={`font-consolas absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-2 pt-0.5 text-[17px] whitespace-nowrap backdrop-blur-sm ${
 		!mobile.current ? 'transition-all duration-500 ease-in-out' : ''
 	} ${
 		centered && !mobile.current
@@ -87,10 +86,7 @@
 				← selected works
 			</button>
 		{:else if page.url.pathname === '/rooms' || page.url.pathname === '/untiled'}
-			<a
-				href="/works"
-				class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors"
-			>
+			<a href="/works" class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors">
 				← selected works
 			</a>
 		{:else}
