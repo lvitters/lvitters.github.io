@@ -138,8 +138,13 @@
 			// push tiles to list
 			function pushTiles() {
 				tiles = [];
-				for (var i = -1; i < p.width / tileSize + 1; i++) {
-					for (var j = -1; j < p.height / tileSize + 1; j++) {
+				
+				// always determine columns by width (to fill width completely)
+				var cols = Math.ceil(p.width / tileSize) + 2; // +2 for padding (-1 to +1)
+				var rows = Math.ceil(p.height / tileSize) + 2; // +2 for padding (-1 to +1)
+				
+				for (var i = -1; i < cols - 1; i++) {
+					for (var j = -1; j < rows - 1; j++) {
 						tiles.push(new Tile(tileSize, i * tileSize, j * tileSize, tiles.length));
 					}
 				}
@@ -172,11 +177,22 @@
 
 			// determine grid
 			function buildGrid() {
-				// use larger dimension for grid calculation
-				var largerDimension = p.width > p.height ? p.width : p.height;
-
-				// determine size of single element
-				tileSize = largerDimension / tilesPerRow;
+				// handle orientation-specific grid calculation
+				if (p.width >= p.height) {
+					// desktop/landscape: tilesPerRow determines horizontal tiles
+					tileSize = p.width / tilesPerRow;
+				} else {
+					// mobile/portrait: calculate tile size to fill width while respecting vertical count
+					var targetVerticalTiles = tilesPerRow;
+					var approximateTileSize = p.height / targetVerticalTiles;
+					
+					// determine how many tiles would fit horizontally at this size
+					var horizontalTiles = Math.floor(p.width / approximateTileSize);
+					if (horizontalTiles < 1) horizontalTiles = 1; // ensure at least 1 tile
+					
+					// adjust tile size to perfectly fill width
+					tileSize = p.width / horizontalTiles;
+				}
 
 				// determine size of gap
 				gap = -(tileSize / 5);
