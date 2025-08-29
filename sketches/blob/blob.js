@@ -120,4 +120,6 @@
 
 	// Expose the single, powerful mount function to the global scope.
 	window.mountBlobSketch = mountBlobSketch;
+	// Also expose the instances map for cleanup purposes
+	window.p5Instances = p5Instances;
 })();

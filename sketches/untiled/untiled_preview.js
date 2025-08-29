@@ -1,23 +1,23 @@
 (function () {
-	// This map holds our running instances.
+	// this map holds our running instances.
 	const p5Instances = new Map();
 
 	/**
-	 * The main function to be called from a Svelte component.
-	 * It handles the creation of a sketch and returns a cleanup function.
-	 * @param {string} containerId The ID of the DOM element for the sketch.
-	 * @returns {function} A function to be called to clean up the sketch instance.
+	 * the main function to be called from a Svelte component.
+	 * it handles the creation of a sketch and returns a cleanup function.
+	 * @param {string} containerId the ID of the DOM element for the sketch.
+	 * @returns {function} a function to be called to clean up the sketch instance.
 	 */
 	function mountUntiledPreviewSketch(containerId) {
 		const container = document.getElementById(containerId);
 
-		// Guard against missing container or re-initialization.
+		// guard against missing container or re-initialization.
 		if (!container) {
 			console.warn(`p5.js container with ID "${containerId}" was not found in the DOM.`);
-			return () => {}; // Return empty cleanup function
+			return () => {}; // return empty cleanup function
 		}
 		if (p5Instances.has(containerId)) {
-			// Already initialized, return existing cleanup
+			// already initialized, return existing cleanup
 			return () => {
 				if (p5Instances.has(containerId)) {
 					const instance = p5Instances.get(containerId);
@@ -27,7 +27,7 @@
 			};
 		}
 
-		// The actual p5 sketch logic
+		// the actual p5 sketch logic
 		const sketch = function (p) {
 			p.disableFriendlyErrors = true; // disables FES for better performance
 
@@ -35,29 +35,37 @@
 			var tiles = [];
 			var tileSize;
 			var gap;
-			var tilesPerRow = 14;
+			var tilesPerRow = 14; // preview uses 14 tiles per row
 
-			// switch between modes / shapes
+			// switch between modes / shapes / blobs
 			var areOverlapping = true;
 			var areMorphing = false;
 			var morphCounter = 0;
 			var morphTime = 180;
-			var mode;
+			var mode = 1;
+			const maxSwitchTime = 30; // in seconds
 			var nextModeSwitch = 10; // init with 10 seconds
 			var modeSwitchCounter = 0;
 			var nextShapeSwitch = 10; // init with 10 seconds
 			var shapeSwitchCounter = 0;
-			const maxSwitchTime = 30; // in seconds
+			var nextBlobSwitch = 10; // init with 10 seconds
+			var blobSwitchCounter = 0;
+			var nextRotationSwitch = 10; // init with 10 seconds
+			var rotationSwitchCounter = 0;
+
+			// global rotation
+			var globalRotation = 0;
+			var rotationMode = 1;
+			var areRotating = false;
+			var areRotatingRandomDirections = false;
+
+			// blob mode
+			var blobMode = 0;
+			var areBlobbing;
 
 			// global stroke thickness
 			var strokeW; // strokeWeight
 			var strT = 0; // strokeWeight noise value
-
-			// global rotation
-			var globalRotation = 0;
-			var rotationMode = 5;
-			var areRotating = false;
-			var areRotatingRandomDirections = false;
 
 			// lerping
 			var lerpCount;
@@ -94,12 +102,12 @@
 				// calculate proper height to show complete rows
 				var tileSize = containerWidth / tilesPerRow;
 				var numberOfCompleteRows = Math.floor(containerHeight / tileSize);
-				
+
 				// ensure we have at least 3 rows
 				if (numberOfCompleteRows < 3) {
 					numberOfCompleteRows = 3;
 				}
-				
+
 				var adjustedHeight = numberOfCompleteRows * tileSize;
 
 				// update container height to match canvas height
@@ -118,7 +126,11 @@
 				buildGrid();
 				pushTiles();
 				randomMode();
-				applyRotationMode();
+				// rotationMode = 2;
+				// applyRotationMode();							// set manual rotation mode
+				randomRotationMode();
+				// applyBlobMode(2); 							// for testing blobs
+				randomBlobMode();
 			};
 
 			p.draw = function () {
@@ -212,9 +224,13 @@
 			function timedEvents() {
 				modeSwitchCounter++;
 				shapeSwitchCounter++;
+				blobSwitchCounter++;
+				rotationSwitchCounter++;
+
+				// console.log(rotationSwitchCounter);
 
 				// modes
-				if (modeSwitchCounter % (nextModeSwitch * 60) == 0) {
+				if (modeSwitchCounter > nextModeSwitch * 60) {
 					randomMode();
 					nextModeSwitch = p.floor(p.random(10, maxSwitchTime));
 					modeSwitchCounter = 0;
@@ -223,29 +239,51 @@
 				}
 
 				// shapes
-				if (shapeSwitchCounter % (nextShapeSwitch * 60) == 0) {
+				if (shapeSwitchCounter > nextShapeSwitch * 60) {
 					// safety check: make sure tiles array exists and has elements
 					if (tiles.length > 0 && tiles[0]) {
 						switchShapes();
 						if (tiles[0].state == 1) nextShapeSwitch = p.floor(p.random(10, maxSwitchTime));
-						else nextShapeSwitch = p.floor(p.random(10, maxSwitchTime / 2)); //circles should be there for less time than squares
+						else nextShapeSwitch = p.floor(p.random(10, maxSwitchTime / 2)); // circles should be there for less time than squares
 						shapeSwitchCounter = 0;
 					}
 
 					// console.log("next shape switch: " + nextShapeSwitch);
 				}
 
+				// blobs
+				if (blobSwitchCounter > nextBlobSwitch * 60) {
+					randomBlobMode();
+					nextBlobSwitch = p.floor(p.random(10, maxSwitchTime));
+					blobSwitchCounter = 0;
+
+					// console.log("next blob switch: " + nextBlobSwitch);
+				}
+
 				// rotation modes
-				// if only circles are there, every x seconds, if the shapes aren't currently morphing, switch between rotation modes
+				// if only circles are there, and if the shapes aren't currently morphing or blobbing, switch between rotation modes
 				// (to hide the transition between rotation and no rotation)
-				if (
-					tiles.length > 0 &&
-					tiles[0] &&
-					tiles[0].state == 0 &&
-					p.frameCount % 300 == 0 &&
-					areMorphing == false
-				) {
-					randomRotationMode();
+				if (rotationSwitchCounter > nextRotationSwitch * 60) {
+					// console.log("waiting for conditions");
+					if (
+						tiles.length > 0 &&
+						tiles[0] &&
+						tiles[0].state == 0 &&
+						areMorphing == false &&
+						areBlobbing == false
+					) {
+						// console.log("conditions met");
+						// try to set to rotationMode 1 (not rotating) half of the time because of the tiles in the mapping
+						if (rotationMode != 1) {
+							rotationMode = 1;
+							applyRotationMode();
+						} else {
+							randomRotationMode();
+						}
+						nextRotationSwitch = p.floor(p.random(10, maxSwitchTime));
+						rotationSwitchCounter = 0;
+					}
+					// console.log("next rotation switch: " + nextRotationSwitch);
 				}
 
 				// once every second, if no tiles are overlapping, shuffle the tiles so they will overlap differently
@@ -446,6 +484,54 @@
 				applyRotationMode();
 			}
 
+			// switch between no tiles changing shape, some tiles changing shape, and all tiles changing shapes
+			function applyBlobMode() {
+				// console.log("blobMode: " + blobMode);
+				switch (blobMode) {
+					case 1:
+						// none changing shape with noise
+						areBlobbing = false;
+						for (var i = 0; i < tiles.length; i++) {
+							var b = tiles[i];
+							b.isBlobbing = false;
+						}
+						break;
+					case 2:
+						// some changing shape with noise
+						areBlobbing = true;
+						for (var i = 0; i < tiles.length; i++) {
+							var b = tiles[i];
+							var rand = p.floor(p.random(2));
+							if (rand < 1) b.isBlobbing = false;
+							else b.isBlobbing = true;
+						}
+						break;
+					case 3:
+						// all changing shape with noise
+						areBlobbing = true;
+						for (var i = 0; i < tiles.length; i++) {
+							var b = tiles[i];
+							b.isBlobbing = true;
+						}
+						break;
+				}
+			}
+
+			// go to random shape mode and apply
+			function nextBlobMode() {
+				if (blobMode < 3) blobMode += 1;
+				else blobMode = 1;
+				applyBlobMode();
+			}
+
+			// go to next noiseShaping mode and apply
+			function randomBlobMode() {
+				if (blobMode != 1)
+					blobMode = 1; // no blobs for half the time
+				else blobMode = p.floor(p.random(1, 4));
+				applyBlobMode();
+			}
+
 			// check key presses
 			p.keyPressed = function () {
 				// circles
@@ -484,6 +570,16 @@
 					randomRotationMode();
 				}
 
+				// cycle through shaping modes (t key)
+				if (p.keyCode == 84) {
+					nextBlobMode();
+				}
+
+				// random shaping mode (z key)
+				if (p.keyCode == 90) {
+					randomBlobMode();
+				}
+
 				// reset noise (n key)
 				if (p.keyCode == 78) {
 					resetNoise();
@@ -499,9 +595,23 @@
 					shuffleArrayRandomly(tiles);
 				}
 
-				// draw FPS (f key)
-				if (p.keyCode == 70) {
+				// draw FPS (g key)
+				if (p.keyCode == 71) {
 					debug = !debug;
+				}
+
+				// easy fullscreen (f key)
+				if (p.keyCode == 70) {
+					var fs = p.fullscreen();
+					p.fullscreen(!fs);
+				}
+
+				// screenshot (p key)
+				if (p.keyCode == 80) {
+					p.saveCanvas(
+						'untiled_screenshot_' + p.width + 'x' + p.height + '_' + p.frameCount,
+						'png'
+					);
 				}
 			};
 
@@ -564,12 +674,12 @@
 				// calculate proper height to show complete rows
 				var tileSize = containerWidth / tilesPerRow;
 				var numberOfCompleteRows = Math.floor(containerHeight / tileSize);
-				
+
 				// ensure we have at least 3 rows
 				if (numberOfCompleteRows < 3) {
 					numberOfCompleteRows = 3;
 				}
-				
+
 				var adjustedHeight = numberOfCompleteRows * tileSize;
 
 				// update container height to match canvas height
@@ -591,6 +701,12 @@
 				this.size = size;
 				this.scale = 1;
 				this.scaleT = 0;
+				this.lerpedScale = 0;
+
+				// noise shape
+				this.xT = Math.random() * 100; // use JS native random function for performance
+				this.yT = Math.random() * 100; // use JS native random function for performance
+				this.isBlobbing = false;
 
 				// rotation
 				this.rotation = 0;
@@ -608,7 +724,7 @@
 
 				// shape morphing
 				this.circle = [];
-				this.square = [];
+				this.rect = [];
 				this.morph = [];
 				this.state = 1;
 
@@ -625,23 +741,38 @@
 						this.morph.push(p.createVector());
 					}
 
-					// a square is a bunch of vertices along straight lines
-					// top of square
-					for (var x = -this.size / 2; x < this.size / 2; x += this.size / 2 / 5) {
-						this.square.push(p.createVector(x, -this.size / 2));
+					// a rect is a bunch of vertices along straight lines
+					// create exactly 40 vertices to match circle
+					for (var i = 0; i < 40; i++) {
+						var progress = i / 40; // 0 to 1 around the perimeter
+						var x, y;
+
+						if (progress < 0.25) {
+							// top side
+							var t = progress * 4;
+							x = p.lerp(-this.size / 2, this.size / 2, t);
+							y = -this.size / 2;
+						} else if (progress < 0.5) {
+							// right side
+							var t = (progress - 0.25) * 4;
+							x = this.size / 2;
+							y = p.lerp(-this.size / 2, this.size / 2, t);
+						} else if (progress < 0.75) {
+							// bottom side
+							var t = (progress - 0.5) * 4;
+							x = p.lerp(this.size / 2, -this.size / 2, t);
+							y = this.size / 2;
+						} else {
+							// left side
+							var t = (progress - 0.75) * 4;
+							x = -this.size / 2;
+							y = p.lerp(this.size / 2, -this.size / 2, t);
+						}
+
+						this.rect.push(p.createVector(x, y));
 					}
-					// right side
-					for (var y = -this.size / 2; y < this.size / 2; y += this.size / 2 / 5) {
-						this.square.push(p.createVector(this.size / 2, y));
-					}
-					// bottom
-					for (var x = this.size / 2; x > -this.size / 2; x -= this.size / 2 / 5) {
-						this.square.push(p.createVector(x, this.size / 2));
-					}
-					// left side
-					for (var y = this.size / 2; y > -this.size / 2; y -= this.size / 2 / 5) {
-						this.square.push(p.createVector(-this.size / 2, y));
-					}
+
+					// console.log(this.rect.length + " " + this.circle.length);
 				};
 
 				// draw single element
@@ -657,7 +788,7 @@
 					// draw shape
 					p.push();
 					p.translate(this.pos.x, this.pos.y);
-					p.scale(this.scale);
+					p.scale(this.lerpedScale);
 					p.rotate(this.rotation);
 					this.drawShape();
 					p.pop();
@@ -675,29 +806,43 @@
 					this.strokeCol = p.color(this.hue, this.sat, strokeBrightness, strokeAlpha);
 
 					// scale
-					this.scaleT += Math.random() * 0.005; //use JS native random function for performance
-					this.scale = p.map(p.noise(this.scaleT), 0, 1, 0.2, 2.5);
+					this.scaleT += Math.random() * 0.005; // use JS native random function for performance
+					if (!this.isBlobbing) this.scale = p.map(p.noise(this.scaleT), 0, 1, 0.3, 2.5);
+					else this.scale = p.map(p.noise(this.scaleT), 0, 1, 0.7, 3); // make blobs bigger for more overlapping
+					this.lerpedScale = p.lerp(this.lerpedScale, this.scale, 0.05); // lerp to scale to mask transition
 
 					// rotation
-					this.roT += Math.random() * 0.008; //use JS native random function for performance
+					this.roT += Math.random() * 0.008; // use JS native random function for performance
 					if (this.isRotating) this.rotation = p.map(p.noise(this.roT), 0, 1, 0, 10);
 					else if (areRotating && this.rotatingRight) this.rotation = globalRotation;
 					else if (areRotating && !this.rotatingRight) this.rotation = -globalRotation;
 					else this.rotation = 0;
+
+					// inc blobbing noise
+					this.xT += p.map(p.noise(this.yT), 0, 1, 0, 0.1);
+					this.yT += 0.001;
 				};
 
 				this.drawShape = function () {
 					// look at each vertex
 					for (var i = 0; i < this.circle.length; i++) {
 						var v1;
-						// are we lerping to the circle or the square?
+						// are we lerping to the circle or the rect?
 						if (this.state == 0) {
 							v1 = this.circle[i];
 						} else if (this.state == 1) {
-							v1 = this.square[i];
+							v1 = this.rect[i];
 						}
 						// get the vertex we will draw
 						var v2 = this.morph[i];
+						// apply blobbing or not
+						if (this.isBlobbing) {
+							var offsetRadius = p.map(p.noise(this.xT + i * 0.1), 0, 1, -0.3, 0.3);
+							var x = offsetRadius * p.cos(i);
+							var y = offsetRadius * p.sin(i);
+							v2.x += x;
+							v2.y += y;
+						}
 						// lerp to the target
 						v2.lerp(v1, 0.05);
 					}
@@ -708,6 +853,15 @@
 						p.vertex(v.x, v.y);
 					});
 					p.endShape(p.CLOSE);
+
+					// debug: draw red circles at each vertex
+					// p.push();
+					// p.fill(255, 100, 100);
+					// p.noStroke();
+					// this.morph.forEach(function (v) {
+					// 	p.circle(v.x, v.y, 3);
+					// });
+					// p.pop();
 				};
 
 				// call initShapes at the end of constructor
