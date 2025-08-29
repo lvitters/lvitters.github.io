@@ -1,16 +1,4 @@
 <script lang="ts">
-	let cyclingImagesIndex = $state(0);
-
-	$effect(() => {
-		// cycle through images every 3 seconds
-		const imageInterval = setInterval(() => {
-			cyclingImagesIndex = (cyclingImagesIndex + 1) % 5; // 5 preview images for RAUSCHEN
-		}, 3000);
-
-		return () => clearInterval(imageInterval);
-	});
-
-	const cyclingImages = ['/media/rauschen/rauschen_preview_1.jpg'];
 </script>
 
 <svelte:head>
