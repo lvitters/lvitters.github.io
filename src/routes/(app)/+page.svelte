@@ -56,7 +56,7 @@
 	$effect(() => {
 		// watch mobile.current and reinitialize sketch when it changes
 		mobile.current;
-		
+
 		if (browser && window.mountBlobSketch) {
 			// small delay to ensure DOM has updated
 			setTimeout(() => {
@@ -65,7 +65,7 @@
 				if (container) {
 					// clear the container completely
 					container.innerHTML = '';
-					
+
 					// remove from p5 instances map if it exists
 					if ((window as any).p5Instances) {
 						const instances = (window as any).p5Instances;
@@ -75,7 +75,7 @@
 							instances.delete('blob-container');
 						}
 					}
-					
+
 					// now remount the sketch
 					window.mountBlobSketch('blob-container');
 				}
