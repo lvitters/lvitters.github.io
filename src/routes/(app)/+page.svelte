@@ -51,6 +51,37 @@
 			if (cleanup) cleanup();
 		};
 	});
+
+	// reinitialize sketch when mobile state changes
+	$effect(() => {
+		// watch mobile.current and reinitialize sketch when it changes
+		mobile.current;
+		
+		if (browser && window.mountBlobSketch) {
+			// small delay to ensure DOM has updated
+			setTimeout(() => {
+				// force cleanup of any existing instance
+				const container = document.getElementById('blob-container');
+				if (container) {
+					// clear the container completely
+					container.innerHTML = '';
+					
+					// remove from p5 instances map if it exists
+					if ((window as any).p5Instances) {
+						const instances = (window as any).p5Instances;
+						if (instances.has('blob-container')) {
+							const instance = instances.get('blob-container');
+							instance.remove();
+							instances.delete('blob-container');
+						}
+					}
+					
+					// now remount the sketch
+					window.mountBlobSketch('blob-container');
+				}
+			}, 100);
+		}
+	});
 </script>
 
 <svelte:head>
