@@ -6,6 +6,25 @@
 	import { onMount } from 'svelte';
 	import { mobile } from '$lib/utils/mobile.svelte';
 
+	// import preview images
+	import RauschenPreview from '$lib/assets/media/rauschen/rauschen_preview.png?enhanced';
+	import FeedbackCubePreview from '$lib/assets/media/feedback_cube/feedback_cube_preview.jpg?enhanced';
+	import Tull2_3Preview from '$lib/assets/media/einHauchVonTullv2/tull2_3_preview.jpg?enhanced';
+	import UntiledPreview from '$lib/assets/media/untiled/untiled_preview.jpg?enhanced';
+	import RoomsCutoffTransparent from '$lib/assets/media/rooms/rooms_cutoff_transparent.png?enhanced';
+	import BlobPreview from '$lib/assets/media/blob/blob_preview.png?enhanced';
+	import BreakThePattern1 from '$lib/assets/media/BreakThePattern/BreakThePattern_1.jpg?enhanced';
+	import RayArrayPreview1 from '$lib/assets/media/rayarray/rayarray_preview_1.jpg?enhanced';
+	import RayArrayPreview2 from '$lib/assets/media/rayarray/rayarray_preview_2.jpg?enhanced';
+	import RayArrayPreview3 from '$lib/assets/media/rayarray/rayarray_preview_3.jpg?enhanced';
+	import RayArrayPreview4 from '$lib/assets/media/rayarray/rayarray_preview_4.jpg?enhanced';
+	import RayArrayPreview5 from '$lib/assets/media/rayarray/rayarray_preview_5.jpg?enhanced';
+	import Tull1Preview from '$lib/assets/media/einHauchVonTull/tull_1_preview.jpg?enhanced';
+	import Tull5Preview from '$lib/assets/media/einHauchVonTull/tull_5_preview.jpg?enhanced';
+	import Tull6Preview from '$lib/assets/media/einHauchVonTull/tull_6_preview.jpg?enhanced';
+	import Tull7Preview from '$lib/assets/media/einHauchVonTull/tull_7_preview.jpg?enhanced';
+	import ImageBlender1 from '$lib/assets/media/image_blender/image_blender_1.gif';
+
 	let pageVisible = $state(false);
 	let currentRayarrayImageIndex = $state(0);
 	let currentTullImageIndex = $state(0);
@@ -107,19 +126,14 @@
 
 	// define images for projects that have multiple images
 	const rayarrayImages = [
-		'/media/rayarray/rayarray_preview_1.jpg',
-		'/media/rayarray/rayarray_preview_2.jpg',
-		'/media/rayarray/rayarray_preview_3.jpg',
-		'/media/rayarray/rayarray_preview_4.jpg',
-		'/media/rayarray/rayarray_preview_5.jpg'
+		RayArrayPreview1,
+		RayArrayPreview2,
+		RayArrayPreview3,
+		RayArrayPreview4,
+		RayArrayPreview5
 	];
 
-	const tullImages = [
-		'/media/einHauchVonTull/tull_7_preview.jpg',
-		'/media/einHauchVonTull/tull_5_preview.jpg',
-		'/media/einHauchVonTull/tull_1_preview.jpg',
-		'/media/einHauchVonTull/tull_6_preview.jpg'
-	];
+	const tullImages = [Tull7Preview, Tull5Preview, Tull1Preview, Tull6Preview];
 
 	// scroll to section corresponding to component (desktop)
 	function scrollToSection(sectionId: string) {
@@ -266,11 +280,7 @@
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('rauschen-section')}
 				>
-					<img
-						src="/media/rauschen/rauschen_preview.png"
-						alt="RAUSCHEN preview"
-						class="h-auto w-full"
-					/>
+					<enhanced:img src={RauschenPreview} alt="RAUSCHEN preview" class="h-auto w-full" />
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
@@ -360,7 +370,7 @@
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('rayarray-section')}
 				>
-					<img
+					<enhanced:img
 						src={rayarrayImages[currentRayarrayImageIndex]}
 						alt="RAYARRAY preview"
 						class="h-auto w-full"
@@ -378,8 +388,8 @@
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('feedback-cube-section')}
 				>
-					<img
-						src="/media/feedback_cube/feedback_cube_preview.jpg"
+					<enhanced:img
+						src={FeedbackCubePreview}
 						alt="feedback_cube preview"
 						class="h-auto w-full"
 					/>
@@ -396,8 +406,8 @@
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('ein-hauch-von-tull-v2-section')}
 				>
-					<img
-						src="/media/einHauchVonTullv2/tull2_3_preview.jpg"
+					<enhanced:img
+						src={Tull2_3Preview}
 						alt="Ein Hauch Von Tuell v2 preview"
 						class="h-auto w-full"
 					/>
@@ -415,11 +425,7 @@
 						class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 						onclick={() => scrollToSection('untiled-section')}
 					>
-						<img
-							src="/media/untiled/untiled_preview.jpg"
-							alt="untiled preview"
-							class="h-auto w-full"
-						/>
+						<enhanced:img src={UntiledPreview} alt="untiled preview" class="h-auto w-full" />
 					</button>
 				{:else}
 					<!-- p5 sketch container -->
@@ -443,7 +449,7 @@
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('ein-hauch-von-tull-section')}
 				>
-					<img
+					<enhanced:img
 						src={tullImages[currentTullImageIndex]}
 						alt="Ein Hauch Von Tuell preview"
 						class="h-auto w-full"
@@ -462,8 +468,8 @@
 					class="m-0 block w-full cursor-pointer overflow-visible border-1 bg-transparent p-0"
 					onclick={() => scrollToSection('available-rooms-section')}
 				>
-					<img
-						src="/media/rooms/rooms_cutoff_transparent.png"
+					<enhanced:img
+						src={RoomsCutoffTransparent}
 						alt="available.rooms preview"
 						class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
 						style="transform: scale(1.03) translateX(.6%); transform-origin: bottom left; margin-top: -3vh;"
@@ -481,7 +487,7 @@
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('blob-section')}
 				>
-					<img src="/media/blob/blob_preview.png" alt="blob preview" class="h-auto w-full" />
+					<enhanced:img src={BlobPreview} alt="blob preview" class="h-auto w-full" />
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
@@ -495,8 +501,8 @@
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('break-the-pattern-section')}
 				>
-					<img
-						src="/media/BreakThePattern/BreakThePattern_1.jpg"
+					<enhanced:img
+						src={BreakThePattern1}
 						alt="Break the Pattern preview"
 						class="h-auto w-full"
 					/>
@@ -514,7 +520,7 @@
 					onclick={() => scrollToSection('image-blender-section')}
 				>
 					<img
-						src="/media/image_blender/image_blender_1.gif"
+						src={ImageBlender1}
 						alt="image_blender preview"
 						class="h-auto w-full"
 					/>

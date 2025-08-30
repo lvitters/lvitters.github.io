@@ -1,4 +1,12 @@
 <script>
+	import Tull1 from '$lib/assets/media/einHauchVonTull/tull_1.jpg?enhanced';
+	import Tull2 from '$lib/assets/media/einHauchVonTull/tull_2.jpg?enhanced';
+	import Tull4 from '$lib/assets/media/einHauchVonTull/tull_4.jpg?enhanced';
+	import Tull5 from '$lib/assets/media/einHauchVonTull/tull_5.jpg?enhanced';
+	import Tull6 from '$lib/assets/media/einHauchVonTull/tull_6.jpg?enhanced';
+	import Tull7 from '$lib/assets/media/einHauchVonTull/tull_7.jpg?enhanced';
+	import Tull8 from '$lib/assets/media/einHauchVonTull/tull_8.jpg?enhanced';
+	import Tull9 from '$lib/assets/media/einHauchVonTull/tull_9.jpg?enhanced';
 </script>
 
 <svelte:head>
@@ -27,49 +35,49 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/einHauchVonTull/tull_7.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={Tull7} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/einHauchVonTull/tull_4.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={Tull4} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/einHauchVonTull/tull_1.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={Tull1} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-4"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/einHauchVonTull/tull_8.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={Tull8} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/einHauchVonTull/tull_6.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={Tull6} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/einHauchVonTull/tull_2.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={Tull2} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/einHauchVonTull/tull_9.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={Tull9} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/einHauchVonTull/tull_5.jpg" alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={Tull5} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>

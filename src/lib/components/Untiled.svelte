@@ -1,5 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import Untiled1 from '$lib/assets/media/untiled/untiled_1.jpg?enhanced';
+	import Untiled3 from '$lib/assets/media/untiled/untiled_3.jpg?enhanced';
+	import Untiled4 from '$lib/assets/media/untiled/untiled_4.jpg?enhanced';
+	import Untiled5 from '$lib/assets/media/untiled/untiled_5.jpg?enhanced';
+	import UntiledLarge1 from '$lib/assets/media/untiled/untiled_large_1.jpg?enhanced';
+	import UntiledLarge2 from '$lib/assets/media/untiled/untiled_large_2.jpg?enhanced';
+	import UntiledLarge3 from '$lib/assets/media/untiled/untiled_large_3.jpg?enhanced';
+	import UntiledLarge4 from '$lib/assets/media/untiled/untiled_large_4.jpg?enhanced';
 
 	let cyclingImagesIndex = $state(0);
 
@@ -13,10 +21,10 @@
 	});
 
 	const cyclingImages = [
-		'/media/untiled/untiled_large_1.jpg',
-		'/media/untiled/untiled_large_2.jpg',
-		'/media/untiled/untiled_large_3.jpg',
-		'/media/untiled/untiled_large_4.jpg'
+		UntiledLarge1,
+		UntiledLarge2,
+		UntiledLarge3,
+		UntiledLarge4
 	];
 
 	onMount(() => {
@@ -109,25 +117,25 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<img src="/media/untiled/untiled_1.jpg" alt="untiled" class="block h-auto max-h-screen" />
+				<enhanced:img src={Untiled1} alt="untiled" class="block h-auto max-h-screen" />
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<img src="/media/untiled/untiled_5.jpg" alt="untiled" class="block h-auto max-h-screen" />
+				<enhanced:img src={Untiled5} alt="untiled" class="block h-auto max-h-screen" />
 			</figure>
 		</div>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/untiled/untiled_4.jpg" alt="untiled" class="block w-full" />
+			<enhanced:img src={Untiled4} alt="untiled" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<img
+				<enhanced:img
 					src={cyclingImages[cyclingImagesIndex]}
 					alt="untiled large"
 					class="block h-auto max-h-screen"
@@ -135,7 +143,7 @@
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<img src="/media/untiled/untiled_3.jpg" alt="untiled" class="block h-auto max-h-screen" />
+				<enhanced:img src={Untiled3} alt="untiled" class="block h-auto max-h-screen" />
 			</figure>
 		</div>
 

@@ -1,4 +1,10 @@
 <script lang="ts">
+	import RauschenReelPreview from '$lib/assets/media/rauschen/rauschen_reel_preview.png';
+	import RauschenReel from '$lib/assets/media/rauschen/rauschen_reel.mp4';
+	import Rauschen1 from '$lib/assets/media/rauschen/rauschen_1.jpg?enhanced';
+	import Rauschen2 from '$lib/assets/media/rauschen/rauschen_2.jpg?enhanced';
+	import Rauschen3 from '$lib/assets/media/rauschen/rauschen_3.jpg?enhanced';
+	import Rauschen4 from '$lib/assets/media/rauschen/rauschen_4.jpg?enhanced';
 </script>
 
 <svelte:head>
@@ -61,7 +67,7 @@
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex-1 p-0">
 				<video
-					src="/media/rauschen/rauschen_reel.mp4"
+					src={RauschenReel}
 					title="rauschen reel video"
 					class="block h-auto w-full object-cover"
 					controls
@@ -69,14 +75,14 @@
 					autoplay
 					loop
 					preload="auto"
-					poster="/media/rauschen/rauschen_reel_preview.png"
+					poster={RauschenReelPreview}
 				>
 					Your browser does not support the video tag.
 				</video>
 			</figure>
 
 			<figure class="m-0 flex-1 p-0">
-				<img src="/media/rauschen/rauschen_1.jpg" alt="RAUSCHEN" class="block w-full" />
+				<enhanced:img src={Rauschen1} alt="RAUSCHEN" class="block w-full" />
 			</figure>
 		</div>
 
@@ -84,26 +90,18 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<img
-					src="/media/rauschen/rauschen_3.jpg"
-					alt="RAUSCHEN"
-					class="block h-auto max-h-screen"
-				/>
+				<enhanced:img src={Rauschen3} alt="RAUSCHEN" class="block h-auto max-h-screen" />
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<img
-					src="/media/rauschen/rauschen_4.jpg"
-					alt="RAUSCHEN"
-					class="block h-auto max-h-screen"
-				/>
+				<enhanced:img src={Rauschen4} alt="RAUSCHEN" class="block h-auto max-h-screen" />
 			</figure>
 		</div>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 flex-1 p-0">
-			<img src="/media/rauschen/rauschen_2.jpg" alt="RAUSCHEN" class="block w-full" />
+			<enhanced:img src={Rauschen2} alt="RAUSCHEN" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>

@@ -1,4 +1,13 @@
 <script lang="ts">
+	import RayArray2 from '$lib/assets/media/rayarray/rayarray_2.jpg?enhanced';
+	import RayArray3 from '$lib/assets/media/rayarray/rayarray_3.jpg?enhanced';
+	import RayArray4 from '$lib/assets/media/rayarray/rayarray_4.jpg?enhanced';
+	import RayArrayPreview1 from '$lib/assets/media/rayarray/rayarray_preview_1.jpg?enhanced';
+	import RayArrayPreview2 from '$lib/assets/media/rayarray/rayarray_preview_2.jpg?enhanced';
+	import RayArrayPreview3 from '$lib/assets/media/rayarray/rayarray_preview_3.jpg?enhanced';
+	import RayArrayPreview4 from '$lib/assets/media/rayarray/rayarray_preview_4.jpg?enhanced';
+	import RayArrayPreview5 from '$lib/assets/media/rayarray/rayarray_preview_5.jpg?enhanced';
+
 	let cyclingImagesIndex = $state(0);
 
 	$effect(() => {
@@ -11,11 +20,11 @@
 	});
 
 	const cyclingImages = [
-		'/media/rayarray/rayarray_preview_1.jpg',
-		'/media/rayarray/rayarray_preview_2.jpg',
-		'/media/rayarray/rayarray_preview_3.jpg',
-		'/media/rayarray/rayarray_preview_4.jpg',
-		'/media/rayarray/rayarray_preview_5.jpg'
+		RayArrayPreview1,
+		RayArrayPreview2,
+		RayArrayPreview3,
+		RayArrayPreview4,
+		RayArrayPreview5
 	];
 </script>
 
@@ -69,7 +78,7 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/rayarray/rayarray_3.jpg" alt="RAYARRAY" class="block w-full" />
+			<enhanced:img src={RayArray3} alt="RAYARRAY" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
@@ -84,19 +93,19 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/rayarray/rayarray_4.jpg" alt="RAYARRAY" class="block w-full" />
+			<enhanced:img src={RayArray4} alt="RAYARRAY" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src="/media/rayarray/rayarray_2.jpg" alt="RAYARRAY" class="block w-full" />
+			<enhanced:img src={RayArray2} alt="RAYARRAY" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={cyclingImages[cyclingImagesIndex]} alt="RAYARRAY" class="block w-full" />
+			<enhanced:img src={cyclingImages[cyclingImagesIndex]} alt="RAYARRAY" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>

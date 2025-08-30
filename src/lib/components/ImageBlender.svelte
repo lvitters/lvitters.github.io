@@ -1,4 +1,11 @@
 <script>
+	import ImageBlender1 from '$lib/assets/media/image_blender/image_blender_1.gif';
+	import ImageBlender2 from '$lib/assets/media/image_blender/image_blender_2.gif';
+	import ImageBlender3 from '$lib/assets/media/image_blender/image_blender_3.gif';
+	import ImageBlender4 from '$lib/assets/media/image_blender/image_blender_4.gif';
+	import ImageBlender6 from '$lib/assets/media/image_blender/image_blender_6.gif';
+	import ImageBlender7 from '$lib/assets/media/image_blender/image_blender_7.gif';
+	import ImageBlender8 from '$lib/assets/media/image_blender/image_blender_8.gif';
 </script>
 
 <svelte:head>
@@ -33,7 +40,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/image_blender/image_blender_1.gif"
+				src={ImageBlender1}
 				alt="image_blender"
 				class="block w-full"
 			/>
@@ -43,7 +50,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/image_blender/image_blender_2.gif"
+				src={ImageBlender2}
 				alt="image_blender"
 				class="block w-full"
 			/>
@@ -53,7 +60,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/image_blender/image_blender_3.gif"
+				src={ImageBlender3}
 				alt="image_blender"
 				class="block w-full"
 			/>
@@ -63,7 +70,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/image_blender/image_blender_4.gif"
+				src={ImageBlender4}
 				alt="image_blender"
 				class="block w-full"
 			/>
@@ -83,7 +90,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/image_blender/image_blender_6.gif"
+				src={ImageBlender6}
 				alt="image_blender"
 				class="block w-full"
 			/>
@@ -93,7 +100,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/image_blender/image_blender_7.gif"
+				src={ImageBlender7}
 				alt="image_blender"
 				class="block w-full"
 			/>
@@ -103,7 +110,7 @@
 
 		<figure class="m-0 p-0">
 			<img
-				src="/media/image_blender/image_blender_8.gif"
+				src={ImageBlender8}
 				alt="image_blender"
 				class="block w-full"
 			/>

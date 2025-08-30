@@ -1,4 +1,16 @@
 <script lang="ts">
+	import Tull23 from '$lib/assets/media/einHauchVonTullv2/tull2_3.jpg?enhanced';
+	import Tull26 from '$lib/assets/media/einHauchVonTullv2/tull2_6.jpg?enhanced';
+	import Tull28 from '$lib/assets/media/einHauchVonTullv2/tull2_8.jpg?enhanced';
+	import Tull29 from '$lib/assets/media/einHauchVonTullv2/tull2_9.jpg?enhanced';
+	import Tull210 from '$lib/assets/media/einHauchVonTullv2/tull2_10.jpg?enhanced';
+	import Tull211 from '$lib/assets/media/einHauchVonTullv2/tull2_11.jpg?enhanced';
+	import Tull212 from '$lib/assets/media/einHauchVonTullv2/tull2_12.jpg?enhanced';
+	import Tull213 from '$lib/assets/media/einHauchVonTullv2/tull2_13.jpg?enhanced';
+	import Tull2_1_1 from '$lib/assets/media/einHauchVonTullv2/tull2.1_1.jpg?enhanced';
+	import Tull2_1_2 from '$lib/assets/media/einHauchVonTullv2/tull2.1_2.jpg?enhanced';
+	import Tull2_1_3 from '$lib/assets/media/einHauchVonTullv2/tull2.1_3.jpg?enhanced';
+
 	let cyclingImagesIndex = $state(0);
 
 	$effect(() => {
@@ -11,10 +23,10 @@
 	});
 
 	const cyclingImages = [
-		'/media/einHauchVonTullv2/tull2_10.jpg',
-		'/media/einHauchVonTullv2/tull2_11.jpg',
-		'/media/einHauchVonTullv2/tull2_12.jpg',
-		'/media/einHauchVonTullv2/tull2_13.jpg'
+		Tull210,
+		Tull211,
+		Tull212,
+		Tull213
 	];
 </script>
 
@@ -36,8 +48,8 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src="/media/einHauchVonTullv2/tull2_3.jpg"
+			<enhanced:img
+				src={Tull23}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
 			/>
@@ -46,8 +58,8 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src="/media/einHauchVonTullv2/tull2_9.jpg"
+			<enhanced:img
+				src={Tull29}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
 			/>
@@ -56,14 +68,14 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={cyclingImages[cyclingImagesIndex]} alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={cyclingImages[cyclingImagesIndex]} alt="Ein Hauch Von Tüll" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src="/media/einHauchVonTullv2/tull2_6.jpg"
+			<enhanced:img
+				src={Tull26}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
 			/>
@@ -72,8 +84,8 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src="/media/einHauchVonTullv2/tull2_8.jpg"
+			<enhanced:img
+				src={Tull28}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
 			/>
@@ -103,8 +115,8 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src="/media/einHauchVonTullv2/tull2.1_3.jpg"
+			<enhanced:img
+				src={Tull2_1_3}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
 			/>
@@ -113,8 +125,8 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src="/media/einHauchVonTullv2/tull2.1_2.jpg"
+			<enhanced:img
+				src={Tull2_1_2}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
 			/>
@@ -123,8 +135,8 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src="/media/einHauchVonTullv2/tull2.1_1.jpg"
+			<enhanced:img
+				src={Tull2_1_1}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
 			/>

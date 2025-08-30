@@ -1,25 +1,40 @@
 <script lang="ts">
+	import BreakThePatternVideo from '$lib/assets/media/BreakThePattern/BreakThePattern_Markenfilm_reel.mp4';
+	import BreakThePattern1 from '$lib/assets/media/BreakThePattern/BreakThePattern_1.jpg?enhanced';
+	import BreakThePattern2 from '$lib/assets/media/BreakThePattern/BreakThePattern_2.jpg?enhanced';
+	import BreakThePattern3 from '$lib/assets/media/BreakThePattern/BreakThePattern_3.jpg?enhanced';
+	import BreakThePattern4 from '$lib/assets/media/BreakThePattern/BreakThePattern_4.jpg?enhanced';
+	import BreakThePattern5 from '$lib/assets/media/BreakThePattern/BreakThePattern_5.jpg?enhanced';
+	import BreakThePattern6 from '$lib/assets/media/BreakThePattern/BreakThePattern_6.jpg?enhanced';
+	import BreakThePattern7 from '$lib/assets/media/BreakThePattern/BreakThePattern_7.jpg?enhanced';
+	import BreakThePatternScreenshot1 from '$lib/assets/media/BreakThePattern/BreakThePattern_screenshot_1.png?enhanced';
+	import BreakThePatternScreenshot2 from '$lib/assets/media/BreakThePattern/BreakThePattern_screenshot_2.png?enhanced';
+	import BreakThePatternScreenshot3 from '$lib/assets/media/BreakThePattern/BreakThePattern_screenshot_3.png?enhanced';
+	import BreakThePatternScreenshot4 from '$lib/assets/media/BreakThePattern/BreakThePattern_screenshot_4.png?enhanced';
+	import BreakThePatternScreenshot5 from '$lib/assets/media/BreakThePattern/BreakThePattern_screenshot_5.png?enhanced';
+	import BreakThePatternScreenshot6 from '$lib/assets/media/BreakThePattern/BreakThePattern_screenshot_6.png?enhanced';
+
 	let slideIndex = [1, 1];
 
 	// photo slideshow images
 	const photoSlides = [
-		'/media/BreakThePattern/BreakThePattern_1.jpg',
-		'/media/BreakThePattern/BreakThePattern_2.jpg',
-		'/media/BreakThePattern/BreakThePattern_3.jpg',
-		'/media/BreakThePattern/BreakThePattern_4.jpg',
-		'/media/BreakThePattern/BreakThePattern_5.jpg',
-		'/media/BreakThePattern/BreakThePattern_6.jpg',
-		'/media/BreakThePattern/BreakThePattern_7.jpg'
+		BreakThePattern1,
+		BreakThePattern2,
+		BreakThePattern3,
+		BreakThePattern4,
+		BreakThePattern5,
+		BreakThePattern6,
+		BreakThePattern7
 	];
 
 	// screenshot slideshow images
 	const designSlides = [
-		'/media/BreakThePattern/BreakThePattern_screenshot_1.png',
-		'/media/BreakThePattern/BreakThePattern_screenshot_2.png',
-		'/media/BreakThePattern/BreakThePattern_screenshot_3.png',
-		'/media/BreakThePattern/BreakThePattern_screenshot_4.png',
-		'/media/BreakThePattern/BreakThePattern_screenshot_5.png',
-		'/media/BreakThePattern/BreakThePattern_screenshot_6.png'
+		BreakThePatternScreenshot1,
+		BreakThePatternScreenshot2,
+		BreakThePatternScreenshot3,
+		BreakThePatternScreenshot4,
+		BreakThePatternScreenshot5,
+		BreakThePatternScreenshot6
 	];
 
 	// slide through show
@@ -82,7 +97,7 @@
 		<!-- video -->
 		<div class="my-5">
 			<video
-				src="https://2024.markenfilm-space.de/wp-content/uploads/2024/09/190409_0850_Edit2.mp4"
+				src={BreakThePatternVideo}
 				title="Break the Pattern Video"
 				class="block h-auto w-full object-cover"
 				controls
@@ -105,7 +120,7 @@
 						<div class="bg-opacity-50 absolute top-2 left-2 bg-black px-2 py-1 text-lg">
 							{index + 1} / {photoSlides.length}
 						</div>
-						<img src={slide} alt="Break the Pattern Installation" class="block w-full" />
+						<enhanced:img src={slide} alt="Break the Pattern Installation" class="block w-full" />
 					</div>
 				{/each}
 
@@ -136,7 +151,7 @@
 						<div class="bg-opacity-50 absolute top-2 left-2 bg-black px-2 py-1 text-lg">
 							{index + 1} / {designSlides.length}
 						</div>
-						<img src={slide} alt="Break the Pattern Design" class="block w-full" />
+						<enhanced:img src={slide} alt="Break the Pattern Design" class="block w-full" />
 					</div>
 				{/each}
 

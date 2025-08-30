@@ -1,4 +1,12 @@
 <script lang="ts">
+	import FeedbackCubeReel from '$lib/assets/media/feedback_cube/feedback_cube_reel.mp4';
+	import FeedbackCube1 from '$lib/assets/media/feedback_cube/feedback_cube_1.jpg?enhanced';
+	import FeedbackCube2 from '$lib/assets/media/feedback_cube/feedback_cube_2.jpg?enhanced';
+	import FeedbackCube3 from '$lib/assets/media/feedback_cube/feedback_cube_3.jpg?enhanced';
+	import FeedbackCube4 from '$lib/assets/media/feedback_cube/feedback_cube_4.jpg?enhanced';
+	import FeedbackCube5 from '$lib/assets/media/feedback_cube/feedback_cube_5.jpg?enhanced';
+	import FeedbackCube6 from '$lib/assets/media/feedback_cube/feedback_cube_6.jpg?enhanced';
+
 	let cyclingImagesIndex = $state(0);
 
 	$effect(() => {
@@ -10,11 +18,7 @@
 		return () => clearInterval(imageInterval);
 	});
 
-	const cyclingImages = [
-		'/media/feedback_cube/feedback_cube_1.jpg',
-		'/media/feedback_cube/feedback_cube_4.jpg',
-		'/media/feedback_cube/feedback_cube_2.jpg'
-	];
+	const cyclingImages = [FeedbackCube1, FeedbackCube4, FeedbackCube2];
 </script>
 
 <svelte:head>
@@ -60,14 +64,8 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={cyclingImages[cyclingImagesIndex]} alt="feedback_cube" class="block w-full" />
-		</figure>
-
-		<div class="my-5"></div>
-
-		<figure class="m-0 p-0">
-			<img
-				src="/media/feedback_cube/feedback_cube_5.jpg"
+			<enhanced:img
+				src={cyclingImages[cyclingImagesIndex]}
 				alt="feedback_cube"
 				class="block w-full"
 			/>
@@ -75,21 +73,19 @@
 
 		<div class="my-5"></div>
 
+		<figure class="m-0 p-0">
+			<enhanced:img src={FeedbackCube5} alt="feedback_cube" class="block w-full" />
+		</figure>
+
+		<div class="my-5"></div>
+
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<img
-					src="/media/feedback_cube/feedback_cube_3.jpg"
-					alt="feedback_cube"
-					class="block h-auto max-h-500"
-				/>
+				<enhanced:img src={FeedbackCube3} alt="feedback_cube" class="block h-auto max-h-500" />
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<img
-					src="/media/feedback_cube/feedback_cube_6.jpg"
-					alt="feedback_cube"
-					class="block h-auto max-h-500"
-				/>
+				<enhanced:img src={FeedbackCube6} alt="feedback_cube" class="block h-auto max-h-500" />
 			</figure>
 		</div>
 
@@ -97,7 +93,7 @@
 
 		<figure class="m-0 p-0">
 			<video
-				src="media/feedback_cube/feedback_cube_reel.mp4"
+				src={FeedbackCubeReel}
 				title="feedback_cube reel video"
 				class="block h-auto w-full object-cover"
 				controls
