@@ -40,7 +40,7 @@
 
 <svelte:head>
 	<meta name="description" content="untiled" />
-	<script src="/src/lib/assets/sketches/rooms/rooms.js" defer></script>
+	<script src="/sketches/rooms/rooms.js" defer></script>
 </svelte:head>
 
 <!-- main container that mimics old body styling from former portfolio page -->

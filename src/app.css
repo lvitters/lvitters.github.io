@@ -2,7 +2,7 @@
 
 @font-face {
 	font-family: 'Consolas';
-	src: url('/src/lib/assets/fonts/Consolas.ttf') format('truetype');
+	src: url('/fonts/Consolas.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }

@@ -40,7 +40,7 @@
 
 <svelte:head>
 	<meta name="description" content="blob" />
-	<script src="/src/lib/assets/sketches/blob/blob.js" defer></script>
+	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-white px-6 pt-12 pb-5 text-black">

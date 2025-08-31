@@ -40,7 +40,7 @@
 
 <svelte:head>
 	<meta name="description" content="untiled" />
-	<script src="/src/lib/assets/sketches/untiled/untiled_full.js" defer></script>
+	<script src="/sketches/untiled/untiled_full.js" defer></script>
 </svelte:head>
 
 <!-- main container that mimics old body styling from former portfolio page -->

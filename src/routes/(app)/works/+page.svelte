@@ -256,7 +256,7 @@
 
 <svelte:head>
 	<title>Lucca Vitters</title>
-	<script src="/src/lib/assets/sketches/untiled/untiled_preview.js" defer></script>
+	<script src="/sketches/untiled/untiled_preview.js" defer></script>
 </svelte:head>
 
 <main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[17px]">
