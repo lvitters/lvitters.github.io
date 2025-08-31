@@ -5,32 +5,30 @@ export const loadingProgress = writable(0);
 
 // list of critical resources to preload
 const criticalResources = [
-	// '/libs/p5_v1.4.0.min.js',
-	// '/libs/p5_v0.10.2.min.js',
-	'/fonts/Consolas.ttf',
+	'/src/lib/assets/fonts/Consolas.ttf',
 	// RAUSCHEN component media (first thing users see)
-	'/media/rauschen/rauschen_reel.mp4',
-	'/media/rauschen/rauschen_1.jpg',
-	'/media/rauschen/rauschen_2.jpg',
-	'/media/rauschen/rauschen_3.jpg',
-	'/media/rauschen/rauschen_4.jpg',
+	'/src/lib/assets/media/rauschen/rauschen_reel.mp4',
+	'/src/lib/assets/media/rauschen/rauschen_1.jpg',
+	'/src/lib/assets/media/rauschen/rauschen_2.jpg',
+	'/src/lib/assets/media/rauschen/rauschen_3.jpg',
+	'/src/lib/assets/media/rauschen/rauschen_4.jpg',
 	// works page preview images
-	'/media/rauschen/rauschen_preview.png',
-	'/media/rayarray/rayarray_preview_1.jpg',
-	'/media/rayarray/rayarray_preview_2.jpg',
-	'/media/rayarray/rayarray_preview_3.jpg',
-	'/media/rayarray/rayarray_preview_4.jpg',
-	'/media/rayarray/rayarray_preview_5.jpg',
-	'/media/feedback_cube/feedback_cube_preview.jpg',
-	'/media/einHauchVonTullv2/tull2_3_preview.jpg',
-	'/media/einHauchVonTull/tull_7_preview.jpg',
-	'/media/einHauchVonTull/tull_5_preview.jpg',
-	'/media/einHauchVonTull/tull_1_preview.jpg',
-	'/media/einHauchVonTull/tull_6_preview.jpg',
-	'/media/rooms/rooms_cutoff_transparent.png',
-	'/media/blob/blob_preview.png',
-	'/media/BreakThePattern/BreakThePattern_1.jpg',
-	'/media/image_blender/image_blender_1.gif'
+	'/src/lib/assets/media/rauschen/rauschen_preview.png',
+	'/src/lib/assets/media/rayarray/rayarray_preview_1.jpg',
+	'/src/lib/assets/media/rayarray/rayarray_preview_2.jpg',
+	'/src/lib/assets/media/rayarray/rayarray_preview_3.jpg',
+	'/src/lib/assets/media/rayarray/rayarray_preview_4.jpg',
+	'/src/lib/assets/media/rayarray/rayarray_preview_5.jpg',
+	'/src/lib/assets/media/feedback_cube/feedback_cube_preview.jpg',
+	'/src/lib/assets/media/einHauchVonTullv2/tull2_3_preview.jpg',
+	'/src/lib/assets/media/einHauchVonTull/tull_7_preview.jpg',
+	'/src/lib/assets/media/einHauchVonTull/tull_5_preview.jpg',
+	'/src/lib/assets/media/einHauchVonTull/tull_1_preview.jpg',
+	'/src/lib/assets/media/einHauchVonTull/tull_6_preview.jpg',
+	'/src/lib/assets/media/rooms/rooms_cutoff_transparent.png',
+	'/src/lib/assets/media/blob/blob_preview.png',
+	'/src/lib/assets/media/BreakThePattern/BreakThePattern_1.jpg',
+	'/src/lib/assets/media/image_blender/image_blender_1.gif'
 ];
 
 let loadedCount = 0;

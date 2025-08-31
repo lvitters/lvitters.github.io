@@ -88,11 +88,11 @@
 			p.preload = function () {
 				// load JSONs
 				for (let i = 0; i < 11; i++) {
-					cityJSONs[i] = p.loadJSON('/sketches/rooms/assets/' + cities[i] + '.json');
+					cityJSONs[i] = p.loadJSON('/src/lib/assets/sketches/rooms/assets/' + cities[i] + '.json');
 				}
 
 				// font
-				font = p.loadFont('/sketches/rooms/assets/Inconsolata-Regular.ttf');
+				font = p.loadFont('/src/lib/assets/sketches/rooms/assets/Inconsolata-Regular.ttf');
 			};
 
 			p.setup = function () {

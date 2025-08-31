@@ -86,7 +86,7 @@
 
 <svelte:head>
 	<title>Lucca Vitters</title>
-	<script src="/sketches/blob/blob.js" defer></script>
+	<script src="/src/lib/assets/sketches/blob/blob.js" defer></script>
 </svelte:head>
 
 <!-- wrap content in a transition container -->
