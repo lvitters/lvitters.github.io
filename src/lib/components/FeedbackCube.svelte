@@ -81,11 +81,11 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={FeedbackCube3} alt="feedback_cube" class="block h-auto max-h-500" />
+				<enhanced:img src={FeedbackCube3} alt="feedback_cube" class="block h-auto max-h-screen w-auto" />
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={FeedbackCube6} alt="feedback_cube" class="block h-auto max-h-500" />
+				<enhanced:img src={FeedbackCube6} alt="feedback_cube" class="block h-auto max-h-screen w-auto" />
 			</figure>
 		</div>
 

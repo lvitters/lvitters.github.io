@@ -90,11 +90,11 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={Rauschen3} alt="RAUSCHEN" class="block h-auto max-h-screen" />
+				<enhanced:img src={Rauschen3} alt="RAUSCHEN" class="block h-auto max-h-screen w-auto" />
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={Rauschen4} alt="RAUSCHEN" class="block h-auto max-h-screen" />
+				<enhanced:img src={Rauschen4} alt="RAUSCHEN" class="block h-auto max-h-screen w-auto" />
 			</figure>
 		</div>
 
