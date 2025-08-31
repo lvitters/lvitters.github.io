@@ -108,7 +108,8 @@
 				// get canvas element for direct styling
 				canvasElement = document.getElementById('canvas');
 
-				p.frameRate(30);
+				// p.frameRate(60);
+
 				p.colorMode(p.HSB, 360, 100, 100);
 
 				setCity(0);

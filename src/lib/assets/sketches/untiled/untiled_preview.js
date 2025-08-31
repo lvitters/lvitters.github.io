@@ -120,7 +120,7 @@
 				cnv.style('pointer-events', 'none');
 				p.colorMode(p.HSB, 100, 100, 100, 100);
 				p.rectMode(p.CENTER);
-				p.frameRate(60);
+				// p.frameRate(60);
 				p.pixelDensity(); //use device pixel density for crisp rendering
 
 				buildGrid();
