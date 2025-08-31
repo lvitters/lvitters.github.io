@@ -279,6 +279,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('rauschen-section')}
+					aria-label="View RAUSCHEN project details"
 				>
 					<enhanced:img src={RauschenPreview} alt="RAUSCHEN preview" class="h-auto w-full" />
 				</button>
@@ -294,6 +295,7 @@
 					class="m-0 box-border flex h-[60px] w-full cursor-pointer flex-row items-center justify-center bg-[rgb(255,255,0)] p-0 outline hover:text-[#0000ff] active:text-[#ff69b4]"
 					style="box-shadow: 5px 5px;"
 					onclick={() => scrollToSection('archive-section')}
+					aria-label="View Archive project details"
 				>
 					<svg
 						class="h-10 w-auto p-0 hover:fill-[#0000ff]"
@@ -369,6 +371,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('rayarray-section')}
+					aria-label="View RAYARRAY project details"
 				>
 					<enhanced:img
 						src={rayarrayImages[currentRayarrayImageIndex]}
@@ -387,6 +390,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('feedback-cube-section')}
+					aria-label="View feedback_cube project details"
 				>
 					<enhanced:img
 						src={FeedbackCubePreview}
@@ -405,6 +409,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('ein-hauch-von-tull-v2-section')}
+					aria-label="View Ein Hauch von Tüll v2 project details"
 				>
 					<enhanced:img
 						src={Tull2_3Preview}
@@ -424,6 +429,7 @@
 					<button
 						class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 						onclick={() => scrollToSection('untiled-section')}
+						aria-label="View untiled project details"
 					>
 						<enhanced:img src={UntiledPreview} alt="untiled preview" class="h-auto w-full" />
 					</button>
@@ -448,6 +454,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('ein-hauch-von-tull-section')}
+					aria-label="View Ein Hauch von Tüll project details"
 				>
 					<enhanced:img
 						src={tullImages[currentTullImageIndex]}
@@ -467,6 +474,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer overflow-visible border-1 bg-transparent p-0"
 					onclick={() => scrollToSection('available-rooms-section')}
+					aria-label="View available.rooms project details"
 				>
 					<enhanced:img
 						src={RoomsCutoffTransparent}
@@ -486,6 +494,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('blob-section')}
+					aria-label="View blob project details"
 				>
 					<enhanced:img src={BlobPreview} alt="blob preview" class="h-auto w-full" />
 				</button>
@@ -500,6 +509,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('break-the-pattern-section')}
+					aria-label="View Break the Pattern project details"
 				>
 					<enhanced:img
 						src={BreakThePattern1}
@@ -518,6 +528,7 @@
 				<button
 					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('image-blender-section')}
+					aria-label="View Image Blender project details"
 				>
 					<img
 						src={ImageBlender1}
