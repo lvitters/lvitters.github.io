@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BreakThePatternVideo from '$lib/assets/media/BreakThePattern/BreakThePattern_Markenfilm_reel.mp4';
+	import BreakThePatternVideo from '$lib/assets/media/BreakThePattern/BreakThePattern_Markenfilm_reel.webm';
 	import BreakThePattern1 from '$lib/assets/media/BreakThePattern/BreakThePattern_1.jpg?enhanced';
 	import BreakThePattern2 from '$lib/assets/media/BreakThePattern/BreakThePattern_2.jpg?enhanced';
 	import BreakThePattern3 from '$lib/assets/media/BreakThePattern/BreakThePattern_3.jpg?enhanced';

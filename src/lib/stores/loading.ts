@@ -7,7 +7,7 @@ export const loadingProgress = writable(0);
 const criticalResources = [
 	'/src/lib/assets/fonts/Consolas.ttf',
 	// RAUSCHEN component media (first thing users see)
-	'/src/lib/assets/media/rauschen/rauschen_reel.mp4',
+	'/src/lib/assets/media/rauschen/rauschen_reel.webm',
 	'/src/lib/assets/media/rauschen/rauschen_1.jpg',
 	'/src/lib/assets/media/rauschen/rauschen_2.jpg',
 	'/src/lib/assets/media/rauschen/rauschen_3.jpg',
@@ -28,7 +28,7 @@ const criticalResources = [
 	'/src/lib/assets/media/rooms/rooms_cutoff_transparent.png',
 	'/src/lib/assets/media/blob/blob_preview.png',
 	'/src/lib/assets/media/BreakThePattern/BreakThePattern_1.jpg',
-	'/src/lib/assets/media/image_blender/image_blender_1.gif'
+	'/src/lib/assets/media/image_blender/image_blender_1.webm'
 ];
 
 let loadedCount = 0;

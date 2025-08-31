@@ -1,5 +1,5 @@
 <script lang="ts">
-	import FeedbackCubeReel from '$lib/assets/media/feedback_cube/feedback_cube_reel.mp4';
+	import FeedbackCubeReel from '$lib/assets/media/feedback_cube/feedback_cube_reel.webm';
 	import FeedbackCube1 from '$lib/assets/media/feedback_cube/feedback_cube_1.jpg?enhanced';
 	import FeedbackCube2 from '$lib/assets/media/feedback_cube/feedback_cube_2.jpg?enhanced';
 	import FeedbackCube3 from '$lib/assets/media/feedback_cube/feedback_cube_3.jpg?enhanced';
@@ -81,11 +81,19 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={FeedbackCube3} alt="feedback_cube" class="block h-auto max-h-screen w-auto" />
+				<enhanced:img
+					src={FeedbackCube3}
+					alt="feedback_cube"
+					class="block h-auto max-h-screen w-auto"
+				/>
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={FeedbackCube6} alt="feedback_cube" class="block h-auto max-h-screen w-auto" />
+				<enhanced:img
+					src={FeedbackCube6}
+					alt="feedback_cube"
+					class="block h-auto max-h-screen w-auto"
+				/>
 			</figure>
 		</div>
 

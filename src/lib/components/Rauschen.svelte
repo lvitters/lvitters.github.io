@@ -1,6 +1,6 @@
 <script lang="ts">
 	import RauschenReelPreview from '$lib/assets/media/rauschen/rauschen_reel_preview.png';
-	import RauschenReel from '$lib/assets/media/rauschen/rauschen_reel.mp4';
+	import RauschenReel from '$lib/assets/media/rauschen/rauschen_reel.webm';
 	import Rauschen1 from '$lib/assets/media/rauschen/rauschen_1.jpg?enhanced';
 	import Rauschen2 from '$lib/assets/media/rauschen/rauschen_2.jpg?enhanced';
 	import Rauschen3 from '$lib/assets/media/rauschen/rauschen_3.jpg?enhanced';

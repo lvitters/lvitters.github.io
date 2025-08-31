@@ -1,11 +1,11 @@
 <script>
-	import ImageBlender1 from '$lib/assets/media/image_blender/image_blender_1.gif';
-	import ImageBlender2 from '$lib/assets/media/image_blender/image_blender_2.gif';
-	import ImageBlender3 from '$lib/assets/media/image_blender/image_blender_3.gif';
-	import ImageBlender4 from '$lib/assets/media/image_blender/image_blender_4.gif';
-	import ImageBlender6 from '$lib/assets/media/image_blender/image_blender_6.gif';
-	import ImageBlender7 from '$lib/assets/media/image_blender/image_blender_7.gif';
-	import ImageBlender8 from '$lib/assets/media/image_blender/image_blender_8.gif';
+	import ImageBlender1 from '$lib/assets/media/image_blender/image_blender_1.webp';
+	import ImageBlender2 from '$lib/assets/media/image_blender/image_blender_2.webp';
+	import ImageBlender3 from '$lib/assets/media/image_blender/image_blender_3.webp';
+	import ImageBlender4 from '$lib/assets/media/image_blender/image_blender_4.webp';
+	import ImageBlender6 from '$lib/assets/media/image_blender/image_blender_6.webp';
+	import ImageBlender7 from '$lib/assets/media/image_blender/image_blender_7.webp';
+	import ImageBlender8 from '$lib/assets/media/image_blender/image_blender_8.webp';
 </script>
 
 <svelte:head>
@@ -39,41 +39,25 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src={ImageBlender1}
-				alt="image_blender"
-				class="block w-full"
-			/>
+			<img src={ImageBlender1} alt="image_blender" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src={ImageBlender2}
-				alt="image_blender"
-				class="block w-full"
-			/>
+			<img src={ImageBlender2} alt="image_blender" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src={ImageBlender3}
-				alt="image_blender"
-				class="block w-full"
-			/>
+			<img src={ImageBlender3} alt="image_blender" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src={ImageBlender4}
-				alt="image_blender"
-				class="block w-full"
-			/>
+			<img src={ImageBlender4} alt="image_blender" class="block w-full" />
 		</figure>
 
 		<!-- <div class="my-5"></div>
@@ -89,31 +73,19 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src={ImageBlender6}
-				alt="image_blender"
-				class="block w-full"
-			/>
+			<img src={ImageBlender6} alt="image_blender" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src={ImageBlender7}
-				alt="image_blender"
-				class="block w-full"
-			/>
+			<img src={ImageBlender7} alt="image_blender" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img
-				src={ImageBlender8}
-				alt="image_blender"
-				class="block w-full"
-			/>
+			<img src={ImageBlender8} alt="image_blender" class="block w-full" />
 		</figure>
 
 		<div class="my-5"></div>

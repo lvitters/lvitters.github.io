@@ -23,7 +23,7 @@
 	import Tull5Preview from '$lib/assets/media/einHauchVonTull/tull_5_preview.jpg?enhanced';
 	import Tull6Preview from '$lib/assets/media/einHauchVonTull/tull_6_preview.jpg?enhanced';
 	import Tull7Preview from '$lib/assets/media/einHauchVonTull/tull_7_preview.jpg?enhanced';
-	import ImageBlender1 from '$lib/assets/media/image_blender/image_blender_1.gif';
+	import ImageBlender1 from '$lib/assets/media/image_blender/image_blender_1.webp';
 
 	let pageVisible = $state(false);
 	let currentRayarrayImageIndex = $state(0);
@@ -530,11 +530,7 @@
 					onclick={() => scrollToSection('image-blender-section')}
 					aria-label="View Image Blender project details"
 				>
-					<img
-						src={ImageBlender1}
-						alt="image_blender preview"
-						class="h-auto w-full"
-					/>
+					<img src={ImageBlender1} alt="image_blender preview" class="h-auto w-full" />
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
