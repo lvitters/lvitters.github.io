@@ -138,11 +138,11 @@
 			// push tiles to list
 			function pushTiles() {
 				tiles = [];
-				
+
 				// always determine columns by width (to fill width completely)
 				var cols = Math.ceil(p.width / tileSize) + 2; // +2 for padding (-1 to +1)
 				var rows = Math.ceil(p.height / tileSize) + 2; // +2 for padding (-1 to +1)
-				
+
 				for (var i = -1; i < cols - 1; i++) {
 					for (var j = -1; j < rows - 1; j++) {
 						tiles.push(new Tile(tileSize, i * tileSize, j * tileSize, tiles.length));
@@ -185,11 +185,11 @@
 					// mobile/portrait: calculate tile size to fill width while respecting vertical count
 					var targetVerticalTiles = tilesPerRow;
 					var approximateTileSize = p.height / targetVerticalTiles;
-					
+
 					// determine how many tiles would fit horizontally at this size
 					var horizontalTiles = Math.floor(p.width / approximateTileSize);
 					if (horizontalTiles < 1) horizontalTiles = 1; // ensure at least 1 tile
-					
+
 					// adjust tile size to perfectly fill width
 					tileSize = p.width / horizontalTiles;
 				}
@@ -827,7 +827,13 @@
 						var v2 = this.morph[i];
 						// apply blobbing or not
 						if (this.isBlobbing) {
-							var offsetRadius = p.map(p.noise(this.xT + i * 0.1), 0, 1, -0.3, 0.3);
+							var offsetRadius = p.map(
+								p.noise(this.xT + i * 0.1),
+								0,
+								1,
+								-this.size * 0.005,
+								this.size * 0.005
+							);
 							var x = offsetRadius * p.cos(i);
 							var y = offsetRadius * p.sin(i);
 							v2.x += x;

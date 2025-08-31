@@ -837,7 +837,13 @@
 						var v2 = this.morph[i];
 						// apply blobbing or not
 						if (this.isBlobbing) {
-							var offsetRadius = p.map(p.noise(this.xT + i * 0.1), 0, 1, -0.3, 0.3);
+							var offsetRadius = p.map(
+								p.noise(this.xT + i * 0.1),
+								0,
+								1,
+								-this.size * 0.005,
+								this.size * 0.005
+							);
 							var x = offsetRadius * p.cos(i);
 							var y = offsetRadius * p.sin(i);
 							v2.x += x;
