@@ -3,12 +3,12 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import LoadingScreen from '$lib/components/LoadingScreen.svelte';
-	import { preloadCriticalResources } from '$lib/stores/loading';
+	import { preloadCriticalResources, hasPreloaded } from '$lib/stores/loading';
 	
 	let { children } = $props();
 	
 	onMount(() => {
-		if (browser) {
+		if (browser && !$hasPreloaded) {
 			preloadCriticalResources();
 		}
 	});

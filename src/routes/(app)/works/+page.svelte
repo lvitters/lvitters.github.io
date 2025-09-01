@@ -480,7 +480,7 @@
 						src={RoomsCutoffTransparent}
 						alt="available.rooms preview"
 						class="h-auto w-full transition-opacity duration-300 hover:opacity-80"
-						style="transform: scale(1.03) translateX(.6%); transform-origin: bottom left; margin-top: -3vh;"
+						style="transform: scale(1.03) translateX(.6%) translateY(.3%); transform-origin: bottom left; margin-top: -3vh;"
 					/>
 				</button>
 				<button
