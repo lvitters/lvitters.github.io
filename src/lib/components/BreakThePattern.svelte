@@ -104,6 +104,7 @@
 				muted
 				autoplay
 				loop
+				preload="metadata"
 			>
 				<source src={BreakThePatternVideo} type="video/webm" />
 				<source src={BreakThePatternVideoMP4} type="video/mp4" />
@@ -122,7 +123,12 @@
 						<div class="bg-opacity-50 absolute top-2 left-2 bg-black px-2 py-1 text-lg">
 							{index + 1} / {photoSlides.length}
 						</div>
-						<enhanced:img src={slide} alt="Break the Pattern Installation" class="block w-full" />
+						<enhanced:img
+							src={slide}
+							alt="Break the Pattern Installation"
+							class="block w-full"
+							loading="lazy"
+						/>
 					</div>
 				{/each}
 
@@ -153,7 +159,12 @@
 						<div class="bg-opacity-50 absolute top-2 left-2 bg-black px-2 py-1 text-lg">
 							{index + 1} / {designSlides.length}
 						</div>
-						<enhanced:img src={slide} alt="Break the Pattern Design" class="block w-full" />
+						<enhanced:img
+							src={slide}
+							alt="Break the Pattern Design"
+							class="block w-full"
+							loading="lazy"
+						/>
 					</div>
 				{/each}
 

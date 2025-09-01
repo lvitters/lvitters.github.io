@@ -69,13 +69,14 @@
 				src={cyclingImages[cyclingImagesIndex]}
 				alt="feedback_cube"
 				class="block w-full"
+				loading="lazy"
 			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={FeedbackCube5} alt="feedback_cube" class="block w-full" />
+			<enhanced:img src={FeedbackCube5} alt="feedback_cube" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
@@ -86,6 +87,7 @@
 					src={FeedbackCube3}
 					alt="feedback_cube"
 					class="block h-auto max-h-screen w-auto"
+					loading="lazy"
 				/>
 			</figure>
 
@@ -94,6 +96,7 @@
 					src={FeedbackCube6}
 					alt="feedback_cube"
 					class="block h-auto max-h-screen w-auto"
+					loading="lazy"
 				/>
 			</figure>
 		</div>
@@ -108,6 +111,7 @@
 				muted
 				autoplay
 				loop
+				preload="metadata"
 			>
 				<source src={FeedbackCubeReel} type="video/webm" />
 				<source src={FeedbackCubeReelMP4} type="video/mp4" />

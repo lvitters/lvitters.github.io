@@ -78,7 +78,7 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={RayArray3} alt="RAYARRAY" class="block w-full" />
+			<enhanced:img src={RayArray3} alt="RAYARRAY" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
@@ -93,19 +93,19 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={RayArray4} alt="RAYARRAY" class="block w-full" />
+			<enhanced:img src={RayArray4} alt="RAYARRAY" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={RayArray2} alt="RAYARRAY" class="block w-full" />
+			<enhanced:img src={RayArray2} alt="RAYARRAY" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={cyclingImages[cyclingImagesIndex]} alt="RAYARRAY" class="block w-full" />
+			<enhanced:img src={cyclingImages[cyclingImagesIndex]} alt="RAYARRAY" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>

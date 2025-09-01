@@ -39,25 +39,25 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={ImageBlender1} alt="image_blender" class="block w-full" />
+			<img src={ImageBlender1} alt="image_blender" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={ImageBlender2} alt="image_blender" class="block w-full" />
+			<img src={ImageBlender2} alt="image_blender" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={ImageBlender3} alt="image_blender" class="block w-full" />
+			<img src={ImageBlender3} alt="image_blender" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={ImageBlender4} alt="image_blender" class="block w-full" />
+			<img src={ImageBlender4} alt="image_blender" class="block w-full" loading="lazy" />
 		</figure>
 
 		<!-- <div class="my-5"></div>
@@ -73,19 +73,19 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={ImageBlender6} alt="image_blender" class="block w-full" />
+			<img src={ImageBlender6} alt="image_blender" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={ImageBlender7} alt="image_blender" class="block w-full" />
+			<img src={ImageBlender7} alt="image_blender" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<img src={ImageBlender8} alt="image_blender" class="block w-full" />
+			<img src={ImageBlender8} alt="image_blender" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>

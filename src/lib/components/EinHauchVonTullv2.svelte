@@ -52,6 +52,7 @@
 				src={Tull23}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
+				loading="lazy"
 			/>
 		</figure>
 
@@ -62,13 +63,14 @@
 				src={Tull29}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
+				loading="lazy"
 			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={cyclingImages[cyclingImagesIndex]} alt="Ein Hauch Von Tüll" class="block w-full" />
+			<enhanced:img src={cyclingImages[cyclingImagesIndex]} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
@@ -78,6 +80,7 @@
 				src={Tull26}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
+				loading="lazy"
 			/>
 		</figure>
 
@@ -88,6 +91,7 @@
 				src={Tull28}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
+				loading="lazy"
 			/>
 		</figure>
 
@@ -119,6 +123,7 @@
 				src={Tull2_1_3}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
+				loading="lazy"
 			/>
 		</figure>
 
@@ -129,6 +134,7 @@
 				src={Tull2_1_2}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
+				loading="lazy"
 			/>
 		</figure>
 
@@ -139,6 +145,7 @@
 				src={Tull2_1_1}
 				alt="Ein Hauch Von Tüll"
 				class="block w-full"
+				loading="lazy"
 			/>
 		</figure>
 

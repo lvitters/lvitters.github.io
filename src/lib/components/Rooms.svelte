@@ -35,7 +35,7 @@
 		<div class="my-5"></div>
 
 		<figure class="mx-0 my-10">
-			<enhanced:img src={RoomsFull} alt="rooms" class="block w-full md:mx-auto md:w-3/4" />
+			<enhanced:img src={RoomsFull} alt="rooms" class="block w-full md:mx-auto md:w-3/4" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
