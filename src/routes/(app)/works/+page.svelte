@@ -1,10 +1,20 @@
 <script lang="ts">
-	import type { Component } from 'svelte';
-
-	// for untiled_preview
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import { mobile } from '$lib/utils/mobile.svelte';
+
+	// import works components
+	import Rauschen from '$lib/components/Rauschen.svelte';
+	import Archive from '$lib/components/Archive.svelte';
+	import RayArray from '$lib/components/RayArray.svelte';
+	import FeedbackCube from '$lib/components/FeedbackCube.svelte';
+	import EinHauchVonTullv2 from '$lib/components/EinHauchVonTullv2.svelte';
+	import Untiled from '$lib/components/Untiled.svelte';
+	import EinHauchVonTull from '$lib/components/EinHauchVonTull.svelte';
+	import Rooms from '$lib/components/Rooms.svelte';
+	import Blob from '$lib/components/Blob.svelte';
+	import BreakThePattern from '$lib/components/BreakThePattern.svelte';
+	import ImageBlender from '$lib/components/ImageBlender.svelte';
 
 	// import preview images
 	import RauschenPreview from '$lib/assets/media/rauschen/rauschen_preview.png?enhanced';
@@ -34,118 +44,11 @@
 	let currentDetailSection = $state('');
 	let detailViewVisible = $state(false);
 
-	// lazy loading with intersection observer
-	let componentCache: Record<string, Component> = {};
-	let loadingComponents = $state<Set<string>>(new Set());
-	let visibleSections = $state(new Set<string>());
-	let observer: IntersectionObserver;
-
-	// lazy load components
-	async function loadComponent(name: string): Promise<Component> {
-		if (componentCache[name]) {
-			return componentCache[name];
-		}
-
-		if (loadingComponents.has(name)) {
-			// wait for existing load to complete
-			while (loadingComponents.has(name)) {
-				await new Promise((resolve) => setTimeout(resolve, 50));
-			}
-			return componentCache[name];
-		}
-
-		loadingComponents.add(name);
-
-		try {
-			let module;
-			switch (name) {
-				case 'Rauschen':
-					module = await import('$lib/components/Rauschen.svelte');
-					break;
-				case 'Archive':
-					module = await import('$lib/components/Archive.svelte');
-					break;
-				case 'RayArray':
-					module = await import('$lib/components/RayArray.svelte');
-					break;
-				case 'FeedbackCube':
-					module = await import('$lib/components/FeedbackCube.svelte');
-					break;
-				case 'EinHauchVonTullv2':
-					module = await import('$lib/components/EinHauchVonTullv2.svelte');
-					break;
-				case 'Untiled':
-					module = await import('$lib/components/Untiled.svelte');
-					break;
-				case 'EinHauchVonTull':
-					module = await import('$lib/components/EinHauchVonTull.svelte');
-					break;
-				case 'Rooms':
-					module = await import('$lib/components/Rooms.svelte');
-					break;
-				case 'Blob':
-					module = await import('$lib/components/Blob.svelte');
-					break;
-				case 'BreakThePattern':
-					module = await import('$lib/components/BreakThePattern.svelte');
-					break;
-				case 'ImageBlender':
-					module = await import('$lib/components/ImageBlender.svelte');
-					break;
-				default:
-					throw new Error(`Unknown component: ${name}`);
-			}
-
-			componentCache[name] = module.default;
-			return module.default;
-		} finally {
-			loadingComponents.delete(name);
-		}
-	}
-
-	// setup intersection observer for lazy loading
-	function setupLazyLoading() {
-		if (typeof window === 'undefined') return;
-
-		observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					const sectionId = entry.target.id;
-					if (entry.isIntersecting) {
-						const newSet = new Set(visibleSections);
-						newSet.add(sectionId);
-						visibleSections = newSet;
-					}
-				});
-			},
-			{
-				// Load components 300px before they become visible
-				rootMargin: '300px 0px',
-				threshold: 0.1
-			}
-		);
-
-		// observe all section elements
-		const sections = document.querySelectorAll('[id$="-section"]');
-		sections.forEach((section) => observer.observe(section));
-	}
-
-	function cleanup() {
-		if (observer) {
-			observer.disconnect();
-		}
-	}
-
-	// setup page and lazy loading
+	// setup cycling images
 	$effect(() => {
 		// small delay to ensure smooth transition and proper layout
 		setTimeout(() => {
 			pageVisible = true;
-			// setup lazy loading after page is visible
-			setupLazyLoading();
-			// always load the first component (above the fold)
-			const newSet = new Set(['rauschen-section']);
-			visibleSections = newSet;
 		}, 50);
 
 		// cycle through images every 3 seconds
@@ -161,11 +64,10 @@
 		return () => {
 			clearInterval(rayarrayInterval);
 			clearInterval(tullInterval);
-			cleanup();
 		};
 	});
 
-	// define images for projects that have multiple images
+	// define cycling images
 	const rayarrayImages = [
 		RayArrayPreview1,
 		RayArrayPreview2,
@@ -176,13 +78,8 @@
 
 	const tullImages = [Tull7Preview, Tull5Preview, Tull1Preview, Tull6Preview];
 
-	// scroll to section corresponding to component (desktop)
+	// scroll/switch to section corresponding to component
 	function scrollToSection(sectionId: string) {
-		// Ensure the section is visible when clicked
-		const newSet = new Set(visibleSections);
-		newSet.add(sectionId);
-		visibleSections = newSet;
-		
 		if (mobile.current) {
 			// on mobile, switch to detail view
 			currentDetailSection = sectionId;
@@ -203,17 +100,14 @@
 				);
 			}
 		} else {
-			// desktop behavior remains the same
+			// on desktop scroll to component
 			const section = document.getElementById(sectionId);
 			const rightPanel = document.querySelector('.relative.z-10.h-full.w-2\\/3.overflow-y-auto');
 
 			if (section && rightPanel) {
-				// get the position of the section relative to the scrollable container
 				const sectionTop = section.offsetTop;
-
-				// smooth scroll to the section
 				rightPanel.scrollTo({
-					top: sectionTop + 1, // no offset
+					top: sectionTop + 1,
 					behavior: 'smooth'
 				});
 			}
@@ -607,15 +501,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('rauschen-section')}
-						{#await loadComponent('Rauschen')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-gray-300"></div>
-					{/if}
+					<Rauschen />
 				</div>
 			{/if}
 
@@ -627,15 +513,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('archive-section')}
-						{#await loadComponent('Archive')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-[rgb(255,255,0)]"></div>
-					{/if}
+					<Archive />
 				</div>
 			{/if}
 
@@ -647,15 +525,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('rayarray-section')}
-						{#await loadComponent('RayArray')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-black"></div>
-					{/if}
+					<RayArray />
 				</div>
 			{/if}
 
@@ -667,15 +537,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('feedback-cube-section')}
-						{#await loadComponent('FeedbackCube')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-[rgb(42,0,25)]"></div>
-					{/if}
+					<FeedbackCube />
 				</div>
 			{/if}
 
@@ -687,15 +549,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('ein-hauch-von-tull-v2-section')}
-						{#await loadComponent('EinHauchVonTullv2')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-[rgb(10,0,50)]"></div>
-					{/if}
+					<EinHauchVonTullv2 />
 				</div>
 			{/if}
 
@@ -708,15 +562,7 @@
 						: ''}"
 				>
 					{#key 'untiled'}
-						{#if visibleSections.has('untiled-section')}
-							{#await loadComponent('Untiled')}
-								<div class="flex h-64 items-center justify-center">Loading...</div>
-							{:then Component}
-								<Component />
-							{/await}
-						{:else}
-							<div class="flex h-64 items-center justify-center bg-white"></div>
-						{/if}
+						<Untiled />
 					{/key}
 				</div>
 			{/if}
@@ -729,15 +575,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('ein-hauch-von-tull-section')}
-						{#await loadComponent('EinHauchVonTull')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-[rgb(0,40,0)]"></div>
-					{/if}
+					<EinHauchVonTull />
 				</div>
 			{/if}
 
@@ -749,15 +587,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('available-rooms-section')}
-						{#await loadComponent('Rooms')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-white"></div>
-					{/if}
+					<Rooms />
 				</div>
 			{/if}
 
@@ -769,15 +599,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('blob-section')}
-						{#await loadComponent('Blob')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-white"></div>
-					{/if}
+					<Blob />
 				</div>
 			{/if}
 
@@ -789,15 +611,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('break-the-pattern-section')}
-						{#await loadComponent('BreakThePattern')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-[rgb(80,0,0)]"></div>
-					{/if}
+					<BreakThePattern />
 				</div>
 			{/if}
 
@@ -809,15 +623,7 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#if visibleSections.has('image-blender-section')}
-						{#await loadComponent('ImageBlender')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
-					{:else}
-						<div class="flex h-64 items-center justify-center bg-white"></div>
-					{/if}
+					<ImageBlender />
 				</div>
 			{/if}
 		</section>
