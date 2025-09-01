@@ -67,7 +67,7 @@
 		<!-- p5 sketch container -->
 		<div
 			id="blob-component-container"
-			class="responsive-overlap relative -mt-[50%] h-[80vh] w-full overflow-hidden md:-mt-[20vh] md:aspect-square md:h-auto"
+			class="responsive-overlap relative -mt-[70%] ml-[calc(-50vw+50%)] h-[100vh] w-screen overflow-hidden md:-mt-[20vh] md:ml-0 md:aspect-square md:w-full"
 		></div>
 
 		<div class="my-5 md:hidden"></div>
@@ -82,26 +82,6 @@
 	@media (min-width: 768px) {
 		.responsive-overlap {
 			margin-bottom: -100px !important;
-		}
-	}
-	
-	/* Safari-specific fixes */
-	@supports (-webkit-appearance: none) {
-		/* Safari mobile: prevent horizontal scroll and reduce overlap */
-		@media (max-width: 767px) {
-			.responsive-overlap {
-				margin-top: -40% !important;
-				height: 70vh !important;
-				/* Ensure it stays within viewport bounds */
-				max-width: 100% !important;
-				overflow-x: hidden !important;
-			}
-		}
-		
-		/* Additional Safari fix for canvas positioning */
-		#blob-component-container canvas {
-			max-width: 100% !important;
-			height: auto !important;
 		}
 	}
 </style>

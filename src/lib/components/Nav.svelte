@@ -54,19 +54,19 @@
 	let shouldCenterOnScreen = $derived(
 		mobile.current || page.url.pathname === '/rooms' || page.url.pathname === '/untiled'
 	);
-	
+
 	// nav-specific breakpoint for smaller text (1200px)
 	let isNarrowScreen = $state(browser ? window.innerWidth < 1200 : false);
-	
+
 	$effect(() => {
 		if (browser) {
 			const updateNarrowScreen = () => {
 				isNarrowScreen = window.innerWidth < 1200;
 			};
-			
+
 			window.addEventListener('resize', updateNarrowScreen);
 			updateNarrowScreen(); // Set initial value
-			
+
 			return () => {
 				window.removeEventListener('resize', updateNarrowScreen);
 			};
@@ -75,13 +75,9 @@
 </script>
 
 <nav
-	class={`font-consolas absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-2 pt-0.5 backdrop-blur-sm ${
+	class={`font-consolas absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-2 pt-0.5 whitespace-nowrap backdrop-blur-sm ${
 		isNarrowScreen ? 'text-[14px]' : 'text-[17px]'
-	} ${
-		isNarrowScreen ? '' : 'whitespace-nowrap'
-	} ${
-		!mobile.current ? 'transition-all duration-500 ease-in-out' : ''
-	} ${
+	} ${!mobile.current ? 'transition-all duration-500 ease-in-out' : ''} ${
 		centered && !mobile.current
 			? 'top-1/2 -translate-y-1/2 flex-col items-start justify-center'
 			: 'top-8 flex-row items-center'
