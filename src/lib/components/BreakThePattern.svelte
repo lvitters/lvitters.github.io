@@ -1,5 +1,6 @@
 <script lang="ts">
 	import BreakThePatternVideo from '$lib/assets/media/BreakThePattern/BreakThePattern_Markenfilm_reel.webm';
+	import BreakThePatternVideoMP4 from '$lib/assets/media/BreakThePattern/BreakThePattern_Markenfilm_reel.mp4';
 	import BreakThePattern1 from '$lib/assets/media/BreakThePattern/BreakThePattern_1.jpg?enhanced';
 	import BreakThePattern2 from '$lib/assets/media/BreakThePattern/BreakThePattern_2.jpg?enhanced';
 	import BreakThePattern3 from '$lib/assets/media/BreakThePattern/BreakThePattern_3.jpg?enhanced';
@@ -97,7 +98,6 @@
 		<!-- video -->
 		<div class="my-5">
 			<video
-				src={BreakThePatternVideo}
 				title="Break the Pattern Video"
 				class="block h-auto w-full object-cover"
 				controls
@@ -105,6 +105,8 @@
 				autoplay
 				loop
 			>
+				<source src={BreakThePatternVideo} type="video/webm" />
+				<source src={BreakThePatternVideoMP4} type="video/mp4" />
 				Your browser does not support the video tag.
 			</video>
 		</div>

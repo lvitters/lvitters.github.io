@@ -54,10 +54,32 @@
 	let shouldCenterOnScreen = $derived(
 		mobile.current || page.url.pathname === '/rooms' || page.url.pathname === '/untiled'
 	);
+	
+	// nav-specific breakpoint for smaller text (1200px)
+	let isNarrowScreen = $state(browser ? window.innerWidth < 1200 : false);
+	
+	$effect(() => {
+		if (browser) {
+			const updateNarrowScreen = () => {
+				isNarrowScreen = window.innerWidth < 1200;
+			};
+			
+			window.addEventListener('resize', updateNarrowScreen);
+			updateNarrowScreen(); // Set initial value
+			
+			return () => {
+				window.removeEventListener('resize', updateNarrowScreen);
+			};
+		}
+	});
 </script>
 
 <nav
-	class={`font-consolas absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-2 pt-0.5 text-[17px] whitespace-nowrap backdrop-blur-sm ${
+	class={`font-consolas absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-2 pt-0.5 backdrop-blur-sm ${
+		isNarrowScreen ? 'text-[14px]' : 'text-[17px]'
+	} ${
+		isNarrowScreen ? '' : 'whitespace-nowrap'
+	} ${
 		!mobile.current ? 'transition-all duration-500 ease-in-out' : ''
 	} ${
 		centered && !mobile.current
@@ -66,7 +88,7 @@
 	} ${isVisible ? 'opacity-100' : 'opacity-0'}`}
 	style={shouldCenterOnScreen
 		? 'left: 50%; transform: translateX(-50%);'
-		: 'left: calc(33.33vw / 2); transform: translateX(-50%);'}
+		: 'left: calc((33.33vw - 32px - 16px) / 2 + 32px); transform: translateX(-50%);'}
 	ontouchstart={(e) => e.stopPropagation()}
 >
 	<div class="flex items-center space-x-2">
@@ -83,11 +105,11 @@
 				onclick={goBackToOverview}
 				class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors"
 			>
-				← selected works
+				{isNarrowScreen ? '← works' : '← selected works'}
 			</button>
 		{:else if page.url.pathname === '/rooms' || page.url.pathname === '/untiled'}
 			<a href="/works" class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors">
-				← selected works
+				{isNarrowScreen ? '← works' : '← selected works'}
 			</a>
 		{:else}
 			<a
@@ -96,7 +118,7 @@
 					? 'text-[rgb(0,0,255)]'
 					: 'text-black hover:text-[rgb(0,0,255)]'} ml-4"
 			>
-				selected works
+				{isNarrowScreen ? 'works' : 'selected works'}
 			</a>
 		{/if}
 		<div class="mx-2">|</div>

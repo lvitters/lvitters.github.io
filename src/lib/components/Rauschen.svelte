@@ -1,6 +1,7 @@
 <script lang="ts">
 	import RauschenReelPreview from '$lib/assets/media/rauschen/rauschen_reel_preview.png';
 	import RauschenReel from '$lib/assets/media/rauschen/rauschen_reel.webm';
+	import RauschenReelMP4 from '$lib/assets/media/rauschen/rauschen_reel.mp4';
 	import Rauschen1 from '$lib/assets/media/rauschen/rauschen_1.jpg?enhanced';
 	import Rauschen2 from '$lib/assets/media/rauschen/rauschen_2.jpg?enhanced';
 	import Rauschen3 from '$lib/assets/media/rauschen/rauschen_3.jpg?enhanced';
@@ -67,7 +68,6 @@
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex-1 p-0">
 				<video
-					src={RauschenReel}
 					title="rauschen reel video"
 					class="block h-auto w-full object-cover"
 					controls
@@ -77,6 +77,8 @@
 					preload="auto"
 					poster={RauschenReelPreview}
 				>
+					<source src={RauschenReel} type="video/webm" />
+					<source src={RauschenReelMP4} type="video/mp4" />
 					Your browser does not support the video tag.
 				</video>
 			</figure>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import FeedbackCubeReel from '$lib/assets/media/feedback_cube/feedback_cube_reel.webm';
+	import FeedbackCubeReelMP4 from '$lib/assets/media/feedback_cube/feedback_cube_reel.mp4';
 	import FeedbackCube1 from '$lib/assets/media/feedback_cube/feedback_cube_1.jpg?enhanced';
 	import FeedbackCube2 from '$lib/assets/media/feedback_cube/feedback_cube_2.jpg?enhanced';
 	import FeedbackCube3 from '$lib/assets/media/feedback_cube/feedback_cube_3.jpg?enhanced';
@@ -101,7 +102,6 @@
 
 		<figure class="m-0 p-0">
 			<video
-				src={FeedbackCubeReel}
 				title="feedback_cube reel video"
 				class="block h-auto w-full object-cover"
 				controls
@@ -109,6 +109,8 @@
 				autoplay
 				loop
 			>
+				<source src={FeedbackCubeReel} type="video/webm" />
+				<source src={FeedbackCubeReelMP4} type="video/mp4" />
 				Your browser does not support the video tag.
 			</video>
 		</figure>
