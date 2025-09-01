@@ -29,14 +29,16 @@
 	let currentRayarrayImageIndex = $state(0);
 	let currentTullImageIndex = $state(0);
 
-	// mobile state - reactive with runes
+	// mobile state
 	let showDetailView = $state(false);
 	let currentDetailSection = $state('');
 	let detailViewVisible = $state(false);
 
-	// dynamic component loading
+	// lazy loading with intersection observer
 	let componentCache: Record<string, Component> = {};
 	let loadingComponents = $state<Set<string>>(new Set());
+	let visibleSections = $state(new Set<string>());
+	let observer: IntersectionObserver;
 
 	// lazy load components
 	async function loadComponent(name: string): Promise<Component> {
@@ -101,11 +103,49 @@
 		}
 	}
 
-	// cycle through images
+	// setup intersection observer for lazy loading
+	function setupLazyLoading() {
+		if (typeof window === 'undefined') return;
+
+		observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					const sectionId = entry.target.id;
+					if (entry.isIntersecting) {
+						const newSet = new Set(visibleSections);
+						newSet.add(sectionId);
+						visibleSections = newSet;
+					}
+				});
+			},
+			{
+				// Load components 300px before they become visible
+				rootMargin: '300px 0px',
+				threshold: 0.1
+			}
+		);
+
+		// observe all section elements
+		const sections = document.querySelectorAll('[id$="-section"]');
+		sections.forEach((section) => observer.observe(section));
+	}
+
+	function cleanup() {
+		if (observer) {
+			observer.disconnect();
+		}
+	}
+
+	// setup page and lazy loading
 	$effect(() => {
 		// small delay to ensure smooth transition and proper layout
 		setTimeout(() => {
 			pageVisible = true;
+			// setup lazy loading after page is visible
+			setupLazyLoading();
+			// always load the first component (above the fold)
+			const newSet = new Set(['rauschen-section']);
+			visibleSections = newSet;
 		}, 50);
 
 		// cycle through images every 3 seconds
@@ -121,6 +161,7 @@
 		return () => {
 			clearInterval(rayarrayInterval);
 			clearInterval(tullInterval);
+			cleanup();
 		};
 	});
 
@@ -137,6 +178,11 @@
 
 	// scroll to section corresponding to component (desktop)
 	function scrollToSection(sectionId: string) {
+		// Ensure the section is visible when clicked
+		const newSet = new Set(visibleSections);
+		newSet.add(sectionId);
+		visibleSections = newSet;
+		
 		if (mobile.current) {
 			// on mobile, switch to detail view
 			currentDetailSection = sectionId;
@@ -561,11 +607,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('Rauschen')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('rauschen-section')}
+						{#await loadComponent('Rauschen')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-gray-300"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -577,11 +627,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('Archive')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('archive-section')}
+						{#await loadComponent('Archive')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-[rgb(255,255,0)]"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -593,11 +647,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('RayArray')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('rayarray-section')}
+						{#await loadComponent('RayArray')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-black"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -609,11 +667,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('FeedbackCube')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('feedback-cube-section')}
+						{#await loadComponent('FeedbackCube')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-[rgb(42,0,25)]"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -625,11 +687,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('EinHauchVonTullv2')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('ein-hauch-von-tull-v2-section')}
+						{#await loadComponent('EinHauchVonTullv2')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-[rgb(10,0,50)]"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -642,11 +708,15 @@
 						: ''}"
 				>
 					{#key 'untiled'}
-						{#await loadComponent('Untiled')}
-							<div class="flex h-64 items-center justify-center">Loading...</div>
-						{:then Component}
-							<Component />
-						{/await}
+						{#if visibleSections.has('untiled-section')}
+							{#await loadComponent('Untiled')}
+								<div class="flex h-64 items-center justify-center">Loading...</div>
+							{:then Component}
+								<Component />
+							{/await}
+						{:else}
+							<div class="flex h-64 items-center justify-center bg-white"></div>
+						{/if}
 					{/key}
 				</div>
 			{/if}
@@ -659,11 +729,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('EinHauchVonTull')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('ein-hauch-von-tull-section')}
+						{#await loadComponent('EinHauchVonTull')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-[rgb(0,40,0)]"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -675,11 +749,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('Rooms')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('available-rooms-section')}
+						{#await loadComponent('Rooms')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-white"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -691,11 +769,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('Blob')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('blob-section')}
+						{#await loadComponent('Blob')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-white"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -707,11 +789,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('BreakThePattern')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('break-the-pattern-section')}
+						{#await loadComponent('BreakThePattern')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-[rgb(80,0,0)]"></div>
+					{/if}
 				</div>
 			{/if}
 
@@ -723,11 +809,15 @@
 							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
 						: ''}"
 				>
-					{#await loadComponent('ImageBlender')}
-						<div class="flex h-64 items-center justify-center">Loading...</div>
-					{:then Component}
-						<Component />
-					{/await}
+					{#if visibleSections.has('image-blender-section')}
+						{#await loadComponent('ImageBlender')}
+							<div class="flex h-64 items-center justify-center">Loading...</div>
+						{:then Component}
+							<Component />
+						{/await}
+					{:else}
+						<div class="flex h-64 items-center justify-center bg-white"></div>
+					{/if}
 				</div>
 			{/if}
 		</section>
