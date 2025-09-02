@@ -43,7 +43,9 @@
 	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen overflow-x-hidden bg-white px-6 pt-12 pb-5 text-black">
+<main
+	class="font-consolas m-0 min-h-screen overflow-hidden overflow-x-hidden bg-white px-6 pt-12 pb-5 text-black"
+>
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">

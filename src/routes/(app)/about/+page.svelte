@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import { mobile } from '$lib/utils/mobile.svelte';
 
 	let pageVisible = $state(false);
@@ -33,20 +32,27 @@
 <div>
 	<!-- mobile: full screen white background, Desktop: colored background with white content area -->
 	<main
-		class="relative h-screen w-screen overflow-hidden text-[17px] transition-all duration-1000 ease-in-out md:flex"
+		class="relative h-screen w-screen overflow-hidden text-[17px] transition-all duration-1000 ease-in-out {mobile.current
+			? ''
+			: 'flex'}"
 		style="background: {pageVisible ? 'white' : 'white'}; opacity: {pageVisible ? 1 : 0};"
 	>
 		<!-- left spacer - desktop only -->
-		<section class="hidden md:block md:h-full md:w-1/3" style="background: {color};"></section>
+		<section
+			class={mobile.current ? 'hidden' : 'h-full w-1/3'}
+			style="background: {color};"
+		></section>
 
 		<!-- main content area -->
 		<section
-			class="flex h-full w-full justify-center overflow-y-auto bg-white transition-all duration-700 ease-out md:w-2/3 {pageVisible
-				? 'opacity-100'
-				: 'opacity-0'}"
+			class="flex h-full justify-center overflow-y-auto bg-white transition-all duration-700 ease-out {mobile.current
+				? 'w-full'
+				: 'w-2/3'} {pageVisible ? 'opacity-100' : 'opacity-0'}"
 		>
-			<main
-				class="font-consolas m-0 flex min-h-full w-full flex-col bg-white px-2 pt-12 pb-5 text-black md:px-6"
+			<div
+				class="font-consolas m-0 flex min-h-full w-full flex-col bg-white pt-12 pb-5 text-black {mobile.current
+					? 'px-2'
+					: 'px-6'}"
 			>
 				<article class="flex-1 px-5">
 					<div class="mb-12"></div>
@@ -189,7 +195,7 @@
 						Impressum: Lucca Vitters, Am Dobben 28, 28203 Bremen, +4915168112323
 					</p>
 				</footer>
-			</main>
+			</div>
 		</section>
 	</main>
 </div>

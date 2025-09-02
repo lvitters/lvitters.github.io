@@ -105,11 +105,19 @@
 			const rightPanel = document.querySelector('.relative.z-10.h-full.w-2\\/3.overflow-y-auto');
 
 			if (section && rightPanel) {
-				const sectionTop = section.offsetTop;
-				rightPanel.scrollTo({
-					top: sectionTop + 1,
-					behavior: 'smooth'
-				});
+				const scrollToTarget = () => {
+					const sectionTop = section.offsetTop;
+					rightPanel.scrollTo({
+						top: sectionTop + 1,
+						behavior: 'smooth'
+					});
+				};
+
+				// initial scroll
+				scrollToTarget();
+
+				// recalculate after lazy content might have loaded
+				setTimeout(scrollToTarget, 500);
 			}
 		}
 	}
@@ -498,7 +506,7 @@
 					id="rauschen-section"
 					class="bg-gray-300 {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<Rauschen />
@@ -510,7 +518,7 @@
 					id="archive-section"
 					class="bg-[rgb(255,255,0)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<Archive />
@@ -522,7 +530,7 @@
 					id="rayarray-section"
 					class="bg-black {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<RayArray />
@@ -534,7 +542,7 @@
 					id="feedback-cube-section"
 					class="bg-[rgb(42,0,25)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<FeedbackCube />
@@ -546,7 +554,7 @@
 					id="ein-hauch-von-tull-v2-section"
 					class="bg-[rgb(10,0,50)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<EinHauchVonTullv2 />
@@ -558,7 +566,7 @@
 					id="untiled-section"
 					class="bg-white {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					{#key 'untiled'}
@@ -572,7 +580,7 @@
 					id="ein-hauch-von-tull-section"
 					class="bg-[rgb(0,40,0)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<EinHauchVonTull />
@@ -584,7 +592,7 @@
 					id="available-rooms-section"
 					class="bg-white {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<Rooms />
@@ -596,7 +604,7 @@
 					id="blob-section"
 					class="bg-white {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<Blob />
@@ -608,7 +616,7 @@
 					id="break-the-pattern-section"
 					class="bg-[rgb(80,0,0)] {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<BreakThePattern />
@@ -620,7 +628,7 @@
 					id="image-blender-section"
 					class="mb-24 bg-white md:mb-0 {mobile.current && showDetailView
 						? 'transition-all duration-700 ease-out ' +
-							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0')
+							(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
 						: ''}"
 				>
 					<ImageBlender />

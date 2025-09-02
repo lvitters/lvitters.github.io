@@ -93,7 +93,7 @@
 <div
 	class="transition-all duration-700 ease-out {pageVisible
 		? 'translate-y-0 opacity-100'
-		: 'translate-y-4 opacity-0'}"
+		: 'translate-y-0 opacity-0'}"
 >
 	{#if mobile.current}
 		<!-- mobile layout - centered p5 sketch -->
