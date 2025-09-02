@@ -79,14 +79,14 @@
 
 <style>
 	/* only apply negative margins on desktop (larger screens) */
-	@media (min-width: 768px) {
+	@media (min-width: 1000px) {
 		.responsive-overlap {
 			margin-bottom: -100px !important;
 		}
 	}
 
 	/* mobile styles with Safari-specific fixes for Blob canvas - can't get this to work with tailwind only */
-	@media (max-width: 767px) {
+	@media (max-width: 999px) {
 		.responsive-overlap {
 			/* use fixed positioning to escape scroll containers */
 			position: fixed;

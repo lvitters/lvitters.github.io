@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 
-// mobile breakpoint - matches Tailwind's `md` breakpoint
-export const MOBILE_BREAKPOINT = 768;
+// custom mobile breakpoint
+export const MOBILE_BREAKPOINT = 1000;
 
 // global reactive mobile state using Svelte 5 runes, all components can import and use this directly
 class MobileState {

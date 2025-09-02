@@ -37,11 +37,11 @@
 				const isMobile = window.innerWidth < 768;
 				const canvasWidth = isMobile ? window.innerWidth : container.offsetWidth;
 				const canvasHeight = isMobile ? window.innerHeight : container.offsetHeight;
-				
+
 				const canvas = p.createCanvas(canvasWidth, canvasHeight);
 				canvas.parent(container);
 				canvas.style('z-index', '10');
-				
+
 				// center the taller canvas on mobile
 				if (isMobile) {
 					const canvasElement = canvas.canvas;
