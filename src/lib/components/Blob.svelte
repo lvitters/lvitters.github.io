@@ -43,7 +43,7 @@
 	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-white px-6 pt-12 pb-5 text-black">
+<main class="font-consolas m-0 min-h-screen overflow-x-hidden bg-white px-6 pt-12 pb-5 text-black">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
@@ -67,7 +67,7 @@
 		<!-- p5 sketch container -->
 		<div
 			id="blob-component-container"
-			class="responsive-overlap relative -mt-[70%] ml-[calc(-50vw+50%)] h-[100vh] w-screen overflow-hidden md:-mt-[20vh] md:ml-0 md:aspect-square md:w-full"
+			class="responsive-overlap relative -mt-[70%] h-[100vh] w-screen overflow-hidden md:-mt-[20vh] md:ml-0 md:aspect-square md:w-full"
 		></div>
 
 		<div class="my-5 md:hidden"></div>
@@ -82,6 +82,48 @@
 	@media (min-width: 768px) {
 		.responsive-overlap {
 			margin-bottom: -100px !important;
+		}
+	}
+
+	/* mobile styles with Safari-specific fixes */
+	@media (max-width: 767px) {
+		.responsive-overlap {
+			/* use fixed positioning to escape scroll containers */
+			position: fixed;
+			top: 15vh; /* adjust this value to move sketch up/down */
+			left: 0;
+			right: 0;
+			bottom: 0;
+			width: 100vw;
+			max-width: 100vw;
+			margin: 0 !important;
+			overflow: hidden;
+			z-index: 5; /* below nav but above content */
+			pointer-events: none; /* allow scrolling through */
+		}
+
+		/* re-enable pointer events on canvas */
+		.responsive-overlap canvas {
+			pointer-events: auto;
+		}
+	}
+
+	/* additional Safari-specific fixes */
+	@supports (-webkit-appearance: none) {
+		@media (max-width: 767px) {
+			.responsive-overlap {
+				/* Safari mobile viewport fix */
+				height: 100svh; /* use small viewport height if supported */
+			}
+		}
+	}
+
+	/* fallback for older Safari versions */
+	@supports not (height: 100svh) {
+		@media (max-width: 767px) {
+			.responsive-overlap {
+				height: calc(100vh - env(safe-area-inset-bottom, 0px));
+			}
 		}
 	}
 </style>
