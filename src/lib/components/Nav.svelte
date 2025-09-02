@@ -101,11 +101,11 @@
 				onclick={goBackToOverview}
 				class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors"
 			>
-				{isNarrowScreen ? '← works' : '← selected works'}
+				← selected works
 			</button>
 		{:else if page.url.pathname === '/rooms' || page.url.pathname === '/untiled'}
 			<a href="/works" class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors">
-				{isNarrowScreen ? '← works' : '← selected works'}
+				← selected works
 			</a>
 		{:else}
 			<a
@@ -114,7 +114,7 @@
 					? 'text-[rgb(0,0,255)]'
 					: 'text-black hover:text-[rgb(0,0,255)]'} ml-4"
 			>
-				{isNarrowScreen ? 'works' : 'selected works'}
+				selected works
 			</a>
 		{/if}
 		<div class="mx-2">|</div>
