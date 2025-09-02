@@ -67,7 +67,7 @@
 		<!-- p5 sketch container -->
 		<div
 			id="blob-component-container"
-			class="responsive-overlap relative -mt-[70%] h-[100vh] w-screen overflow-hidden md:-mt-[20vh] md:ml-0 md:aspect-square md:w-full"
+			class="responsive-overlap relative md:-mt-[20vh] md:aspect-square md:w-full"
 		></div>
 
 		<div class="my-5 md:hidden"></div>
@@ -85,7 +85,7 @@
 		}
 	}
 
-	/* mobile styles with Safari-specific fixes */
+	/* mobile styles with Safari-specific fixes for Blob canvas - can't get this to work with tailwind only */
 	@media (max-width: 767px) {
 		.responsive-overlap {
 			/* use fixed positioning to escape scroll containers */
@@ -100,30 +100,6 @@
 			overflow: hidden;
 			z-index: 5; /* below nav but above content */
 			pointer-events: none; /* allow scrolling through */
-		}
-
-		/* re-enable pointer events on canvas */
-		.responsive-overlap canvas {
-			pointer-events: auto;
-		}
-	}
-
-	/* additional Safari-specific fixes */
-	@supports (-webkit-appearance: none) {
-		@media (max-width: 767px) {
-			.responsive-overlap {
-				/* Safari mobile viewport fix */
-				height: 100svh; /* use small viewport height if supported */
-			}
-		}
-	}
-
-	/* fallback for older Safari versions */
-	@supports not (height: 100svh) {
-		@media (max-width: 767px) {
-			.responsive-overlap {
-				height: calc(100vh - env(safe-area-inset-bottom, 0px));
-			}
 		}
 	}
 </style>
