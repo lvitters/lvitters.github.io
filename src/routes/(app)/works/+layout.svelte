@@ -38,7 +38,6 @@
 	let isWorkDetail = $derived(currentRoute !== 'works' && currentRoute !== '');
 
 	// on mobile, /works should show overview, individual routes show detail
-	let showMobileOverview = $derived(mobile.current && currentRoute === 'works');
 	let showMobileDetail = $derived(mobile.current && isWorkDetail);
 
 	// get current selected work (for highlighting in overview)

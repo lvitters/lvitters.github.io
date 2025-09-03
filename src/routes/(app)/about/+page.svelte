@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { mobile } from '$lib/utils/mobile.svelte';
 
-	let pageVisible = $state(false);
-	// mobile.current is automatically reactive - no local state needed!
-
 	// page transition effect
+	let pageVisible = $state(false);
 	$effect(() => {
 		setTimeout(() => {
 			pageVisible = true;

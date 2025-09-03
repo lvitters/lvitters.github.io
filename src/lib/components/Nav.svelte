@@ -3,10 +3,10 @@
 	import { page } from '$app/state';
 	import { mobile } from '$lib/utils/mobile.svelte';
 
+	// what is this syntax?
 	interface Props {
 		centered?: boolean;
 	}
-
 	let { centered = false }: Props = $props();
 
 	// use global mobile state - automatically reactive!
