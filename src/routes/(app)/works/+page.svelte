@@ -317,15 +317,21 @@
 			</div>
 			<div class="mb-1">
 				<button
-					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
+					class="relative m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('rayarray-section')}
 					aria-label="View RAYARRAY project details"
 				>
-					<enhanced:img
-						src={rayarrayImages[currentRayarrayImageIndex]}
-						alt="RAYARRAY preview"
-						class="h-auto w-full"
-					/>
+					{#each rayarrayImages as image, index}
+						<enhanced:img
+							src={image}
+							alt="RAYARRAY preview"
+							class="h-auto w-full {index === currentRayarrayImageIndex
+								? 'opacity-100'
+								: 'opacity-0'} {index === 0
+								? 'relative'
+								: 'absolute inset-0'}"
+						/>
+					{/each}
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
@@ -400,15 +406,21 @@
 			</div>
 			<div class="mb-1">
 				<button
-					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
+					class="relative m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
 					onclick={() => scrollToSection('ein-hauch-von-tull-section')}
 					aria-label="View Ein Hauch von Tüll project details"
 				>
-					<enhanced:img
-						src={tullImages[currentTullImageIndex]}
-						alt="Ein Hauch Von Tuell preview"
-						class="h-auto w-full"
-					/>
+					{#each tullImages as image, index}
+						<enhanced:img
+							src={image}
+							alt="Ein Hauch Von Tuell preview"
+							class="h-auto w-full {index === currentTullImageIndex
+								? 'opacity-100'
+								: 'opacity-0'} {index === 0
+								? 'relative'
+								: 'absolute inset-0'}"
+						/>
+					{/each}
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"

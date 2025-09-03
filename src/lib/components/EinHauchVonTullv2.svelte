@@ -69,8 +69,15 @@
 
 		<div class="my-5"></div>
 
-		<figure class="m-0 p-0">
-			<enhanced:img src={cyclingImages[cyclingImagesIndex]} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+		<figure class="m-0 p-0 relative">
+			{#each cyclingImages as image, index}
+				<enhanced:img
+					src={image}
+					alt="Ein Hauch Von Tüll"
+					class="block w-full {index === cyclingImagesIndex ? 'opacity-100' : 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
+					loading="lazy"
+				/>
+			{/each}
 		</figure>
 
 		<div class="my-5"></div>

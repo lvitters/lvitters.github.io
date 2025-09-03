@@ -20,12 +20,7 @@
 		return () => clearInterval(imageInterval);
 	});
 
-	const cyclingImages = [
-		UntiledLarge1,
-		UntiledLarge2,
-		UntiledLarge3,
-		UntiledLarge4
-	];
+	const cyclingImages = [UntiledLarge1, UntiledLarge2, UntiledLarge3, UntiledLarge4];
 
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
@@ -117,11 +112,21 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={Untiled1} alt="untiled" class="block h-auto max-h-screen w-auto" loading="lazy" />
+				<enhanced:img
+					src={Untiled1}
+					alt="untiled"
+					class="block h-auto max-h-screen w-auto"
+					loading="lazy"
+				/>
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={Untiled5} alt="untiled" class="block h-auto max-h-screen w-auto" loading="lazy" />
+				<enhanced:img
+					src={Untiled5}
+					alt="untiled"
+					class="block h-auto max-h-screen w-auto"
+					loading="lazy"
+				/>
 			</figure>
 		</div>
 
@@ -134,17 +139,26 @@
 		<div class="my-5"></div>
 
 		<div class="flex flex-col gap-4 md:flex-row">
-			<figure class="m-0 flex p-0">
-				<enhanced:img
-					src={cyclingImages[cyclingImagesIndex]}
-					alt="untiled large"
-					class="block h-auto max-h-screen w-auto"
-					loading="lazy"
-				/>
+			<figure class="relative m-0 flex p-0">
+				{#each cyclingImages as image, index}
+					<enhanced:img
+						src={image}
+						alt="untiled large"
+						class="block h-auto max-h-screen w-auto {index === cyclingImagesIndex
+							? 'opacity-100'
+							: 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
+						loading="lazy"
+					/>
+				{/each}
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={Untiled3} alt="untiled" class="block h-auto max-h-screen w-auto" loading="lazy" />
+				<enhanced:img
+					src={Untiled3}
+					alt="untiled"
+					class="block h-auto max-h-screen w-auto"
+					loading="lazy"
+				/>
 			</figure>
 		</div>
 

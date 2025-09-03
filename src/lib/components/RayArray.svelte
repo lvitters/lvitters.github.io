@@ -104,8 +104,17 @@
 
 		<div class="my-5"></div>
 
-		<figure class="m-0 p-0">
-			<enhanced:img src={cyclingImages[cyclingImagesIndex]} alt="RAYARRAY" class="block w-full" loading="lazy" />
+		<figure class="relative m-0 p-0">
+			{#each cyclingImages as image, index}
+				<enhanced:img
+					src={image}
+					alt="RAYARRAY"
+					class="block w-full {index === cyclingImagesIndex
+						? 'opacity-100'
+						: 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
+					loading="lazy"
+				/>
+			{/each}
 		</figure>
 
 		<div class="my-5"></div>
