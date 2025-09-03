@@ -1,11 +1,12 @@
 <script>
+	import ArchiveScreen from '$lib/assets/media/archive/angrezi_archive_screen.png';
 </script>
 
 <svelte:head>
 	<meta name="description" content="Radio Angrezi Archive" />
 </svelte:head>
 
-<main class="font-consolas m-0 h-screen bg-[rgb(255,255,0)] px-6 pt-12 pb-5 text-black">
+<main class="font-consolas m-0 min-h-screen bg-[rgb(255,255,0)] px-6 pt-12 pb-5 text-black">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
@@ -46,6 +47,19 @@
 			and guests. It aims to rise questions, develop new conditions, shapes and formats, to perform
 			and to broadcast collectively or individually, to listen, to observe and to discuss.
 		</p>
+
+		<div class="my-5"></div>
+
+		<figure class="m-0 p-0">
+			<a href="https://archive.radioangrezi.de">
+				<img
+					src={ArchiveScreen}
+					alt="Angrezi Archive Screenshot"
+					class="block w-full"
+					loading="lazy"
+				/></a
+			>
+		</figure>
 
 		<div class="my-5"></div>
 	</article>
