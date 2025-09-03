@@ -9,7 +9,7 @@
 
 	let { centered = false }: Props = $props();
 
-	// Use global mobile state - automatically reactive!
+	// use global mobile state - automatically reactive!
 	let isInDetailView = $state(false);
 	let isVisible = $state(false);
 
@@ -36,14 +36,9 @@
 		}
 	});
 
-	// function to go back to overview
-	function goBackToOverview() {
-		window.dispatchEvent(new CustomEvent('navigateToWork(selectedWork)'));
-	}
-
+	// show nav after layout is set
 	$effect(() => {
 		if (browser) {
-			// Show nav after layout is set
 			setTimeout(() => {
 				isVisible = true;
 			}, 10);
@@ -53,8 +48,8 @@
 	// determine if we should use mobile centering or desktop left-column centering
 	let shouldCenterOnScreen = $derived(
 		mobile.current ||
-			page.url.pathname === '/rooms/sketch' ||
-			page.url.pathname === '/untiled/sketch'
+			page.url.pathname === '/available-rooms-sketch' ||
+			page.url.pathname === '/untiled-sketch'
 	);
 
 	// nav-specific breakpoint for smaller text (1200px)
@@ -67,7 +62,7 @@
 			};
 
 			window.addEventListener('resize', updateNarrowScreen);
-			updateNarrowScreen(); // Set initial value
+			updateNarrowScreen(); // set initial value
 
 			return () => {
 				window.removeEventListener('resize', updateNarrowScreen);
@@ -98,14 +93,7 @@
 		>
 			Lucca Vitters
 		</a>
-		{#if page.url.pathname.startsWith('/works') && isInDetailView}
-			<button
-				onclick={goBackToOverview}
-				class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors"
-			>
-				← selected works
-			</button>
-		{:else if page.url.pathname === '/rooms/sketch' || page.url.pathname === '/untiled/sketch'}
+		{#if (page.url.pathname.startsWith('/works') && isInDetailView) || page.url.pathname === '/available-rooms-sketch' || page.url.pathname === '/untiled-sketch'}
 			<a href="/works" class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors">
 				← selected works
 			</a>

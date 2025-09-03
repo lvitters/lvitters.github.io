@@ -107,26 +107,6 @@
 		goto(`/works/${workName}`);
 	}
 
-	// go back from single component to works overview (mobile)
-	function goBackToOverview() {
-		goto('/works');
-	}
-
-	// listen for back navigation from nav component
-	$effect(() => {
-		if (browser) {
-			const handleGoBack = () => {
-				goBackToOverview();
-			};
-
-			window.addEventListener('goBackToOverview', handleGoBack);
-
-			return () => {
-				window.removeEventListener('goBackToOverview', handleGoBack);
-			};
-		}
-	});
-
 	// load untiled preview sketch
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
@@ -216,8 +196,8 @@
 				<button
 					class="m-0 box-border flex h-[60px] w-full cursor-pointer flex-row items-center justify-center bg-[rgb(255,255,0)] p-0 outline hover:text-[#0000ff] active:text-[#ff69b4]"
 					style="box-shadow: 5px 5px;"
-					onclick={() => navigateToWork('archive')}
-					aria-label="View Archive project details"
+					onclick={() => navigateToWork('angrezi-archive')}
+					aria-label="View Angrezi Archive project details"
 				>
 					<svg
 						class="h-10 w-auto p-0 hover:fill-[#0000ff]"
@@ -284,7 +264,7 @@
 				</button>
 				<button
 					class="mt-1 cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
-					onclick={() => navigateToWork('archive')}
+					onclick={() => navigateToWork('angrezi-archive')}
 				>
 					(2025)
 				</button>

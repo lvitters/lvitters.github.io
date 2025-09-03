@@ -80,7 +80,7 @@
 		<div class="my-5"></div>
 
 		<p class="mb-1 text-center">
-			<a href="/untiled/sketch" class="text-[rgb(255,0,137)] underline hover:text-[rgb(137,0,255)]"
+			<a href="/untiled-sketch" class="text-[rgb(255,0,137)] underline hover:text-[rgb(137,0,255)]"
 				>Enter here</a
 			> (might be slow on your device)
 		</p>

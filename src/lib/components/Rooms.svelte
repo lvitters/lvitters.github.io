@@ -19,7 +19,9 @@
 		</div>
 
 		<p class="mb-1 text-center">
-			<a href="/rooms/sketch" class="text-[rgb(0,0,255)] underline hover:text-[rgb(255,0,0)]">Enter here</a
+			<a
+				href="/available-rooms-sketch"
+				class="text-[rgb(0,0,255)] underline hover:text-[rgb(255,0,0)]">Enter here</a
 			>
 			(drag to move camera | scroll/pinch to zoom)
 		</p>
@@ -35,7 +37,12 @@
 		<div class="my-5"></div>
 
 		<figure class="mx-0 my-10">
-			<enhanced:img src={RoomsFull} alt="rooms" class="block w-full md:mx-auto md:w-3/4" loading="lazy" />
+			<enhanced:img
+				src={RoomsFull}
+				alt="rooms"
+				class="block w-full md:mx-auto md:w-3/4"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
