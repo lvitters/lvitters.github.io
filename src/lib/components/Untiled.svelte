@@ -129,6 +129,10 @@
 		<div class="my-5"></div>
 
 		<div class="flex flex-col gap-4 md:flex-row">
+			<figure class="m-0 flex p-0">
+				<enhanced:img src={Untiled3} alt="untiled" class="" loading="lazy" />
+			</figure>
+
 			<figure class="relative m-0 flex p-0">
 				{#each cyclingImages as image, index}
 					<enhanced:img
@@ -140,10 +144,6 @@
 						loading="lazy"
 					/>
 				{/each}
-			</figure>
-
-			<figure class="m-0 flex p-0">
-				<enhanced:img src={Untiled3} alt="untiled" class="" loading="lazy" />
 			</figure>
 		</div>
 
