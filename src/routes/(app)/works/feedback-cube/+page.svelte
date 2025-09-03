@@ -105,7 +105,7 @@
 				muted
 				autoplay
 				loop
-				preload="metadata"
+				preload="auto"
 			>
 				<source src={FeedbackCubeReel} type="video/webm" />
 				<source src={FeedbackCubeReelMP4} type="video/mp4" />

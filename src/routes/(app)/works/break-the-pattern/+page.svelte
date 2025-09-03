@@ -104,7 +104,7 @@
 				muted
 				autoplay
 				loop
-				preload="metadata"
+				preload="auto"
 			>
 				<source src={BreakThePatternVideo} type="video/webm" />
 				<source src={BreakThePatternVideoMP4} type="video/mp4" />
