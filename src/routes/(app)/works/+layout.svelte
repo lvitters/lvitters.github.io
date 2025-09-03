@@ -38,9 +38,6 @@
 	// on mobile, /works should show overview, individual routes show detail
 	let showMobileDetail = $derived(mobile.current && isWorkDetail);
 
-	// get current selected work (for highlighting in overview)
-	let selectedWork = $derived(isWorkDetail ? currentRoute : 'rauschen'); // default to rauschen
-
 	// setup cycling images
 	$effect(() => {
 		// cycle through images every 3 seconds

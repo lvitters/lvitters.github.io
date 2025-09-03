@@ -114,17 +114,19 @@
 		{:else}
 			<a
 				href="/works"
-				class="cursor-pointer underline transition-colors {page.url.pathname.startsWith('/works')
+				class="ml-4 cursor-pointer underline transition-colors {page.url.pathname.startsWith(
+					'/works'
+				)
 					? 'text-[rgb(0,0,255)]'
-					: 'text-black hover:text-[rgb(0,0,255)]'} ml-4"
+					: 'text-black hover:text-[rgb(0,0,255)]'} "
 			>
 				selected works
 			</a>
 		{/if}
-		<div class="mx-2">|</div>
+		<div class="mx-0">|</div>
 		<a
 			href="/about"
-			class="cursor-pointer underline transition-colors {page.url.pathname === '/about'
+			class="ml-2 cursor-pointer underline transition-colors {page.url.pathname === '/about'
 				? 'text-[rgb(0,0,255)]'
 				: 'text-black hover:text-[rgb(0,0,255)]'}"
 		>
