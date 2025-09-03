@@ -91,13 +91,8 @@
 		<div class="my-5"></div>
 
 		<div class="flex flex-col gap-4 md:flex-row">
-			<figure class="m-0 flex p-0">
-				<enhanced:img src={Rauschen3} alt="RAUSCHEN" class="block h-auto max-h-screen w-auto" loading="lazy" />
-			</figure>
-
-			<figure class="m-0 flex p-0">
-				<enhanced:img src={Rauschen4} alt="RAUSCHEN" class="block h-auto max-h-screen w-auto" loading="lazy" />
-			</figure>
+			<enhanced:img src={Rauschen3} alt="RAUSCHEN" class="block" loading="lazy" />
+			<enhanced:img src={Rauschen4} alt="RAUSCHEN" class="block" loading="lazy" />
 		</div>
 
 		<div class="my-5"></div>

@@ -112,21 +112,11 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<enhanced:img
-					src={Untiled1}
-					alt="untiled"
-					class="block h-auto max-h-screen w-auto"
-					loading="lazy"
-				/>
+				<enhanced:img src={Untiled1} alt="untiled" class="" loading="lazy" />
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img
-					src={Untiled5}
-					alt="untiled"
-					class="block h-auto max-h-screen w-auto"
-					loading="lazy"
-				/>
+				<enhanced:img src={Untiled5} alt="untiled" class="" loading="lazy" />
 			</figure>
 		</div>
 
@@ -144,21 +134,16 @@
 					<enhanced:img
 						src={image}
 						alt="untiled large"
-						class="block h-auto max-h-screen w-auto {index === cyclingImagesIndex
-							? 'opacity-100'
-							: 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
+						class=" {index === cyclingImagesIndex ? 'opacity-100' : 'opacity-0'} {index === 0
+							? 'relative'
+							: 'absolute inset-0'}"
 						loading="lazy"
 					/>
 				{/each}
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img
-					src={Untiled3}
-					alt="untiled"
-					class="block h-auto max-h-screen w-auto"
-					loading="lazy"
-				/>
+				<enhanced:img src={Untiled3} alt="untiled" class="" loading="lazy" />
 			</figure>
 		</div>
 

@@ -87,21 +87,11 @@
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<enhanced:img
-					src={FeedbackCube3}
-					alt="feedback_cube"
-					class="block h-auto max-h-screen w-auto"
-					loading="lazy"
-				/>
+				<enhanced:img src={FeedbackCube3} alt="feedback_cube" class="block" loading="lazy" />
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img
-					src={FeedbackCube6}
-					alt="feedback_cube"
-					class="block h-auto max-h-screen w-auto"
-					loading="lazy"
-				/>
+				<enhanced:img src={FeedbackCube6} alt="feedback_cube" class="block" loading="lazy" />
 			</figure>
 		</div>
 
