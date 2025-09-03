@@ -90,6 +90,16 @@
 		}
 	});
 
+	// reset scroll position when route changes
+	$effect(() => {
+		if (browser && currentRoute) {
+			const rightPanel = document.querySelector('.relative.z-10.overflow-y-auto');
+			if (rightPanel) {
+				rightPanel.scrollTop = 0;
+			}
+		}
+	});
+
 	// define cycling images
 	const rayarrayImages = [
 		RayArrayPreview1,

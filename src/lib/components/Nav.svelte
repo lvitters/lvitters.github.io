@@ -93,8 +93,22 @@
 		>
 			Lucca Vitters
 		</a>
-		{#if (page.url.pathname.startsWith('/works') && isInDetailView) || page.url.pathname === '/available-rooms-sketch' || page.url.pathname === '/untiled-sketch'}
+		{#if page.url.pathname.startsWith('/works') && isInDetailView}
 			<a href="/works" class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors">
+				← selected works
+			</a>
+		{:else if page.url.pathname === '/available-rooms-sketch'}
+			<a
+				href="/works/available-rooms"
+				class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors"
+			>
+				← selected works
+			</a>
+		{:else if page.url.pathname === '/untiled-sketch'}
+			<a
+				href="/works/untiled"
+				class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors"
+			>
 				← selected works
 			</a>
 		{:else}
