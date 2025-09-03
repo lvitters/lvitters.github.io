@@ -19,7 +19,7 @@
 		</div>
 
 		<p class="mb-1 text-center">
-			<a href="/rooms" class="text-[rgb(0,0,255)] underline hover:text-[rgb(255,0,0)]">Enter here</a
+			<a href="/rooms/sketch" class="text-[rgb(0,0,255)] underline hover:text-[rgb(255,0,0)]">Enter here</a
 			>
 			(drag to move camera | scroll/pinch to zoom)
 		</p>

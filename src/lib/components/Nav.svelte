@@ -31,14 +31,14 @@
 
 	// reset detail view when not on works page
 	$effect(() => {
-		if (page.url.pathname !== '/works') {
+		if (!page.url.pathname.startsWith('/works')) {
 			isInDetailView = false;
 		}
 	});
 
 	// function to go back to overview
 	function goBackToOverview() {
-		window.dispatchEvent(new CustomEvent('goBackToOverview'));
+		window.dispatchEvent(new CustomEvent('navigateToWork(selectedWork)'));
 	}
 
 	$effect(() => {
@@ -52,7 +52,9 @@
 
 	// determine if we should use mobile centering or desktop left-column centering
 	let shouldCenterOnScreen = $derived(
-		mobile.current || page.url.pathname === '/rooms' || page.url.pathname === '/untiled'
+		mobile.current ||
+			page.url.pathname === '/rooms/sketch' ||
+			page.url.pathname === '/untiled/sketch'
 	);
 
 	// nav-specific breakpoint for smaller text (1200px)
@@ -96,21 +98,21 @@
 		>
 			Lucca Vitters
 		</a>
-		{#if page.url.pathname === '/works' && isInDetailView}
+		{#if page.url.pathname.startsWith('/works') && isInDetailView}
 			<button
 				onclick={goBackToOverview}
 				class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors"
 			>
 				← selected works
 			</button>
-		{:else if page.url.pathname === '/rooms' || page.url.pathname === '/untiled'}
+		{:else if page.url.pathname === '/rooms/sketch' || page.url.pathname === '/untiled/sketch'}
 			<a href="/works" class="ml-4 cursor-pointer text-[rgb(0,0,255)] underline transition-colors">
 				← selected works
 			</a>
 		{:else}
 			<a
 				href="/works"
-				class="cursor-pointer underline transition-colors {page.url.pathname === '/works'
+				class="cursor-pointer underline transition-colors {page.url.pathname.startsWith('/works')
 					? 'text-[rgb(0,0,255)]'
 					: 'text-black hover:text-[rgb(0,0,255)]'} ml-4"
 			>
