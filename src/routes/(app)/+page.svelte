@@ -3,18 +3,6 @@
 	import { mobile } from '$lib/utils/mobile.svelte';
 	import { onMount } from 'svelte';
 
-	let pageVisible = $state(false);
-
-	// setup page transition
-	$effect(() => {
-		if (browser) {
-			// small delay to ensure smooth transition
-			setTimeout(() => {
-				pageVisible = true;
-			}, 100);
-		}
-	});
-
 	// load blob sketch
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
@@ -89,12 +77,8 @@
 	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 
-<!-- wrap content in a transition container -->
-<div
-	class="transition-all duration-700 ease-out {pageVisible
-		? 'translate-y-0 opacity-100'
-		: 'translate-y-0 opacity-0'}"
->
+<!-- content container -->
+<div>
 	{#if mobile.current}
 		<!-- mobile layout - centered p5 sketch -->
 		<main class="relative flex h-screen w-full items-center justify-center overflow-hidden">

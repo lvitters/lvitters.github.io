@@ -1,14 +1,6 @@
 <script lang="ts">
 	import { mobile } from '$lib/utils/mobile.svelte';
 
-	// page transition effect
-	let pageVisible = $state(false);
-	$effect(() => {
-		setTimeout(() => {
-			pageVisible = true;
-		}, 50);
-	});
-
 	// dynamic color
 	let currentHue = $state(Math.random() * 360);
 	let color = $derived(`hsl(${currentHue}, 90%, 70%)`);
@@ -30,10 +22,8 @@
 <div>
 	<!-- mobile: full screen white background, Desktop: colored background with white content area -->
 	<main
-		class="relative h-screen w-screen overflow-hidden text-[17px] transition-all duration-1000 ease-in-out {mobile.current
-			? ''
-			: 'flex'}"
-		style="background: {pageVisible ? 'white' : 'white'}; opacity: {pageVisible ? 1 : 0};"
+		class="relative h-screen w-screen overflow-hidden text-[17px] {mobile.current ? '' : 'flex'}"
+		style="background: white;"
 	>
 		<!-- left spacer - desktop only -->
 		<section
@@ -43,9 +33,9 @@
 
 		<!-- main content area -->
 		<section
-			class="flex h-full justify-center overflow-y-auto bg-white transition-all duration-700 ease-out {mobile.current
+			class="flex h-full justify-center overflow-y-auto bg-white {mobile.current
 				? 'w-full'
-				: 'w-2/3'} {pageVisible ? 'opacity-100' : 'opacity-0'}"
+				: 'w-2/3'}"
 		>
 			<div
 				class="font-consolas m-0 flex min-h-full w-full flex-col bg-white pt-12 pb-5 text-black {mobile.current

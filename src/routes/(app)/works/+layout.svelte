@@ -25,13 +25,11 @@
 	import ImageBlender1 from '$lib/assets/media/image_blender/image_blender_1.webp';
 
 	let { children } = $props();
-	let pageVisible = $state(false);
 	let currentRayarrayImageIndex = $state(0);
 	let currentTullImageIndex = $state(0);
 
 	// mobile state
 	let showDetailView = $state(false);
-	let detailViewVisible = $state(false);
 
 	// reactive current route
 	let currentRoute = $derived($page.url.pathname.split('/').pop() || '');
@@ -43,13 +41,8 @@
 	// get current selected work (for highlighting in overview)
 	let selectedWork = $derived(isWorkDetail ? currentRoute : 'rauschen'); // default to rauschen
 
-	// setup cycling images and page visibility
+	// setup cycling images
 	$effect(() => {
-		// small delay to ensure smooth transition and proper layout
-		setTimeout(() => {
-			pageVisible = true;
-		}, 50);
-
 		// cycle through images every 3 seconds
 		const rayarrayInterval = setInterval(() => {
 			currentRayarrayImageIndex = (currentRayarrayImageIndex + 1) % 5; // 5 preview images for RAYARRAY
@@ -70,14 +63,6 @@
 	$effect(() => {
 		if (mobile.current) {
 			showDetailView = showMobileDetail;
-			if (showMobileDetail) {
-				detailViewVisible = false;
-				setTimeout(() => {
-					detailViewVisible = true;
-				}, 50);
-			} else {
-				detailViewVisible = false;
-			}
 
 			// notify nav component about detail view state
 			if (browser) {
@@ -171,12 +156,8 @@
 </svelte:head>
 
 <main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[17px]">
-	<!-- wrap content in a transition container -->
-	<div
-		class="flex h-full transition-opacity duration-700 ease-out {pageVisible
-			? 'opacity-100'
-			: 'opacity-0'}"
-	>
+	<!-- content container -->
+	<div class="flex h-full">
 		<!-- left 1/3 - overview section -->
 		<section
 			class="scrollbar-none relative z-20 h-full overflow-y-auto pt-20 text-left
@@ -472,14 +453,7 @@
 					: 'hidden'
 				: 'h-full w-2/3 pl-5 md:w-[66.67vw]'}"
 		>
-			<div
-				class={mobile.current && showMobileDetail
-					? 'transition-all duration-700 ease-out ' +
-						(detailViewVisible ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-0')
-					: ''}
-			>
-				{@render children()}
-			</div>
+			{@render children()}
 		</section>
 	</div>
 </main>
