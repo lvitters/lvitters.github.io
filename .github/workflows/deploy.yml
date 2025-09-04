@@ -27,9 +27,14 @@ jobs:
 
       - name: Deploy to main branch
         run: |
+          cp -r build /tmp/build-output
+
           git config user.name github-actions
           git config user.email github-actions@github.com
           git checkout main
-          git add build/** -f
+
+          cp -r /tmp/build-output/* .
+
+          git add . -f
           git commit -m "Deploy: ${{ github.sha }}"
           git push
