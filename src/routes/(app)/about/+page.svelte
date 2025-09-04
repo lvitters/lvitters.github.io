@@ -77,7 +77,7 @@
 						Hey! I am a generative media artist based in Bremen, Germany. My work involves creating
 						possibility spaces and emergent choreographies through code. With my background in
 						computer science, I try to find ways of bringing my virtual entities to screens, to the
-						web, to real world surfaces, and to physical installations. test
+						web, to real world surfaces, and to physical installations. test test
 						<br />
 						<br />
 						Here are some exhibitions I have been part of:
