@@ -4,9 +4,8 @@
 	import { onMount } from 'svelte';
 
 	onMount(() => {
-		// on desktop, if someone lands on /works, redirect to /works/rauschen for consistency
-		// this preserves the URL structure while showing the same content
-		if (!mobile.current) {
+		// on desktop (lg and above), redirect to /works/rauschen for consistency
+		if (window.innerWidth >= 1024) {
 			goto('/works/rauschen', { replaceState: true });
 		}
 	});

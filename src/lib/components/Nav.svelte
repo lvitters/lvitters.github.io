@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
-	import { mobile } from '$lib/utils/mobile.svelte';
 
 	// what is this syntax?
 	interface Props {
@@ -45,43 +44,23 @@
 		}
 	});
 
-	// determine if we should use mobile centering or desktop left-column centering
-	let shouldCenterOnScreen = $derived(
-		mobile.current ||
-			page.url.pathname === '/available-rooms-sketch' ||
-			page.url.pathname === '/untiled-sketch'
+	// determine if we should center on special sketch pages
+	let isSketchPage = $derived(
+		page.url.pathname === '/available-rooms-sketch' || page.url.pathname === '/untiled-sketch'
 	);
-
-	// nav-specific breakpoint for smaller text (1200px)
-	let isNarrowScreen = $state(browser ? window.innerWidth < 1200 : false);
-
-	$effect(() => {
-		if (browser) {
-			const updateNarrowScreen = () => {
-				isNarrowScreen = window.innerWidth < 1200;
-			};
-
-			window.addEventListener('resize', updateNarrowScreen);
-			updateNarrowScreen(); // set initial value
-
-			return () => {
-				window.removeEventListener('resize', updateNarrowScreen);
-			};
-		}
-	});
 </script>
 
+<!-- using tailwind xl breakpoint (1280px) for text sizing -->
 <nav
-	class={`font-consolas absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-2 pt-0.5 whitespace-nowrap backdrop-blur-sm ${
-		isNarrowScreen ? 'text-[14px]' : 'text-[17px]'
-	} ${!mobile.current ? 'transition-all duration-500 ease-in-out' : ''} ${
-		centered && !mobile.current
-			? 'top-1/2 -translate-y-1/2 flex-col items-start justify-center'
+	class={`font-consolas absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-2 pt-0.5 text-[14px] whitespace-nowrap backdrop-blur-sm lg:transition-all lg:duration-500 lg:ease-in-out xl:text-[17px] ${
+		centered
+			? 'max-lg:top-8 max-lg:flex-row max-lg:items-center lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:items-start lg:justify-center'
 			: 'top-8 flex-row items-center'
-	} ${isVisible ? 'opacity-100' : 'opacity-0'}`}
-	style={shouldCenterOnScreen
-		? 'left: 50%; transform: translateX(-50%);'
-		: 'left: calc((33.33vw - 32px - 16px) / 2 + 32px); transform: translateX(-50%);'}
+	} ${isVisible ? 'opacity-100' : 'opacity-0'} ${
+		isSketchPage
+			? 'left-1/2 -translate-x-1/2'
+			: 'max-lg:left-1/2 max-lg:-translate-x-1/2 lg:[left:calc((33.33vw-32px-16px)/2+32px)] lg:[transform:translateX(-50%)]'
+	}`}
 	ontouchstart={(e) => e.stopPropagation()}
 >
 	<div class="flex items-center space-x-2">

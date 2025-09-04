@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { mobile } from '$lib/utils/mobile.svelte';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	// import preview images
 	import RauschenPreview from '$lib/assets/media/rauschen/rauschen_preview.png?enhanced';
@@ -32,7 +32,7 @@
 	let showDetailView = $state(false);
 
 	// reactive current route
-	let currentRoute = $derived($page.url.pathname.split('/').pop() || '');
+	let currentRoute = $derived(page.url.pathname.split('/').pop() || '');
 	let isWorkDetail = $derived(currentRoute !== 'works' && currentRoute !== '');
 
 	// on mobile, /works should show overview, individual routes show detail
@@ -118,10 +118,9 @@
 
 				if (window.mountUntiledPreviewSketch) {
 					const container = document.getElementById('untiled-preview-container');
-					if (container) {
-						// on mobile, the sketch will handle dimension fallbacks
-						// so we can mount even if dimensions aren't immediately available
-						if (mobile.current || (container.clientWidth > 0 && container.offsetHeight > 0)) {
+					if (container && container.offsetParent !== null) {
+						// only mount if container is visible (desktop)
+						if (container.clientWidth > 0 && container.offsetHeight > 0) {
 							cleanup = window.mountUntiledPreviewSketch('untiled-preview-container');
 						} else {
 							// container not ready yet, try again
@@ -157,12 +156,9 @@
 	<div class="flex h-full">
 		<!-- left 1/3 - overview section -->
 		<section
-			class="scrollbar-none relative z-20 h-full overflow-y-auto pt-20 text-left
-			{mobile.current
-				? showMobileDetail
-					? 'hidden'
-					: 'w-full px-10'
-				: 'w-1/3 overflow-x-visible pr-4 pl-8 md:w-[33.33vw]'}"
+			class="scrollbar-none relative z-20 h-full w-full overflow-y-auto px-10 pt-20 text-left lg:w-1/3 lg:overflow-x-visible lg:pr-4 lg:pl-8 lg:md:w-[33.33vw] {showMobileDetail
+				? 'max-lg:hidden'
+				: ''}"
 		>
 			<div class="mb-1">
 				<button
@@ -318,24 +314,22 @@
 				</button>
 			</div>
 			<div class="mb-1">
-				{#if mobile.current}
-					<button
-						class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80"
-						onclick={() => navigateToWork('untiled')}
-						aria-label="View untiled project details"
-					>
-						<enhanced:img src={UntiledPreview} alt="untiled preview" class="h-auto w-full" />
-					</button>
-				{:else}
-					<!-- p5 sketch container -->
-					<button
-						id="untiled-preview-container"
-						class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0"
-						style="height: 150px; width: 100%; box-sizing: border-box;"
-						aria-label="View untiled project details"
-						onclick={() => navigateToWork('untiled')}
-					></button>
-				{/if}
+				<!-- mobile: show static image -->
+				<button
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80 lg:hidden"
+					onclick={() => navigateToWork('untiled')}
+					aria-label="View untiled project details"
+				>
+					<enhanced:img src={UntiledPreview} alt="untiled preview" class="h-auto w-full" />
+				</button>
+				<!-- desktop: show p5 sketch -->
+				<button
+					id="untiled-preview-container"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 max-lg:hidden"
+					style="height: 150px; width: 100%; box-sizing: border-box;"
+					aria-label="View untiled project details"
+					onclick={() => navigateToWork('untiled')}
+				></button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
 					onclick={() => navigateToWork('untiled')}
@@ -443,12 +437,9 @@
 
 		<!-- right 2/3 - detail section -->
 		<section
-			class="relative z-10 overflow-y-auto text-left
-			{mobile.current
-				? showMobileDetail
-					? 'h-fit min-h-full w-full pt-20'
-					: 'hidden'
-				: 'h-full w-2/3 pl-5 md:w-[66.67vw]'}"
+			class="relative z-10 overflow-y-auto text-left {showMobileDetail
+				? 'h-fit min-h-full w-full pt-20'
+				: 'max-lg:hidden'} lg:h-full lg:w-2/3 lg:pl-5 lg:md:w-[66.67vw]"
 		>
 			{@render children()}
 		</section>

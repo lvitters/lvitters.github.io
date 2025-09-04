@@ -7,11 +7,11 @@
 	// force remount on breakpoint changes by changing remountKey, in order for p5 sketches to remain after breakpoint change
 	let remountKey = $state(0);
 	let currentBreakpoint = $state(
-		browser ? (window.innerWidth >= 1000 ? 'desktop' : 'mobile') : 'desktop'
+		browser ? (window.innerWidth >= 1024 ? 'desktop' : 'mobile') : 'desktop'
 	);
 	if (browser) {
 		const handleResize = () => {
-			const newBreakpoint = window.innerWidth >= 1000 ? 'desktop' : 'mobile';
+			const newBreakpoint = window.innerWidth >= 1024 ? 'desktop' : 'mobile';
 			if (newBreakpoint !== currentBreakpoint) {
 				currentBreakpoint = newBreakpoint;
 				// small delay to let any pending image requests complete
