@@ -16,6 +16,10 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Pull
+        run: |
+          git pull
+
       - name: Build
         run: |
           npm ci
