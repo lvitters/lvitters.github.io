@@ -46,7 +46,7 @@
 <main
 	class="font-consolas m-0 min-h-screen overflow-hidden overflow-x-hidden bg-white px-6 pt-12 pb-5 text-black"
 >
-	<article class="px-5">
+	<article class="px-5 relative z-10 bg-white bg-opacity-90 md:bg-transparent">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">Blob</h1>
@@ -100,7 +100,7 @@
 			max-width: 100vw;
 			margin: 0 !important;
 			overflow: hidden;
-			z-index: 5; /* below nav but above content */
+			z-index: -1; /* behind all content */
 			pointer-events: none; /* allow scrolling through */
 		}
 	}
