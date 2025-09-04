@@ -2,29 +2,29 @@ name: Build and Deploy to Main
 
 on:
   push:
-    branches: [ sveltekit-static-site ]
+    branches: [sveltekit-static-site]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '24'
-        
-    - name: Build
-      run: |
-        npm ci
-        npm run build
-        
-    - name: Deploy to main branch
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add build -f
-        git commit -m "Deploy: ${{ github.sha }}"
-        git subtree push --prefix build origin main --force
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '24'
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to main branch
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add build -f
+          git commit -m "Deploy: ${{ github.sha }}"
+          git subtree push --prefix build origin main
