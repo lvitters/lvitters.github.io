@@ -16,7 +16,7 @@
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
-				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">Image Blender</h1>
+				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">image blender</h1>
 				<div class="mt-1 text-xl text-black">
 					<time class="text-xl">2017</time>
 					<span> | Processing</span>

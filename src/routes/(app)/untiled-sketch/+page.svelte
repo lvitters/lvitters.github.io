@@ -43,7 +43,7 @@
 	<script src="/sketches/untiled/untiled_full.js" defer></script>
 </svelte:head>
 
-<!-- main container that mimics old body styling from former portfolio page -->
+<!-- main container that mimics old body styling from former portfolio page, bg-black so when width calculation is not screen width, a black bar of pixels will be less obvious -->
 <div
 	class="m-0 flex h-screen w-screen touch-none items-center justify-center overflow-hidden bg-black select-none"
 >

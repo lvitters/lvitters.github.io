@@ -427,7 +427,7 @@
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
 					onclick={() => navigateToWork('image-blender')}
 				>
-					Image Blender (2017)
+					image blender (2017)
 				</button>
 			</div>
 
