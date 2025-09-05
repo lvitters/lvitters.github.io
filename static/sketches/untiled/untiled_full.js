@@ -34,7 +34,7 @@
 			var tiles = [];
 			var tileSize;
 			var gap;
-			var tilesPerRow = 24; // full uses 20 tiles per row
+			var tilesPerRow = 24;
 
 			// switch between modes / shapes / blobs
 			var areOverlapping = true;
@@ -159,7 +159,7 @@
 
 				// change strokeWeight globally with noise
 				strT += Math.random() * (0.005 - 0.0005) + 0.0005; //use JS native random function for performance
-				strokeW = p.map(p.noise(strT), 0, 1, -10, tileSize * (2 / 3)); //map from -10 so that it will "stick" to 1 sometimes
+				strokeW = p.map(p.noise(strT), 0, 1, -10, tileSize * 0.6); //map from -10 so that it will "stick" to 1 sometimes
 				if (strokeW <= 2) strokeW = 2;
 
 				// increment globalRotation
@@ -170,7 +170,7 @@
 					var b = tiles[i];
 					b.draw();
 
-					// are any tiles overlapping? (if the scale is over 1 and it is not only circles then they not overlapping); only set areOverlapping to true if it is false for performance
+					// are any tiles overlapping? (if the scale is over 1 and it is not only circles then they are not overlapping); only set areOverlapping to true if it is false for performance
 					if ((b.scale >= 1 || b.state == 1) && areOverlapping == false) areOverlapping = true;
 				}
 			}
@@ -224,6 +224,35 @@
 				}
 			}
 
+			// check if shapes have settled after morphing
+			function areShapesSettled() {
+				// check if most tiles have their morph vertices close to their target vertices
+				var settledCount = 0;
+				var threshold = 0.1; // minimum distance threshold for considering vertices "settled"
+
+				for (var i = 0; i < p.min(tiles.length, 20); i++) {
+					// sample first 20 tiles for performance
+					var tile = tiles[i];
+					var settled = true;
+
+					for (var j = 0; j < p.min(tile.morph.length, 10); j++) {
+						// sample 10 vertices per tile
+						var target = tile.state == 0 ? tile.circle[j] : tile.rect[j];
+						var current = tile.morph[j];
+						var distance = p5.Vector.dist(current, target);
+
+						if (distance > threshold) {
+							settled = false;
+							break;
+						}
+					}
+
+					if (settled) settledCount++;
+				}
+
+				return settledCount > 15; // at least 15 out of 20 sampled tiles should be settled
+			}
+
 			// change between modes and rotation modes after X seconds if some conditions are met
 			function timedEvents() {
 				modeSwitchCounter++;
@@ -269,12 +298,14 @@
 				// (to hide the transition between rotation and no rotation)
 				if (rotationSwitchCounter > nextRotationSwitch * 60) {
 					// console.log("waiting for conditions");
+					// enhanced condition: wait for shapes to fully settle
 					if (
 						tiles.length > 0 &&
 						tiles[0] &&
 						tiles[0].state == 0 &&
 						areMorphing == false &&
-						areBlobbing == false
+						areBlobbing == false &&
+						areShapesSettled()
 					) {
 						// console.log("conditions met");
 						// try to set to rotationMode 1 (not rotating) half of the time because of the tiles in the mapping
@@ -795,10 +826,19 @@
 					this.fillCol = p.color(this.hue, this.sat, fillBrightness, fillAlpha);
 					this.strokeCol = p.color(this.hue, this.sat, strokeBrightness, strokeAlpha);
 
-					// scale
+					// scale with smoother blob transition
 					this.scaleT += Math.random() * 0.005; // use JS native random function for performance
-					if (!this.isBlobbing) this.scale = p.map(p.noise(this.scaleT), 0, 1, 0.3, 2.5);
-					else this.scale = p.map(p.noise(this.scaleT), 0, 1, 0.7, 3); // make blobs bigger for more overlapping
+					var targetMinScale = this.isBlobbing ? 0.7 : 0.3;
+					var targetMaxScale = this.isBlobbing ? 3 : 2.5;
+
+					// lerp the scale ranges themselves to avoid sudden jumps when blob state changes
+					if (!this.minScale) this.minScale = 0.3;
+					if (!this.maxScale) this.maxScale = 2.5;
+
+					this.minScale = p.lerp(this.minScale, targetMinScale, 0.02);
+					this.maxScale = p.lerp(this.maxScale, targetMaxScale, 0.02);
+
+					this.scale = p.map(p.noise(this.scaleT), 0, 1, this.minScale, this.maxScale);
 					this.lerpedScale = p.lerp(this.lerpedScale, this.scale, 0.05); // lerp to scale to mask transition
 
 					// rotation
@@ -839,8 +879,11 @@
 							v2.x += x;
 							v2.y += y;
 						}
-						// lerp to the target
-						v2.lerp(v1, 0.05);
+						// lerp to the target with adaptive speed based on distance
+						var distance = p5.Vector.dist(v2, v1);
+						var adaptiveLerpSpeed = p.map(distance, 0, this.size / 2, 0.08, 0.03); // faster when far, slower when close
+						adaptiveLerpSpeed = p.constrain(adaptiveLerpSpeed, 0.02, 0.1);
+						v2.lerp(v1, adaptiveLerpSpeed);
 					}
 
 					// draw a polygon that makes up all the vertices
@@ -865,11 +908,11 @@
 			}
 		};
 
-		// Create the new p5 instance and store it.
+		// create the new p5 instance and store it.
 		const p5Instance = new p5(sketch, container);
 		p5Instances.set(containerId, p5Instance);
 
-		// **Crucially, return the cleanup function.**
+		// **crucially, return the cleanup function.**
 		return function cleanup() {
 			if (p5Instances.has(containerId)) {
 				const instance = p5Instances.get(containerId);
@@ -879,6 +922,6 @@
 		};
 	}
 
-	// Expose the mount function to the global scope.
+	// expose the mount function to the global scope.
 	window.mountUntiledFullSketch = mountUntiledFullSketch;
 })();
