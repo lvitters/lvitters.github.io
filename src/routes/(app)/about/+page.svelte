@@ -80,170 +80,170 @@
 						web, to real world surfaces, and to physical installations. <br /><br />
 					</p>
 
+					<div class="my-8"></div>
+
+					<p class="text-sm md:text-base">
+						Here are some exhibitions I have been part of:<br />
+					</p>
+
 					<div class="my-5"></div>
 
-					<p class="px-5">Here are some exhibitions I have been part of:<br /></p>
-
-					<div class="my-5"></div>
-
-					<div class="flex">
-						<table class="border-collapse md:text-base">
-							<tbody>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">19.06 + 20.06.25</td>
-									<td class="py-2 pr-3 align-top"
-										><em>Master Exhibition @ Speicher XIa</em><br /><a
-											href="/works/rauschen"
-											class="dynamic-link underline"
-											style="color: {color}">RAUSCHEN</a
-										></td
+					<table class="border-collapse text-sm md:text-base">
+						<tbody>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">19.06 + 20.06.25</td>
+								<td class="py-2 align-top"
+									><em>Master Exhibition @ Speicher XIa</em><br /><a
+										href="/works/rauschen"
+										class="dynamic-link underline"
+										style="color: {color}">RAUSCHEN</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">02.10 - 06.10.24</td>
+								<td class="py-2 align-top"
+									><em>Goldstücke Gelsenkirchen</em><br /><a
+										href="/works/rayarray"
+										class="dynamic-link underline"
+										style="color: {color}">RAYARRAY</a
 									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">02.10 - 06.10.24</td>
-									<td class="py-2 pr-3 align-top"
-										><em>Goldstücke Gelsenkirchen</em><br /><a
-											href="/works/rayarray"
-											class="dynamic-link underline"
-											style="color: {color}">RAYARRAY</a
-										>
-										&
-										<a href="/works/untiled" class="dynamic-link underline" style="color: {color}"
-											>untiled</a
-										></td
+									&
+									<a href="/works/untiled" class="dynamic-link underline" style="color: {color}"
+										>untiled</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">20.09 + 21.09.24</td>
+								<td class="py-2 align-top"
+									><em>Illustratio Kiel</em><br /><a
+										href="/works/rayarray"
+										class="dynamic-link underline"
+										style="color: {color}">RAYARRAY</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">27.04.24</td>
+								<td class="py-2 align-top"
+									><em>SLS x ZfK @ Spedition Bremen</em><br /><a
+										href="/works/ein-hauch-von-tull-v2"
+										class="dynamic-link underline"
+										style="color: {color}">einHauchVonTüllv2.x</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">08.07 + 09.07.23</td>
+								<td class="py-2 align-top"
+									><em>Synesthesia Fest @ HfK Bremen</em><br /><a
+										href="/works/blob"
+										class="dynamic-link underline"
+										style="color: {color}">blob</a
 									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">20.09 + 21.09.24</td>
-									<td class="py-2 pr-3 align-top"
-										><em>Illustratio Kiel</em><br /><a
-											href="/works/rayarray"
-											class="dynamic-link underline"
-											style="color: {color}">RAYARRAY</a
-										></td
+									&
+									<a href="/works/untiled" class="dynamic-link underline" style="color: {color}"
+										>untiled</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">08.07 + 09.07.23</td>
+								<td class="py-2 align-top"
+									><em>Hochschultage @ HfK Bremen</em><br /><a
+										href="/works/rayarray"
+										class="dynamic-link underline"
+										style="color: {color}">RAYARRAY</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">27.05.23</td>
+								<td class="py-2 align-top"
+									><em>RAYVE @ HAG Quartier</em><br /><a
+										href="/works/rayarray"
+										class="dynamic-link underline"
+										style="color: {color}">RAYARRAY</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">05.05 - 10.05.23</td>
+								<td class="py-2 align-top"
+									><em>Iterations @ Speicher XIa</em><br /><a
+										href="/works/rayarray"
+										class="dynamic-link underline"
+										style="color: {color}">RAYARRAY</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">10.03 - 24.03.23</td>
+								<td class="py-2 align-top"
+									><em>Licht | Raum @ HAG Quartier</em><br /><a
+										href="/works/ein-hauch-von-tull-v2#v2-1"
+										class="dynamic-link underline"
+										style="color: {color}">einHauchVonTüllv2.1</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">12.12 - 14.12.22</td>
+								<td class="py-2 align-top"
+									><em>Feeding Entities @ Galerie Flut</em><br /><a
+										href="/works/feedback-cube"
+										class="dynamic-link underline"
+										style="color: {color}">feedback_cube</a
 									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">27.04.24</td>
-									<td class="py-2 pr-3 align-top"
-										><em>SLS x ZfK @ Spedition Bremen</em><br /><a
-											href="/works/ein-hauch-von-tull-v2"
-											class="dynamic-link underline"
-											style="color: {color}">einHauchVonTüllv2.x</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">08.07 + 09.07.23</td>
-									<td class="py-2 pr-4 align-top"
-										><em>Synesthesia Fest @ HfK Bremen</em><br /><a
-											href="/works/blob"
-											class="dynamic-link underline"
-											style="color: {color}">blob</a
-										>
-										&
-										<a href="/works/untiled" class="dynamic-link underline" style="color: {color}"
-											>untiled</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">08.07 + 09.07.23</td>
-									<td class="py-2 pr-4 align-top"
-										><em>Hochschultage @ HfK Bremen</em><br /><a
-											href="/works/rayarray"
-											class="dynamic-link underline"
-											style="color: {color}">RAYARRAY</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">27.05.23</td>
-									<td class="py-2 pr-4 align-top"
-										><em>RAYVE @ HAG Quartier</em><br /><a
-											href="/works/rayarray"
-											class="dynamic-link underline"
-											style="color: {color}">RAYARRAY</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">05.05 - 10.05.23</td>
-									<td class="py-2 pr-4 align-top"
-										><em>Iterations @ Speicher XIa</em><br /><a
-											href="/works/rayarray"
-											class="dynamic-link underline"
-											style="color: {color}">RAYARRAY</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">10.03 - 24.03.23</td>
-									<td class="py-2 pr-4 align-top"
-										><em>Licht | Raum @ HAG Quartier</em><br /><a
-											href="/works/ein-hauch-von-tull-v2#v2-1"
-											class="dynamic-link underline"
-											style="color: {color}">einHauchVonTüllv2.1</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">12.12 - 14.12.22</td>
-									<td class="py-2 pr-3 align-top"
-										><em>Feeding Entities @ Galerie Flut</em><br /><a
-											href="/works/feedback-cube"
-											class="dynamic-link underline"
-											style="color: {color}">feedback_cube</a
-										>
-										&
-										<a href="/works/untiled" class="dynamic-link underline" style="color: {color}"
-											>untiled</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">29.06 - 03.07.22</td>
-									<td class="py-2 pr-3 align-top"
-										><em>Fusion Festival</em><br /><a
-											href="/works/ein-hauch-von-tull-v2"
-											class="dynamic-link underline"
-											style="color: {color}">einHauchVonTüllv2</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">17.09 - 19.09.21</td>
-									<td class="py-2 pr-3 align-top"
-										><em>Plan:et C Gamma Festival</em><br /><a
-											href="/works/ein-hauch-von-tull"
-											class="dynamic-link underline"
-											style="color: {color}">einHauchVonTüll</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">07.08.21</td>
-									<td class="py-2 pr-3 align-top"
-										><em>Irgendwo Bremen</em><br /><a
-											href="/works/ein-hauch-von-tull"
-											class="dynamic-link underline"
-											style="color: {color}">einHauchVonTüll</a
-										></td
-									>
-								</tr>
-								<tr>
-									<td class="px-5 py-2 text-right align-top">2019</td>
-									<td class="py-2 pr-3 align-top"
-										><em>08:15 - Zeit für Musterbrecher @ Bern/Luzern/Zürich</em><br /><a
-											href="/works/break-the-pattern"
-											class="dynamic-link underline"
-											style="color: {color}">Break the Pattern</a
-										></td
-									>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+									&
+									<a href="/works/untiled" class="dynamic-link underline" style="color: {color}"
+										>untiled</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">29.06 - 03.07.22</td>
+								<td class="py-2 align-top"
+									><em>Fusion Festival</em><br /><a
+										href="/works/ein-hauch-von-tull-v2"
+										class="dynamic-link underline"
+										style="color: {color}">einHauchVonTüllv2</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">17.09 - 19.09.21</td>
+								<td class="py-2 align-top"
+									><em>Plan:et C Gamma Festival</em><br /><a
+										href="/works/ein-hauch-von-tull"
+										class="dynamic-link underline"
+										style="color: {color}">einHauchVonTüll</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">07.08.21</td>
+								<td class="py-2 align-top"
+									><em>Irgendwo Bremen</em><br /><a
+										href="/works/ein-hauch-von-tull"
+										class="dynamic-link underline"
+										style="color: {color}">einHauchVonTüll</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">2019</td>
+								<td class="py-2 align-top"
+									><em>08:15 - Zeit für Musterbrecher @ Bern/Luzern/Zürich</em><br /><a
+										href="/works/break-the-pattern"
+										class="dynamic-link underline"
+										style="color: {color}">Break the Pattern</a
+									></td
+								>
+							</tr>
+						</tbody>
+					</table>
 
 					<div class="my-30"></div>
 				</article>
