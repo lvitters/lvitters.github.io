@@ -45,7 +45,7 @@
 
 <!-- main container that mimics old body styling from former portfolio page -->
 <div
-	class="m-0 flex h-screen w-screen touch-none items-center justify-center overflow-hidden select-none"
+	class="m-0 flex h-screen w-screen touch-none items-center justify-center overflow-hidden bg-black select-none"
 >
 	<!-- p5 sketch container -->
 	<div id="untiled-full-container" class="h-full w-full"></div>
