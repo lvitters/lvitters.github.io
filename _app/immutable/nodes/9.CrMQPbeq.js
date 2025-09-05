@@ -1,0 +1,1 @@
+import{p as a,v as n,y as t,e,A as p}from"../chunks/BmcFK24M.js";import"../chunks/D9RYV7N4.js";function c(r,o){a(o,!1),n(()=>{window.innerWidth>=1024&&p("/works/rauschen",{replaceState:!0})}),t(),e()}export{c as component};
