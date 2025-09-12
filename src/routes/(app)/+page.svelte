@@ -40,12 +40,16 @@
 		};
 	});
 
+	// track previous mobile state to avoid initial trigger
+	let previousMobileState: boolean | null = null;
+
 	// reinitialize sketch when mobile state changes
 	$effect(() => {
 		// watch mobile.current and reinitialize sketch when it changes
-		mobile.current;
+		const currentMobileState = mobile.current;
 
-		if (browser && window.mountBlobSketch) {
+		// skip the initial run and only trigger on actual changes
+		if (previousMobileState !== null && previousMobileState !== currentMobileState && browser && window.mountBlobSketch) {
 			// small delay to ensure DOM has updated
 			setTimeout(() => {
 				// force cleanup of any existing instance
@@ -69,6 +73,8 @@
 				}
 			}, 100);
 		}
+
+		previousMobileState = currentMobileState;
 	});
 </script>
 

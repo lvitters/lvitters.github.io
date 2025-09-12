@@ -19,7 +19,7 @@
 				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">RAUSCHEN</h1>
 				<div class="mt-1 text-xl text-black">
 					<time class="text-xl">2025</time>
-					<span> | generative performance/installation | Processing | OpenGL</span>
+					<span> | generative installation / performance | Processing | OpenGL</span>
 				</div>
 			</div>
 		</div>
