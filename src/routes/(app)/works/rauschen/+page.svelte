@@ -19,7 +19,7 @@
 				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">RAUSCHEN</h1>
 				<div class="mt-1 text-xl text-black">
 					<time class="text-xl">2025</time>
-					<span> | generative performance installation | Processing | OpenGL</span>
+					<span> | generative performance/installation | Processing | OpenGL</span>
 				</div>
 			</div>
 		</div>
@@ -47,20 +47,19 @@
 		<div class="my-5"></div>
 
 		<p class="mb-4">
-			RAUSCHEN is an emergent performance installation exploring the possibility space of a
-			1000x1000 pixel image. It generates a random, but orderly grid of pixels or cells according to
-			a range of RNG and noise algorithms. These regular textures are fed into a modular shader
-			system, recursively feeding back its results into emergent textures of visual patterns and
-			auditory noise, flashing by in quick succession. A control application constantly monitors its
-			parameters and is abled to save the generated output textures to disk. It also provides the
-			option to influence the pattern generation in order to perform a more curated visual
-			experience. While current image generation models denoise their random input textures using
-			techniques under the broad term diffusion, RAUSCHEN uses procedural generation methods in
-			order to achieve the opposite effect, infusing its fundamental noise textures with structural
-			patterns for now only recognisable by the viewer.
+			RAUSCHEN is a generative media system exploring the possibility space of a 1000x1000 image. At
+			first, it produces an orderly grid of pixels or cells according to a range of RNG and noise
+			algorithms. These regular textures supply a modular shader system that recursively feeds its
+			results into emergent visual and auditory patterns, flashing by in quick succession. Its
+			parameters are constantly monitored and provide the option to be manually influenced, enabling
+			an operator to affect RAUSCHEN's output and save the generated textures to disk. While current
+			image generation models de-noise their random input textures using techniques under the broad
+			term diffusion, RAUSCHEN uses procedural generation methods in order to achieve the opposite
+			effect, infusing its fundamental noise textures with structure for now only recognisable by
+			the viewer.
 			<br />
 			<br />
-			Is this what being trained must feel like to an AI?
+			How do we find our way through all this noise?
 		</p>
 
 		<div class="my-5"></div>
