@@ -1,0 +1,1 @@
+import{p as a,v as t,A as e,x as r,e as s,$ as n,B as c}from"../chunks/DZhgVlML.js";import{m as p}from"../chunks/ChylhR8Y.js";function f(i,o){a(o,!1),t(()=>{p.current||c("/works/rauschen",{replaceState:!0})}),e(),r(m=>{n.title="Lucca Vitters' works"}),s()}export{f as component};
