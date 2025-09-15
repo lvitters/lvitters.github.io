@@ -23,7 +23,12 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="feedback_cube" />
+	<title>feedback_cube</title>
+	<meta
+		name="description"
+		content="feedback_cube is an interactive audiovisual installation driven by seeming randomness that
+			explores the temporal associations of visual and auditory noise."
+	/>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-[rgb(42,0,25)] px-6 pt-12 pb-5 text-white">

@@ -53,7 +53,12 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="Break the Pattern" />
+	<title>Break the Pattern</title>
+	<meta
+		name="description"
+		content="Break the Pattern was an interactive digital installation enabling visitors to experience the event's '08:15
+			- Zeit für Musterbrecher' motto."
+	/>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-[rgb(80,0,0)] px-6 pt-12 pb-5 text-white">

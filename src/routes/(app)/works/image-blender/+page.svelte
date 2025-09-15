@@ -9,7 +9,12 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="feedback_cube" />
+	<title>image blender</title>
+	<meta
+		name="description"
+		content="This pixel sorting application allowed users to place two images next to each other on a canvas and blend
+			them together by sorting their pixels by hue values."
+	/>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen px-6 pt-12 pb-5 text-black">

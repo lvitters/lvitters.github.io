@@ -39,7 +39,7 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="untiled" />
+	<title>available.rooms sketch</title>
 	<script src="/sketches/rooms/rooms.js" defer></script>
 </svelte:head>
 

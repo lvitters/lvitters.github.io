@@ -147,7 +147,6 @@
 </script>
 
 <svelte:head>
-	<title>Lucca Vitters</title>
 	<script src="/sketches/untiled/untiled_preview.js" defer></script>
 </svelte:head>
 

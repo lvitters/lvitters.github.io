@@ -59,8 +59,13 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="untiled" />
-	<!-- <script src="/sketches/untiled/untiled_full.js" defer></script> -->
+	<title>untiled</title>
+	<meta
+		name="description"
+		content="Emergence occurs when an entity is observed to have properties its parts do not have on their
+			own. This program generates emergent visuals from the interaction between ever changing simple
+			geometric tiles."
+	/>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-[rgb(0,0,100)] px-6 pt-12 pb-5 text-white">
@@ -82,7 +87,7 @@
 		<p class="mb-1 text-center">
 			<a href="/untiled-sketch" class="text-[rgb(255,0,137)] underline hover:text-[rgb(137,0,255)]"
 				>Enter here</a
-			> (might be slow on your device)
+			> (Warning! Might be slow on your device.)
 		</p>
 
 		<div class="my-5"></div>

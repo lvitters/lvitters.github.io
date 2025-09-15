@@ -5,8 +5,12 @@
 
 	onMount(() => {
 		// on desktop (lg and above), redirect to /works/rauschen for consistency
-		if (window.innerWidth >= 1024) {
+		if (!mobile.current) {
 			goto('/works/rauschen', { replaceState: true });
 		}
 	});
 </script>
+
+<svelte:head>
+	<title>Lucca Vitters' works</title>
+</svelte:head>

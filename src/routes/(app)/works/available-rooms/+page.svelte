@@ -3,7 +3,13 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="rooms" />
+	<title>available.rooms</title>
+	<meta
+		name="description"
+		content="available.rooms scraped WG-Gesucht.de for all available rooms in shared flats for the 11 most
+			populous German cities. It displays the snapshot from 2021 according to their relative size
+			and price per m²."
+	/>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-white px-6 pt-12 pb-5 text-black">

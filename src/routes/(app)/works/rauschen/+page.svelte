@@ -9,7 +9,11 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="RAUSCHEN" />
+	<title>RAUSCHEN</title>
+	<meta
+		name="description"
+		content="RAUSCHEN is a generative media system exploring the possibility space of a 1000x1000 image."
+	/>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-gray-300 px-6 pt-12 pb-5 text-black">

@@ -49,7 +49,12 @@
 		const currentMobileState = mobile.current;
 
 		// skip the initial run and only trigger on actual changes
-		if (previousMobileState !== null && previousMobileState !== currentMobileState && browser && window.mountBlobSketch) {
+		if (
+			previousMobileState !== null &&
+			previousMobileState !== currentMobileState &&
+			browser &&
+			window.mountBlobSketch
+		) {
 			// small delay to ensure DOM has updated
 			setTimeout(() => {
 				// force cleanup of any existing instance
@@ -80,6 +85,24 @@
 
 <svelte:head>
 	<title>Lucca Vitters</title>
+	<meta
+		name="description"
+		content="Lucca Vitters is a generative media artist based in Bremen, Germany, creating possibility spaces and emergent choreographies through code."
+	/>
+	<meta
+		name="keywords"
+		content="generative art, media art, creative coding, digital art, installations"
+	/>
+
+	<!-- open graph / social Media -->
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Lucca Vitters" />
+	<meta
+		property="og:description"
+		content="Creating possibility spaces and emergent choreographies through code."
+	/>
+	<meta property="og:url" content="https://luccavitters.de" />
+
 	<script src="/sketches/blob/blob.js" defer></script>
 </svelte:head>
 

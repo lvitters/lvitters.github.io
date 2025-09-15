@@ -39,7 +39,7 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="untiled" />
+	<title>untiled sketch</title>
 	<script src="/sketches/untiled/untiled_full.js" defer></script>
 </svelte:head>
 

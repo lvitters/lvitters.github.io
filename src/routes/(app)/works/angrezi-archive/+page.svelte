@@ -3,7 +3,13 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="Radio Angrezi Archive" />
+	<title>Radio Angrezi Archive</title>
+	<meta
+		name="description"
+		content="The Radio Angrezi Archive is a modular addition to Radio Angrezi's infrastructure. It serves
+			as both a look through the history of Radio Angrezi before 2025, and since then as a platform to upload broadcasts by current participants, independent from
+			any corporation's platforms."
+	/>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-[rgb(255,255,0)] px-6 pt-12 pb-5 text-black">

@@ -10,7 +10,8 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="Ein Hauch Von Tüll" />
+	<title>Ein Hauch von Tüll</title>
+	<meta name="description" content="A holographic light installation made from tull." />
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-[rgb(0,40,0)] px-6 pt-12 pb-5 text-white">

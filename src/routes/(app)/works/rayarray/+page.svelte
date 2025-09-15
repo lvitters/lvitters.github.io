@@ -29,7 +29,12 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="RAYARRAY" />
+	<title>RAYARRAY</title>
+	<meta
+		name="description"
+		content="RAYARRAY is a modular kinetic light installation that reflects emergent collective agency by
+			exploring generative choreographies."
+	/>
 </svelte:head>
 
 <main class="font-consolas m-0 min-h-screen bg-black px-6 pt-12 pb-5 text-white">
