@@ -16,10 +16,10 @@
 </script>
 
 <svelte:head>
-	<title>about Lucca Vitters</title>
+	<title>about</title>
 	<meta
 		name="description"
-		content="Lucca Vitters is a generative media artist based in Bremen, Germany, creating possibility spaces and emergent choreographies through code."
+		content="I'm a generative media artist based in Bremen, Germany, creating possibility spaces and emergent choreographies through code."
 	/>
 </svelte:head>
 

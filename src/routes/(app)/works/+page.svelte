@@ -12,5 +12,6 @@
 </script>
 
 <svelte:head>
-	<title>Lucca Vitters' works</title>
+	<title>selected works</title>
+	<meta name="description" content="here's some stuff that I worked on:" />
 </svelte:head>
