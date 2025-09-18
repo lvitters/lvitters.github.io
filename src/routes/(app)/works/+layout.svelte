@@ -6,7 +6,7 @@
 	import { page } from '$app/state';
 
 	// import preview images
-	import RauschenPreview from '$lib/assets/media/rauschen/rauschen_preview.png?enhanced';
+	import RauschenPreview from '$lib/assets/media/rauschen/rauschen_preview.png?enhanced&w=1280;640;400';
 	import FeedbackCubePreview from '$lib/assets/media/feedback_cube/feedback_cube_preview.jpg?enhanced';
 	import Tull2_3Preview from '$lib/assets/media/einHauchVonTullv2/tull2_3_preview.jpg?enhanced';
 	import UntiledPreview from '$lib/assets/media/untiled/untiled_preview.jpg?enhanced';
@@ -165,7 +165,12 @@
 					onclick={() => navigateToWork('rauschen')}
 					aria-label="View RAUSCHEN project details"
 				>
-					<enhanced:img src={RauschenPreview} alt="RAUSCHEN preview" class="h-auto w-full" />
+					<enhanced:img
+						src={RauschenPreview}
+						alt="RAUSCHEN preview"
+						class="h-auto w-full"
+						sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"
+					/>
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
