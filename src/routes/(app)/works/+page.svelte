@@ -13,5 +13,6 @@
 
 <svelte:head>
 	<title>selected works</title>
-	<meta name="description" content="here's some stuff that I worked on:" />
+	<meta name="robots" content="noindex" />
+	<!-- <meta name="description" content="" /> -->
 </svelte:head>

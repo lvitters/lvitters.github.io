@@ -17,10 +17,8 @@
 
 <svelte:head>
 	<title>about</title>
-	<meta
-		name="description"
-		content="I'm a generative media artist based in Bremen, Germany, creating possibility spaces and emergent choreographies through code."
-	/>
+	<meta name="robots" content="noindex" />
+	<!-- <meta name="description" content="" /> -->
 </svelte:head>
 
 <div>
