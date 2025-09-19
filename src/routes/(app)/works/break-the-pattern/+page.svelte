@@ -83,19 +83,13 @@
 		<div class="my-5"></div>
 
 		<p>
-			As a project for a three month internship, Break the Pattern was created for
-			<a href="https://www.mobiliar.ch/" class="text-white underline hover:text-blue-500"
-				>die Mobiliar</a
-			>
-			in Switzerland. On several
-			<a
-				href="https://baernerbaer.ch/people/meine-tochter-ist-mit-mehlwurmbrei-aufgewachsen/"
-				class="text-white underline hover:text-blue-500">events</a
-			> across the country, Break the Pattern enabled visitors to experience the event's motto "08:15
-			- Zeit für Musterbrecher" as an interactive digital installation. On a 5x2m LED wall, a Processing
-			application created a dynamic image with randomness and noise picking up on the event's visual
-			theme. In a set corridor in front of the installation, visitors were picked up by a depth camera.
-			Their silhouettes would then be mirrored in the displayed patterns.
+			As a project for a three month internship, Break the Pattern was created for 'die Mobiliar' in
+			Switzerland. On several events across the country, Break the Pattern enabled visitors to
+			experience the event's motto "08:15 - Zeit für Musterbrecher" as an interactive digital
+			installation. On a 5x2m LED wall, a Processing application created a dynamic image with
+			randomness and noise picking up on the event's visual theme. In a set corridor in front of the
+			installation, visitors were picked up by a depth camera. Their silhouettes would then be
+			mirrored in the displayed patterns.
 		</p>
 
 		<div class="my-5"></div>

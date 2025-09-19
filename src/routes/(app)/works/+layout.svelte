@@ -6,6 +6,7 @@
 	import { page } from '$app/state';
 
 	// import preview images
+	// @ts-ignore
 	import RauschenPreview from '$lib/assets/media/rauschen/rauschen_preview.png?enhanced&w=1280;640;400';
 	import FeedbackCubePreview from '$lib/assets/media/feedback_cube/feedback_cube_preview.jpg?enhanced';
 	import Tull2_3Preview from '$lib/assets/media/einHauchVonTullv2/tull2_3_preview.jpg?enhanced';
