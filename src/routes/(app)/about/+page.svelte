@@ -66,7 +66,7 @@
 									<a
 										href="https://soundcloud.com/katze203"
 										class="dynamic-link underline"
-										style="color: {color}">SoundCloud</a
+										style="color: {color}">soundcloud.com/katze203</a
 									>
 								</div>
 							</div>
@@ -85,7 +85,8 @@
 					<div class="my-8"></div>
 
 					<p class="text-sm md:text-base">
-						Here are some exhibitions I have been part of:<br />
+						<em>exhibitions:</em>
+						<br />
 					</p>
 
 					<div class="my-5"></div>
@@ -93,9 +94,19 @@
 					<table class="border-collapse text-sm md:text-base">
 						<tbody>
 							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">24.09 - 27.09.25</td>
+								<td class="py-2 align-top"
+									><em>TRANSFORM 2025, Trier</em><br /><a
+										href="/works/rauschen"
+										class="dynamic-link underline"
+										style="color: {color}">RAUSCHEN</a
+									></td
+								>
+							</tr>
+							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">19.06 + 20.06.25</td>
 								<td class="py-2 align-top"
-									><em>Master Exhibition @ Speicher XIa</em><br /><a
+									><em>RAUSCHEN, Speicher XIa, Bremen</em><br /><a
 										href="/works/rauschen"
 										class="dynamic-link underline"
 										style="color: {color}">RAUSCHEN</a
@@ -105,7 +116,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">02.10 - 06.10.24</td>
 								<td class="py-2 align-top"
-									><em>Goldstücke Gelsenkirchen</em><br /><a
+									><em>Goldstücke, Gelsenkirchen</em><br /><a
 										href="/works/rayarray"
 										class="dynamic-link underline"
 										style="color: {color}">RAYARRAY</a
@@ -119,7 +130,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">20.09 + 21.09.24</td>
 								<td class="py-2 align-top"
-									><em>Illustratio Kiel</em><br /><a
+									><em>Illustratio, Kiel</em><br /><a
 										href="/works/rayarray"
 										class="dynamic-link underline"
 										style="color: {color}">RAYARRAY</a
@@ -129,7 +140,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">27.04.24</td>
 								<td class="py-2 align-top"
-									><em>SLS x ZfK @ Spedition Bremen</em><br /><a
+									><em>SLS x ZfK, Spedition, Bremen</em><br /><a
 										href="/works/ein-hauch-von-tull-v2"
 										class="dynamic-link underline"
 										style="color: {color}">einHauchVonTüllv2.x</a
@@ -139,7 +150,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">08.07 + 09.07.23</td>
 								<td class="py-2 align-top"
-									><em>Synesthesia Fest @ HfK Bremen</em><br /><a
+									><em>Synesthesia Fest, HfK, Bremen</em><br /><a
 										href="/works/blob"
 										class="dynamic-link underline"
 										style="color: {color}">blob</a
@@ -153,7 +164,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">08.07 + 09.07.23</td>
 								<td class="py-2 align-top"
-									><em>Hochschultage @ HfK Bremen</em><br /><a
+									><em>Hochschultage, HfK, Bremen</em><br /><a
 										href="/works/rayarray"
 										class="dynamic-link underline"
 										style="color: {color}">RAYARRAY</a
@@ -163,7 +174,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">27.05.23</td>
 								<td class="py-2 align-top"
-									><em>RAYVE @ HAG Quartier</em><br /><a
+									><em>RAYVE, HAG Quartier, Bremen</em><br /><a
 										href="/works/rayarray"
 										class="dynamic-link underline"
 										style="color: {color}">RAYARRAY</a
@@ -173,7 +184,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">05.05 - 10.05.23</td>
 								<td class="py-2 align-top"
-									><em>Iterations @ Speicher XIa</em><br /><a
+									><em>Iterations, Speicher XIa, Bremen</em><br /><a
 										href="/works/rayarray"
 										class="dynamic-link underline"
 										style="color: {color}">RAYARRAY</a
@@ -183,7 +194,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">10.03 - 24.03.23</td>
 								<td class="py-2 align-top"
-									><em>Licht | Raum @ HAG Quartier</em><br /><a
+									><em>Licht | Raum, HAG Quartier, Bremen</em><br /><a
 										href="/works/ein-hauch-von-tull-v2#v2-1"
 										class="dynamic-link underline"
 										style="color: {color}">einHauchVonTüllv2.1</a
@@ -193,7 +204,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">12.12 - 14.12.22</td>
 								<td class="py-2 align-top"
-									><em>Feeding Entities @ Galerie Flut</em><br /><a
+									><em>Feeding Entities, Galerie Flut, Bremen</em><br /><a
 										href="/works/feedback-cube"
 										class="dynamic-link underline"
 										style="color: {color}">feedback_cube</a
@@ -207,7 +218,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">29.06 - 03.07.22</td>
 								<td class="py-2 align-top"
-									><em>Fusion Festival</em><br /><a
+									><em>Fusion Festival, Lärz</em><br /><a
 										href="/works/ein-hauch-von-tull-v2"
 										class="dynamic-link underline"
 										style="color: {color}">einHauchVonTüllv2</a
@@ -217,7 +228,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">17.09 - 19.09.21</td>
 								<td class="py-2 align-top"
-									><em>Plan:et C Gamma Festival</em><br /><a
+									><em>Plan:et C Gamma Festival, Lärz</em><br /><a
 										href="/works/ein-hauch-von-tull"
 										class="dynamic-link underline"
 										style="color: {color}">einHauchVonTüll</a
@@ -227,7 +238,7 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">07.08.21</td>
 								<td class="py-2 align-top"
-									><em>Irgendwo Bremen</em><br /><a
+									><em>Irgendwo, Bremen</em><br /><a
 										href="/works/ein-hauch-von-tull"
 										class="dynamic-link underline"
 										style="color: {color}">einHauchVonTüll</a
@@ -237,10 +248,62 @@
 							<tr>
 								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">2019</td>
 								<td class="py-2 align-top"
-									><em>08:15 - Zeit für Musterbrecher @ Bern/Luzern/Zürich</em><br /><a
+									><em>08:15 - Zeit für Musterbrecher, Bern + Luzern + Zürich</em><br /><a
 										href="/works/break-the-pattern"
 										class="dynamic-link underline"
 										style="color: {color}">Break the Pattern</a
+									></td
+								>
+							</tr>
+						</tbody>
+					</table>
+
+					<div class="my-5"></div>
+
+					<p class="text-sm md:text-base">
+						<em>talks / performances:</em>
+						<br />
+					</p>
+
+					<div class="my-5"></div>
+
+					<table class="border-collapse text-sm md:text-base">
+						<tbody>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">24.09 + 26.09.25</td>
+								<td class="py-2 align-top"
+									><em>artist talk + performance @ TRANSFORM 2025</em><br /><a
+										href="/works/rauschen"
+										class="dynamic-link underline"
+										style="color: {color}">RAUSCHEN</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">02.10.24</td>
+								<td class="py-2 align-top"
+									><em>artist talk @ Goldstücke</em><br /><a
+										href="/works/rayarray"
+										class="dynamic-link underline"
+										style="color: {color}">RAYARRAY</a
+									>
+									&
+									<a href="/works/untiled" class="dynamic-link underline" style="color: {color}"
+										>untiled</a
+									></td
+								>
+							</tr>
+							<tr>
+								<td class="py-2 pr-8 text-right align-top whitespace-nowrap">12.12.22</td>
+								<td class="py-2 align-top"
+									><em>artist talk @ Feeding Entities</em><br /><a
+										href="/works/feedback-cube"
+										class="dynamic-link underline"
+										style="color: {color}">feedback_cube</a
+									>
+									&
+									<a href="/works/untiled" class="dynamic-link underline" style="color: {color}"
+										>untiled</a
 									></td
 								>
 							</tr>
