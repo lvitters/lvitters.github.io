@@ -1,0 +1,1 @@
+import{p as t,v as r,A as s,x as n,e as m,f as p,$ as c,c as i,B as f}from"../chunks/DaiROcii.js";import{m as u}from"../chunks/Cksbigr0.js";var l=p('<meta name="robots" content="noindex"/>');function v(d,o){t(o,!1),r(()=>{u.current||f("/works/rauschen",{replaceState:!0})}),s(),n(a=>{var e=l();c.title="selected works",i(a,e)}),m()}export{v as component};
