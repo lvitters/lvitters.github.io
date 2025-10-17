@@ -85,11 +85,11 @@
 		<p>
 			As a project for a three month internship, Break the Pattern was created for 'die Mobiliar' in
 			Switzerland. On several events across the country, Break the Pattern enabled visitors to
-			experience the event's motto "08:15 - Zeit für Musterbrecher" as an interactive digital
-			installation. On a 5x2m LED wall, a Processing application created a dynamic image with
-			randomness and noise picking up on the event's visual theme. In a set corridor in front of the
-			installation, visitors were picked up by a depth camera. Their silhouettes would then be
-			mirrored in the displayed patterns.
+			experience the event's motto "08:15 - Zeit für Musterbrecher" as an interactive installation.
+			On a 5x2m LED wall, a Processing application created a dynamic image using randomness and
+			noise picking up on the event's visual theme. In a corridor in front of the installation,
+			visitors were picked up by a depth camera, where their silhouettes would be mirrored in the
+			generated geometric patterns.
 		</p>
 
 		<div class="my-5"></div>

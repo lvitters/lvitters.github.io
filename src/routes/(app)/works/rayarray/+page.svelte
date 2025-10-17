@@ -76,8 +76,7 @@
 		<div class="my-5"></div>
 
 		<p class="mb-4">
-			RAYARRAY is a modular kinetic light installation that reflects emergent collective agency by
-			exploring generative choreographies.
+			RAYARRAY is a modular kinetic light installation that reflects on emergent choreographies.
 		</p>
 
 		<div class="my-5"></div>
@@ -91,7 +90,7 @@
 		<p class="mb-4">
 			RAYARRAY consists of an ARRAY of nodes that carry either a rotating mirror or a laser diode
 			emitting a RAY. The rotation of the mirrors creates an emergent light sculpture that is
-			continually generated through a range of behaviors in which the nodes act together or
+			continually generated through a range of behaviors in which the nodes act collectively or
 			individually.
 		</p>
 

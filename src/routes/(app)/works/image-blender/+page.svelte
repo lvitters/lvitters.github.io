@@ -34,10 +34,10 @@
 			<a
 				href="https://github.com/kimasendorf/ASDFPixelSort"
 				class="text-black underline hover:text-[rgb(0,0,255)]">pixel sorting algorithm</a
-			>. This application allows users to place two images next to each other on a canvas and blend
+			>. This application allowed users to place two images next to each other on a canvas and blend
 			them together by sorting their pixels by hue values.
 			<br />
-			It was made as the final project for a Creative Coding class at NYU, sparking my interest in Creative
+			It was made as the final project for a Creative Coding class at NYU, starting my journey in Creative
 			Coding.
 		</p>
 
