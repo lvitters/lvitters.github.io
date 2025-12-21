@@ -51,12 +51,12 @@
 		<div class="my-5"></div>
 
 		<p class="mb-4">
-			RAUSCHEN (2025) is a generative media system exploring the probability space of a 1000x1000
-			image. Its emergent textures are produced from random grids of pixels that are recursively fed
-			into a modular palette of shader programs. While current image generation models try to
-			diffuse their input noise into something coherent, RAUSCHEN infuses its input noise with
-			patterns of exponential randomness by mixing combinations of generative algorithms. In the
-			end, a human decides what is worth keeping.
+			RAUSCHEN (2025) is a real-time generative media system exploring the probability space of a
+			1000x1000 image. Its emergent textures are produced from random grids of pixels that are
+			recursively fed into a modular palette of shader programs. While current image generation
+			models try to diffuse their input noise into coherent results, RAUSCHEN exponentially infuses
+			its process with patterns of randomness by mixing combinations of generative algorithms. In
+			the end, a human decides what is worth keeping.
 			<br />
 			<br />
 			How can we find our way through all this noise?

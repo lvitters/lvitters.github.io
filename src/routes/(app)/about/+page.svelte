@@ -76,10 +76,10 @@
 					<div class="my-8"></div>
 
 					<p class="mb-4">
-						Hey! I am a generative media artist and creative technologist based in Bremen, Germany.
-						My work involves exploring probability spaces and creating generative choreographies
-						with code. With my background in computer science, I find ways of bringing my virtual
-						entities to screens, to the web, to real world surfaces and installations. <br /><br />
+						hey! I am a generative media artist and creative technologist based in Bremen, Germany,
+						with an interest in exploring emergence by creating probability spaces with code. My
+						entities live on the web, manifest in physical installations and roam real world
+						surfaces through projections. <br /><br />
 					</p>
 
 					<div class="my-8"></div>
