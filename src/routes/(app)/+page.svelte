@@ -87,7 +87,7 @@
 	<title>Lucca Vitters</title>
 	<meta
 		name="description"
-		content="Lucca Vitters is a generative media artist based in Bremen, Germany, creating possibility spaces and emergent choreographies through code."
+		content="hey! I'm a generative media artist based in Bremen, Germany, creating possibility spaces and emergent choreographies with code"
 	/>
 	<meta
 		name="keywords"
