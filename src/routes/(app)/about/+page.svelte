@@ -109,16 +109,16 @@
 								<div class="my-5"></div>
 
 								<p class="mb-4">
-									hey! I am a generative media artist and creative technologist based in Bremen,
-									Germany, with an interest in exploring emergence by creating probability spaces
-									with code. My entities live on the web, manifest in physical installations and
-									roam real world surfaces through projections.
+									hey! I am a media artist and developer based in Bremen, Germany, with an interest
+									in exploring emergence by creating probability spaces with code. My generative
+									entities live on the web, manifest in physical installations and roam real world
+									surfaces through projections.
 								</p>
 							{:else if view === 'exhibitions'}
 								<table class="w-full border-collapse">
 									<tbody>
 										<tr>
-											<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
+											<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
 												>24.09 - 27.09.25</td
 											>
 											<td class="py-2 align-top"
@@ -313,7 +313,7 @@
 								<table class="w-full border-collapse">
 									<tbody>
 										<tr>
-											<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
+											<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
 												>24.09 + 26.09.25</td
 											>
 											<td class="py-2 align-top"
