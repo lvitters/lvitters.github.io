@@ -4,13 +4,13 @@
 
 	// dynamic color
 	let currentHue = $state(Math.random() * 360);
-	let color = $derived(`hsl(${currentHue}, 100%, 50%)`);
+	let color = $derived(`hsl(${currentHue}, 50%, 70%)`);
 
 	// set new hue
 	$effect(() => {
 		const interval = setInterval(() => {
-			currentHue = (currentHue + 1) % 360;
-		}, 100);
+			currentHue = (currentHue + 0.2) % 360;
+		}, 50);
 
 		return () => clearInterval(interval);
 	});
@@ -35,22 +35,19 @@
 <div>
 	<!-- mobile: full screen white background, desktop: colored background with white content area -->
 	<main
-		class="relative h-screen w-screen overflow-hidden {mobile.current ? '' : 'flex'}"
-		style="background: {color};"
+		class="relative h-screen w-full overflow-x-hidden bg-white {mobile.current ? '' : 'flex'}"
 	>
 		<!-- left spacer - desktop only -->
-		<section
-			class={mobile.current ? 'hidden' : 'h-full w-1/3'}
-			style="background: {color};"
-		></section>
+		<section class={mobile.current ? 'hidden' : 'h-full w-1/3'}></section>
 
 		<!-- main content area -->
 		<section
-			class="h-full overflow-y-auto {mobile.current ? 'w-full pt-20' : 'w-2/3 bg-white'}"
+			class="h-full overflow-y-auto {mobile.current ? 'w-full pt-20' : 'w-2/3 pl-5'}"
 			style="scrollbar-gutter: stable;"
 		>
 			<div
-				class="font-consolas m-0 flex min-h-screen w-full flex-col bg-white px-6 pt-12 pb-5 text-[17px] text-black lg:pt-12"
+				class="font-consolas m-0 flex min-h-screen w-full flex-col px-6 pt-12 pb-5 text-[17px] text-black lg:pt-12"
+				style="background: {color};"
 			>
 				<!-- header with title and navigation tabs -->
 				<div class="mb-5 flex items-center justify-center px-5 text-center">
@@ -59,10 +56,9 @@
 						<nav class="mt-1 text-xl text-black">
 							{#each menuItems as item, i}{#if i > 0}<span>&nbsp;|&nbsp;</span>{/if}<button
 									onclick={() => (view = item.id)}
-									class="cursor-pointer text-xl {view === item.id
-										? 'text-black underline'
-										: 'dynamic-link'}"
-									style={view === item.id ? '' : `color: ${color}`}>{item.label}</button
+									class="cursor-pointer text-xl underline {view === item.id
+										? 'text-white'
+										: 'hover:text-white'}">{item.label}</button
 								>{/each}
 						</nav>
 					</div>
@@ -77,42 +73,71 @@
 							out:fade={{ duration: 300 }}
 						>
 							{#if view === 'info'}
-								<p class="mb-1 text-center">
+								<p class="mb-4">
+									hey! I am a media artist and developer exploring emergent phenomena by creating
+									probability spaces with code. My generative entities live on the web, manifest
+									through physical installations and roam real world surfaces through projections.
+									<br />
+									<br />
+									I was first inspired by a Creative Coding class by
+									<a class="underline hover:text-white" href="https://tegabrain.com/">Tega Brain</a>
+									at NYU, after which I built my first interactive installation for
 									<a
-										href="mailto:lucca.vitters@gmail.com"
-										class="dynamic-link underline"
-										style="color: {color}">lucca.vitters@gmail.com</a
+										class="underline hover:text-white"
+										href="https://markenfilm-space.de/portfolio/break-the-pattern/"
+										>Markenfilm Space</a
 									>
-								</p>
-								<p class="mb-1 text-center">
+									in Hamburg. Following an exhibition tour through Switzerland and receiving my BSc in
 									<a
-										href="https://github.com/lvitters"
-										class="dynamic-link underline"
-										style="color: {color}">github.com/lvitters</a
+										class="underline hover:text-white"
+										href="http://hs-bremen.de/studieren/studiengang/internationaler-studiengang-medieninformatik-b-sc/"
+										>Media Computer Science</a
+									>, I have spent the last few years experimenting with coding visuals and building
+									media systems at
+									<a class="underline hover:text-white" href="https://www.hfk-bremen.de/en"
+										>Hochschule für Künste</a
 									>
-								</p>
-								<p class="pb-2 text-center">
-									<a
-										href="https://soundcloud.com/katze203"
-										class="dynamic-link underline"
-										style="color: {color}">soundcloud.com/katze203</a
-									>
-								</p>
-								<p class="pb-2 text-center">
-									<a
-										href="https://instagram.com/yung.lucca/"
-										class="dynamic-link underline"
-										style="color: {color}">instagram.com/yung.lucca</a
-									>
+									in Bremen, where I have recently graduated with distinction as MA in
+									<a class="underline hover:text-white" href="https://digitalmedia-bremen.de/"
+										>Digital Media</a
+									>.
+									<br />
+									<br />
+									I have experience with (among other things)
+									<a class="underline hover:text-white" href="https://processing.org/">Processing</a
+									>,
+									<a class="underline hover:text-white" href="https://p5js.org/">p5.js</a>,
+									<a class="underline hover:text-white" href="https://resolume.com/">Resolume</a>,
+									<a class="underline hover:text-white" href="https://openframeworks.cc/"
+										>openFrameworks</a
+									>, html+css+js and have lately dabbled in
+									<a class="underline hover:text-white" href="https://svelte.dev/">Svelte</a>.
+									<br />
+									<br />
+									Here are some links to my stuff:
 								</p>
 
 								<div class="my-5"></div>
 
-								<p class="mb-4">
-									hey! I am a media artist and developer based in Bremen, Germany, with an interest
-									in exploring emergence by creating probability spaces with code. My generative
-									entities live on the web, manifest in physical installations and roam real world
-									surfaces through projections.
+								<p class="mb-1">
+									<a href="mailto:lucca.vitters@gmail.com" class="underline hover:text-white"
+										>lucca.vitters@gmail.com</a
+									>
+								</p>
+								<p class="mb-1">
+									<a href="https://github.com/lvitters" class="underline hover:text-white"
+										>github.com/lvitters</a
+									>
+								</p>
+								<p class="pb-2">
+									<a href="https://soundcloud.com/katze203" class="underline hover:text-white"
+										>soundcloud.com/katze203</a
+									>
+								</p>
+								<p class="pb-2">
+									<a href="https://instagram.com/yung.lucca/" class="underline hover:text-white"
+										>instagram.com/yung.lucca</a
+									>
 								</p>
 							{:else if view === 'exhibitions'}
 								<table class="w-full border-collapse">
@@ -124,8 +149,7 @@
 											<td class="py-2 align-top"
 												><em>TRANSFORM 2025, Trier</em><br /><a
 													href="/works/rauschen"
-													class="dynamic-link underline"
-													style="color: {color}">RAUSCHEN</a
+													class="underline hover:text-white">RAUSCHEN</a
 												></td
 											>
 										</tr>
@@ -136,8 +160,7 @@
 											<td class="py-2 align-top"
 												><em>RAUSCHEN, Speicher XIa, Bremen</em><br /><a
 													href="/works/rauschen"
-													class="dynamic-link underline"
-													style="color: {color}">RAUSCHEN</a
+													class="underline hover:text-white">RAUSCHEN</a
 												></td
 											>
 										</tr>
@@ -148,15 +171,10 @@
 											<td class="py-2 align-top"
 												><em>Goldstücke, Gelsenkirchen</em><br /><a
 													href="/works/rayarray"
-													class="dynamic-link underline"
-													style="color: {color}">RAYARRAY</a
+													class="underline hover:text-white">RAYARRAY</a
 												>
 												&
-												<a
-													href="/works/untiled"
-													class="dynamic-link underline"
-													style="color: {color}">untiled</a
-												></td
+												<a href="/works/untiled" class="underline hover:text-white">untiled</a></td
 											>
 										</tr>
 										<tr>
@@ -166,8 +184,7 @@
 											<td class="py-2 align-top"
 												><em>Illustratio, Kiel</em><br /><a
 													href="/works/rayarray"
-													class="dynamic-link underline"
-													style="color: {color}">RAYARRAY</a
+													class="underline hover:text-white">RAYARRAY</a
 												></td
 											>
 										</tr>
@@ -176,8 +193,7 @@
 											<td class="py-2 align-top"
 												><em>SLS x ZfK, Spedition, Bremen</em><br /><a
 													href="/works/ein-hauch-von-tull-v2"
-													class="dynamic-link underline"
-													style="color: {color}">einHauchVonTüllv2.x</a
+													class="underline hover:text-white">einHauchVonTüllv2.x</a
 												></td
 											>
 										</tr>
@@ -188,15 +204,10 @@
 											<td class="py-2 align-top"
 												><em>Synesthesia Fest, HfK, Bremen</em><br /><a
 													href="/works/blob"
-													class="dynamic-link underline"
-													style="color: {color}">blob</a
+													class="underline hover:text-white">blob</a
 												>
 												&
-												<a
-													href="/works/untiled"
-													class="dynamic-link underline"
-													style="color: {color}">untiled</a
-												></td
+												<a href="/works/untiled" class="underline hover:text-white">untiled</a></td
 											>
 										</tr>
 										<tr>
@@ -206,8 +217,7 @@
 											<td class="py-2 align-top"
 												><em>Hochschultage, HfK, Bremen</em><br /><a
 													href="/works/rayarray"
-													class="dynamic-link underline"
-													style="color: {color}">RAYARRAY</a
+													class="underline hover:text-white">RAYARRAY</a
 												></td
 											>
 										</tr>
@@ -216,8 +226,7 @@
 											<td class="py-2 align-top"
 												><em>RAYVE, HAG Quartier, Bremen</em><br /><a
 													href="/works/rayarray"
-													class="dynamic-link underline"
-													style="color: {color}">RAYARRAY</a
+													class="underline hover:text-white">RAYARRAY</a
 												></td
 											>
 										</tr>
@@ -228,8 +237,7 @@
 											<td class="py-2 align-top"
 												><em>Iterations, Speicher XIa, Bremen</em><br /><a
 													href="/works/rayarray"
-													class="dynamic-link underline"
-													style="color: {color}">RAYARRAY</a
+													class="underline hover:text-white">RAYARRAY</a
 												></td
 											>
 										</tr>
@@ -240,8 +248,7 @@
 											<td class="py-2 align-top"
 												><em>Licht | Raum, HAG Quartier, Bremen</em><br /><a
 													href="/works/ein-hauch-von-tull-v2#v2-1"
-													class="dynamic-link underline"
-													style="color: {color}">einHauchVonTüllv2.1</a
+													class="underline hover:text-white">einHauchVonTüllv2.1</a
 												></td
 											>
 										</tr>
@@ -252,15 +259,10 @@
 											<td class="py-2 align-top"
 												><em>Feeding Entities, Galerie Flut, Bremen</em><br /><a
 													href="/works/feedback-cube"
-													class="dynamic-link underline"
-													style="color: {color}">feedback_cube</a
+													class="underline hover:text-white">feedback_cube</a
 												>
 												&
-												<a
-													href="/works/untiled"
-													class="dynamic-link underline"
-													style="color: {color}">untiled</a
-												></td
+												<a href="/works/untiled" class="underline hover:text-white">untiled</a></td
 											>
 										</tr>
 										<tr>
@@ -270,8 +272,7 @@
 											<td class="py-2 align-top"
 												><em>Fusion Festival, Lärz</em><br /><a
 													href="/works/ein-hauch-von-tull-v2"
-													class="dynamic-link underline"
-													style="color: {color}">einHauchVonTüllv2</a
+													class="underline hover:text-white">einHauchVonTüllv2</a
 												></td
 											>
 										</tr>
@@ -282,8 +283,7 @@
 											<td class="py-2 align-top"
 												><em>Plan:et C Gamma Festival, Lärz</em><br /><a
 													href="/works/ein-hauch-von-tull"
-													class="dynamic-link underline"
-													style="color: {color}">einHauchVonTüll</a
+													class="underline hover:text-white">einHauchVonTüll</a
 												></td
 											>
 										</tr>
@@ -292,8 +292,7 @@
 											<td class="py-2 align-top"
 												><em>Irgendwo, Bremen</em><br /><a
 													href="/works/ein-hauch-von-tull"
-													class="dynamic-link underline"
-													style="color: {color}">einHauchVonTüll</a
+													class="underline hover:text-white">einHauchVonTüll</a
 												></td
 											>
 										</tr>
@@ -302,8 +301,7 @@
 											<td class="py-2 align-top"
 												><em>08:15 - Zeit für Musterbrecher, Bern + Luzern + Zürich</em><br /><a
 													href="/works/break-the-pattern"
-													class="dynamic-link underline"
-													style="color: {color}">Break the Pattern</a
+													class="underline hover:text-white">Break the Pattern</a
 												></td
 											>
 										</tr>
@@ -319,8 +317,7 @@
 											<td class="py-2 align-top"
 												><em>artist talk + performance @ TRANSFORM 2025</em><br /><a
 													href="/works/rauschen"
-													class="dynamic-link underline"
-													style="color: {color}">RAUSCHEN</a
+													class="underline hover:text-white">RAUSCHEN</a
 												></td
 											>
 										</tr>
@@ -329,15 +326,10 @@
 											<td class="py-2 align-top"
 												><em>artist talk @ Goldstücke</em><br /><a
 													href="/works/rayarray"
-													class="dynamic-link underline"
-													style="color: {color}">RAYARRAY</a
+													class="underline hover:text-white">RAYARRAY</a
 												>
 												&
-												<a
-													href="/works/untiled"
-													class="dynamic-link underline"
-													style="color: {color}">untiled</a
-												></td
+												<a href="/works/untiled" class="underline hover:text-white">untiled</a></td
 											>
 										</tr>
 										<tr>
@@ -345,15 +337,10 @@
 											<td class="py-2 align-top"
 												><em>artist talk @ Feeding Entities</em><br /><a
 													href="/works/feedback-cube"
-													class="dynamic-link underline"
-													style="color: {color}">feedback_cube</a
+													class="underline hover:text-white">feedback_cube</a
 												>
 												&
-												<a
-													href="/works/untiled"
-													class="dynamic-link underline"
-													style="color: {color}">untiled</a
-												></td
+												<a href="/works/untiled" class="underline hover:text-white">untiled</a></td
 											>
 										</tr>
 									</tbody>
@@ -365,9 +352,8 @@
 										Am Dobben 28<br />
 										28203 Bremen<br />
 										+4915168112323<br />
-										<a
-											href="mailto:lucca.vitters@gmail.com"
-											class="underline hover:text-[rgb(0,0,255)]">lucca.vitters@gmail.com</a
+										<a href="mailto:lucca.vitters@gmail.com" class="underline hover:text-white"
+											>lucca.vitters@gmail.com</a
 										>
 									</p>
 
@@ -710,9 +696,8 @@
 									</p>
 
 									<p class="my-16">
-										Quelle: <a
-											href="https://www.e-recht24.de"
-											class="underline hover:text-[rgb(0,0,255)]">https://www.e-recht24.de</a
+										Quelle: <a href="https://www.e-recht24.de" class="underline hover:text-white"
+											>https://www.e-recht24.de</a
 										>
 									</p>
 								</div>
@@ -725,14 +710,3 @@
 		</section>
 	</main>
 </div>
-
-<style>
-	.dynamic-link {
-		transition: color 1s ease; /* match the background timing */
-	}
-
-	.dynamic-link:hover {
-		color: black !important;
-		transition: color 0.15s ease;
-	}
-</style>

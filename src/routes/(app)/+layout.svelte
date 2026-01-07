@@ -13,11 +13,7 @@
 
 <!-- slight fade animation on route changes -->
 {#key page.url.pathname}
-	<div
-		class="absolute inset-0 h-full w-full"
-		in:fade={{ duration: 300 }}
-		out:fade={{ duration: 300 }}
-	>
+	<div class="absolute inset-0 h-full w-full">
 		{@render children()}
 	</div>
 {/key}

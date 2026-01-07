@@ -445,6 +445,7 @@
 			class="relative z-10 overflow-y-auto text-left {showMobileDetail
 				? 'h-fit min-h-full w-full pt-20'
 				: 'max-lg:hidden'} lg:h-full lg:w-2/3 lg:pl-5 lg:md:w-[66.67vw]"
+			style="scrollbar-gutter: stable;"
 		>
 			{@render children()}
 		</section>
