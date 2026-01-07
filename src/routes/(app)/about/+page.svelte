@@ -64,7 +64,7 @@
 				<div class="grid flex-1">
 					<div class="col-start-1 row-start-1 px-5">
 						{#if view === 'info'}
-							<h2 class="mt-12 mb-2 text-2xl font-bold">bio:</h2>
+							<h2 class="mt-12 mb-2 text-2xl font-bold">bio</h2>
 							<p class="mb-4">
 								hey! I am a media artist and developer exploring emergent phenomena by creating
 								probability spaces with code. My generative entities live on the web, manifest
@@ -109,7 +109,7 @@
 
 							<div class="my-5"></div>
 
-							<h2 class="mt-12 mb-2 text-2xl font-bold">links:</h2>
+							<h2 class="mt-12 mb-2 text-2xl font-bold">links</h2>
 							<p class="mb-1">
 								<a href="mailto:lucca.vitters@gmail.com" class="underline hover:text-white"
 									>lucca.vitters@gmail.com</a
@@ -131,7 +131,7 @@
 								>
 							</p>
 						{:else if view === 'exhibitions'}
-							<h2 class="mt-12 mb-2 text-2xl font-bold">exhibitions:</h2>
+							<h2 class="mt-12 mb-2 text-2xl font-bold">exhibitions</h2>
 							<table class="w-full border-collapse">
 								<tbody>
 									<tr>
@@ -302,7 +302,7 @@
 
 							<div class="my-5"></div>
 
-							<h2 class="mt-12 mb-2 text-2xl font-bold">performances:</h2>
+							<h2 class="mt-12 mb-2 text-2xl font-bold">performances</h2>
 
 							<table class="w-full border-collapse">
 								<tbody>
@@ -343,7 +343,7 @@
 							</table>
 						{:else if view === 'impressum'}
 							<div class="prose max-w-none">
-								<h2 class="mt-12 mb-2 text-2xl font-bold">Impressum:</h2>
+								<h2 class="mt-12 mb-2 text-2xl font-bold">Impressum</h2>
 								<p class="mb-4">
 									Lucca Vitters<br />
 									Am Dobben 28<br />
@@ -354,7 +354,7 @@
 									>
 								</p>
 
-								<h2 class="mt-12 mb-2 text-2xl font-bold">Datenschutz:</h2>
+								<h2 class="mt-12 mb-2 text-2xl font-bold">Datenschutz</h2>
 								<h3 class="mt-4 mb-2 text-xl font-bold">1. Datenschutz auf einen Blick</h3>
 								<h4 class="mt-2 mb-4 text-lg font-normal">Allgemeine Hinweise</h4>
 								<p class="mb-4">
