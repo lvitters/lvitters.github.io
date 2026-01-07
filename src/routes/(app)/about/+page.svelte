@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { mobile } from '$lib/utils/mobile.svelte';
-	import { fade } from 'svelte/transition';
 
 	// dynamic color
 	let currentHue = $state(Math.random() * 360);
@@ -66,13 +65,8 @@
 
 				<!-- content area with transition -->
 				<div class="grid flex-1">
-					{#key view}
-						<div
-							class="col-start-1 row-start-1 px-5"
-							in:fade={{ duration: 300 }}
-							out:fade={{ duration: 300 }}
-						>
-							{#if view === 'info'}
+					<div class="col-start-1 row-start-1 px-5">
+						{#if view === 'info'}
 								<p class="mb-4">
 									hey! I am a media artist and developer exploring emergent phenomena by creating
 									probability spaces with code. My generative entities live on the web, manifest
@@ -704,7 +698,6 @@
 							{/if}
 							<div class="my-20"></div>
 						</div>
-					{/key}
 				</div>
 			</div>
 		</section>
