@@ -15,14 +15,15 @@
 		return () => clearInterval(interval);
 	});
 
-	type View = 'bio' | 'exhibitions' | 'talks' | 'impressum';
-	let view = $state<View>('bio');
+	// navigation tabs
+	type View = 'info' | 'exhibitions' | 'performances' | 'impressum';
+	let view = $state<View>('info');
 
 	const menuItems: { id: View; label: string }[] = [
-		{ id: 'bio', label: 'bio' },
+		{ id: 'info', label: 'info' },
 		{ id: 'exhibitions', label: 'exhibitions' },
-		{ id: 'talks', label: 'talks & performances' },
-		{ id: 'impressum', label: 'impressum & datenschutz' }
+		{ id: 'performances', label: 'performances & talks' },
+		{ id: 'impressum', label: 'Impressum' }
 	];
 </script>
 
@@ -32,10 +33,10 @@
 </svelte:head>
 
 <div>
-	<!-- mobile: full screen white background, Desktop: colored background with white content area -->
+	<!-- mobile: full screen white background, desktop: colored background with white content area -->
 	<main
-		class="relative h-screen w-screen overflow-hidden text-[17px] {mobile.current ? '' : 'flex'}"
-		style="background: white;"
+		class="relative h-screen w-screen overflow-hidden {mobile.current ? '' : 'flex'}"
+		style="background: {color};"
 	>
 		<!-- left spacer - desktop only -->
 		<section
@@ -45,72 +46,76 @@
 
 		<!-- main content area -->
 		<section
-			class="flex h-full justify-center overflow-y-auto bg-white {mobile.current
-				? 'w-full'
-				: 'w-2/3'}"
+			class="h-full overflow-y-auto {mobile.current ? 'w-full pt-20' : 'w-2/3 bg-white'}"
+			style="scrollbar-gutter: stable;"
 		>
 			<div
-				class="font-consolas m-0 flex min-h-full w-full flex-col bg-white pt-12 pb-5 text-black {mobile.current
-					? 'px-2'
-					: 'px-6'}"
+				class="font-consolas m-0 flex min-h-screen w-full flex-col bg-white px-6 pt-12 pb-5 text-[17px] text-black lg:pt-12"
 			>
-				<!-- Internal Navigation -->
-				<nav class="mb-8 px-5">
-					<div
-						class="flex flex-col items-center space-y-1 text-center md:flex-row md:justify-center md:space-y-0 md:space-x-3"
-					>
-						{#each menuItems as item, i}
-							{#if i > 0}
-								<span class="hidden md:inline">|</span>
-							{/if}
-							<button
-								onclick={() => (view = item.id)}
-								class="cursor-pointer text-xl {view === item.id
-									? 'text-black underline'
-									: 'dynamic-link'}"
-								style={view === item.id ? '' : `color: ${color}`}
-							>
-								{item.label}
-							</button>
-						{/each}
+				<!-- header with title and navigation tabs -->
+				<div class="mb-5 flex items-center justify-center px-5 text-center">
+					<div class="flex-1 text-center">
+						<h1 class="mb-0 pb-1 text-center text-4xl font-normal">about</h1>
+						<nav class="mt-1 text-xl text-black">
+							{#each menuItems as item, i}{#if i > 0}<span>&nbsp;|&nbsp;</span>{/if}<button
+									onclick={() => (view = item.id)}
+									class="cursor-pointer text-xl {view === item.id
+										? 'text-black underline'
+										: 'dynamic-link'}"
+									style={view === item.id ? '' : `color: ${color}`}>{item.label}</button
+								>{/each}
+						</nav>
 					</div>
-				</nav>
+				</div>
 
-				<!-- Content Area with Transition -->
-				<div class="relative flex-1 px-5">
+				<!-- content area with transition -->
+				<div class="grid flex-1">
 					{#key view}
 						<div
-							class="absolute inset-x-0 top-0 px-5"
-							in:fade={{ duration: 200 }}
-							out:fade={{ duration: 200 }}
+							class="col-start-1 row-start-1 px-5"
+							in:fade={{ duration: 300 }}
+							out:fade={{ duration: 300 }}
 						>
-							{#if view === 'bio'}
+							{#if view === 'info'}
+								<p class="mb-1 text-center">
+									<a
+										href="mailto:lucca.vitters@gmail.com"
+										class="dynamic-link underline"
+										style="color: {color}">lucca.vitters@gmail.com</a
+									>
+								</p>
+								<p class="mb-1 text-center">
+									<a
+										href="https://github.com/lvitters"
+										class="dynamic-link underline"
+										style="color: {color}">github.com/lvitters</a
+									>
+								</p>
+								<p class="pb-2 text-center">
+									<a
+										href="https://soundcloud.com/katze203"
+										class="dynamic-link underline"
+										style="color: {color}">soundcloud.com/katze203</a
+									>
+								</p>
+								<p class="pb-2 text-center">
+									<a
+										href="https://instagram.com/yung.lucca/"
+										class="dynamic-link underline"
+										style="color: {color}">instagram.com/yung.lucca</a
+									>
+								</p>
+
+								<div class="my-5"></div>
+
 								<p class="mb-4">
 									hey! I am a generative media artist and creative technologist based in Bremen,
 									Germany, with an interest in exploring emergence by creating probability spaces
 									with code. My entities live on the web, manifest in physical installations and
 									roam real world surfaces through projections.
 								</p>
-
-								<div class="mt-12 flex flex-col items-center justify-center space-y-4 text-center">
-									<a
-										href="mailto:lucca.vitters@gmail.com"
-										class="dynamic-link text-xl underline"
-										style="color: {color}">lucca.vitters@gmail.com</a
-									>
-									<a
-										href="https://github.com/lvitters"
-										class="dynamic-link text-xl underline"
-										style="color: {color}">github.com/lvitters</a
-									>
-									<a
-										href="https://soundcloud.com/katze203"
-										class="dynamic-link text-xl underline"
-										style="color: {color}">soundcloud.com/katze203</a
-									>
-								</div>
 							{:else if view === 'exhibitions'}
-								<table class="w-full border-collapse text-sm md:text-base">
+								<table class="w-full border-collapse">
 									<tbody>
 										<tr>
 											<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
@@ -304,8 +309,8 @@
 										</tr>
 									</tbody>
 								</table>
-							{:else if view === 'talks'}
-								<table class="w-full border-collapse text-sm md:text-base">
+							{:else if view === 'performances'}
+								<table class="w-full border-collapse">
 									<tbody>
 										<tr>
 											<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
@@ -355,7 +360,6 @@
 								</table>
 							{:else if view === 'impressum'}
 								<div class="prose max-w-none">
-									<h2 class="mt-8 mb-4 text-2xl font-bold">Impressum</h2>
 									<p class="mb-4">
 										Lucca Vitters<br />
 										Am Dobben 28<br />
@@ -363,14 +367,13 @@
 										+4915168112323<br />
 										<a
 											href="mailto:lucca.vitters@gmail.com"
-											class="dynamic-link underline"
-											style="color: {color}">lucca.vitters@gmail.com</a
+											class="underline hover:text-[rgb(0,0,255)]">lucca.vitters@gmail.com</a
 										>
 									</p>
 
-									<h2 class="mt-12 mb-4 text-2xl font-bold">Datenschutz</h2>
-									<h3 class="mt-8 mb-4 text-xl font-bold">1. Datenschutz auf einen Blick</h3>
-									<h4 class="mt-6 mb-4 text-lg font-bold">Allgemeine Hinweise</h4>
+									<h2 class="mt-12 mb-2 text-2xl font-bold">Datenschutz</h2>
+									<h3 class="mt-4 mb-2 text-xl font-bold">1. Datenschutz auf einen Blick</h3>
+									<h4 class="mt-2 mb-4 text-lg font-bold">Allgemeine Hinweise</h4>
 									<p class="mb-4">
 										Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
 										personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
@@ -379,9 +382,9 @@
 										unserer unter diesem Text aufgeführten Datenschutzerklärung.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">Datenerfassung auf dieser Website</h4>
-									<h5 class="mt-4 mb-2 text-base font-bold tracking-wider uppercase">
-										Wer ist verantwortlich für die Datenerfassung auf dieser Website?
+									<h4 class="mt-2 mb-4 text-lg font-bold">Datenerfassung auf dieser Website</h4>
+									<h5 class="mt-4 mb-2 text-xs font-bold tracking-wider uppercase">
+										<em>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</em>
 									</h5>
 									<p class="mb-4">
 										Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber.
@@ -389,8 +392,8 @@
 										Stelle“ in dieser Datenschutzerklärung entnehmen.
 									</p>
 
-									<h5 class="mt-4 mb-2 text-base font-bold tracking-wider uppercase">
-										Wie erfassen wir Ihre Daten?
+									<h5 class="mt-4 mb-2 text-xs font-bold tracking-wider uppercase">
+										<em>Wie erfassen wir Ihre Daten?</em>
 									</h5>
 									<p class="mb-4">
 										Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen.
@@ -402,8 +405,8 @@
 										automatisch, sobald Sie diese Website betreten.
 									</p>
 
-									<h5 class="text-md mt-4 mb-2 font-bold tracking-wider uppercase">
-										Wofür nutzen wir Ihre Daten?
+									<h5 class="mt-4 mb-2 text-xs font-bold tracking-wider uppercase">
+										<em>Wofür nutzen wir Ihre Daten?</em>
 									</h5>
 									<p class="mb-4">
 										Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website
@@ -412,8 +415,8 @@
 										werden können, werden die üb
 									</p>
 
-									<h5 class="mt-4 mb-2 text-base font-bold tracking-wider uppercase">
-										Welche Rechte haben Sie bezüglich Ihrer Daten?
+									<h5 class="mt-4 mb-2 text-xs font-bold tracking-wider uppercase">
+										<em>Welche Rechte haben Sie bezüglich Ihrer Daten?</em>
 									</h5>
 									<p class="mb-4">
 										Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger
@@ -430,8 +433,8 @@
 										uns wenden.
 									</p>
 
-									<h3 class="mt-10 mb-4 text-xl font-bold">2. Hosting</h3>
-									<h4 class="mt-6 mb-4 text-lg font-bold">
+									<h3 class="mt-6 mb-2 text-xl font-bold">2. Hosting</h3>
+									<h4 class="mt-2 mb-4 text-lg font-bold">
 										Wir hosten die Inhalte unserer Website bei folgendem Anbieter:
 									</h4>
 									<p class="mb-4">GitHub Inc.</p>
@@ -463,7 +466,7 @@
 										San Francisco, CA 94107 USA
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">Auftragsverarbeitung</h4>
+									<h4 class="mt-2 mb-4 text-lg font-bold">Auftragsverarbeitung</h4>
 									<p class="mb-4">
 										Wir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben
 										genannten Dienstes geschlossen. Hierbei handelt es sich um einen
@@ -472,10 +475,10 @@
 										und unter Einhaltung der DSGVO verarbeitet.
 									</p>
 
-									<h3 class="mt-10 mb-4 text-xl font-bold">
+									<h3 class="mt-6 mb-2 text-xl font-bold">
 										3. Allgemeine Hinweise und Pflichtinformationen
 									</h3>
-									<h4 class="mt-6 mb-4 text-lg font-bold">Datenschutz</h4>
+									<h4 class="mt-2 mb-4 text-lg font-bold">Datenschutz</h4>
 									<p class="mb-4">
 										Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr
 										ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend
@@ -491,7 +494,7 @@
 										dem Zugriff durch Dritte ist nicht möglich.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">Hinweis zur verantwortlichen Stelle</h4>
+									<h4 class="mt-2 mb-4 text-lg font-bold">Hinweis zur verantwortlichen Stelle</h4>
 									<p class="mb-4">
 										Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
 									</p>
@@ -508,7 +511,7 @@
 										Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">Speicherdauer</h4>
+									<h4 class="mt-2 mb-4 text-lg font-bold">Speicherdauer</h4>
 									<p class="mb-4">
 										Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer
 										genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck
@@ -520,7 +523,7 @@
 										Löschung nach Fortfall dieser Gründe.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">
+									<h4 class="mt-2 mb-4 text-lg font-bold">
 										Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser
 										Website
 									</h4>
@@ -545,7 +548,7 @@
 										Datenschutzerklärung informiert.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">Empfänger von personenbezogenen Daten</h4>
+									<h4 class="mt-2 mb-4 text-lg font-bold">Empfänger von personenbezogenen Daten</h4>
 									<p class="mb-4">
 										Im Rahmen unserer Geschäftstätigkeit arbeiten wir mit verschiedenen externen
 										Stellen zusammen. Dabei ist teilweise auch eine Übermittlung von
@@ -561,7 +564,7 @@
 										Verarbeitung geschlossen.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">
+									<h4 class="mt-2 mb-4 text-lg font-bold">
 										Widerruf Ihrer Einwilligung zur Datenverarbeitung
 									</h4>
 									<p class="mb-4">
@@ -571,7 +574,7 @@
 										Widerruf unberührt.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">
+									<h4 class="mt-2 mb-4 text-lg font-bold">
 										Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen
 										Direktwerbung (Art. 21 DSGVO)
 									</h4>
@@ -597,7 +600,7 @@
 										ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO).
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">
+									<h4 class="mt-2 mb-4 text-lg font-bold">
 										Beschwerderecht bei der zuständigen Aufsichtsbehörde
 									</h4>
 									<p class="mb-4">
@@ -608,7 +611,7 @@
 										oder gerichtlicher Rechtsbehelfe.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">Recht auf Datenübertragbarkeit</h4>
+									<h4 class="mt-2 mb-4 text-lg font-bold">Recht auf Datenübertragbarkeit</h4>
 									<p class="mb-4">
 										Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in
 										Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen
@@ -617,7 +620,7 @@
 										verlangen, erfolgt dies nur, soweit es technisch machbar ist.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">Auskunft, Berichtigung und Löschung</h4>
+									<h4 class="mt-2 mb-4 text-lg font-bold">Auskunft, Berichtigung und Löschung</h4>
 									<p class="mb-4">
 										Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht
 										auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten,
@@ -626,7 +629,7 @@
 										Fragen zum Thema personenbezogene Daten können Sie sich jederzeit an uns wenden.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">
+									<h4 class="mt-2 mb-4 text-lg font-bold">
 										Recht auf Einschränkung der Verarbeitung
 									</h4>
 									<p class="mb-4">
@@ -665,7 +668,7 @@
 										verarbeitet werden.
 									</p>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">SSL- bzw. TLS-Verschlüsselung</h4>
+									<h4 class="mt-2 mb-4 text-lg font-bold">SSL- bzw. TLS-Verschlüsselung</h4>
 									<p class="mb-4">
 										Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung
 										vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an
@@ -679,9 +682,9 @@
 										uns übermitteln, nicht von Dritten mitgelesen werden.
 									</p>
 
-									<h3 class="mt-10 mb-4 text-xl font-bold">4. Datenerfassung auf dieser Website</h3>
+									<h3 class="mt-6 mb-2 text-xl font-bold">4. Datenerfassung auf dieser Website</h3>
 
-									<h4 class="mt-6 mb-4 text-lg font-bold">
+									<h4 class="mt-2 mb-4 text-lg font-bold">
 										Anfrage per E-Mail, Telefon oder Telefax
 									</h4>
 									<p class="mb-4">
