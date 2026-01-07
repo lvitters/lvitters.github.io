@@ -72,7 +72,7 @@
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
-				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">untiled</h1>
+				<h1 class="mb-0 pb-1 text-center text-4xl font-bold">untiled</h1>
 				<div class="mt-1 text-xl">
 					<time class="text-xl">2022</time>
 					<span> | p5.js | generative</span>

@@ -65,7 +65,7 @@
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
-				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">Break the Pattern</h1>
+				<h1 class="mb-0 pb-1 text-center text-4xl font-bold">Break the Pattern</h1>
 				<div class="mt-1 text-xl text-white">
 					<time class="text-xl">2019</time>
 					<span> | Processing | interactive installation</span>

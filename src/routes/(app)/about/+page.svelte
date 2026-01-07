@@ -48,7 +48,7 @@
 				<!-- header with title and navigation tabs -->
 				<div class="mb-5 flex items-center justify-center px-5 text-center">
 					<div class="flex-1 text-center">
-						<h1 class="mb-0 pb-1 text-center text-4xl font-normal">about</h1>
+						<h1 class="mb-0 pb-1 text-center text-4xl font-bold">about</h1>
 						<nav class="mt-1 text-xl text-black">
 							{#each menuItems as item, i}{#if i > 0}<span>&nbsp;|&nbsp;</span>{/if}<button
 									onclick={() => (view = item.id)}
@@ -356,7 +356,7 @@
 
 								<h2 class="mt-12 mb-2 text-2xl font-bold">Datenschutz:</h2>
 								<h3 class="mt-4 mb-2 text-xl font-bold">1. Datenschutz auf einen Blick</h3>
-								<h4 class="mt-2 mb-4 text-lg font-bold">Allgemeine Hinweise</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">Allgemeine Hinweise</h4>
 								<p class="mb-4">
 									Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
 									personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
@@ -365,8 +365,8 @@
 									unserer unter diesem Text aufgeführten Datenschutzerklärung.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">Datenerfassung auf dieser Website</h4>
-								<h5 class="mt-4 mb-2 text-xs font-bold tracking-wider uppercase">
+								<h4 class="mt-2 mb-4 text-lg font-normal">Datenerfassung auf dieser Website</h4>
+								<h5 class="mt-4 mb-2 text-xs font-normal tracking-wider uppercase">
 									<em>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</em>
 								</h5>
 								<p class="mb-4">
@@ -417,10 +417,9 @@
 								</p>
 
 								<h3 class="mt-6 mb-2 text-xl font-bold">2. Hosting</h3>
-								<h4 class="mt-2 mb-4 text-lg font-bold">
-									Wir hosten die Inhalte unserer Website bei folgendem Anbieter:
-								</h4>
-								<p class="mb-4">GitHub Inc.</p>
+								<p class="mb-4">
+									Wir hosten die Inhalte unserer Website bei folgendem Anbieter: GitHub Inc.
+								</p>
 								<p class="mb-4">
 									Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser
 									Website erfasst werden, werden auf den Servern des Hosters / der Hoster
@@ -449,7 +448,7 @@
 									San Francisco, CA 94107 USA
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">Auftragsverarbeitung</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">Auftragsverarbeitung</h4>
 								<p class="mb-4">
 									Wir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben
 									genannten Dienstes geschlossen. Hierbei handelt es sich um einen
@@ -461,7 +460,7 @@
 								<h3 class="mt-6 mb-2 text-xl font-bold">
 									3. Allgemeine Hinweise und Pflichtinformationen
 								</h3>
-								<h4 class="mt-2 mb-4 text-lg font-bold">Datenschutz</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">Datenschutz</h4>
 								<p class="mb-4">
 									Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst.
 									Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den
@@ -477,7 +476,7 @@
 									dem Zugriff durch Dritte ist nicht möglich.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">Hinweis zur verantwortlichen Stelle</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">Hinweis zur verantwortlichen Stelle</h4>
 								<p class="mb-4">
 									Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:
 								</p>
@@ -494,7 +493,7 @@
 									Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">Speicherdauer</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">Speicherdauer</h4>
 								<p class="mb-4">
 									Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer
 									genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für
@@ -506,7 +505,7 @@
 									dieser Gründe.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">
+								<h4 class="mt-2 mb-4 text-lg font-normal">
 									Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser
 									Website
 								</h4>
@@ -530,7 +529,7 @@
 									den folgenden Absätzen dieser Datenschutzerklärung informiert.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">Empfänger von personenbezogenen Daten</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">Empfänger von personenbezogenen Daten</h4>
 								<p class="mb-4">
 									Im Rahmen unserer Geschäftstätigkeit arbeiten wir mit verschiedenen externen
 									Stellen zusammen. Dabei ist teilweise auch eine Übermittlung von personenbezogenen
@@ -545,7 +544,7 @@
 									Vertrag über gemeinsame Verarbeitung geschlossen.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">
+								<h4 class="mt-2 mb-4 text-lg font-normal">
 									Widerruf Ihrer Einwilligung zur Datenverarbeitung
 								</h4>
 								<p class="mb-4">
@@ -555,7 +554,7 @@
 									Widerruf unberührt.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">
+								<h4 class="mt-2 mb-4 text-lg font-normal">
 									Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen
 									Direktwerbung (Art. 21 DSGVO)
 								</h4>
@@ -581,7 +580,7 @@
 									VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO).
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">
+								<h4 class="mt-2 mb-4 text-lg font-normal">
 									Beschwerderecht bei der zuständigen Aufsichtsbehörde
 								</h4>
 								<p class="mb-4">
@@ -592,7 +591,7 @@
 									gerichtlicher Rechtsbehelfe.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">Recht auf Datenübertragbarkeit</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">Recht auf Datenübertragbarkeit</h4>
 								<p class="mb-4">
 									Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in
 									Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten
@@ -601,7 +600,7 @@
 									dies nur, soweit es technisch machbar ist.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">Auskunft, Berichtigung und Löschung</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">Auskunft, Berichtigung und Löschung</h4>
 								<p class="mb-4">
 									Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht
 									auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren
@@ -610,7 +609,7 @@
 									personenbezogene Daten können Sie sich jederzeit an uns wenden.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">
+								<h4 class="mt-2 mb-4 text-lg font-normal">
 									Recht auf Einschränkung der Verarbeitung
 								</h4>
 								<p class="mb-4">
@@ -649,7 +648,7 @@
 									werden.
 								</p>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">SSL- bzw. TLS-Verschlüsselung</h4>
+								<h4 class="mt-2 mb-4 text-lg font-normal">SSL- bzw. TLS-Verschlüsselung</h4>
 								<p class="mb-4">
 									Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung
 									vertraulicher Inhalte, wie zum Beispiel Bestellungen oder Anfragen, die Sie an uns
@@ -665,7 +664,7 @@
 
 								<h3 class="mt-6 mb-2 text-xl font-bold">4. Datenerfassung auf dieser Website</h3>
 
-								<h4 class="mt-2 mb-4 text-lg font-bold">
+								<h4 class="mt-2 mb-4 text-lg font-normal">
 									Anfrage per E-Mail, Telefon oder Telefax
 								</h4>
 								<p class="mb-4">
