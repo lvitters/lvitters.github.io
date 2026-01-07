@@ -2,6 +2,7 @@
 	import '../../app.css';
 	import { page } from '$app/state';
 	import Nav from '$lib/components/Nav.svelte';
+	import { fade } from 'svelte/transition';
 
 	let { children } = $props();
 
@@ -10,4 +11,13 @@
 
 <Nav {centered} />
 
-{@render children()}
+<!-- slight fade animation on route changes -->
+{#key page.url.pathname}
+	<div
+		class="absolute inset-0 h-full w-full"
+		in:fade={{ duration: 300 }}
+		out:fade={{ duration: 300 }}
+	>
+		{@render children()}
+	</div>
+{/key}
