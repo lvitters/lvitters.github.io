@@ -444,8 +444,8 @@
 				</button>
 			</div>
 
-			<!-- mobile-only spacer -->
-			<div class="h-12 md:hidden"></div>
+			<!-- spacer -->
+			<div class="h-12 md:h-5"></div>
 		</section>
 
 		<!-- right 2/3 - detail section -->
