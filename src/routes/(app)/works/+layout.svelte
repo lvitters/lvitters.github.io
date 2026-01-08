@@ -451,7 +451,7 @@
 		<!-- right 2/3 - detail section -->
 		<section
 			class="relative z-10 overflow-y-auto text-left {showMobileDetail
-				? 'h-fit min-h-full w-full pt-20'
+				? 'h-fit min-h-full w-full pt-16'
 				: 'max-xl:hidden'} xl:h-full xl:w-2/3 xl:pl-5"
 		>
 			{@render children()}

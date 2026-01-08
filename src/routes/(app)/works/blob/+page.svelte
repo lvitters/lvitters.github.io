@@ -50,7 +50,7 @@
 </svelte:head>
 
 <main
-	class="m-0 min-h-screen overflow-hidden overflow-x-hidden bg-white px-4 pt-12 pb-5 text-black md:px-10"
+	class="m-0 min-h-screen overflow-hidden overflow-x-hidden bg-white px-4 pt-6 pb-5 text-black md:px-10 md:pt-12"
 >
 	<article class="bg-opacity-90 relative z-10 bg-white px-5 md:bg-transparent">
 		<div class="mb-5 flex items-center justify-center text-center">

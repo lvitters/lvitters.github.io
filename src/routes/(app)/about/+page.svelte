@@ -38,11 +38,11 @@
 
 		<!-- main content area -->
 		<section
-			class="h-full overflow-y-auto {mobile.current ? 'w-full pt-20' : 'w-2/3 pl-5'}"
+			class="h-full overflow-y-auto {mobile.current ? 'w-full pt-16' : 'w-2/3 pl-5'}"
 			style="scrollbar-gutter: stable;"
 		>
 			<div
-				class="font-martian m-0 flex min-h-screen w-full flex-col px-4 pt-12 pb-5 text-base text-black md:px-10 xl:pt-12"
+				class="font-martian m-0 flex min-h-screen w-full flex-col px-4 pt-6 pb-5 text-base text-black md:px-10 md:pt-12"
 				style="background: {color};"
 			>
 				<!-- header with title and navigation tabs -->

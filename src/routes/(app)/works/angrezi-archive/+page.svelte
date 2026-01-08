@@ -12,7 +12,7 @@
 	/>
 </svelte:head>
 
-<main class="m-0 min-h-screen bg-[rgb(255,255,0)] px-4 pt-12 pb-5 text-black md:px-10">
+<main class="m-0 min-h-screen bg-[rgb(255,255,0)] px-4 pt-6 pb-5 text-black md:px-10 md:pt-12">
 	<article>
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
