@@ -55,7 +55,7 @@
 	class={`font-martian absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-4 pt-1 pb-0.5 text-sm whitespace-nowrap backdrop-blur-sm xl:transition-all xl:duration-500 xl:ease-in-out ${
 		centered
 			? 'max-xl:top-6 max-xl:flex-row max-xl:items-center xl:top-1/2 xl:-translate-y-1/2 xl:flex-col xl:items-start xl:justify-center'
-			: 'top-6 flex-row items-center'
+			: 'top-6 flex-row items-center xl:top-8'
 	} ${isVisible ? 'opacity-100' : 'opacity-0'} ${
 		isSketchPage
 			? 'left-1/2 -translate-x-1/2'
