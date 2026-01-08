@@ -120,12 +120,12 @@
 									>github.com/lvitters</a
 								>
 							</p>
-							<p class="pb-2">
+							<p class="mb-1">
 								<a href="https://soundcloud.com/katze203" class="underline hover:text-white"
 									>soundcloud.com/katze203</a
 								>
 							</p>
-							<p class="pb-2">
+							<p class="mb-1">
 								<a href="https://instagram.com/yung.lucca/" class="underline hover:text-white"
 									>instagram.com/yung.lucca</a
 								>
