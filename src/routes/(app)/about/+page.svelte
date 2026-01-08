@@ -37,7 +37,10 @@
 		<section class={mobile.current ? 'hidden' : 'h-full w-1/3'}></section>
 
 		<!-- main content area -->
-		<section class="h-full overflow-y-auto {mobile.current ? 'w-full pt-20' : 'w-2/3 pl-5'}">
+		<section
+			class="h-full overflow-y-auto {mobile.current ? 'w-full pt-20' : 'w-2/3 pl-5'}"
+			style="scrollbar-gutter: stable;"
+		>
 			<div
 				class="font-martian m-0 flex min-h-screen w-full flex-col px-6 pt-12 pb-5 text-[17px] text-black lg:pt-12"
 				style="background: {color};"
