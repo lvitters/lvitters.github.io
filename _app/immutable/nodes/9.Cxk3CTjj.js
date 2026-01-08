@@ -1,1 +1,0 @@
-import{p as t,v as r,G as s,x as n,e as m,f as p,$ as c,c as i,H as f}from"../chunks/CwPamdZA.js";import{m as u}from"../chunks/D4VAeagS.js";var l=p('<meta name="robots" content="noindex"/>');function v(d,o){t(o,!1),r(()=>{u.current||f("/works/rauschen",{replaceState:!0})}),s(),n(a=>{var e=l();c.title="selected works",i(a,e)}),m()}export{v as component};
