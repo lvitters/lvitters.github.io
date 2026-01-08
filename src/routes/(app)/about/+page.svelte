@@ -68,12 +68,15 @@
 							<p class="mb-4">
 								hey! I am a media artist and developer exploring emergent phenomena by creating
 								probability spaces with code. My generative entities live on the web, manifest
-								through physical installations and roam real world surfaces through projections.
+								through physical installations and roam real-world surfaces through projections.
 								<br />
 								<br />
-								I was first inspired by a Creative Coding class by
-								<a class="underline hover:text-white" href="https://tegabrain.com/">Tega Brain</a>
-								at NYU, after which I built my first interactive installation for
+								I first learned about something called <em>Creative Coding</em> in
+								<a class="underline hover:text-white" href="https://tegabrain.com/Creative-Coding"
+									>a class of the same name</a
+								>
+								that I took during my time at NYU, after which I built my first interactive installation
+								for
 								<a
 									class="underline hover:text-white"
 									href="https://markenfilm-space.de/portfolio/break-the-pattern/"
@@ -84,12 +87,11 @@
 									class="underline hover:text-white"
 									href="http://hs-bremen.de/studieren/studiengang/internationaler-studiengang-medieninformatik-b-sc/"
 									>Media Computer Science</a
-								>, I have spent the last few years experimenting with coding visuals and building
-								media systems at
+								>, I spent the last few years learning about and experimenting with media systems at
 								<a class="underline hover:text-white" href="https://www.hfk-bremen.de/en"
 									>Hochschule für Künste</a
 								>
-								in Bremen, where I have recently graduated with distinction as MA in
+								in Bremen, from which I have recently graduated with distinction, with an MA in
 								<a class="underline hover:text-white" href="https://digitalmedia-bremen.de/"
 									>Digital Media</a
 								>.
@@ -101,7 +103,7 @@
 								<a class="underline hover:text-white" href="https://resolume.com/">Resolume</a>,
 								<a class="underline hover:text-white" href="https://openframeworks.cc/"
 									>openFrameworks</a
-								>, html+css+js and have lately dabbled in
+								>, html/css/js and have lately been dabbling in
 								<a class="underline hover:text-white" href="https://svelte.dev/">Svelte</a>.
 								<br />
 								<br />
