@@ -50,14 +50,14 @@
 </svelte:head>
 
 <main
-	class="font-consolas m-0 min-h-screen overflow-hidden overflow-x-hidden bg-white px-6 pt-12 pb-5 text-black"
+	class="m-0 min-h-screen overflow-hidden overflow-x-hidden bg-white px-6 pt-12 pb-5 text-black"
 >
 	<article class="bg-opacity-90 relative z-10 bg-white px-5 md:bg-transparent">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-4xl font-bold">blob</h1>
-				<div class="mt-1 text-xl">
-					<time class="text-xl">2020</time>
+				<div class="mt-1 text-xl font-medium">
+					<time>2020</time>
 					<span> | p5.js | interactive installation</span>
 				</div>
 			</div>

@@ -1,14 +1,33 @@
 @import 'tailwindcss';
 
 @font-face {
-	font-family: 'Consolas';
-	src: url('/fonts/Consolas.ttf') format('truetype');
-	font-weight: normal;
+	font-family: 'MartianMono';
+	src: url('/fonts/MartianMonoVF.woff2') format('woff2');
+	font-weight: 100 900;
 	font-style: normal;
 }
 
-.font-consolas {
-	font-family: 'Consolas', monospace;
+/* global settings */
+:root {
+	--font-martian: 'MartianMono', monospace;
+	--martian-weight: 400;
+	--martian-width: 100%;
+	--martian-letter-spacing: -0.01em;
+	--martian-line-height: 1.5;
+}
+
+/* tailwind util */
+.font-martian {
+	font-family: var(--font-martian);
+}
+
+/* apply to body */
+body {
+	font-family: var(--font-martian);
+	font-weight: var(--martian-weight);
+	font-stretch: var(--martian-width);
+	letter-spacing: var(--martian-letter-spacing);
+	line-height: var(--martian-line-height);
 }
 
 /* mobile text size and padding adjustments */

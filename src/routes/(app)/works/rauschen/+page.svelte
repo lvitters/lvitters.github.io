@@ -16,13 +16,13 @@
 	/>
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-gray-300 px-6 pt-12 pb-5 text-black">
+<main class="m-0 min-h-screen bg-gray-300 px-6 pt-12 pb-5 text-black">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-4xl font-bold">RAUSCHEN</h1>
-				<div class="mt-1 text-xl text-black">
-					<time class="text-xl">2025</time>
+				<div class="mt-1 text-xl font-medium text-black">
+					<time>2025</time>
 					<span> | generative installation / performance | Processing | OpenGL</span>
 				</div>
 			</div>

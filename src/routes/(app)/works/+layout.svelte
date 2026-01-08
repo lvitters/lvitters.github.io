@@ -151,12 +151,12 @@
 	<script src="/sketches/untiled/untiled_preview.js" defer></script>
 </svelte:head>
 
-<main class="font-consolas relative flex h-screen w-full overflow-x-hidden text-[17px]">
+<main class="relative flex h-screen w-full overflow-x-hidden text-[17px]">
 	<!-- content container -->
 	<div class="flex h-full">
 		<!-- left 1/3 - overview section -->
 		<section
-			class="scrollbar-none relative z-20 h-full w-full overflow-y-auto px-10 pt-20 text-left lg:w-1/3 lg:overflow-x-visible lg:pr-4 lg:pl-8 lg:md:w-[33.33vw] {showMobileDetail
+			class="scrollbar-none relative z-20 h-full w-full overflow-y-auto px-10 pt-20 text-left lg:w-1/3 lg:overflow-x-visible lg:pr-4 lg:pl-8 {showMobileDetail
 				? 'max-lg:hidden'
 				: ''}"
 		>
@@ -444,8 +444,7 @@
 		<section
 			class="relative z-10 overflow-y-auto text-left {showMobileDetail
 				? 'h-fit min-h-full w-full pt-20'
-				: 'max-lg:hidden'} lg:h-full lg:w-2/3 lg:pl-5 lg:md:w-[66.67vw]"
-			style="scrollbar-gutter: stable;"
+				: 'max-lg:hidden'} lg:h-full lg:w-2/3 lg:pl-5"
 		>
 			{@render children()}
 		</section>

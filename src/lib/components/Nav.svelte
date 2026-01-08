@@ -52,7 +52,7 @@
 
 <!-- using tailwind xl breakpoint (1280px) for text sizing -->
 <nav
-	class={`font-consolas absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-2 pt-0.5 text-[14px] whitespace-nowrap backdrop-blur-sm lg:transition-all lg:duration-500 lg:ease-in-out xl:text-[17px] ${
+	class={`font-martian absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-4 pt-1 pb-0.5 text-[12px] whitespace-nowrap backdrop-blur-sm lg:transition-all lg:duration-500 lg:ease-in-out xl:text-[15px] ${
 		centered
 			? 'max-lg:top-8 max-lg:flex-row max-lg:items-center lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:items-start lg:justify-center'
 			: 'top-8 flex-row items-center'

@@ -31,13 +31,13 @@
 	/>
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-[rgb(42,0,25)] px-6 pt-12 pb-5 text-white">
+<main class="m-0 min-h-screen bg-[rgb(42,0,25)] px-6 pt-12 pb-5 text-white">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-4xl font-bold">feedback_cube</h1>
-				<div class="mt-1 text-xl text-white">
-					<time class="text-xl">2022</time>
+				<div class="mt-1 text-xl font-medium text-white">
+					<time>2022</time>
 					<span> | interactive installation | Processing | Max/MSP</span>
 				</div>
 			</div>

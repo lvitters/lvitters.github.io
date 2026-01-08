@@ -37,13 +37,13 @@
 	/>
 </svelte:head>
 
-<main class="font-consolas m-0 min-h-screen bg-black px-6 pt-12 pb-5 text-white">
+<main class="m-0 min-h-screen bg-black px-6 pt-12 pb-5 text-white">
 	<article class="px-5">
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-4xl font-bold">RAYARRAY</h1>
-				<div class="mt-1 text-xl text-white">
-					<time class="text-xl">2023</time>
+				<div class="mt-1 text-xl font-medium text-white">
+					<time>2023</time>
 					<span> | kinetic light installation | Processing | Arduino</span>
 				</div>
 			</div>
@@ -56,7 +56,8 @@
 				class="text-white underline hover:text-red-500">Dennis Paul</a
 			>
 			and
-			<a href="https://rlfbckr.io/" class=" text-white underline hover:text-red-500">Ralf Bäcker</a>
+			<a href="https://rlfbckr.io/" class=" text-white underline hover:text-red-500">Ralf Baecker</a
+			>
 			for the guidance
 		</p>
 

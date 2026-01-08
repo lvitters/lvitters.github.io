@@ -37,19 +37,16 @@
 		<section class={mobile.current ? 'hidden' : 'h-full w-1/3'}></section>
 
 		<!-- main content area -->
-		<section
-			class="h-full overflow-y-auto {mobile.current ? 'w-full pt-20' : 'w-2/3 pl-5'}"
-			style="scrollbar-gutter: stable;"
-		>
+		<section class="h-full overflow-y-auto {mobile.current ? 'w-full pt-20' : 'w-2/3 pl-5'}">
 			<div
-				class="font-consolas m-0 flex min-h-screen w-full flex-col px-6 pt-12 pb-5 text-[17px] text-black lg:pt-12"
+				class="font-martian m-0 flex min-h-screen w-full flex-col px-6 pt-12 pb-5 text-[17px] text-black lg:pt-12"
 				style="background: {color};"
 			>
 				<!-- header with title and navigation tabs -->
 				<div class="mb-5 flex items-center justify-center px-5 text-center">
 					<div class="flex-1 text-center">
 						<h1 class="mb-0 pb-1 text-center text-4xl font-bold">about</h1>
-						<nav class="mt-1 text-xl text-black">
+						<nav class="mt-1 text-xl font-medium text-black">
 							{#each menuItems as item, i}{#if i > 0}<span>&nbsp;|&nbsp;</span>{/if}<button
 									onclick={() => (view = item.id)}
 									class="cursor-pointer text-xl underline {view === item.id
@@ -64,7 +61,7 @@
 				<div class="grid flex-1">
 					<div class="col-start-1 row-start-1 px-5">
 						{#if view === 'info'}
-							<h2 class="mt-12 mb-2 text-2xl font-bold">bio</h2>
+							<h2 class="mt-12 mb-2 text-2xl font-medium">bio</h2>
 							<p class="mb-4">
 								hey! I am a media artist and developer exploring emergent phenomena by creating
 								probability spaces with code. My generative entities live on the web, manifest
@@ -109,7 +106,7 @@
 
 							<div class="my-5"></div>
 
-							<h2 class="mt-12 mb-2 text-2xl font-bold">links</h2>
+							<h2 class="mt-12 mb-2 text-2xl font-medium">links</h2>
 							<p class="mb-1">
 								<a href="mailto:lucca.vitters@gmail.com" class="underline hover:text-white"
 									>lucca.vitters@gmail.com</a
@@ -131,7 +128,7 @@
 								>
 							</p>
 						{:else if view === 'exhibitions'}
-							<h2 class="mt-12 mb-2 text-2xl font-bold">exhibitions</h2>
+							<h2 class="mt-12 mb-2 text-2xl font-medium">exhibitions</h2>
 							<table class="w-full border-collapse">
 								<tbody>
 									<tr>
@@ -302,7 +299,7 @@
 
 							<div class="my-5"></div>
 
-							<h2 class="mt-12 mb-2 text-2xl font-bold">performances</h2>
+							<h2 class="mt-12 mb-2 text-2xl font-medium">performances</h2>
 
 							<table class="w-full border-collapse">
 								<tbody>
@@ -343,7 +340,7 @@
 							</table>
 						{:else if view === 'impressum'}
 							<div class="prose max-w-none">
-								<h2 class="mt-12 mb-2 text-2xl font-bold">Impressum</h2>
+								<h2 class="mt-12 mb-2 text-2xl font-medium">Impressum</h2>
 								<p class="mb-4">
 									Lucca Vitters<br />
 									Am Dobben 28<br />
@@ -354,8 +351,8 @@
 									>
 								</p>
 
-								<h2 class="mt-12 mb-2 text-2xl font-bold">Datenschutz</h2>
-								<h3 class="mt-4 mb-2 text-xl font-bold">1. Datenschutz auf einen Blick</h3>
+								<h2 class="mt-12 mb-2 text-2xl font-medium">Datenschutz</h2>
+								<h3 class="mt-4 mb-2 text-xl font-medium">1. Datenschutz auf einen Blick</h3>
 								<h4 class="mt-2 mb-4 text-lg font-normal">Allgemeine Hinweise</h4>
 								<p class="mb-4">
 									Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
@@ -366,7 +363,7 @@
 								</p>
 
 								<h4 class="mt-2 mb-4 text-lg font-normal">Datenerfassung auf dieser Website</h4>
-								<h5 class="mt-4 mb-2 text-xs font-normal tracking-wider uppercase">
+								<h5 class="mt-4 mb-2 text-xs font-bold tracking-wider uppercase">
 									<em>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</em>
 								</h5>
 								<p class="mb-4">
@@ -691,7 +688,7 @@
 
 								<p class="my-16">
 									Quelle: <a href="https://www.e-recht24.de" class="underline hover:text-white"
-										>https://www.e-recht24.de</a
+										>www.e-recht24.de</a
 									>
 								</p>
 							</div>

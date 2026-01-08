@@ -324,7 +324,7 @@
 					left = p.createButton('<');
 					// tailwind classes for html buttons
 					left.class(
-						'p5-button font-consolas absolute z-50 flex rounded-md border hover:text-[rgb(0,0,255)] border-white/20 bg-white/20 hover:bg-black/20 px-2 pt-0.5 text-[40px] backdrop-blur-sm transition-colors duration-200 cursor-pointer'
+						'p5-button absolute z-50 flex rounded-md border hover:text-[rgb(0,0,255)] border-white/20 bg-white/20 hover:bg-black/20 px-2 pt-0.5 text-[40px] backdrop-blur-sm transition-colors duration-200 cursor-pointer'
 					);
 					left.elt.addEventListener('click', goLeft);
 					left.elt.addEventListener('touchstart', (e) => {
@@ -342,7 +342,7 @@
 				if (right == null) {
 					right = p.createButton('>');
 					right.class(
-						'p5-button font-consolas absolute z-50 flex rounded-md border hover:text-[rgb(0,0,255)] border-white/20 bg-white/20 hover:bg-black/20 px-2 pt-0.5 text-[40px] backdrop-blur-sm transition-colors duration-200 cursor-pointer'
+						'p5-button absolute z-50 flex rounded-md border hover:text-[rgb(0,0,255)] border-white/20 bg-white/20 hover:bg-black/20 px-2 pt-0.5 text-[40px] backdrop-blur-sm transition-colors duration-200 cursor-pointer'
 					);
 					right.elt.addEventListener('click', goRight);
 					right.elt.addEventListener('touchstart', (e) => {
