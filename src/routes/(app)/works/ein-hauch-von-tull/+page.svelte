@@ -14,8 +14,8 @@
 	<meta name="description" content="A holographic light installation made from tull." />
 </svelte:head>
 
-<main class="m-0 min-h-screen bg-[rgb(0,40,0)] px-6 pt-12 pb-5 text-white">
-	<article class="px-5">
+<main class="m-0 min-h-screen bg-[rgb(0,40,0)] px-4 pt-12 pb-5 text-white md:px-10">
+	<article>
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-4xl font-bold">Ein Hauch Von Tüll</h1>

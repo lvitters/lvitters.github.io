@@ -42,11 +42,11 @@
 			style="scrollbar-gutter: stable;"
 		>
 			<div
-				class="font-martian m-0 flex min-h-screen w-full flex-col px-6 pt-12 pb-5 text-[17px] text-black lg:pt-12"
+				class="font-martian m-0 flex min-h-screen w-full flex-col px-4 pt-12 pb-5 text-base text-black md:px-10 lg:pt-12"
 				style="background: {color};"
 			>
 				<!-- header with title and navigation tabs -->
-				<div class="mb-5 flex items-center justify-center px-5 text-center">
+				<div class="mb-5 flex items-center justify-center text-center">
 					<div class="flex-1 text-center">
 						<h1 class="mb-0 pb-1 text-center text-4xl font-bold">about</h1>
 						<nav class="mt-1 text-xl font-medium text-black">
@@ -62,7 +62,7 @@
 
 				<!-- content area with transition -->
 				<div class="grid flex-1">
-					<div class="col-start-1 row-start-1 px-5">
+					<div class="col-start-1 row-start-1">
 						{#if view === 'info'}
 							<h2 class="mt-12 mb-2 text-2xl font-medium">bio</h2>
 							<p class="mb-4">

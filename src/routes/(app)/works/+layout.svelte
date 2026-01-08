@@ -102,6 +102,7 @@
 	// load untiled preview sketch
 	onMount(() => {
 		let cleanup: (() => void) | null = null;
+		let resizeObserver: ResizeObserver | null = null;
 		let mounted = true;
 
 		// async function to load p5 and initialize sketch
@@ -123,6 +124,12 @@
 						// only mount if container is visible (desktop)
 						if (container.clientWidth > 0 && container.offsetHeight > 0) {
 							cleanup = window.mountUntiledPreviewSketch('untiled-preview-container');
+
+							// observe container for size changes
+							resizeObserver = new ResizeObserver(() => {
+								window.dispatchEvent(new Event('resize'));
+							});
+							resizeObserver.observe(container);
 						} else {
 							// container not ready yet, try again
 							setTimeout(tryMount, 50);
@@ -143,6 +150,7 @@
 		return () => {
 			mounted = false;
 			if (cleanup) cleanup();
+			if (resizeObserver) resizeObserver.disconnect();
 		};
 	});
 </script>
@@ -151,12 +159,12 @@
 	<script src="/sketches/untiled/untiled_preview.js" defer></script>
 </svelte:head>
 
-<main class="relative flex h-screen w-full overflow-x-hidden text-[17px]">
+<main class="relative flex h-screen w-full overflow-x-hidden text-base">
 	<!-- content container -->
 	<div class="flex h-full">
 		<!-- left 1/3 - overview section -->
 		<section
-			class="scrollbar-none relative z-20 h-full w-full overflow-y-auto px-10 pt-20 text-left lg:w-1/3 lg:overflow-x-visible lg:pr-4 lg:pl-8 {showMobileDetail
+			class="scrollbar-none relative z-20 h-full w-full overflow-y-auto px-4 pt-20 text-left md:px-10 lg:w-1/3 lg:overflow-x-visible lg:pr-4 lg:pl-8 {showMobileDetail
 				? 'max-lg:hidden'
 				: ''}"
 		>
