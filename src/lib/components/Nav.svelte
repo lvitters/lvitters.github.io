@@ -52,14 +52,14 @@
 
 <!-- using tailwind xl breakpoint (1280px) for text sizing -->
 <nav
-	class={`font-martian absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-4 pt-1 pb-0.5 text-sm whitespace-nowrap backdrop-blur-sm lg:transition-all lg:duration-500 lg:ease-in-out ${
+	class={`font-martian absolute z-50 flex rounded-md border border-white/30 bg-white/30 px-4 pt-1 pb-0.5 text-sm whitespace-nowrap backdrop-blur-sm xl:transition-all xl:duration-500 xl:ease-in-out ${
 		centered
-			? 'max-lg:top-8 max-lg:flex-row max-lg:items-center lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:items-start lg:justify-center'
+			? 'max-xl:top-8 max-xl:flex-row max-xl:items-center xl:top-1/2 xl:-translate-y-1/2 xl:flex-col xl:items-start xl:justify-center'
 			: 'top-8 flex-row items-center'
 	} ${isVisible ? 'opacity-100' : 'opacity-0'} ${
 		isSketchPage
 			? 'left-1/2 -translate-x-1/2'
-			: 'max-lg:left-1/2 max-lg:-translate-x-1/2 lg:[left:calc((33.33vw-2rem-1rem)/2+2rem)] lg:[transform:translateX(-50%)]'
+			: 'max-xl:left-1/2 max-xl:-translate-x-1/2 xl:[left:calc((33.33vw-2rem-1rem)/2+2rem)] xl:[transform:translateX(-50%)]'
 	}`}
 	ontouchstart={(e) => e.stopPropagation()}
 >

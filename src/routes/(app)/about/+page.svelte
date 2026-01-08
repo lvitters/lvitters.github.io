@@ -42,7 +42,7 @@
 			style="scrollbar-gutter: stable;"
 		>
 			<div
-				class="font-martian m-0 flex min-h-screen w-full flex-col px-4 pt-12 pb-5 text-base text-black md:px-10 lg:pt-12"
+				class="font-martian m-0 flex min-h-screen w-full flex-col px-4 pt-12 pb-5 text-base text-black md:px-10 xl:pt-12"
 				style="background: {color};"
 			>
 				<!-- header with title and navigation tabs -->
@@ -64,7 +64,7 @@
 				<div class="grid flex-1">
 					<div class="col-start-1 row-start-1">
 						{#if view === 'info'}
-							<h2 class="mt-12 mb-2 text-2xl font-medium">bio</h2>
+							<h2 class="mt-0 mb-2 text-2xl font-medium">bio</h2>
 							<p class="mb-4">
 								hey! I am a media artist and developer exploring emergent phenomena by creating
 								probability spaces with code. My generative entities live on the web, manifest
@@ -131,7 +131,7 @@
 								>
 							</p>
 						{:else if view === 'exhibitions'}
-							<h2 class="mt-12 mb-2 text-2xl font-medium">exhibitions</h2>
+							<h2 class="mt-0 mb-2 text-2xl font-medium">exhibitions</h2>
 							<table class="w-full border-collapse">
 								<tbody>
 									<tr>
@@ -343,7 +343,7 @@
 							</table>
 						{:else if view === 'impressum'}
 							<div class="prose max-w-none">
-								<h2 class="mt-12 mb-2 text-2xl font-medium">Impressum</h2>
+								<h2 class="mt-0 mb-2 text-2xl font-medium">Impressum</h2>
 								<p class="mb-4">
 									Lucca Vitters<br />
 									Am Dobben 28<br />

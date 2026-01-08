@@ -164,8 +164,8 @@
 	<div class="flex h-full">
 		<!-- left 1/3 - overview section -->
 		<section
-			class="scrollbar-none relative z-20 h-full w-full overflow-y-auto px-4 pt-20 text-left md:px-10 lg:w-1/3 lg:overflow-x-visible lg:pr-4 lg:pl-8 {showMobileDetail
-				? 'max-lg:hidden'
+			class="scrollbar-none relative z-20 h-full w-full overflow-y-auto px-4 pt-20 text-left md:px-10 xl:w-1/3 xl:overflow-x-visible xl:pr-4 xl:pl-8 {showMobileDetail
+				? 'max-xl:hidden'
 				: ''}"
 		>
 			<div class="mb-1">
@@ -329,7 +329,7 @@
 			<div class="mb-1">
 				<!-- mobile: show static image -->
 				<button
-					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80 lg:hidden"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 transition-opacity duration-300 hover:opacity-80 xl:hidden"
 					onclick={() => navigateToWork('untiled')}
 					aria-label="View untiled project details"
 				>
@@ -338,7 +338,7 @@
 				<!-- desktop: show p5 sketch -->
 				<button
 					id="untiled-preview-container"
-					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 max-lg:hidden"
+					class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 max-xl:hidden"
 					style="height: 150px; width: 100%; box-sizing: border-box;"
 					aria-label="View untiled project details"
 					onclick={() => navigateToWork('untiled')}
@@ -452,7 +452,7 @@
 		<section
 			class="relative z-10 overflow-y-auto text-left {showMobileDetail
 				? 'h-fit min-h-full w-full pt-20'
-				: 'max-lg:hidden'} lg:h-full lg:w-2/3 lg:pl-5"
+				: 'max-xl:hidden'} xl:h-full xl:w-2/3 xl:pl-5"
 		>
 			{@render children()}
 		</section>
