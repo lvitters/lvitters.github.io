@@ -83,7 +83,7 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={RayArray3} alt="RAYARRAY" class="block w-full" loading="lazy" />
+			<enhanced:img src={RayArray3} alt="RAYARRAY" class="block w-full bg-red-950" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
@@ -98,13 +98,13 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={RayArray4} alt="RAYARRAY" class="block w-full" loading="lazy" />
+			<enhanced:img src={RayArray4} alt="RAYARRAY" class="block w-full bg-red-950" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={RayArray2} alt="RAYARRAY" class="block w-full" loading="lazy" />
+			<enhanced:img src={RayArray2} alt="RAYARRAY" class="block w-full bg-red-950" loading="lazy" />
 		</figure>
 
 		<div class="my-5"></div>
@@ -114,7 +114,7 @@
 				<enhanced:img
 					src={image}
 					alt="RAYARRAY"
-					class="block w-full {index === cyclingImagesIndex
+					class="block w-full bg-red-950 {index === cyclingImagesIndex
 						? 'opacity-100'
 						: 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
 					loading="lazy"

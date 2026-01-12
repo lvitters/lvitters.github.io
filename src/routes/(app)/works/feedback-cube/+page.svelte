@@ -75,7 +75,7 @@
 				<enhanced:img
 					src={image}
 					alt="feedback_cube"
-					class="block w-full {index === cyclingImagesIndex
+					class="block w-full bg-fuchsia-950 {index === cyclingImagesIndex
 						? 'opacity-100'
 						: 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
 					loading="lazy"
@@ -86,18 +86,33 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={FeedbackCube5} alt="feedback_cube" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={FeedbackCube5}
+				alt="feedback_cube"
+				class="block w-full bg-fuchsia-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<div class="flex flex-col gap-4 md:flex-row">
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={FeedbackCube3} alt="feedback_cube" class="block" loading="lazy" />
+				<enhanced:img
+					src={FeedbackCube3}
+					alt="feedback_cube"
+					class="block bg-fuchsia-950"
+					loading="lazy"
+				/>
 			</figure>
 
 			<figure class="m-0 flex p-0">
-				<enhanced:img src={FeedbackCube6} alt="feedback_cube" class="block" loading="lazy" />
+				<enhanced:img
+					src={FeedbackCube6}
+					alt="feedback_cube"
+					class="block bg-fuchsia-950"
+					loading="lazy"
+				/>
 			</figure>
 		</div>
 
@@ -106,7 +121,7 @@
 		<figure class="m-0 p-0">
 			<video
 				title="feedback_cube reel video"
-				class="block h-auto w-full object-cover"
+				class="block h-auto w-full aspect-video bg-fuchsia-950 object-cover"
 				controls
 				muted
 				autoplay

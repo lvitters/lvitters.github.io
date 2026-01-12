@@ -30,7 +30,7 @@
 	<meta name="description" content="Another holographic light installation made from tull." />
 </svelte:head>
 
-<main class="m-0 min-h-screen bg-[rgb(10,0,50)] px-4 pt-6 md:pt-12 pb-5 text-white md:px-10">
+<main class="m-0 min-h-screen bg-[rgb(10,0,50)] px-4 pt-6 pb-5 text-white md:px-10 md:pt-12">
 	<article>
 		<div class="mb-5 flex items-center justify-center text-center">
 			<div class="flex-1 text-center">
@@ -44,13 +44,23 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull23} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull23}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-indigo-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull29} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull29}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-indigo-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
@@ -60,7 +70,7 @@
 				<enhanced:img
 					src={image}
 					alt="Ein Hauch Von Tüll"
-					class="block w-full {index === cyclingImagesIndex
+					class="block w-full bg-indigo-950 {index === cyclingImagesIndex
 						? 'opacity-100'
 						: 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
 					loading="lazy"
@@ -71,18 +81,31 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull26} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull26}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-indigo-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull28} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull28}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-indigo-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
-		<div id="v2-1" class="mb-5 flex items-center justify-center px-2 pt-6 md:pt-12 text-center md:px-0">
+		<div
+			id="v2-1"
+			class="mb-5 flex items-center justify-center px-2 pt-6 text-center md:px-0 md:pt-12"
+		>
 			<div class="flex-1 text-center">
 				<h1 class="mb-0 pb-1 text-center text-4xl font-normal">Ein Hauch von Tüll v2.1</h1>
 				<div class="mt-1 text-xl text-white">
@@ -104,19 +127,34 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull2_1_3} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull2_1_3}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-indigo-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull2_1_2} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull2_1_2}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-indigo-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull2_1_1} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull2_1_1}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-indigo-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>

@@ -98,7 +98,7 @@
 		<div class="my-5">
 			<video
 				title="Break the Pattern Video"
-				class="block h-auto w-full object-cover"
+				class="block aspect-video h-auto w-full bg-pink-950 object-cover"
 				controls
 				muted
 				autoplay
@@ -125,7 +125,7 @@
 						<enhanced:img
 							src={slide}
 							alt="Break the Pattern Installation"
-							class="block w-full"
+							class="block w-full bg-pink-950"
 							loading="lazy"
 						/>
 					</div>
@@ -161,7 +161,7 @@
 						<enhanced:img
 							src={slide}
 							alt="Break the Pattern Design"
-							class="block w-full"
+							class="block w-full bg-pink-950"
 							loading="lazy"
 						/>
 					</div>

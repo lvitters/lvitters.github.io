@@ -177,7 +177,7 @@
 					<enhanced:img
 						src={RauschenPreview}
 						alt="RAUSCHEN preview"
-						class="h-auto w-full"
+						class="h-auto w-full bg-gray-300"
 						sizes="(min-width:1920px) 1280px, (min-width:1080px) 640px, (min-width:768px) 400px"
 					/>
 				</button>
@@ -275,7 +275,7 @@
 						<enhanced:img
 							src={image}
 							alt="RAYARRAY preview"
-							class="h-auto w-full {index === currentRayarrayImageIndex
+							class="h-auto w-full bg-gray-300 {index === currentRayarrayImageIndex
 								? 'opacity-100'
 								: 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
 						/>
@@ -297,7 +297,7 @@
 					<enhanced:img
 						src={FeedbackCubePreview}
 						alt="feedback_cube preview"
-						class="h-auto w-full"
+						class="h-auto w-full bg-gray-300"
 					/>
 				</button>
 				<button
@@ -316,7 +316,7 @@
 					<enhanced:img
 						src={Tull2_3Preview}
 						alt="Ein Hauch Von Tuell v2 preview"
-						class="h-auto w-full"
+						class="h-auto w-full bg-gray-300"
 					/>
 				</button>
 				<button
@@ -333,7 +333,11 @@
 					onclick={() => navigateToWork('untiled')}
 					aria-label="View untiled project details"
 				>
-					<enhanced:img src={UntiledPreview} alt="untiled preview" class="h-auto w-full" />
+					<enhanced:img
+						src={UntiledPreview}
+						alt="untiled preview"
+						class="h-auto w-full bg-gray-300"
+					/>
 				</button>
 				<!-- desktop: show p5 sketch -->
 				<button
@@ -360,7 +364,7 @@
 						<enhanced:img
 							src={image}
 							alt="Ein Hauch Von Tuell preview"
-							class="h-auto w-full {index === currentTullImageIndex
+							class="h-auto w-full bg-gray-300 {index === currentTullImageIndex
 								? 'opacity-100'
 								: 'opacity-0'} {index === 0 ? 'relative' : 'absolute inset-0'}"
 						/>
@@ -400,7 +404,7 @@
 					onclick={() => navigateToWork('blob')}
 					aria-label="View blob project details"
 				>
-					<enhanced:img src={BlobPreview} alt="blob preview" class="h-auto w-full" />
+					<enhanced:img src={BlobPreview} alt="blob preview" class="h-auto w-full bg-gray-300" />
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"
@@ -418,7 +422,7 @@
 					<enhanced:img
 						src={BreakThePattern1}
 						alt="Break the Pattern preview"
-						class="h-auto w-full"
+						class="h-auto w-full bg-gray-300"
 					/>
 				</button>
 				<button
@@ -434,7 +438,7 @@
 					onclick={() => navigateToWork('image-blender')}
 					aria-label="View Image Blender project details"
 				>
-					<img src={ImageBlender1} alt="image_blender preview" class="h-auto w-full" />
+					<img src={ImageBlender1} alt="image_blender preview" class="h-auto w-full bg-gray-300" />
 				</button>
 				<button
 					class="cursor-pointer text-black underline transition-colors hover:text-[rgb(0,0,255)]"

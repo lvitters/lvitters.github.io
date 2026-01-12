@@ -69,7 +69,7 @@
 			<figure class="m-0 flex-1 p-0">
 				<video
 					title="rauschen reel video"
-					class="block h-auto w-full object-cover"
+					class="block h-auto w-full bg-gray-400 object-cover"
 					controls
 					muted
 					autoplay
@@ -84,21 +84,31 @@
 			</figure>
 
 			<figure class="m-0 flex-1 p-0">
-				<enhanced:img src={Rauschen1} alt="RAUSCHEN" class="block w-full" loading="lazy" />
+				<enhanced:img
+					src={Rauschen1}
+					alt="RAUSCHEN"
+					class="block w-full bg-gray-400"
+					loading="lazy"
+				/>
 			</figure>
 		</div>
 
 		<div class="my-5"></div>
 
 		<div class="flex flex-col gap-4 md:flex-row">
-			<enhanced:img src={Rauschen3} alt="RAUSCHEN" class="block" loading="lazy" />
-			<enhanced:img src={Rauschen4} alt="RAUSCHEN" class="block" loading="lazy" />
+			<enhanced:img src={Rauschen3} alt="RAUSCHEN" class="block bg-gray-400" loading="lazy" />
+			<enhanced:img src={Rauschen4} alt="RAUSCHEN" class="block bg-gray-400" loading="lazy" />
 		</div>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 flex-1 p-0">
-			<enhanced:img src={Rauschen2} alt="RAUSCHEN" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Rauschen2}
+				alt="RAUSCHEN"
+				class="block w-full bg-gray-400"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>

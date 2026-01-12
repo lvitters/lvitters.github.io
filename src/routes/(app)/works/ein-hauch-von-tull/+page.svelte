@@ -36,49 +36,89 @@
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull7} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull7}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-green-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull4} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull4}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-green-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull1} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull1}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-green-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-4"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull8} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull8}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-green-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull6} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull6}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-green-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull2} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull2}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-green-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull9} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull9}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-green-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
 
 		<figure class="m-0 p-0">
-			<enhanced:img src={Tull5} alt="Ein Hauch Von Tüll" class="block w-full" loading="lazy" />
+			<enhanced:img
+				src={Tull5}
+				alt="Ein Hauch Von Tüll"
+				class="block w-full bg-green-950"
+				loading="lazy"
+			/>
 		</figure>
 
 		<div class="my-5"></div>
