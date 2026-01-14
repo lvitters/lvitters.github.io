@@ -65,7 +65,7 @@
 					<div class="col-start-1 row-start-1">
 						{#if view === 'info'}
 							<h2 class="mt-0 mb-2 text-2xl font-medium">bio</h2>
-							<p class="mb-4">
+							<p class="mb-6">
 								hey! I am a media artist and developer exploring emergent phenomena by creating
 								probability spaces with code. My generative entities live on the web, manifest
 								through physical installations and roam real-world surfaces through projections.
@@ -105,8 +105,6 @@
 									>openFrameworks</a
 								>, html/css/js and have lately been dabbling in
 								<a class="underline hover:text-white" href="https://svelte.dev/">Svelte</a>.
-								<br />
-								<br />
 							</p>
 
 							<div class="my-5"></div>
@@ -127,9 +125,17 @@
 									>soundcloud.com/katze203</a
 								>
 							</p>
-							<p class="mb-1">
+							<p class="mb-6">
 								<a href="https://instagram.com/yung.lucca/" class="underline hover:text-white"
 									>instagram.com/yung.lucca</a
+								>
+							</p>
+							<div class="my-5"></div>
+
+							<h2 class="mt-12 mb-2 text-2xl font-medium">font</h2>
+							<p class="mb-4">
+								<a href="https://github.com/evilmartians/mono" class="underline hover:text-white"
+									>Martian Mono</a
 								>
 							</p>
 						{:else if view === 'exhibitions'}
