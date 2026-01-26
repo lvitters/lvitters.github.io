@@ -23,7 +23,7 @@
 				<h1 class="mb-0 pb-1 text-center text-4xl font-bold">RAUSCHEN</h1>
 				<div class="mt-1 text-xl font-medium text-black">
 					<time>2025</time>
-					<span> | generative installation / performance | Processing | OpenGL</span>
+					<span> | emergent media system | Processing | OpenGL</span>
 				</div>
 			</div>
 		</div>
@@ -74,13 +74,12 @@
 			Or we could just leave it up to chance.
 			<br />
 			<br />
-			RAUSCHEN ("noise") is a real-time generative media system exploring the probability space of a
-			1,000×1,000 image. It generates textures with a variety of techniques such as white or Perlin noise
-			and recursively feeds them into a modular palette of per-pixel algorithms. They each represent
-			visual effects that, running in succession, synthesise exponentially random emergent patterns.
-			While contemporary image generation models try to impose meaning onto the noise based on their
-			training data, RAUSCHEN aims to chart new areas hidden within the noise itself. In the end, a human
-			decides what is worth keeping.
+			RAUSCHEN ("noise") is a real-time emergent media system exploring the probability space of a 1,000×1,000
+			image. It generates textures with a variety of techniques such as white or Perlin noise and recursively
+			feeds them into a modular palette of per-pixel algorithms. They each represent visual effects that,
+			running in succession, synthesise exponentially random patterns. While contemporary image generation
+			models try to impose meaning onto the noise based on their training data, RAUSCHEN aims to chart
+			new areas hidden within the noise itself. In the end, a human decides what is worth keeping.
 			<br />
 			<br />
 			How can we find meaning within all this noise?
