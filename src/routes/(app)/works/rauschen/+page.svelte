@@ -51,16 +51,39 @@
 		<div class="my-5"></div>
 
 		<p class="mb-4">
-			RAUSCHEN (2025) is a real-time generative media system exploring the probability space of a
-			1000x1000 image. Its emergent textures are produced from random grids of pixels that are
-			recursively fed into a modular palette of shader programs. In contrast to current image
-			generation models that try to diffuse their input noise into coherent results, RAUSCHEN
-			exponentially in-fuses its procedural generation processes with patterns of randomness by
-			mixing combinations of generative algorithms. In the end, a human decides what is worth
-			keeping.
+			Every digital image is a limited, but unimaginably large space of possibilities. All these
+			possibilities together are its probability space. In a regular 24-bit image file, each pixel
+			is defined by 256 shades each of red, green and blue, which comes out to 16,777,216 possible
+			colours. For a one megapixel image (1,000 pixels wide and 1,000 pixels tall) there are
+			16,777,216<sup>1,000,000</sup> permutations. That number far exceeds how many atoms there
+			(probably) are in the observable universe (10<sup>80</sup>). Actually it is 7.87x10<sup
+				>7,224,639</sup
+			>
+			times larger. Even if every atom in the universe was another universe full of atoms that are universes
+			full of atoms and so on, we would have to go 90,309 levels deep to finally have as many atoms as
+			there are permutations of a 24-bit megapixel image.
 			<br />
 			<br />
-			How can we find our way through all this noise?
+			Most of it is just meaningless noise. But how do we find the infinitely small rest of it? You know,
+			the rest that contains (among other things) all photos, drawings or graphics ever made, will ever
+			be made or could ever be made? Usually, we go at it from the other direction: We take a picture.
+			We make a drawing. We create graphics. Yet we are always limited by the fact that meaning needs
+			to exist first, either in the world or in our minds, to be found within the noise.
+			<br />
+			<br />
+			Or we could just leave it up to chance.
+			<br />
+			<br />
+			RAUSCHEN ("noise") is a real-time generative media system exploring the probability space of a
+			1,000×1,000 image. It generates textures with a variety of techniques such as white or Perlin noise
+			and recursively feeds them into a modular palette of per-pixel algorithms. They each represent
+			visual effects that, running in succession, synthesise exponentially random emergent patterns.
+			While contemporary image generation models try to impose meaning onto the noise based on their
+			training data, RAUSCHEN aims to chart new areas hidden within the noise itself. In the end, a human
+			decides what is worth keeping.
+			<br />
+			<br />
+			How can we find meaning within all this noise?
 		</p>
 
 		<div class="my-5"></div>
