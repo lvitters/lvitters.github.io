@@ -75,11 +75,11 @@
 			<br />
 			<br />
 			RAUSCHEN ("noise") is a real-time emergent media system exploring the probability space of a 1,000×1,000
-			image. It generates textures with a variety of techniques such as white or Perlin noise and recursively
-			feeds them into a modular palette of per-pixel algorithms. They each represent visual effects that,
-			running in succession, synthesise exponentially random patterns. While contemporary image generation
-			models try to impose meaning onto the noise based on their training data, RAUSCHEN aims to chart
-			new areas hidden within the noise itself. In the end, a human decides what is worth keeping.
+			image. It generates textures through a variety of techniques such as white or Perlin noise to recursively
+			feed into a modular palette of per-pixel algorithms. They each represent effects that, running
+			in quick succession, synthesise exponentially random patterns. While contemporary image generation
+			models use training data to impose meaning onto the noise, RAUSCHEN aims to chart new areas hidden
+			within it. In the end, a human decides what is worth keeping.
 			<br />
 			<br />
 			How can we find meaning within all this noise?
