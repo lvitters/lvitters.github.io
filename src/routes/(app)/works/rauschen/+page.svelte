@@ -74,10 +74,10 @@
 			Or we could just leave it up to chance.
 			<br />
 			<br />
-			RAUSCHEN ("noise") is a real-time emergent media system exploring the probability space of a 1,000×1,000
-			image. It generates textures through a variety of techniques such as white or Perlin noise to recursively
-			feed into a modular palette of per-pixel algorithms. Running in quick succession, their results
-			are continuously merged to synthesise exponentially random patterns. While contemporary image generation
+			RAUSCHEN is a real-time emergent media system exploring the probability space of a one megapixel
+			image. It uses a variety of stochastic processes such as white or Perlin noise to recursively feed
+			into a modular palette of per-pixel algorithms. Running in quick succession, their results are
+			continuously merged to synthesize exponentially random textures. While contemporary image generation
 			models use training data to impose meaning onto the noise, RAUSCHEN aims to chart new areas hidden
 			within it. In the end, a human decides what is worth keeping.
 			<br />

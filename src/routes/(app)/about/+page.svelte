@@ -139,9 +139,37 @@
 								>
 							</p>
 						{:else if view === 'exhibitions'}
-							<h2 class="mt-0 mb-2 text-2xl font-medium">exhibitions</h2>
 							<table class="w-full border-collapse">
 								<tbody>
+									<tr>
+										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
+											>23.04 - 25.04.26</td
+										>
+										<td class="py-2 align-top"
+											><em>Sehsuechte, Potsdam</em><br /><a
+												href="/works/rauschen"
+												class="underline hover:text-white">RAUSCHEN</a
+											></td
+										>
+									</tr>
+									<tr>
+										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap">11.04.26</td>
+										<td class="py-2 align-top"
+											><em>SOFT, Kapitel 3, Würzburg</em><br /><a
+												href="/works/rauschen"
+												class="underline hover:text-white">RAUSCHEN</a
+											></td
+										>
+									</tr>
+									<tr>
+										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap">23.02.26</td>
+										<td class="py-2 align-top"
+											><em>modular monday, Zentrum für Kunst, Bremen</em><br /><a
+												href="/works/rauschen"
+												class="underline hover:text-white">RAUSCHEN</a
+											></td
+										>
+									</tr>
 									<tr>
 										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
 											>24.09 - 27.09.25</td
@@ -303,57 +331,6 @@
 												href="/works/break-the-pattern"
 												class="underline hover:text-white">Break the Pattern</a
 											></td
-										>
-									</tr>
-								</tbody>
-							</table>
-
-							<div class="my-5"></div>
-
-							<h2 class="mt-12 mb-2 text-2xl font-medium">performances / talks</h2>
-
-							<table class="w-full border-collapse">
-								<tbody>
-									<tr>
-										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap">23.02.26</td>
-										<td class="py-2 align-top"
-											><em>modular monday, Zentrum für Kunst, Bremen</em><br /><a
-												href="/works/rauschen"
-												class="underline hover:text-white">RAUSCHEN</a
-											></td
-										>
-									</tr>
-									<tr>
-										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
-											>24.09 + 26.09.25</td
-										>
-										<td class="py-2 align-top"
-											><em>TRANSFORM 2025, Trier</em><br /><a
-												href="/works/rauschen"
-												class="underline hover:text-white">RAUSCHEN</a
-											></td
-										>
-									</tr>
-									<tr>
-										<td class="py-2 pr-8 text-right align-top whitespace-nowrap">02.10.24</td>
-										<td class="py-2 align-top"
-											><em>Goldstücke, Gelsenkirchen</em><br /><a
-												href="/works/rayarray"
-												class="underline hover:text-white">RAYARRAY</a
-											>
-											&
-											<a href="/works/untiled" class="underline hover:text-white">untiled</a></td
-										>
-									</tr>
-									<tr>
-										<td class="py-2 pr-8 text-right align-top whitespace-nowrap">12.12.22</td>
-										<td class="py-2 align-top"
-											><em>Feeding Entities, Galerie Flut, Bremen</em><br /><a
-												href="/works/feedback-cube"
-												class="underline hover:text-white">feedback_cube</a
-											>
-											&
-											<a href="/works/untiled" class="underline hover:text-white">untiled</a></td
 										>
 									</tr>
 								</tbody>
