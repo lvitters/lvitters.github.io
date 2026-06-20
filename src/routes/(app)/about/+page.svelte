@@ -91,10 +91,17 @@
 								<a class="underline hover:text-white" href="https://www.hfk-bremen.de/en"
 									>Hochschule für Künste</a
 								>
-								in Bremen, from which I have recently graduated with distinction, with an MA in
+								in Bremen, from which I have graduated with distinction, with an MA in
 								<a class="underline hover:text-white" href="https://digitalmedia-bremen.de/"
 									>Digital Media</a
 								>.
+								<br />
+								<br />
+								I recently joined
+								<a class="underline hover:text-white" href="https://zfk-hb.de"
+									>Zentrum für Kollektivkultur e.V.</a
+								>
+								in order to establish our new venue NEU BAU as a space for subculture in Bremen.
 								<br />
 								<br />
 								I have experience with (among other things)
@@ -127,7 +134,7 @@
 							</p>
 							<p class="mb-6">
 								<a href="https://instagram.com/yung.lucca/" class="underline hover:text-white"
-									>instagram.com/yung.lucca</a
+									>instagram.com/lucca.tze203</a
 								>
 							</p>
 							<div class="my-5"></div>
@@ -141,6 +148,15 @@
 						{:else if view === 'exhibitions'}
 							<table class="w-full border-collapse">
 								<tbody>
+									<tr>
+										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap">12.06.26</td>
+										<td class="py-2 align-top"
+											><em>oscillations~, Digital Media Graduation Festival, Bremen</em><br /><a
+												href="/works/rauschen"
+												class="underline hover:text-white">RAUSCHEN</a
+											></td
+										>
+									</tr>
 									<tr>
 										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
 											>23.04 - 25.04.26</td
