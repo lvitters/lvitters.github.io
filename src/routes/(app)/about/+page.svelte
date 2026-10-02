@@ -149,6 +149,17 @@
 							<table class="w-full border-collapse">
 								<tbody>
 									<tr>
+										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
+											>29.10. - 01.11.26</td
+										>
+										<td class="py-2 align-top"
+											><em>lab.30, Kulturhaus abraxas, Augsburg</em><br /><a
+												href="/works/rauschen"
+												class="underline hover:text-white">RAUSCHEN</a
+											></td
+										>
+									</tr>
+									<tr>
 										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap">12.06.26</td>
 										<td class="py-2 align-top"
 											><em>oscillations~, Digital Media Graduation Festival, Bremen</em><br /><a
@@ -159,7 +170,7 @@
 									</tr>
 									<tr>
 										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
-											>23.04 - 25.04.26</td
+											>23.04. - 25.04.26</td
 										>
 										<td class="py-2 align-top"
 											><em>Sehsuechte, Potsdam</em><br /><a
@@ -188,7 +199,7 @@
 									</tr>
 									<tr>
 										<td class="w-28 py-2 pr-8 text-right align-top whitespace-nowrap"
-											>24.09 - 27.09.25</td
+											>24.09. - 27.09.25</td
 										>
 										<td class="py-2 align-top"
 											><em>TRANSFORM 2025, Trier</em><br /><a
@@ -199,7 +210,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>19.06 + 20.06.25</td
+											>19.06. + 20.06.25</td
 										>
 										<td class="py-2 align-top"
 											><em>RAUSCHEN, Speicher XIa, Bremen</em><br /><a
@@ -210,7 +221,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>02.10 - 06.10.24</td
+											>02.10. - 06.10.24</td
 										>
 										<td class="py-2 align-top"
 											><em>Goldstücke, Gelsenkirchen</em><br /><a
@@ -223,7 +234,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>20.09 + 21.09.24</td
+											>20.09. + 21.09.24</td
 										>
 										<td class="py-2 align-top"
 											><em>Illustratio, Kiel</em><br /><a
@@ -243,7 +254,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>08.07 + 09.07.23</td
+											>08.07. + 09.07.23</td
 										>
 										<td class="py-2 align-top"
 											><em>Synesthesia Fest, HfK, Bremen</em><br /><a
@@ -256,7 +267,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>08.07 + 09.07.23</td
+											>08.07. + 09.07.23</td
 										>
 										<td class="py-2 align-top"
 											><em>Hochschultage, HfK, Bremen</em><br /><a
@@ -276,7 +287,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>05.05 - 10.05.23</td
+											>05.05. - 10.05.23</td
 										>
 										<td class="py-2 align-top"
 											><em>Iterations, Speicher XIa, Bremen</em><br /><a
@@ -287,7 +298,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>10.03 - 24.03.23</td
+											>10.03. - 24.03.23</td
 										>
 										<td class="py-2 align-top"
 											><em>Licht | Raum, HAG Quartier, Bremen</em><br /><a
@@ -298,7 +309,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>12.12 - 14.12.22</td
+											>12.12. - 14.12.22</td
 										>
 										<td class="py-2 align-top"
 											><em>Feeding Entities, Galerie Flut, Bremen</em><br /><a
@@ -311,7 +322,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>29.06 - 03.07.22</td
+											>29.06. - 03.07.22</td
 										>
 										<td class="py-2 align-top"
 											><em>Fusion Festival, Lärz</em><br /><a
@@ -322,7 +333,7 @@
 									</tr>
 									<tr>
 										<td class="py-2 pr-8 text-right align-top whitespace-nowrap"
-											>17.09 - 19.09.21</td
+											>17.09. - 19.09.21</td
 										>
 										<td class="py-2 align-top"
 											><em>Plan:et C Gamma Festival, Lärz</em><br /><a
