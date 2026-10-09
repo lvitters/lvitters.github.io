@@ -78,8 +78,8 @@
 			megapixel image. It uses a variety of stochastic processes such as white or Perlin noise to recursively
 			feed into a modular palette of per-pixel algorithms. Running in quick succession, their results
 			are continuously merged to synthesize exponentially random textures. While contemporary image generation
-			models use training data to impose meaning onto the noise, RAUSCHEN aims to chart new areas hidden
-			within it. In the end, a human decides what is worth keeping.
+			models use stolen training data to impose meaning onto noise, RAUSCHEN aims to chart new areas
+			hidden within it. In the end, a human decides what is worth keeping.
 			<br />
 			<br />
 			How can we find meaning within all this noise?
